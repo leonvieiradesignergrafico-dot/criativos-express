@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criativos Express — Painel</title>
+  <style>
+    :root {
+      --bg: #0e0f13; --card: #181a21; --line: #262a35;
+      --txt: #e7e9ee; --muted: #9aa0ad; --accent: #6d8bff; --ok: #3ecf8e; --err: #ff6b6b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--txt);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    header {
+      padding: 22px 28px; border-bottom: 1px solid var(--line);
+      display: flex; align-items: baseline; gap: 12px;
+    }
+    header h1 { font-size: 20px; margin: 0; }
+    header span { color: var(--muted); font-size: 13px; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 28px 60px; }
+
+    .produtos { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .chip {
+      background: var(--card); border: 1px solid var(--line); color: var(--txt);
+      padding: 9px 14px; border-radius: 999px; cursor: pointer; font-size: 14px;
+      transition: border-color .15s;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .chip.ativo { border-color: var(--accent); background: #20263a; }
+    .chip small { color: var(--muted); margin-left: 6px; }
+
+    .painel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+    .topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .topo h2 { margin: 0; font-size: 17px; }
+    button.gerar {
+      background: var(--accent); color: #0b0d12; border: none; font-weight: 600;
+      padding: 11px 20px; border-radius: 10px; cursor: pointer; font-size: 14px;
+    }
+    button.gerar:disabled { opacity: .5; cursor: not-allowed; }
+
+    .barra-wrap { margin: 20px 0 6px; }
+    .barra { height: 12px; background: #0b0d12; border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
+    .barra > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--ok)); transition: width .4s; }
+    .legenda { display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; color: var(--muted); }
+    .atual { color: var(--accent); }
+    .erros { margin-top: 12px; color: var(--err); font-size: 13px; white-space: pre-wrap; }
+
+    .grade { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .item { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #0b0d12; }
+    .item img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: cover; }
+    .item .rod { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; font-size: 12px; color: var(--muted); }
+    .item .rod a { color: var(--accent); text-decoration: none; }
+    .vazio { color: var(--muted); font-size: 14px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Criativos Express</h1>
+    <span>painel de geração — GPT Image 2 via Codex</span>
+  </header>
+
+  <div class="wrap">
+    <div class="produtos" id="produtos">
+      {% for p in produtos %}
+        <div class="chip" data-nome="{{ p.nome }}">{{ p.nome }}<small>{{ p.prompts }} prompts</small></div>
+      {% else %}
+        <div class="vazio">Nenhum produto com prompts.json ainda. Rode as skills /gerar-copies e /gerar-prompts-imagem.</div>
+      {% endfor %}
+    </div>
+
+    <div class="painel" id="painel" style="display:none">
+      <div class="topo">
+        <h2 id="titulo">—</h2>
+        <button class="gerar" id="btnGerar">Gerar criativos</button>
+      </div>
+
+      <div class="barra-wrap">
+        <div class="barra"><i id="barraFill"></i></div>
+        <div class="legenda">
+          <span id="contagem">0 / 0</span>
+          <span id="statusTxt">pronto</span>
+        </div>
+      </div>
+      <div class="erros" id="erros"></div>
+
+      <div class="grade" id="grade"></div>
+      <div class="vazio" id="vazio">Nenhum criativo gerado ainda.</div>
+    </div>
+  </div>
+
+  <script>
+    let produtoAtivo = null;
+    let timer = null;
+
+    const el = (id) => document.getElementById(id);
+
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => selecionar(chip.dataset.nome, chip));
+    });
+
+    function selecionar(nome, chip) {
+      produtoAtivo = nome;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('ativo'));
+      if (chip) chip.classList.add('ativo');
+      el('painel').style.display = 'block';
+      el('titulo').textContent = nome;
+      el('grade').innerHTML = '';
+      el('erros').textContent = '';
+      atualizar(true);
+      iniciarPolling();
+    }
+
+    function iniciarPolling() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => atualizar(false), 1500);
+    }
+
+    async function atualizar(reset) {
+      if (!produtoAtivo) return;
+      let s;
+      try {
+        s = await (await fetch(`/status/${encodeURIComponent(produtoAtivo)}`)).json();
+      } catch (e) { return; }
+
+      const total = s.total || 0, feitos = s.feitos || 0;
+      const pct = total ? Math.round((feitos / total) * 100) : 0;
+      el('barraFill').style.width = pct + '%';
+      el('contagem').textContent = `${feitos} / ${total}`;
+
+      if (s.em_andamento) {
+        el('statusTxt').innerHTML = `gerando: <span class="atual">${s.atual || '...'}</span>`;
+        el('btnGerar').disabled = true;
+      } else {
+        el('statusTxt').textContent = feitos && feitos === total ? 'concluído' : 'pronto';
+        el('btnGerar').disabled = false;
+      }
+
+      // Grade de criativos prontos.
+      const arquivos = s.arquivos || [];
+      const grade = el('grade');
+      if (reset) grade.innerHTML = '';
+      const existentes = new Set([...grade.querySelectorAll('img')].map(i => i.dataset.arq));
+      arquivos.forEach(arq => {
+        if (existentes.has(arq)) return;
+        const src = `/criativos/${encodeURIComponent(produtoAtivo)}/${encodeURIComponent(arq)}?t=${Date.now()}`;
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML =
+          `<img data-arq="${arq}" src="${src}" alt="${arq}">` +
+          `<div class="rod"><span>${arq}</span><a href="${src}" download>baixar</a></div>`;
+        grade.appendChild(div);
+      });
+      el('vazio').style.display = grade.children.length ? 'none' : 'block';
+
+      // Erros.
+      const erros = s.erros || [];
+      el('erros').textContent = erros.length
+        ? '⚠ ' + erros.map(e => `${e.id}: ${e.erro.split('\\n')[0]}`).join('\\n')
+        : '';
+    }
+
+    el('btnGerar').addEventListener('click', async () => {
+      if (!produtoAtivo) return;
+      el('btnGerar').disabled = true;
+      el('statusTxt').textContent = 'iniciando...';
+      try {
+        const r = await (await fetch(`/gerar/${encodeURIComponent(produtoAtivo)}`, { method: 'POST' })).json();
+        if (!r.ok) el('statusTxt').textContent = r.msg || 'erro ao iniciar';
+      } catch (e) { el('statusTxt').textContent = 'erro ao iniciar'; }
+      iniciarPolling();
+    });
+  </script>
+</body>
+</html>

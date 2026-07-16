@@ -1,9 +1,83 @@
 # Criativos Express
 
-Ferramenta local para gerar criativos de anúncios (direct response) com **GPT Image 2**.
+Ferramenta local para gerar **criativos de anúncios** (direct response) com **GPT Image 2**,
+mantendo o **produto idêntico** às fotos de referência.
 
-- A **inteligência** (copies de alta conversão, definição de ângulos, prompts de imagem) roda no **Claude Code via skills** — consome o plano Claude.
-- A **única parte paga** é a geração das imagens no **GPT Image 2** (OpenAI), via `OPENAI_API_KEY` no `.env`.
-- Cada produto tem pasta própria com config, contexto e **fotos de referência** — os criativos saem **idênticos ao produto real**, variando só ângulo, luz e ambientação.
+- **Inteligência** (copies, ângulos, prompts de imagem) → **Claude Code** (seu plano Claude).
+- **Geração das imagens** → **Codex CLI** (seu plano ChatGPT) — **custo de API = zero**.
+- **Fallback opcional pago** → API `gpt-image-2` (só se você quiser).
 
-> Projeto em estruturação. Ver o plano de implementação para detalhes.
+## Como funciona (visão geral)
+
+```
+prompt seu ──> /gerar-copies ──> copies.md
+                                      │
+                                      ▼
+                          /gerar-prompts-imagem ──> prompts.json
+                                      │
+                                      ▼
+                     painel (ou python gerar.py) ──> criativos/*.png
+                     (usa SEMPRE as fotos de referencia/ do produto)
+```
+
+## Pré-requisitos (uma vez)
+
+1. **Python** e dependências:
+   ```
+   pip install -r requirements.txt
+   ```
+2. **Codex CLI** logado com sua conta ChatGPT (backend padrão, grátis):
+   ```
+   npm install -g @openai/codex
+   codex login            # ou: codex login --device-auth
+   codex login status     # deve dizer "Logged in using ChatGPT"
+   ```
+3. *(Opcional, só p/ backend pago)* copie `.env.example` → `.env` e coloque `OPENAI_API_KEY`,
+   e em `config.toml` troque `backend = "api"`.
+
+## Criar um produto
+
+1. Duplique a pasta `products/_TEMPLATE/` com o nome do produto, ex.: `products/meu-perfume/`.
+2. Preencha `config.md` (regras, tom, oferta, público, regras visuais, proibições).
+3. Coloque em `contexto/` o material de apoio (página de vendas, transcrições, anúncios validados).
+4. Coloque em `referencia/` **as fotos reais do produto** (obrigatório). PNG/JPEG/WEBP;
+   AVIF/HEIC são convertidos automaticamente (precisa de `ffmpeg` no PATH).
+
+## Fluxo de uso
+
+1. **Copies** — no Claude Code, rode a skill:
+   ```
+   /gerar-copies  <seu prompt aqui>  (produto: meu-perfume)
+   ```
+   Ela define quantidade/ângulos, confirma com você, gera e salva `output/copies.md`.
+
+2. **Prompts de imagem** — rode:
+   ```
+   /gerar-prompts-imagem  (produto: meu-perfume)
+   ```
+   Gera 1 prompt de imagem por copy e salva `output/prompts.json`.
+
+3. **Gerar as imagens** — abra o painel:
+   ```
+   python painel/app.py
+   ```
+   Acesse http://localhost:5000, escolha o produto e clique **Gerar criativos**.
+   Acompanhe a barra de progresso e os criativos aparecendo. Baixe direto da grade.
+
+   Alternativa por terminal:
+   ```
+   python gerar.py meu-perfume
+   python gerar.py meu-perfume --backend api   # usar a API paga
+   ```
+
+Os criativos ficam em `products/<produto>/output/criativos/`.
+
+## Configuração (`config.toml`)
+- `backend` — `"codex"` (grátis, padrão) ou `"api"` (pago).
+- `size` — tamanho padrão (`1024x1024`).
+- `quality` — qualidade na rota API (`low|medium|high|auto`).
+- `timeout` — segundos por imagem.
+
+## Regra absoluta
+Todo criativo usa as fotos de `referencia/` e mantém o produto **idêntico** ao real —
+só variando ângulo, iluminação, fundo e ambientação. Essa regra é injetada em toda geração.

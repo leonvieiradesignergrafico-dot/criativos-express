@@ -1,0 +1,16 @@
+# Configuração global do Criativos Express
+
+[geracao]
+# Backend de geração de imagem:
+#   "codex" -> usa o Codex CLI consumindo seu plano ChatGPT (GRÁTIS, padrão)
+#   "api"   -> usa a API paga da OpenAI (gpt-image-2). Requer OPENAI_API_KEY no .env
+backend = "codex"
+
+# Tamanho padrão dos criativos (1024x1024 = feed quadrado)
+size = "1024x1024"
+
+# Qualidade (usada pela rota API): low | medium | high | auto
+quality = "high"
+
+# Timeout por imagem, em segundos (folga para rate-limit do plano)
+timeout = 600

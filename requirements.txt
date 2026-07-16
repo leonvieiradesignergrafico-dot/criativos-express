@@ -1,0 +1,5 @@
+flask>=3.0
+python-dotenv>=1.0
+pillow>=10.0
+# openai só é necessário se você usar o backend "api" (fallback pago)
+openai>=1.40
