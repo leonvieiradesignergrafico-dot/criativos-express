@@ -1,0 +1,18 @@
+# Segredos
+.env
+
+# Saídas geradas por produto (copies, prompts e criativos)
+products/*/output/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Sistema
+.DS_Store
+Thumbs.db
