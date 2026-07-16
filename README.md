@@ -7,18 +7,24 @@ mantendo o **produto idêntico** às fotos de referência.
 - **Geração das imagens** → **Codex CLI** (seu plano ChatGPT) — **custo de API = zero**.
 - **Fallback opcional pago** → API `gpt-image-2` (só se você quiser).
 
-## Como funciona (visão geral)
+## Duas formas de usar
 
+**A) App desktop (recomendado) — tudo numa janela:**
+```
+python desktop.py
+```
+Abre uma janela nativa (estilo Apple) com as 3 etapas: **Copies** (chat de verdade com o
+Claude), **Prompts** (editáveis) e **Criativos** (gerar + galeria com progresso ao vivo).
+Copies/prompts usam seu plano Claude (`claude -p`); imagens usam seu plano ChatGPT (Codex).
+
+**B) Terminal + skills (avançado):**
 ```
 prompt seu ──> /gerar-copies ──> copies.md
-                                      │
-                                      ▼
-                          /gerar-prompts-imagem ──> prompts.json
-                                      │
-                                      ▼
-                     painel (ou python gerar.py) ──> criativos/*.png
-                     (usa SEMPRE as fotos de referencia/ do produto)
+                          └─> /gerar-prompts-imagem ──> prompts.json
+                                      └─> python gerar.py <produto> ──> criativos/*.png
 ```
+
+Em ambos: SEMPRE usa as fotos de `products/<produto>/referencia/` para manter o produto idêntico.
 
 ## Pré-requisitos (uma vez)
 
@@ -26,14 +32,18 @@ prompt seu ──> /gerar-copies ──> copies.md
    ```
    pip install -r requirements.txt
    ```
-2. **Codex CLI** logado com sua conta ChatGPT (backend padrão, grátis):
+2. **Claude Code CLI** logado (usado nas copies/prompts, via seu plano Claude):
+   ```
+   claude login           # o mesmo login que você já usa
+   ```
+3. **Codex CLI** logado com sua conta ChatGPT (geração de imagem, grátis):
    ```
    npm install -g @openai/codex
    codex login            # ou: codex login --device-auth
    codex login status     # deve dizer "Logged in using ChatGPT"
    ```
-3. *(Opcional, só p/ backend pago)* copie `.env.example` → `.env` e coloque `OPENAI_API_KEY`,
-   e em `config.toml` troque `backend = "api"`.
+4. *(Opcional, só p/ backend pago de imagem)* copie `.env.example` → `.env` e coloque
+   `OPENAI_API_KEY`, e em `config.toml` troque `backend = "api"`.
 
 ## Criar um produto
 

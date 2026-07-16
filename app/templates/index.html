@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criativos Express</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><h1>Criativos Express</h1></div>
+      <div class="side-label">Produtos</div>
+      <ul class="produtos" id="produtos"></ul>
+      <div class="side-foot">
+        <button class="novo-btn" id="btnRecarregar">↻ Recarregar produtos</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <section class="main">
+      <div class="toolbar">
+        <div>
+          <div class="titulo" id="tituloProduto">Nenhum produto</div>
+          <div class="sub" id="subProduto">selecione um produto à esquerda</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="segmented" id="steps">
+          <button data-step="copies" class="sel">Copies</button>
+          <button data-step="prompts">Prompts</button>
+          <button data-step="criativos">Criativos</button>
+        </div>
+        <select class="select-modelo" id="modelo" title="Modelo usado nas copies/prompts">
+          <option value="sonnet">Sonnet</option>
+          <option value="opus">Opus</option>
+          <option value="fable">Fable</option>
+        </select>
+      </div>
+
+      <div class="conteudo">
+        <!-- Passo: Copies (chat) -->
+        <div class="step ativo" id="step-copies">
+          <div class="chat" id="chat"></div>
+          <div class="chat-input">
+            <textarea id="chatInput" rows="1" placeholder="Descreva o que você quer... (ex: quero 6 copies em 3 ângulos focados em pertencimento)"></textarea>
+            <button class="btn ghost" id="btnSalvarCopies">Salvar copies</button>
+            <button class="btn primary send" id="btnEnviar">↑</button>
+          </div>
+        </div>
+
+        <!-- Passo: Prompts -->
+        <div class="step" id="step-prompts">
+          <div class="scroll">
+            <div class="barra-topo">
+              <button class="btn primary" id="btnGerarPrompts">Gerar prompts a partir das copies</button>
+              <button class="btn ghost" id="btnSalvarPrompts">Salvar prompts</button>
+              <span class="sub" id="promptsInfo"></span>
+            </div>
+            <div id="listaPrompts"></div>
+          </div>
+        </div>
+
+        <!-- Passo: Criativos -->
+        <div class="step" id="step-criativos">
+          <div class="scroll">
+            <div class="barra-topo">
+              <button class="btn primary" id="btnGerarImagens">Gerar criativos</button>
+              <span class="sub" id="criativosInfo"></span>
+            </div>
+            <div class="progresso" id="progresso" style="display:none">
+              <div class="linha">
+                <span id="progContagem">0 / 0</span>
+                <span id="progStatus"></span>
+              </div>
+              <div class="bar"><i id="progBar"></i></div>
+              <div class="aviso-erro" id="progErros"></div>
+            </div>
+            <div class="grade" id="grade"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
