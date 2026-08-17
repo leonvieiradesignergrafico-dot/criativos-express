@@ -18,6 +18,7 @@ from flask import Flask, abort, jsonify, render_template, send_from_directory
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 import gerar  # noqa: E402
+from workspace import JOBS, atomic_write_json, product_dir, safe_child  # noqa: E402
 
 PRODUCTS = ROOT / "products"
 
@@ -28,7 +29,18 @@ _locks: dict[str, threading.Lock] = {}
 
 
 def _lock(produto: str) -> threading.Lock:
-    return _locks.setdefault(produto, threading.Lock())
+    return JOBS.lock(produto)
+
+
+@app.before_request
+def validar_produto_da_rota():
+    from flask import request
+    nome = (request.view_args or {}).get("produto")
+    if nome is not None:
+        try:
+            product_dir(nome)
+        except ValueError:
+            abort(404)
 
 
 def listar_produtos() -> list[dict]:
@@ -85,25 +97,23 @@ def gerar_endpoint(produto):
         except Exception as e:  # noqa: BLE001
             out = PRODUCTS / produto / "output" / "criativos"
             out.mkdir(parents=True, exist_ok=True)
-            (out / "status.json").write_text(
-                json.dumps(
-                    {"total": 0, "feitos": 0, "atual": None, "arquivos": [],
-                     "erros": [{"id": "-", "erro": str(e)}], "em_andamento": False},
-                    ensure_ascii=False, indent=2,
-                ),
-                encoding="utf-8",
-            )
+            atomic_write_json(out / "status.json", {
+                "id": JOBS.new_id(), "total": 0, "feitos": 0, "atual": None,
+                "arquivos": [], "erros": [{"id": "-", "erro": str(e)[:2000]}],
+                "em_andamento": False})
         finally:
             lock.release()
 
-    threading.Thread(target=tarefa, daemon=True).start()
+    threading.Thread(target=tarefa, daemon=False).start()
     return jsonify({"ok": True, "msg": "Geração iniciada."})
 
 
 @app.route("/criativos/<produto>/<path:arquivo>")
 def criativo(produto, arquivo):
     pasta = PRODUCTS / produto / "output" / "criativos"
-    if not (pasta / arquivo).exists():
+    try:
+        safe_child(pasta, arquivo)
+    except ValueError:
         abort(404)
     return send_from_directory(pasta, arquivo)
 

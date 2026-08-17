@@ -1,0 +1,104 @@
+{
+  "_comment": "Mapa de produtos -> conta de anuncios / pixel / paginas na Meta. O pixel e escolhido AUTOMATICAMENTE pelo produto. DOIS tokens (fora do Git): system user PERMANENTE (meta_ads.json) so posta como Corinthians Essencial; token PESSOAL do Leon (meta_ads_personal.json, EXPIRA) posta como a pagina do clube com colaboracao. Ver secao 'identidade' e SKILL.md.",
+  "token_path": "C:/Users/Leon/.claude/.secrets/meta_ads.json",
+  "token_path_pessoal": "C:/Users/Leon/.claude/.secrets/meta_ads_personal.json",
+  "graph_version": "v21.0",
+
+  "identidade_corinthians": {
+    "colaboracao": {
+      "descricao": "Identidade dos anuncios que ja rodam (colaboracao clube). Use SEMPRE o token PESSOAL (meta_ads_personal.json) pra criar com ela; o system user NAO tem acesso a essa pagina.",
+      "page_id": "132769576762243",
+      "page_nome": "SC Corinthians Paulista",
+      "instagram_user_id": "17841401449488648",
+      "branded_content": { "ad_format": 3 },
+      "contextual_multi_ads": { "enroll_status": "OPT_IN" }
+    },
+    "loja_essencial": {
+      "descricao": "Identidade propria da loja. Funciona com o token system user (permanente). Sem colaboracao do clube.",
+      "page_id": "604611286073591",
+      "page_nome": "Corinthians Essencial"
+    },
+    "url_destino_invasao": "https://corinthiansessencial.com.br/perfume-invasao",
+    "url_tags": "utm_source={{site_source_name}}-{{placement}}-{{campaign.name}}-{{adset.name}}-{{ad.name}}&utm_medium={{site_source_name}}-{{placement}}-{{campaign.name}}-{{adset.name}}-{{ad.name}}&utm_campaign={{site_source_name}}-{{placement}}-{{campaign.name}}-{{adset.name}}-{{ad.name}}&utm_content={{site_source_name}}-{{placement}}-{{campaign.name}}-{{adset.name}}-{{ad.name}}",
+    "start_time_padrao": "sempre 04:01 (America/Sao_Paulo) do dia do lancamento, pra comecar a gastar de manha. ATENCAO: start_time NAO pode ser editado depois de criado o conjunto; se precisar mudar a data, recria.",
+    "marketing_goal_obs": "A 'Estrategia de ciclo de vida do cliente' (Obter conversoes de todos os publicos) NAO e setavel via API com este app (erro #3 capability). O default ja e 'todos os publicos'. Se o Gerenciador pedir, o usuario seleciona em massa nos conjuntos (1 clique).",
+    "targeting_padrao": {
+      "age_min": 18, "age_max": 65, "age_range": [18, 65],
+      "geo_locations": { "cities": [ {"country": "BR", "distance_unit": "kilometer", "key": "269969", "name": "Sao Paulo", "radius": 80, "region": "Sao Paulo (state)", "region_id": "460"} ], "location_types": ["home", "recent"] },
+      "brand_safety_content_filter_levels": ["FACEBOOK_RELAXED", "AN_RELAXED"],
+      "targeting_automation": { "advantage_audience": 1, "individual_setting": { "age": 1, "gender": 1, "geo": 1 } }
+    }
+  },
+
+  "produtos": {
+    "altitude": {
+      "nome": "Altitude by Comandante Hamilton",
+      "pasta_finais": "ENTREGA_CRIATIVOS/Altitude/aa",
+      "slug_arquivo": "altitude",
+      "account_id": "897505923341965",
+      "account_nome": "[Principal] Loja Collab 2",
+      "moeda": "BRL",
+      "min_daily_budget_cents": 514,
+      "pixel_id": "1639632777117862",
+      "pixel_nome": "Pixel - Comandante Hamilton",
+      "paginas": {
+        "collab_store": "627552140441776"
+      },
+      "pagina_padrao": "627552140441776",
+      "url_destino": "https://perfumealtitude.com.br/",
+      "obs": "Instagram nao mapeado (Leon ajusta pagina/IG na UI). Token system user permanente (meta_ads.json) posta como Collab Store."
+    },
+    "invasao": {
+      "nome": "Invasão 76",
+      "pasta_finais": "products/Invasão 76/output/criativos/finais",
+      "slug_arquivo": "invasao",
+      "account_id": "1542878477392736",
+      "account_nome": "[Principal] Corinthians - Invasão",
+      "moeda": "BRL",
+      "min_daily_budget_cents": 516,
+      "pixel_id": "28033781292872432",
+      "pixel_nome": "Pixel Corinthians - Invasão",
+      "paginas": {
+        "corinthians_essencial": "604611286073591",
+        "sc_corinthians_paulista": "132769576762243"
+      },
+      "pagina_padrao": "604611286073591"
+    },
+    "as-brabas": {
+      "nome": "As Brabas (Corinthians)",
+      "slug_arquivo": "brabas",
+      "account_id": "1542878477392736",
+      "account_nome": "[Principal] Corinthians - Invasão (compartilhada pelos 3 produtos Corinthians)",
+      "moeda": "BRL",
+      "min_daily_budget_cents": 516,
+      "pixel_id": "27541271945492202",
+      "pixel_nome": "Pixel Corinthians - As Brabas",
+      "paginas": {
+        "corinthians_essencial": "604611286073591",
+        "sc_corinthians_paulista": "132769576762243"
+      },
+      "pagina_padrao": "604611286073591"
+    },
+    "pulseira": {
+      "nome": "Pulseira (Corinthians)",
+      "slug_arquivo": "pulseira",
+      "account_id": "1542878477392736",
+      "account_nome": "[Principal] Corinthians - Invasão (compartilhada pelos 3 produtos Corinthians)",
+      "moeda": "BRL",
+      "min_daily_budget_cents": 516,
+      "pixel_id": "2054264255518527",
+      "pixel_nome": "Pixel Corinthians - Pulseira",
+      "paginas": {
+        "corinthians_essencial": "604611286073591",
+        "sc_corinthians_paulista": "132769576762243"
+      },
+      "pagina_padrao": "604611286073591"
+    }
+  },
+
+  "pixel_reserva_nao_usar": {
+    "nome": "Corinthians",
+    "id": "27166631173027998",
+    "obs": "RESERVA. Nao usar mais em campanhas."
+  }
+}

@@ -1,20 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-brand="{{ brand|default('default') }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criativos Express</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <title>{{ brand_nome|default('Impressora de Criativos') }}</title>
+  <link rel="stylesheet" href="/static/style.css?v=20260810-1">
+  {% if brand == 'collab' %}<link rel="stylesheet" href="/static/brand-collab.css?v=20260729-4">{% endif %}
 </head>
 <body>
   <div class="app">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="brand"><span class="dot"></span><h1>Criativos Express</h1></div>
+      <div class="brand">
+        {% if brand_logo %}
+        <img class="brand-logo" src="{{ brand_logo }}" alt="{{ brand_nome }}">
+        {% else %}
+        <span class="dot">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 22H4a2 2 0 0 1-2-2V6"/>
+            <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/>
+            <circle cx="12" cy="8" r="2"/>
+            <rect width="16" height="16" x="6" y="2" rx="2"/>
+          </svg>
+        </span>
+        <h1>{{ brand_nome|default('Impressora de Criativos') }}</h1>
+        {% endif %}
+      </div>
       <div class="side-label">Produtos</div>
       <ul class="produtos" id="produtos"></ul>
       <div class="side-foot">
-        <button class="novo-btn" id="btnRecarregar">↻ Recarregar produtos</button>
+        <button class="novo-btn destaque" id="btnNovoProduto">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9"
+              stroke-linecap="round"/>
+          </svg>
+          Adicionar
+        </button>
       </div>
     </aside>
 
@@ -27,35 +49,221 @@
         </div>
         <div class="spacer"></div>
         <div class="segmented" id="steps">
-          <button data-step="copies" class="sel">Copies</button>
-          <button data-step="prompts">Prompts</button>
-          <button data-step="criativos">Criativos</button>
+          <button data-step="contexto"><span class="stepnum">1</span> Contexto</button>
+          <button data-step="copies" class="sel"><span class="stepnum">2</span> Copies</button>
+          <button data-step="estilo"><span class="stepnum">3</span> Estilo visual</button>
+          <button data-step="prompts"><span class="stepnum">4</span> Prompts</button>
+          <button data-step="criativos"><span class="stepnum">5</span> Criativos</button>
+          <button data-step="logos"><span class="stepnum">6</span> Logos</button>
         </div>
-        <select class="select-modelo" id="modelo" title="Modelo usado nas copies/prompts">
-          <option value="sonnet">Sonnet</option>
-          <option value="opus">Opus</option>
-          <option value="haiku">Haiku (rápido)</option>
-        </select>
+        <div class="modelo-wrap" id="modeloWrap">
+          <input type="hidden" id="modelo">
+          <button type="button" class="modelo-btn" id="modeloBtn" aria-haspopup="listbox"
+            aria-expanded="false" title="Modelo usado nas copies/prompts">
+            <span class="modelo-dot" id="modeloBtnDot"></span>
+            <span class="modelo-btn-nome" id="modeloBtnNome">—</span>
+            <svg class="modelo-chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="modelo-menu" id="modeloMenu" role="listbox"></div>
+        </div>
       </div>
 
       <div class="conteudo">
+        <!-- Passo: Contexto -->
+        <div class="step" id="step-contexto">
+          <div class="scroll">
+            <div class="ctx-grid">
+              <div class="ctx-col">
+                <div class="ctx-head">
+                  <h3>Config do produto</h3>
+                  <button class="btn primary" id="btnSalvarConfig">Salvar config</button>
+                </div>
+                <div class="ctx-nome-produto">
+                  <label for="nomeProdutoTxt">Nome do produto</label>
+                  <div>
+                    <input id="nomeProdutoTxt" type="text" maxlength="80">
+                    <button class="btn ghost" id="btnRenomearProduto" type="button">Renomear produto</button>
+                  </div>
+                </div>
+                <p class="ctx-hint">Regras, tom, oferta e regras visuais. É o que a IA mais respeita.</p>
+                <textarea id="configTxt" class="ctx-config" spellcheck="false" placeholder="# Configuração do produto..."></textarea>
+              </div>
+              <div class="ctx-col">
+                <div class="ctx-head"><h3>Referências</h3></div>
+                <p class="ctx-hint">Fotos reais do produto — a base da fidelidade (opcional). Sem foto, a arte vem do contexto.</p>
+                <div class="ctx-refs" id="ctxRefs"></div>
+                <input type="file" id="visualProdutoInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
+                <button class="btn ghost" id="btnAnexarFotoProduto" type="button">+ Adicionar fotos reais</button>
+                <div class="visual-ref-pendentes" id="refsProdutoPendentes"></div>
+              </div>
+            </div>
+
+            <div class="ctx-full">
+              <div class="ctx-head"><h3>Estilo</h3></div>
+              <p class="ctx-hint">Referências de estilo — fundos, estádios, paleta, composição, tipografia. Anote em cada uma o que ela é (ex.: "fundo de estádio à noite"). A imagem e o comentário entram em <b>toda</b> geração deste produto.</p>
+              <div class="ctx-refs" id="ctxRefsEstilo"></div>
+              <input type="file" id="ctxEstiloInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
+              <button class="btn ghost" id="btnAnexarCenario" type="button">+ Adicionar estilo</button>
+            </div>
+
+            <div class="ctx-full">
+              <div class="ctx-head"><h3>Influenciador</h3></div>
+              <p class="ctx-hint">Cadastre aqui as pessoas reais que podem aparecer nos criativos. A ativação é por criativo, com <b>@Nome</b> na cena/prompt (ex.: "<b>@Julia</b> segurando o produto") — só esse criativo sai com o rosto dela, idêntico às fotos. "Uma pessoa" ou "uma cliente" continua gerando gente aleatória. Defina um <b>padrão do produto</b> para as sugestões de cena sempre virem com pelo menos 1/3 dos criativos com ela. Fotos: suba quantas quiser; as com <b>★</b> (até 3) são as usadas — sem marcação, valem as 2 primeiras. Ideal: rosto de frente nítido, corpo inteiro e ângulo 3/4.</p>
+              <div class="influ-topo">
+                <label class="influ-lbl" for="influPadraoSelect">Padrão deste produto</label>
+                <select id="influPadraoSelect" aria-label="Influenciador padrão deste produto"><option value="">Nenhum</option></select>
+              </div>
+              <div class="influ-topo">
+                <label class="influ-lbl" for="influSelect">Ver/editar cadastro</label>
+                <select id="influSelect" aria-label="Influenciador para ver/editar"><option value="">Selecione...</option></select>
+                <button class="btn ghost" id="btnNovoInflu" type="button">+ Novo influenciador</button>
+                <button class="btn ghost" id="btnApagarInflu" type="button" style="display:none">Apagar influenciador</button>
+              </div>
+              <div id="influDetalhe" style="display:none">
+                <textarea id="influPerfilTxt" class="influ-perfil" placeholder="Descrição da pessoa (opcional, ajuda na identidade): cabelo, tom de pele, traços marcantes, biotipo..."></textarea>
+                <div class="ctx-refs" id="ctxRefsInflu"></div>
+                <input type="file" id="influFotosInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
+                <button class="btn ghost" id="btnAddFotosInflu" type="button">+ Adicionar fotos</button>
+              </div>
+            </div>
+
+            <div class="ctx-full">
+              <div class="ctx-head"><h3>Contexto (texto)</h3></div>
+              <p class="ctx-hint">Página de vendas, transcrições, anúncios validados que a IA lê.</p>
+              <div id="ctxArquivos"></div>
+            </div>
+
+            <div class="ctx-memoria">
+              <div class="ctx-head">
+                <h3>Memória do produto <span class="mem-badge" id="memBadge">0</span></h3>
+              </div>
+              <p class="ctx-hint">Como você refina as copies deste produto: preferências duráveis de tom, tamanho e estilo, o que você manda cortar, o que aprova ou rejeita como padrão. NÃO guarda pedido de campanha/data (isso vem só quando você pede). Preenchido sozinho ao fim de cada conversa, pra copy ficar cada vez mais assertiva. Uma linha por preferência. Edite ou apague à vontade.</p>
+              <div class="mem-list" id="aprendizadoLista"></div>
+              <button class="btn ghost btn-mini mem-add" id="btnAddAprendizado" type="button">+ Adicionar preferência</button>
+            </div>
+
+            <div class="ctx-memoria">
+              <div class="ctx-head">
+                <h3>Verdade visual do produto <span class="mem-badge" id="verdadeBadge">0</span></h3>
+              </div>
+              <p class="ctx-hint">Como o produto realmente é/aparece nas imagens: embalagem, cor, material, o que ele NÃO tem. Preenchido sozinho quando você refina um criativo corrigindo um erro visual (ex.: "vem sempre numa caixinha preta, não em embalagem transparente"). Entra em TODA geração de imagem, pro erro não voltar. Uma linha por fato. Edite ou apague à vontade.</p>
+              <div class="mem-list" id="verdadeLista"></div>
+              <button class="btn ghost btn-mini mem-add" id="btnAddVerdade" type="button">+ Adicionar fato</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Passo: Copies (chat) -->
         <div class="step ativo" id="step-copies">
-          <div class="chat" id="chat"></div>
-          <div class="chat-input">
-            <textarea id="chatInput" rows="1" placeholder="Descreva o que você quer... (ex: quero 6 copies em 3 ângulos focados em pertencimento)"></textarea>
-            <button class="btn ghost" id="btnSalvarCopies">Salvar copies</button>
-            <button class="btn primary send" id="btnEnviar">↑</button>
+          <div class="chat" id="chat">
+            <div class="vazio-central" id="chatVazio">
+              <div class="icone">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5 10.1 7.6z"
+                    fill="currentColor"/>
+                  <path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" opacity=".55"/>
+                </svg>
+              </div>
+              <div class="big">Selecione um produto</div>
+              Escolha um produto na barra lateral para começar a criar as copies num chat com o Claude.
+            </div>
           </div>
+          <div class="anexos-bar" id="anexosBar" style="display:none">
+            <div class="anexos-estilo" id="anexosEstilo"></div>
+            <div class="anexos-pend-wrap" id="anexosPendWrap" style="display:none">
+              <div class="anexos-pend" id="anexosPend"></div>
+              <div class="anexos-modo" id="anexosModo" role="tablist" aria-label="Como usar os anexos" style="display:none">
+                <span class="am-lbl">usar como</span>
+                <button type="button" class="am-opt sel" data-modo="copy" title="A imagem orienta o TEXTO da copy neste envio (não vai para a geração de imagem)">Copy</button>
+                <button type="button" class="am-opt" data-modo="estilo" title="A imagem vira referência de estilo do criativo: paleta, composição e layout. Fica ativa até você remover">Estilo da imagem</button>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input type="file" id="anexoInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
+            <button class="btn ghost formatos-btn" id="btnFormatos" type="button" title="Escolher os formatos dos criativos" aria-haspopup="dialog">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <span id="formatosBtnLbl">Padrão</span>
+            </button>
+            <button class="btn ghost anexar" id="btnAnexar" title="Anexar imagem de referência" aria-label="Anexar imagem">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 11.5l-8.6 8.6a5 5 0 01-7-7l8.5-8.6a3.3 3.3 0 014.7 4.7l-8.5 8.5a1.7 1.7 0 01-2.4-2.4l7.8-7.8"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <textarea id="chatInput" rows="1" placeholder="Descreva o que você quer... (ex: quero 6 copies em 3 ângulos focados em pertencimento)"></textarea>
+            <button class="btn primary send" id="btnEnviar" title="Enviar">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 19V6M12 6l-6 6M12 6l6 6" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Popup de Formatos: escolha (multi) dos formatos do lote -->
+          <div class="formatos-overlay" id="formatosOverlay" hidden>
+            <div class="formatos-modal" role="dialog" aria-modal="true" aria-labelledby="formatosTit">
+              <div class="formatos-head">
+                <strong id="formatosTit">Formatos do criativo</strong>
+                <button class="formatos-x" id="formatosFechar" type="button" aria-label="Fechar">&times;</button>
+              </div>
+              <p class="formatos-sub">Marque os formatos que quer gerar. O primeiro marcado é o formato ativo do lote.</p>
+              <div class="formatos-lista" id="formatosLista"></div>
+              <div class="formatos-acoes">
+                <button class="btn ghost" id="formatosCancelar" type="button">Cancelar</button>
+                <button class="btn primary" id="formatosSalvar" type="button">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passo: Estilo visual -->
+        <div class="step" id="step-estilo">
+          <p class="ctx-hint">Aqui você decide as <b>cenas</b> de cada copy (você escolhe quantas direções gerar por copy e pode refiná-las no chat). Ao enviar para Prompts, cada direção aprovada vira um prompt final com os textos da arte. Quer um influenciador cadastrado na cena? Peça com <b>@Nome</b> (ex.: "as duas primeiras com a @Julia") — o @ segue junto até a geração da imagem.</p>
+          <div class="visual-referencias">
+            <div class="visual-ref-col">
+              <div class="visual-ref-title"><strong>Referências de estilo</strong><span>imagens para inspirar composição, luz, paleta e direção visual</span></div>
+              <input type="file" id="visualEstiloInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
+              <button class="btn ghost" id="btnAnexarEstiloVisual" type="button">+ Anexar referências de estilo</button>
+              <div class="visual-ref-pendentes" id="refsEstiloPendentes"></div>
+              <div class="visual-ref-salvas" id="refsEstiloSalvas"></div>
+            </div>
+          </div>
+          <div class="visual-layout">
+            <div class="visual-chat" id="visualChat"></div>
+            <div class="visual-input">
+              <input type="file" id="visualEstiloInputChat" accept="image/png,image/jpeg,image/webp" multiple hidden>
+              <button class="btn ghost visual-anexar" id="btnAnexarEstiloVisualChat" type="button" title="Anexar referência de estilo" aria-label="Anexar referência de estilo">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M21 11.5l-8.6 8.6a5 5 0 01-7-7l8.5-8.6a3.3 3.3 0 014.7 4.7l-8.5 8.5a1.7 1.7 0 01-2.4-2.4l7.8-7.8"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <textarea id="visualChatInput" rows="2" placeholder="Refine as direções visuais... (ex.: deixe o produto maior, troque o fundo da imagem 2)" disabled></textarea>
+              <button class="btn primary" id="btnEnviarVisual" disabled>Enviar</button>
+            </div>
+          </div>
+          <div class="visual-list" id="listaVisuais"></div>
         </div>
 
         <!-- Passo: Prompts -->
         <div class="step" id="step-prompts">
           <div class="scroll">
-            <div class="barra-topo">
-              <button class="btn primary" id="btnGerarPrompts">Gerar prompts a partir das copies</button>
-              <button class="btn ghost" id="btnSalvarPrompts">Salvar prompts</button>
+            <div class="barra-topo prompts-bar">
+              <label class="chk-label"><input type="checkbox" id="chkTodosPrompts"> todos</label>
+              <span class="prompts-titulo" id="promptsTitulo">Pendentes</span>
               <span class="sub" id="promptsInfo"></span>
+              <span class="spacer"></span>
+              <span class="sub" id="selInfo"></span>
+              <div class="pb-acoes">
+              <button class="btn primary" id="btnGerarSelecionados" title="Converte as direções em prompts finais e gera as imagens">Gerar imagens (0)</button>
+                <button class="btn danger" id="btnDescartarSelecionados" disabled title="Descarta os prompts marcados">Descartar (0)</button>
+              </div>
             </div>
             <div id="listaPrompts"></div>
           </div>
@@ -66,7 +274,16 @@
           <div class="scroll">
             <div class="barra-topo">
               <button class="btn primary" id="btnGerarImagens">Gerar criativos</button>
-              <span class="sub" id="criativosInfo"></span>
+              <button class="btn ghost" id="btnRodarFilaRefino" style="display:none">Rodar fila de refinamentos (0)</button>
+              <button class="btn danger" id="btnParar" style="display:none" title="Interrompe a geração — a imagem atual é abortada e nenhuma nova começa">Parar</button>
+              <button class="btn ghost" id="btnNovaRodada" title="Arquiva a rodada atual no histórico e limpa a tela">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 7h12l-1 13H7L6 7zM4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"
+                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Nova rodada
+              </button>
+              <span class="sub criativos-fase" id="criativosInfo"></span>
             </div>
             <div class="progresso" id="progresso" style="display:none">
               <div class="linha">
@@ -77,13 +294,382 @@
               <div class="aviso-erro" id="progErros"></div>
             </div>
             <div class="grade" id="grade"></div>
+
+            <div class="historico" id="historico" style="display:none">
+              <button class="hist-toggle" id="btnHistToggle">
+                <svg class="ic chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="histTitulo">Histórico</span>
+              </button>
+              <div class="hist-body" id="histBody"></div>
+            </div>
+
+            <!-- Ferramentas de IA sobre os criativos gerados (antes do console) -->
+            <div class="criativos-ferramentas" id="criativosFerramentas" style="display:none">
+              <button class="btn ghost ferramenta-btn" id="btnSugerirIdeias" title="A IA analisa os criativos gerados e sugere novas ideias de copy e imagem">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.2 1 2.5h6c0-1.3.3-1.8 1-2.5A6 6 0 0 0 12 3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Sugerir novas ideias
+              </button>
+              <button class="btn ghost ferramenta-btn" id="btnVerificarImagens" title="A IA inspeciona cada imagem em busca de erros de texto, dedos/membros e embalagem">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9.5 12.5l2 2 4-4.5M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Verificar imagens
+              </button>
+            </div>
+
+            <section class="console-box" id="consoleBox" aria-label="Console da geração">
+              <div class="console-head" id="consoleHead">
+                <button class="console-toggle" id="btnConsoleToggle" type="button" aria-expanded="false">
+                  <svg class="ic chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <strong>Console da geração</strong><span id="consoleEstado">aguardando</span>
+                </button>
+                <div class="console-acoes">
+                  <button class="btn ghost btn-mini" id="btnCopiarConsole">Copiar texto</button>
+                  <button class="btn ghost btn-mini" id="btnLimparConsole">Limpar</button>
+                </div>
+              </div>
+              <pre id="consoleGeracao" class="console-output" aria-live="polite"></pre>
+            </section>
+          </div>
+        </div>
+
+        <!-- Passo: Logos -->
+        <div class="step" id="step-logos">
+          <div class="scroll">
+            <div class="logos-topo">
+              <div class="logo-upload">
+                <div class="ctx-head"><h3>Logo (PNG)</h3></div>
+                <p class="ctx-hint">Envie o logo oficial em PNG, de preferência com fundo transparente. Ele é sobreposto nos criativos.</p>
+                <div class="logo-drop" id="logoDrop">
+                  <img id="logoPreview" alt="logo" style="display:none">
+                  <div class="logo-drop-txt" id="logoPlaceholder">
+                    <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 16V4M12 4l-4 4M12 4l4 4M5 20h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Clique ou arraste um PNG
+                  </div>
+                  <input type="file" id="logoInput" accept="image/png" hidden>
+                </div>
+                <button class="btn ghost btn-mini" id="btnRemoverLogo" style="display:none">Remover logo</button>
+              </div>
+              <div class="logo-controles">
+                <div class="ctx-head"><h3>Ajustes</h3></div>
+                <p class="ctx-hint">Em cada criativo abaixo, escolha a <b>posição</b> do logo no seletor 3×3 (centro = sem logo) e ajuste <b>escala</b> e <b>margem</b> individualmente.</p>
+                <div class="logo-acoes">
+                  <button class="btn ghost" id="btnAplicarTodos" title="Aplica a posição de um criativo em todos">Mesma posição em todos</button>
+                  <button class="btn primary" id="btnExportarLogos">Exportar com logo</button>
+                </div>
+                <div class="logo-export-info" id="logoExportInfo"></div>
+              </div>
+            </div>
+            <div class="logos-grade" id="logosGrade"></div>
           </div>
         </div>
       </div>
     </section>
   </div>
 
+  <div class="modal-overlay" id="modalRefino" style="display:none">
+    <div class="modal">
+      <img id="refinoImg" alt="criativo a refinar">
+      <div class="modal-form">
+        <div class="modal-titulo" id="refinoTitulo">Refinar criativo</div>
+        <p class="ctx-hint">Descreva só o ajuste. O resto da imagem é preservado e o resultado vira uma nova versão (a original fica salva).</p>
+        <textarea id="refinoInstrucao" placeholder="Ex: corrigir o texto do rótulo para 'Edição Fiel'"></textarea>
+        <div class="modal-acoes">
+          <button class="btn ghost" id="btnRefinoCancelar">Cancelar</button>
+          <button class="btn primary" id="btnRefinoConfirmar">Refinar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Refazer criativo: regenera do zero com referências novas + prompt, mantendo a copy -->
+  <div class="modal-overlay" id="modalRefazer" style="display:none">
+    <div class="modal">
+      <img id="rfImg" alt="criativo a refazer">
+      <div class="modal-form">
+        <div class="modal-titulo">Refazer criativo</div>
+        <p class="ctx-hint">Regera este criativo do zero a partir das referências que você anexar + seu pedido, mantendo a copy. Bom pra corrigir um visual ruim — ex.: "quero o fundo mais parecido com a imagem anexada".</p>
+        <div class="rf-refs" id="rfRefs"></div>
+        <input type="file" id="rfInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
+        <button class="btn ghost btn-mini" id="rfAnexar" type="button">+ Anexar referências (fundos, estilos)</button>
+        <textarea id="rfPrompt" placeholder="O que você quer? (ex.: fundo mais parecido com a imagem anexada, mais escuro, foco no produto)"></textarea>
+        <div class="modal-acoes">
+          <button class="btn ghost" id="rfCancelar">Cancelar</button>
+          <button class="btn primary" id="rfConfirmar">Refazer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sugestão de novas ideias de criativo (agente de ideias) -->
+  <div class="modal-overlay" id="modalIdeias" style="display:none">
+    <div class="painel-ia">
+      <div class="painel-ia-head">
+        <div class="painel-ia-tit">
+          <strong>Novas ideias de criativo</strong>
+          <span id="ideiasSub">A partir do que você acabou de gerar</span>
+        </div>
+        <div class="painel-ia-acoes">
+          <label class="ideias-qtd" title="Quantas ideias novas trazer por caminho ao clicar em Gerar mais">
+            <span>Qtd</span>
+            <input type="number" id="ideiasQtd" min="1" max="8" value="3">
+          </label>
+          <button class="btn ghost btn-mini" id="btnIdeiasTodos" title="Marcar/desmarcar todas as ideias">Selecionar todos</button>
+          <button class="btn primary btn-mini" id="btnIdeiasGerar" disabled title="Gera as ideias marcadas em lote (paralelizado)">Gerar selecionadas (0)</button>
+          <button class="btn ghost btn-mini" id="btnIdeiasRefazer" title="Adiciona mais ideias sem perder as atuais">Gerar mais</button>
+          <button class="painel-ia-x" id="btnIdeiasFechar" title="Fechar (Esc)">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="painel-ia-body" id="ideiasBody"></div>
+    </div>
+  </div>
+
+  <!-- Verificação/QA das imagens geradas -->
+  <div class="modal-overlay" id="modalQA" style="display:none">
+    <div class="painel-ia">
+      <div class="painel-ia-head">
+        <div class="painel-ia-tit">
+          <strong>Verificação das imagens</strong>
+          <span id="qaSub">Erros de texto, anatomia e embalagem</span>
+        </div>
+        <div class="painel-ia-acoes">
+          <button class="btn primary btn-mini" id="btnQACorrigir" style="display:none">Corrigir problemas</button>
+          <button class="btn ghost btn-mini" id="btnQAReverificar" style="display:none" title="Rodar o diagnóstico de novo">Reverificar</button>
+          <button class="painel-ia-x" id="btnQAFechar" title="Fechar (Esc)">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="painel-ia-body" id="qaBody"></div>
+    </div>
+  </div>
+
+  <!-- Assistente: adicionar produto (guiado por passos) -->
+  <!-- Escolha inicial: adicionar Cliente ou Produto -->
+  <div class="modal-overlay" id="modalEscolha" style="display:none">
+    <div class="esc-modal">
+      <div class="esc-head">
+        <div class="esc-titulo">O que você quer adicionar?</div>
+        <button class="np-x" id="escFechar" title="Fechar (Esc)">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="esc-cards">
+        <button class="esc-card" id="escCliente" type="button">
+          <svg class="esc-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M16 19a4 4 0 0 0-8 0M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19 8v6M22 11h-6"
+              stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="esc-card-tit">Adicionar Cliente</span>
+          <span class="esc-card-sub">Cria uma sanfona nova para agrupar produtos</span>
+        </button>
+        <button class="esc-card" id="escProduto" type="button">
+          <svg class="esc-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 8l-9-5-9 5 9 5 9-5ZM3 8v8l9 5 9-5V8M12 13v8"
+              stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="esc-card-tit">Adicionar Produto</span>
+          <span class="esc-card-sub">Cria um produto novo pelo assistente</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form novo cliente (mínimo: nome) -->
+  <div class="modal-overlay" id="modalNovoCliente" style="display:none">
+    <div class="nc-modal">
+      <div class="np-head">
+        <div class="nc-titulo">Novo cliente</div>
+        <span class="spacer"></span>
+        <button class="np-x" id="ncFechar" title="Fechar (Esc)">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="np-body">
+        <h3>Nome do cliente</h3>
+        <p class="np-hint">Ele vira uma sanfona na barra lateral. Depois você adiciona produtos dentro dele.</p>
+        <input class="np-input" id="ncNome" placeholder="Ex: Collab Store" maxlength="80" autocomplete="off">
+        <div class="np-erro" id="ncErro"></div>
+      </div>
+      <div class="np-foot">
+        <span class="spacer"></span>
+        <button class="btn primary" id="ncCriar">Criar cliente</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalNovoProduto" style="display:none">
+    <div class="np-modal">
+      <div class="np-head">
+        <div class="np-progress"><i id="npProgBar"></i></div>
+        <div class="np-passo-info"><span id="npPassoNum">1</span>/5 · <span id="npPassoTit">Nome</span></div>
+        <button class="np-x" id="npFechar" title="Fechar (Esc)">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="np-body">
+        <!-- Passo 1: nome -->
+        <section class="np-step ativo" data-step="1">
+          <h3>Vamos criar um produto</h3>
+          <p class="np-hint">Dê um nome. Nos próximos passos você anexa referência, página de vendas e criativos validados — tudo opcional, dá pra completar depois na aba Contexto.</p>
+          <input class="np-input" id="npNome" placeholder="Ex: Pulseira do Corinthians" maxlength="80" autocomplete="off">
+          <div class="np-erro" id="npNomeErro"></div>
+          <label class="np-cli-label" for="npCliente">Cliente</label>
+          <select class="np-input" id="npCliente">
+            <option value="">Sem cliente</option>
+          </select>
+        </section>
+
+        <!-- Passo 2: fotos de referência -->
+        <section class="np-step" data-step="2">
+          <h3>Fotos de referência <span class="np-opt">opcional</span></h3>
+          <p class="np-hint">Fotos reais do produto — quando existem, são a base da fidelidade das imagens geradas. Produtos sem foto (curso, infoproduto, serviço) podem seguir sem nenhuma: a arte é montada a partir do contexto.</p>
+          <div class="np-drop" id="npRefDrop" data-multi="1">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 20h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Arraste, <b>clique</b> ou <b>cole (Ctrl+V)</b></span>
+            <small>PNG, JPG, WEBP, AVIF · várias de uma vez</small>
+          </div>
+          <div class="np-chips" id="npRefChips"></div>
+          <input type="file" id="npRefInput" accept="image/*,.avif,.heic,.heif" multiple hidden>
+        </section>
+
+        <!-- Passo 3: página de vendas -->
+        <section class="np-step" data-step="3">
+          <h3>Página de vendas <span class="np-opt">opcional</span></h3>
+          <p class="np-hint">Cole o texto da página de vendas — é onde moram oferta, provas e objeções. Ou envie um arquivo .txt/.md.</p>
+          <textarea class="np-textarea" id="npPvTexto" placeholder="Cole aqui o texto da página de vendas…"></textarea>
+          <div class="np-drop mini" id="npPvDrop">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3v5h5M14 3l5 5v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>ou clique para enviar um <b>.txt / .md</b></span>
+          </div>
+          <div class="np-chips" id="npPvChips"></div>
+          <input type="file" id="npPvInput" accept=".txt,.md,text/plain" hidden>
+        </section>
+
+        <!-- Passo 4: criativos validados -->
+        <section class="np-step" data-step="4">
+          <h3>Criativos validados <span class="np-opt">opcional</span></h3>
+          <p class="np-hint">O que já vendeu — pra IA se inspirar no que funciona. Separe os <b>estáticos</b> das <b>transcrições de vídeo</b>.</p>
+          <div class="np-col2">
+            <div class="np-col">
+              <div class="np-sub">Estáticos (imagens)</div>
+              <div class="np-drop" id="npEstDrop" data-multi="1">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l4-4 4 4M14 13l2-2 4 4M15 8.5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Arraste, clique ou <b>cole (Ctrl+V)</b></span>
+              </div>
+              <div class="np-chips" id="npEstChips"></div>
+              <input type="file" id="npEstInput" accept="image/*" multiple hidden>
+            </div>
+            <div class="np-col">
+              <div class="np-sub">Transcrições de vídeo</div>
+              <textarea class="np-textarea sm" id="npTrTexto" placeholder="Cole a transcrição de um criativo em vídeo…"></textarea>
+              <div class="np-drop mini" id="npTrDrop" data-multi="1">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3v5h5M14 3l5 5v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>ou envie <b>.txt / .md</b></span>
+              </div>
+              <div class="np-chips" id="npTrChips"></div>
+              <input type="file" id="npTrInput" accept=".txt,.md,text/plain" multiple hidden>
+            </div>
+          </div>
+        </section>
+
+        <!-- Passo 5: revisão -->
+        <section class="np-step" data-step="5">
+          <h3>Revisão</h3>
+          <p class="np-hint">Confira antes de criar. A memória e a verdade visual começam vazias e vão se preenchendo com o uso.</p>
+          <div class="np-review" id="npReview"></div>
+        </section>
+      </div>
+
+      <div class="np-foot">
+        <button class="btn ghost" id="npVoltar">Voltar</button>
+        <span class="spacer"></span>
+        <button class="btn ghost" id="npPular">Pular</button>
+        <button class="btn primary" id="npAvancar">Avançar</button>
+        <button class="btn primary" id="npCriar" style="display:none">Criar produto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox de visualização de criativos -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Visualizar criativo">
+    <button class="lb-fechar" id="lbFechar" title="Fechar (Esc)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button class="lb-nav lb-prev" id="lbPrev" title="Anterior (←)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <figure class="lb-palco">
+      <img id="lbImg" alt="criativo ampliado">
+    </figure>
+    <button class="lb-nav lb-next" id="lbNext" title="Próxima (→)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="lb-barra">
+      <div class="lb-barra-top">
+        <div class="lb-info">
+          <span class="lb-nome" id="lbNome"></span>
+          <span class="lb-contagem" id="lbContagem"></span>
+        </div>
+        <div class="lb-acoes" id="lbAcoes">
+          <button class="btn ghost btn-mini" id="lbRefazer">Refazer</button>
+          <button class="btn danger btn-mini" id="lbDescartar">Descartar</button>
+        </div>
+      </div>
+      <form class="lb-refino" id="lbRefino">
+        <textarea id="lbRefinoInput" rows="1" placeholder="Peça uma alteração nesta imagem e tecle Enter (ex: corrigir o texto do rótulo)…"></textarea>
+        <button type="submit" class="btn primary btn-mini" id="lbRefinoBtn">Alterar</button>
+      </form>
+      <div class="lb-refino-status" id="lbRefinoStatus"></div>
+    </div>
+  </div>
+
+  <!-- Histórico de prompts — pílula flutuante no canto inferior direito (aba Prompts) -->
+  <div class="hist-flutuante prompt-hist" id="promptHist" style="display:none">
+    <div class="hist-pop" id="promptHistPop" role="dialog" aria-label="Histórico de prompts">
+      <div class="hist-pop-head">
+        <span id="promptHistTitulo">Histórico</span>
+        <button class="hist-pop-close" id="btnPromptHistClose" title="Fechar">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="hist-body" id="promptHistBody"></div>
+    </div>
+    <button class="hist-fab" id="btnPromptHistToggle" title="Histórico de prompts e copies">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/>
+        <path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="hist-fab-txt">Histórico</span>
+      <span class="hist-count" id="promptHistCount">0</span>
+    </button>
+  </div>
+
   <div class="toast" id="toast"></div>
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=20260810-1"></script>
 </body>
 </html>

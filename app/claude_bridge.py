@@ -11,6 +11,10 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+# No Windows, subprocessos de console abrem uma janela CMD quando o pai roda sem
+# console (pythonw). Esta flag suprime a janela. Vira 0 em outros SOs.
+_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+
 # Aliases amigáveis -> nome de modelo passado ao claude.
 MODELOS = {
     "sonnet": "sonnet",
@@ -18,6 +22,18 @@ MODELOS = {
     "fable": "claude-fable-5",
     "haiku": "haiku",
 }
+
+# Versão REAL resolvida por apelido (ex.: "opus" -> "claude-opus-5-..."). Só é
+# conhecida DEPOIS de usar o modelo uma vez: o `claude -p --output-format json`
+# devolve o id exato em `modelUsage`. Guardamos aqui pro dropdown mostrar.
+_RESOLVIDO: dict[str, str] = {}
+
+
+def modelo_resolvido(alias: str | None) -> str | None:
+    """Id exato do modelo que o apelido resolveu na última chamada, se conhecido."""
+    if not alias:
+        return None
+    return _RESOLVIDO.get(str(alias).lower())
 
 # Diretório NEUTRO onde o claude roda: fora do projeto, para NÃO herdar o system
 # prompt do Claude Code / CLAUDE.md / skills e não agir como o agente-dev.
@@ -73,6 +89,7 @@ def _run(cmd: list[str], timeout: int, cwd: str | None, stdin_text: str | None =
     try:
         proc = subprocess.Popen(
             cmd, stdin=stdin_handle, stdout=out_f, stderr=err_f, cwd=cwd, text=True,
+            creationflags=_NO_WINDOW,
         )
         try:
             proc.wait(timeout=timeout)
@@ -80,7 +97,7 @@ def _run(cmd: list[str], timeout: int, cwd: str | None, stdin_text: str | None =
             timed_out = True
             if os.name == "nt":
                 subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"],
-                               capture_output=True)
+                               capture_output=True, creationflags=_NO_WINDOW)
             else:
                 proc.kill()
     finally:
@@ -107,18 +124,23 @@ def _resolver_modelo(modelo: str | None) -> str:
 
 def conversar(mensagem: str, session_id: str | None = None, modelo: str | None = None,
               system_prompt: str | None = None, cwd: str | None = None,
-              timeout: int = 300) -> dict:
+              timeout: int = 300, add_dirs: list | None = None) -> dict:
     """Envia uma mensagem ao Claude headless e retorna {resposta, session_id}.
 
     - session_id None -> inicia nova conversa.
     - session_id definido -> continua a conversa (--resume), preservando o contexto.
     - roda em diretório neutro por padrão (não herda o contexto do projeto).
+    - add_dirs: pastas extras que o Claude pode LER (ex.: imagens de referência
+      anexadas). Sem isso, ler um caminho fora do cwd é negado por permissão.
     """
     # O prompt vai via STDIN (não argv) para evitar mangling/limite de linha de comando.
     cmd = [_claude_exe(), "-p", "--model", _resolver_modelo(modelo),
            "--output-format", "json"]
     if system_prompt:
         cmd += ["--append-system-prompt", system_prompt]
+    for d in (add_dirs or []):
+        if d:
+            cmd += ["--add-dir", str(d)]
     if session_id:
         cmd += ["--resume", session_id]
 
@@ -134,6 +156,10 @@ def conversar(mensagem: str, session_id: str | None = None, modelo: str | None =
         sid = dado.get("session_id") or session_id
         if dado.get("is_error"):
             raise RuntimeError(resposta or erro or "Erro no Claude.")
+        # Captura a versão real que o apelido resolveu (chave de modelUsage).
+        mu = dado.get("modelUsage") or {}
+        if mu and modelo:
+            _RESOLVIDO[str(modelo).lower()] = next(iter(mu.keys()))
         return {"resposta": resposta.strip(), "session_id": sid}
     except json.JSONDecodeError:
         if not saida.strip():
@@ -143,7 +169,7 @@ def conversar(mensagem: str, session_id: str | None = None, modelo: str | None =
 
 
 def pedir_texto(prompt: str, modelo: str | None = None, system_prompt: str | None = None,
-                cwd: str | None = None, timeout: int = 300) -> str:
+                cwd: str | None = None, timeout: int = 300, add_dirs: list | None = None) -> str:
     """One-shot: manda um prompt e devolve só o texto da resposta."""
     return conversar(prompt, session_id=None, modelo=modelo, system_prompt=system_prompt,
-                     cwd=cwd, timeout=timeout)["resposta"]
+                     cwd=cwd, timeout=timeout, add_dirs=add_dirs)["resposta"]

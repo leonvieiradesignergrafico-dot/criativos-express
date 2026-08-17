@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criativos Express</title>
+<style>
+  :root { --bg:#161618; --card:#1e1e21; --card2:#26262a; --borda:#34343a; --txt:#f2f2f4; --txt2:#9d9da6; --azul:#0a84ff; --verde:#30d158; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:32px;
+    font-family:-apple-system,"SF Pro Display","Segoe UI",sans-serif; }
+  h1 { font-size:30px; font-weight:600; letter-spacing:-.02em; margin-bottom:6px; }
+  .sub { color:var(--txt2); font-size:15px; margin-bottom:44px; }
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:760px; width:100%; }
+  @media (max-width:720px){ .cards{ grid-template-columns:1fr; } }
+  .card { background:var(--card); border:1px solid var(--borda); border-radius:18px; padding:32px 28px;
+    text-decoration:none; color:inherit; transition:transform .15s, border-color .15s, background .15s;
+    display:flex; flex-direction:column; gap:12px; }
+  .card:hover { transform:translateY(-4px); border-color:var(--azul); background:var(--card2); }
+  .icone { font-size:44px; }
+  .card h2 { font-size:20px; font-weight:600; }
+  .card p { color:var(--txt2); font-size:13.5px; line-height:1.5; }
+  .tag { align-self:flex-start; margin-top:6px; font-size:11px; padding:3px 10px; border-radius:99px;
+    background:rgba(48,209,88,.14); color:var(--verde); border:1px solid rgba(48,209,88,.3); }
+  .tag.beta { background:rgba(10,132,255,.14); color:var(--azul); border-color:rgba(10,132,255,.3); }
+  footer { margin-top:40px; color:var(--txt2); font-size:12px; }
+</style>
+</head>
+<body>
+  <h1>Criativos Express</h1>
+  <div class="sub">O que você vai criar hoje?</div>
+  <div class="cards">
+    <a class="card" href="/imagem">
+      <div class="icone">🖼️</div>
+      <h2>Criativos de Imagem</h2>
+      <p>Copies de alta conversão e criativos estáticos fiéis ao produto, em lote. Da copy ao anúncio pronto pra Meta.</p>
+      <span class="tag">esteira completa</span>
+    </a>
+    <a class="card" href="/ugc">
+      <div class="icone">🎬</div>
+      <h2>Vídeo UGC</h2>
+      <p>Da copy ao vídeo UGC realista: roteiro, keyframes grátis, avatar consistente, narração e montagem com jump cuts.</p>
+      <span class="tag beta">novo</span>
+    </a>
+  </div>
+  <footer>Mesmos produtos e referências nos dois caminhos.</footer>
+</body>
+</html>

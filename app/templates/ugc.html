@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UGC Express</title>
+<link rel="stylesheet" href="/static/ugc.css?v=20260814-7">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><a href="/" aria-label="Voltar aos criativos estáticos">←</a> 🎬 <strong>Criativos em vídeo</strong></div>
+    <div class="side-label">Produtos</div>
+    <ul class="produtos" id="produtos"></ul>
+    <div class="side-foot"><a class="btn ghost novo-produto" href="/">Adicionar produto</a></div>
+  </aside>
+
+  <section class="main">
+    <header class="topbar">
+      <div class="topbar-title"><strong>Criativos em vídeo</strong><span id="produtoAtual"></span><div class="tipo-produto" title="O tipo define se o vídeo deve mostrar um objeto ou uma tela"><span>Produto:</span><button type="button" data-tipo="fisico">Físico</button><button type="button" data-tipo="digital">Digital</button></div></div>
+      <div class="topbar-controls">
+        <select id="selProduto" title="Produto" aria-label="Produto" hidden></select>
+        <select id="selVideo" title="Vídeo"></select>
+        <button id="btnNovoVideo" class="btn primary">+ Novo vídeo</button>
+        <button id="btnAvatares" class="btn ghost">Avatares</button>
+      </div>
+    </header>
+
+<nav id="steps" class="steps">
+  <button data-step="copy" class="ativo">1 · Copy</button>
+  <button data-step="roteiro">2 · Roteiro</button>
+  <button data-step="keyframes">3 · Keyframes</button>
+  <button data-step="clipes">4 · Clipes</button>
+  <button data-step="final">5 · Final</button>
+</nav>
+
+<main>
+  <section id="view-copy" class="view">
+    <div class="video-chat-shell">
+      <div class="video-chat-head">
+        <div><h2>Crie o conceito do vídeo</h2><p class="dica">O roteirista propõe conteúdos que sua persona realmente assistiria.</p></div>
+        <div class="copy-modes" role="group" aria-label="Formato do vídeo">
+          <button type="button" class="copy-mode" data-modo="ugc_depoimento">UGC</button>
+          <button type="button" class="copy-mode" data-modo="organico_camuflado">Nativo</button>
+        </div>
+      </div>
+      <div id="copyChatLog" class="video-chat-log">
+        <div class="chat-empty" id="copyChatEmpty"><div class="chat-empty-icon">✦</div><strong>O que vamos criar?</strong><span>Escolha UGC ou Nativo, defina o tipo do produto e descreva a ideia, dor ou desejo que quer trabalhar.</span></div>
+      </div>
+      <div class="video-chat-input">
+        <textarea id="txtCopyChat" rows="1" placeholder="Ex.: quero 3 roteiros para mulheres de 25 a 35 anos, atacando a objeção de preço..."></textarea>
+        <button id="btnCopyChat" class="btn primary send" title="Enviar" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V6M12 6l-6 6M12 6l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== NOVO VÍDEO ===================== -->
+  <section id="view-novo" class="view">
+    <div class="roteiro-config">
+      <div class="card roteiro-escolhido">
+        <h2>Roteiro escolhido</h2>
+        <p class="dica">Você pode enviar uma ou várias opções para criar vídeos separados.</p>
+        <div id="roteirosEscolhidos"></div>
+        <button id="btnCriarRoteiro" class="btn primary grande">Criar roteiro(s)</button>
+        <div id="novoStatus" class="aviso hidden"></div>
+      </div>
+      <div class="card avatar-card">
+        <h2>Quem aparece?</h2>
+        <p class="dica">Escolha uma pessoa ou deixe o produto aparecer sozinho.</p>
+        <div id="avatarPicker" class="avatar-picker" aria-label="Avatares disponíveis"></div>
+        <div class="avatar-selection-hint" id="avatarSelectionHint">Produto + mãos, sem pessoa identificada</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ROTEIRO ===================== -->
+  <section id="view-roteiro" class="view hidden">
+    <div class="duas-colunas">
+      <div class="card">
+        <h2>Cenas do roteiro</h2>
+        <div id="tabelaCenas"></div>
+        <div class="acoes">
+          <button id="btnSalvarCenas" class="btn ghost">Salvar edições</button>
+          <button id="btnAprovarRoteiro" class="btn primary">Aprovar roteiro →</button>
+        </div>
+      </div>
+      <div class="card chatcard">
+        <h2>Refinar com o roteirista</h2>
+        <div id="chatLog" class="chatlog"></div>
+        <div class="chatinput">
+          <input id="txtChat" placeholder="Ex.: troca o hook, deixa a cena 3 mais agressiva...">
+          <button id="btnChat" class="btn primary">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KEYFRAMES ===================== -->
+  <section id="view-keyframes" class="view hidden">
+    <div class="barra-acao">
+      <button id="btnGerarKeyframes" class="btn primary">Gerar keyframes (grátis)</button>
+      <div id="kfProgresso" class="progresso hidden"><div class="prog-bar"><div id="kfBar"></div></div>
+        <span id="kfTexto"></span><button id="btnPararKf" class="btn perigo mini">Parar</button></div>
+      <div class="espaco"></div>
+      <label class="inline"><span>Motor:</span>
+        <select id="selMotor">
+          <option value="veo">Google Veo (omni, no crédito Google)</option>
+        </select></label>
+      <button id="btnGerarClipes" class="btn destaque" disabled>Gerar clipes <span id="custoEst"></span></button>
+    </div>
+    <div id="gradeKeyframes" class="grade"></div>
+  </section>
+
+  <!-- ===================== CLIPES ===================== -->
+  <section id="view-clipes" class="view hidden">
+    <div class="barra-acao">
+      <div id="clProgresso" class="progresso hidden"><div class="prog-bar"><div id="clBar"></div></div>
+        <span id="clTexto"></span><button id="btnPararCl" class="btn perigo mini">Parar</button></div>
+      <div class="espaco"></div>
+      <button id="btnMontar" class="btn destaque" disabled>Montar vídeo final</button>
+    </div>
+    <div id="gradeClipes" class="grade"></div>
+  </section>
+
+  <!-- ===================== FINAL ===================== -->
+  <section id="view-final" class="view hidden">
+    <div class="card centro">
+      <h2>Vídeo final</h2>
+      <div id="playerFinal"></div>
+      <div class="acoes centro">
+        <a id="btnBaixar" class="btn primary" download>Baixar MP4</a>
+        <button id="btnRemontar" class="btn ghost">Remontar (grátis)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AVATARES ===================== -->
+  <section id="view-avatares" class="view hidden">
+    <div class="duas-colunas">
+      <div class="card">
+        <h2>Novo avatar</h2>
+        <p class="dica">Descreva a pessoa uma vez. As fotos de referência são geradas de graça e
+          reutilizadas em todos os vídeos — mesma pessoa, mesmo ambiente, sempre.</p>
+        <label>Nome</label>
+        <input id="avNome" placeholder="ex.: camila">
+        <label>Descrição canônica (rosto, corpo, idade, roupa, ambiente)</label>
+        <textarea id="avDesc" rows="6" placeholder="Mulher brasileira de uns 28 anos, cabelo castanho cacheado na altura dos ombros, pele morena, sorriso natural, camiseta branca básica, num quarto com luz natural de janela..."></textarea>
+        <label>Voz do avatar</label>
+        <select id="avEngine">
+          <option value="edge">Grátis · edge-tts (rápida, soa robótica)</option>
+          <option value="eleven">Paga · ElevenLabs (a mais natural em PT-BR)</option>
+          <option value="f5">Grátis local · F5-TTS (natural, precisa instalar o motor)</option>
+        </select>
+        <div id="vozEdge" class="linha" style="margin-top:8px">
+          <select id="avVoz"></select>
+          <button id="btnOuvirVoz" class="btn ghost">▶ Ouvir</button>
+        </div>
+        <div id="vozEleven" class="linha hidden" style="margin-top:8px">
+          <input id="avVoiceId" placeholder="voice_id da ElevenLabs (vazio = voz padrão)">
+          <button id="btnOuvirVozEleven" class="btn ghost">▶ Ouvir</button>
+        </div>
+        <div id="vozF5" class="hidden"><p class="dica" style="margin-top:8px">O F5-TTS clona a partir de um áudio de referência e roda na sua GPU. Configure o motor local (scripts/instalar_wan.md) e coloque a amostra em avatares/&lt;nome&gt;/voz/.</p></div>
+        <button id="btnCriarAvatar" class="btn primary grande">Criar avatar (gera as fotos)</button>
+        <div id="avStatus" class="aviso hidden"></div>
+      </div>
+      <div class="card">
+        <h2>Avatares</h2>
+        <div id="listaAvatares" class="lista-avatares"></div>
+      </div>
+    </div>
+  </section>
+</main>
+  </section>
+</div>
+<audio id="audioPreview"></audio>
+<div id="toast" class="toast"></div>
+<div id="modalConfirm" class="modal hidden">
+  <div class="modal-box">
+    <p id="mcMsg"></p>
+    <div class="modal-acoes">
+      <button id="mcCancel" class="btn ghost">Cancelar</button>
+      <button id="mcOk" class="btn primary">Confirmar</button>
+    </div>
+  </div>
+</div>
+<script src="/static/ugc.js?v=20260814-9"></script>
+</body>
+</html>

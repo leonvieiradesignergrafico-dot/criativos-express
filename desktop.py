@@ -37,7 +37,7 @@ def main():
     threading.Thread(target=_run_server, daemon=True).start()
     _esperar_servidor()
     webview.create_window(
-        "Criativos Express",
+        "Impressora de Criativos",
         URL,
         width=1240,
         height=860,
