@@ -24,6 +24,8 @@ packaging/dist/
 packaging/Output/
 AdsExpress-Setup-*.exe
 Ads Express *.dmg
+# App buildado direto na pasta do projeto (clicável, com ícone) — não versionar
+/Ads Express (programa)/
 *.spec.bak
 .venv/
 venv/

@@ -55,7 +55,7 @@ hiddenimports += ["tomllib", "dotenv", "PIL", "PIL.Image"]
 
 
 a = Analysis(
-    [_p("desktop.py")],
+    [_p("packaging", "desktop.py")],
     pathex=[ROOT],
     binaries=binaries,
     datas=datas,
