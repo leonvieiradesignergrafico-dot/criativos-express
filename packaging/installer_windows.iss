@@ -11,7 +11,7 @@
 ; ============================================================================
 
 #define AppName "Ads Express"
-#define AppVersion "1.0.0"
+#define AppVersion "1.1.0"
 #define AppPublisher "Ads Express"
 #define AppExe "Ads Express.exe"
 
@@ -26,7 +26,9 @@ DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=Output
+; Instalador sai na RAIZ do projeto (junto do desktop.py), fácil de achar — não
+; escondido em packaging\ nem dentro de subpasta.
+OutputDir=..
 OutputBaseFilename=AdsExpress-Setup-{#AppVersion}
 SetupIconFile=icons\app.ico
 UninstallDisplayIcon={app}\{#AppExe}
