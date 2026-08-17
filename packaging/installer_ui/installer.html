@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root{
+    --bg:#0d0d0f; --bg2:#161619; --card:#1c1c20; --border:#2a2a30;
+    --txt:#fafafa; --txt2:#a1a1aa; --txt3:#6b6b73; --accent:#fafafa; --on-accent:#0d0d0f;
+    --ok:#4ade80;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none;}
+  html,body{height:100%;}
+  body{
+    background:
+      radial-gradient(120% 60% at 50% 0%, #1a1a1f 0%, rgba(13,13,15,0) 60%),
+      linear-gradient(180deg,#0d0d0f 0%,#141417 100%);
+    color:var(--txt); font-family:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,sans-serif;
+    letter-spacing:-.011em; -webkit-font-smoothing:antialiased; overflow:hidden;
+    display:flex; flex-direction:column; height:100vh;
+  }
+  .titlebar{height:38px; flex:0 0 38px; display:flex; align-items:center; justify-content:flex-end; padding:0 8px;}
+  .x{
+    width:26px;height:26px;border:none;background:transparent;color:var(--txt3);
+    font-size:16px;border-radius:7px;cursor:pointer;-webkit-app-region:no-drag;
+    display:grid;place-items:center;transition:background .15s,color .15s;
+  }
+  .x:hover{background:rgba(255,255,255,.08);color:var(--txt);}
+  .wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 44px 30px;text-align:center;}
+  .icon{
+    width:104px;height:104px;border-radius:24px;display:block;margin-bottom:26px;
+    box-shadow:0 18px 50px -12px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.04);
+    animation:rise .5s cubic-bezier(.16,1,.3,1);
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(10px) scale(.96);}to{opacity:1;transform:none;}}
+  h1{font-size:26px;font-weight:600;letter-spacing:-.03em;margin-bottom:8px;}
+  .sub{font-size:14px;color:var(--txt2);line-height:1.5;max-width:340px;margin-bottom:34px;}
+  .btn{
+    -webkit-app-region:no-drag;appearance:none;border:none;cursor:pointer;font:inherit;
+    background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;
+    padding:14px 22px;border-radius:12px;min-width:230px;display:inline-flex;
+    align-items:center;justify-content:center;gap:9px;letter-spacing:-.01em;
+    transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s,opacity .15s;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,.6);
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 12px 30px -8px rgba(0,0,0,.7);}
+  .btn:active{transform:translateY(0);}
+  .btn.ghost{background:transparent;color:var(--txt2);box-shadow:none;font-weight:500;min-width:0;padding:12px 18px;margin-top:6px;}
+  .btn.ghost:hover{color:var(--txt);transform:none;}
+  .arrow{font-size:17px;line-height:1;}
+  .foot{font-size:11.5px;color:var(--txt3);margin-top:26px;}
+  /* progresso */
+  .bar{width:100%;max-width:340px;height:8px;border-radius:999px;background:var(--card);overflow:hidden;border:1px solid var(--border);}
+  .fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#e4e4e7,#fafafa);transition:width .35s cubic-bezier(.16,1,.3,1);}
+  .pmsg{font-size:13px;color:var(--txt2);margin-top:16px;min-height:18px;}
+  .pct{font-size:13px;color:var(--txt3);margin-top:4px;font-variant-numeric:tabular-nums;}
+  .check{
+    width:104px;height:104px;border-radius:50%;display:grid;place-items:center;margin-bottom:26px;
+    background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);animation:rise .5s cubic-bezier(.16,1,.3,1);
+  }
+  .check svg{width:52px;height:52px;stroke:var(--ok);}
+  .hidden{display:none!important;}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(13,13,15,.25);border-top-color:var(--on-accent);border-radius:50%;animation:sp .7s linear infinite;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+  <div class="titlebar"><button class="x" onclick="fechar()" title="Fechar">✕</button></div>
+
+  <!-- BOAS-VINDAS -->
+  <div class="wrap" id="welcome">
+    <img class="icon" src="{{ICON}}" alt="Ads Express">
+    <h1>Instalar o Ads Express</h1>
+    <div class="sub">Criativos de alta conversão — estáticos e vídeo UGC, direto no seu computador.</div>
+    <button class="btn" id="go" onclick="instalar()">Instalar <span class="arrow">→</span></button>
+    <div class="foot">Instala só pra você · sem privilégios de administrador</div>
+  </div>
+
+  <!-- INSTALANDO -->
+  <div class="wrap hidden" id="installing">
+    <img class="icon" src="{{ICON}}" alt="">
+    <h1>Instalando…</h1>
+    <div class="sub" style="margin-bottom:26px">Só um instante — preparando tudo pra você.</div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="pmsg" id="pmsg">Preparando…</div>
+    <div class="pct" id="pct">0%</div>
+  </div>
+
+  <!-- CONCLUÍDO -->
+  <div class="wrap hidden" id="done">
+    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h1>Tudo pronto!</h1>
+    <div class="sub">O Ads Express foi instalado e já tem atalho no menu Iniciar e na área de trabalho.</div>
+    <button class="btn" onclick="abrir()">Abrir o Ads Express</button>
+    <button class="btn ghost" onclick="fechar()">Fechar</button>
+  </div>
+
+  <!-- ERRO -->
+  <div class="wrap hidden" id="erro">
+    <h1>Ops…</h1>
+    <div class="sub" id="emsg">Algo deu errado na instalação.</div>
+    <button class="btn ghost" onclick="fechar()">Fechar</button>
+  </div>
+
+<script>
+  function mostra(id){
+    ["welcome","installing","done","erro"].forEach(s =>
+      document.getElementById(s).classList.toggle("hidden", s !== id));
+  }
+  function api(){ return (window.pywebview && window.pywebview.api) || null; }
+  function instalar(){
+    const b = document.getElementById("go");
+    b.innerHTML = '<span class="spin"></span> Instalando…'; b.disabled = true;
+    mostra("installing");
+    const a = api(); if(a) a.instalar();
+  }
+  function abrir(){ const a = api(); if(a) a.abrir_app(); }
+  function fechar(){ const a = api(); if(a) a.fechar(); }
+
+  // chamados pelo Python
+  window.setProgress = function(pct, msg){
+    document.getElementById("fill").style.width = pct + "%";
+    document.getElementById("pct").textContent = Math.round(pct) + "%";
+    if(msg) document.getElementById("pmsg").textContent = msg;
+  };
+  window.setDone = function(){ mostra("done"); };
+  window.setErro = function(msg){ document.getElementById("emsg").textContent = msg || "Erro."; mostra("erro"); };
+</script>
+</body>
+</html>
