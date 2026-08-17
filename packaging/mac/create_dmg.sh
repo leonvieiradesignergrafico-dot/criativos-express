@@ -20,7 +20,7 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 APP="$ROOT/dist/Ads Express.app"
 VOL_NAME="Ads Express"
 VERSION="${ADSEXPRESS_VERSION:-1.0.0}"
-DMG_OUT="$ROOT/dist/Ads Express $VERSION.dmg"
+DMG_OUT="$ROOT/Ads Express $VERSION.dmg"   # na RAIZ (igual ao instalador do Windows)
 
 if [ ! -d "$APP" ]; then
   echo "ERRO: não achei '$APP'. Rode antes: bash packaging/mac/build_mac.sh" >&2

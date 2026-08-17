@@ -24,8 +24,10 @@ AppPublisher={#AppPublisher}
 DefaultDirName={localappdata}\Programs\{#AppName}
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
+; Sempre per-user (sem admin, recomendado) — pula o diálogo "modo de instalação".
 PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=dialog
+; Fixa Português e pula o diálogo de idioma -> cai direto na tela de boas-vindas premium.
+ShowLanguageDialog=no
 ; Instalador sai na RAIZ do projeto (junto do desktop.py), fácil de achar — não
 ; escondido em packaging\ nem dentro de subpasta.
 OutputDir=..

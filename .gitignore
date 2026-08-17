@@ -23,6 +23,7 @@ packaging/build/
 packaging/dist/
 packaging/Output/
 AdsExpress-Setup-*.exe
+Ads Express *.dmg
 *.spec.bak
 .venv/
 venv/
