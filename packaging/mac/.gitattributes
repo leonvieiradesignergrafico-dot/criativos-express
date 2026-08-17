@@ -1,0 +1,6 @@
+# Estes scripts RODAM NO macOS: precisam de fim de linha LF. Se o git os converter
+# para CRLF (autocrlf no Windows), o bash/zsh quebra com erros de '\r'. Trave em LF.
+*.sh        text eol=lf
+*.command   text eol=lf
+make_icns.sh    text eol=lf
+build_mac.sh    text eol=lf

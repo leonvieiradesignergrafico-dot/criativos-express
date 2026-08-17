@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  entitlements.plist — permissões do Hardened Runtime para o Ads Express notarizado.
+
+  Por que cada uma:
+    com.apple.security.cs.allow-jit
+    com.apple.security.cs.allow-unsigned-executable-memory
+        Python/PyInstaller e o WebKit precisam de memória executável (JIT). Sem
+        isso o app assinado com --options runtime pode crashar ao iniciar.
+
+    com.apple.security.cs.disable-library-validation
+        O app carrega .dylibs de terceiros (pyobjc, pillow) que NÃO estão assinados
+        pelo mesmo Team ID. Sem isto a validação de biblioteca mata o processo.
+
+    com.apple.security.cs.allow-dyld-environment-variables
+        PyInstaller ajusta variáveis do dyld ao subir o runtime empacotado.
+
+    com.apple.security.network.client / .server
+        O app sobe um Flask em 127.0.0.1:5000 (server) e a janela WebKit conecta
+        nele (client). As CLIs (claude/codex) também fazem chamadas de rede.
+
+  Obs.: NÃO usamos App Sandbox (com.apple.security.app-sandbox) — o app precisa
+  shellar 'node/claude/codex/ffmpeg' e escrever em ~/Library/Application Support,
+  o que o sandbox restringiria. Notarização NÃO exige sandbox (só Hardened Runtime).
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
+</dict>
+</plist>

@@ -4,27 +4,141 @@ from __future__ import annotations
 import json
 import os
 import re
+import sys
 import unicodedata
 import threading
 import time
 import uuid
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
-PRODUCTS = ROOT / "products"
-# Vídeo UGC (fluxo separado do de imagem): escrita em videos/ e avatares/.
-VIDEOS = ROOT / "videos"
-AVATARES = ROOT / "avatares"
+# --- Raiz de dados (fonte única de verdade) -----------------------------------
+# Rodando como .exe congelado (PyInstaller), ROOT precisa ser a pasta que CONTÉM
+# o executável — ali ficam config/ e gerados/, graváveis pelo usuário, ao lado do
+# app — e NUNCA o bundle temporário sys._MEIPASS (só-leitura, apagado ao sair).
+# Rodando do código-fonte (python desktop.py), ROOT é a pasta deste arquivo.
+if getattr(sys, "frozen", False):
+    ROOT = Path(sys.executable).resolve().parent
+else:
+    ROOT = Path(__file__).resolve().parent
+
+# Bundle só-leitura (templates, static, prompts, backends, config default). Só
+# existe quando congelado; no código-fonte é a própria ROOT.
+BUNDLE_DIR = Path(getattr(sys, "_MEIPASS", ROOT))
+
+
+def _data_root() -> Path:
+    """Onde ficam os dados GRAVÁVEIS do usuário (config/ e gerados/):
+    - código-fonte: a própria pasta do projeto (comportamento idêntico ao de sempre);
+    - Windows congelado: ao lado do .exe (instalação per-user, gravável);
+    - macOS congelado: ~/Library/Application Support/Ads Express — um .app em
+      /Applications é SÓ-LEITURA e não pode gravar ao lado de si (regra dura do Mac)."""
+    if getattr(sys, "frozen", False):
+        if sys.platform == "darwin":
+            return Path.home() / "Library" / "Application Support" / "Ads Express"
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent
+
+
+# Raiz dos dados graváveis (config/ e gerados/). Separada de ROOT/BUNDLE_DIR porque
+# no Mac o app fica em /Applications (só-leitura) e os dados vão pro Application Support.
+DATA_ROOT = _data_root()
+
+
+def _augment_path_macos() -> None:
+    """Apps de JANELA no macOS NÃO herdam o PATH do shell de login. Sem isso,
+    ferramentas de Homebrew/npm (node, claude, codex, ffmpeg) somem do PATH e todo
+    subprocess falha (o `shutil.which('claude')` volta None). Prepende os locais
+    canônicos ao PATH — idempotente e inócuo fora do Mac."""
+    if sys.platform != "darwin":
+        return
+    extras = [
+        "/opt/homebrew/bin", "/opt/homebrew/sbin",   # Apple Silicon (brew)
+        "/usr/local/bin", "/usr/local/sbin",           # Intel (brew) / geral
+        str(Path.home() / ".npm-global" / "bin"),      # npm prefix custom comum
+        str(Path.home() / ".local" / "bin"),
+    ]
+    partes = (os.environ.get("PATH") or "").split(os.pathsep)
+    novos = [p for p in extras if p and p not in partes]
+    if novos:
+        os.environ["PATH"] = os.pathsep.join(novos + partes)
+
+
+_augment_path_macos()
+
+# --- Layout de disco (fonte única de verdade) ---------------------------------
+# config/  = TODA configuração + dados de entrada (config.toml, .env, produtos,
+#            avatares, influenciadores) e o estado de trabalho do pipeline
+#            (prompts.json, copies.md, formatos.json, status.json, cache .refs).
+# gerados/ = SOMENTE as imagens de criativo geradas, em
+#            gerados/<cliente|_sem-cliente>/<produto>/<DD-MM-YYYY>/ (o dia da geração).
+CONFIG_DIR = DATA_ROOT / "config"
+GERADOS_DIR = DATA_ROOT / "gerados"
+
+
+def _base(sub: str) -> Path:
+    """Diretório de dados sob config/ (novo layout), com fallback à raiz (legado).
+    Prefere config/<sub>; só cai na raiz quando SÓ o antigo existe (migração em curso)."""
+    novo = CONFIG_DIR / sub
+    antigo = DATA_ROOT / sub
+    return antigo if (antigo.exists() and not novo.exists()) else novo
+
+
+def _config_file(nome: str) -> Path:
+    """config/<nome> se existir, senão ROOT/<nome> (compat pré-migração p/ config.toml/.env)."""
+    novo = CONFIG_DIR / nome
+    return novo if novo.exists() else DATA_ROOT / nome
+
+
+PRODUCTS = _base("products")
+AVATARES = _base("avatares")
 # Influenciadores REAIS (fotos enviadas pelo usuário) dos criativos estáticos.
-INFLUENCIADORES = ROOT / "influenciadores"
+INFLUENCIADORES = _base("influenciadores")
+# Vídeo UGC (fluxo separado do de imagem): escrita em videos/ (fora do escopo desta
+# reorganização — segue na raiz por enquanto).
+VIDEOS = DATA_ROOT / "videos"
 _LOCKS_DIR = VIDEOS / ".locks"
 _PRODUCT_RE = re.compile(r"^[^\\/]+$")
+# Nome de pasta de lote diário em gerados/: DD-MM-AAAA.
+_DATA_LOTE_RE = re.compile(r"^\d{2}-\d{2}-\d{4}$")
 
 
 def carregar_config() -> dict:
     import tomllib
-    with open(ROOT / "config.toml", "rb") as f:
+    with open(_config_file("config.toml"), "rb") as f:
         return tomllib.load(f)
+
+
+def carregar_env() -> None:
+    """Carrega o .env no ambiente. Prefere config/.env; cai para ROOT/.env (compat)."""
+    try:
+        from dotenv import load_dotenv
+    except Exception:  # noqa: BLE001 — dotenv é opcional
+        return
+    for p in (CONFIG_DIR / ".env", ROOT / ".env"):
+        if p.exists():
+            load_dotenv(p)
+            return
+
+
+def ensure_user_config() -> None:
+    """Garante que exista config/config.toml gravável ao lado do app.
+
+    No .exe congelado a primeira execução não traz config/ do usuário; copiamos o
+    template embutido (BUNDLE_DIR/_default_config/config.toml) para ROOT/config/.
+    Idempotente: NUNCA sobrescreve um config.toml já existente do usuário. No
+    código-fonte é no-op (o config já está versionado em config/)."""
+    destino = CONFIG_DIR / "config.toml"
+    if destino.exists():
+        return
+    template = BUNDLE_DIR / "_default_config" / "config.toml"
+    if not template.exists():
+        return
+    try:
+        CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+        import shutil
+        shutil.copyfile(template, destino)
+    except OSError:
+        pass
 
 
 def product_dir(name: str) -> Path:
@@ -49,6 +163,84 @@ def product_dir(name: str) -> Path:
     if root not in candidate.parents or not candidate.is_dir():
         raise ValueError("Produto não encontrado.")
     return candidate
+
+
+# ---- gerados/ : imagens de criativo, agrupadas por cliente/produto/dia ----------
+
+def _cliente_produto(produto: str) -> tuple[str, str]:
+    """Quebra o id em (cliente, produto) para o layout de gerados/.
+    Produto solto (sem '~') cai no bucket '_sem-cliente'."""
+    if "~" in produto:
+        cliente, _, prod = produto.partition("~")
+        return cliente, prod
+    return "_sem-cliente", produto
+
+
+def gerados_dir_de_id(produto: str) -> Path:
+    """gerados/<cliente|_sem-cliente>/<produto> a partir do id, SEM validar existência
+    (usado ao mover/remover o produto, quando o id antigo já não resolve)."""
+    cliente, prod = _cliente_produto(produto)
+    base = GERADOS_DIR.resolve()
+    d = (GERADOS_DIR / cliente / prod).resolve()
+    if base not in d.parents:
+        raise ValueError("Caminho de gerados inválido.")
+    return d
+
+
+def gerados_produto_dir(produto: str) -> Path:
+    """gerados/<cliente|_sem-cliente>/<produto> (valida que o produto existe)."""
+    product_dir(produto)
+    return gerados_dir_de_id(produto)
+
+
+def data_lote_hoje() -> str:
+    from datetime import datetime
+    return datetime.now().strftime("%d-%m-%Y")
+
+
+def lote_dir(produto: str, data: str | None = None, *, create: bool = False) -> Path:
+    """gerados/<cliente>/<produto>/<DD-MM-AAAA> — a pasta de um lote (dia)."""
+    base = gerados_produto_dir(produto)
+    data = data or data_lote_hoje()
+    if not _DATA_LOTE_RE.fullmatch(data):
+        raise ValueError("Data de lote inválida.")
+    d = (base / data).resolve()
+    if base.resolve() not in d.parents:
+        raise ValueError("Caminho de lote inválido.")
+    if create:
+        d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def lotes(produto: str) -> list[str]:
+    """Datas de lote existentes (DD-MM-AAAA), da mais recente para a mais antiga."""
+    from datetime import datetime
+    base = gerados_produto_dir(produto)
+    if not base.exists():
+        return []
+    nomes = [d.name for d in base.iterdir()
+             if d.is_dir() and _DATA_LOTE_RE.fullmatch(d.name)]
+
+    def _k(s: str):
+        try:
+            return datetime.strptime(s, "%d-%m-%Y")
+        except ValueError:
+            return datetime.min
+
+    return sorted(nomes, key=_k, reverse=True)
+
+
+def criativos_dir(produto: str, *, para_gerar: bool = False, create: bool = False) -> Path:
+    """Pasta ATIVA de criativos (o lote em foco), em gerados/.
+
+    para_gerar=True: SEMPRE o lote de HOJE (uma nova geração abre a pasta do dia).
+    Senão: o lote existente mais recente e, se ainda não houver nenhum, o de hoje.
+    É o substituto direto do antigo `product/output/criativos`."""
+    if not para_gerar:
+        existentes = lotes(produto)
+        if existentes:
+            return lote_dir(produto, existentes[0], create=create)
+    return lote_dir(produto, create=create)
 
 
 def safe_child(parent: Path, name: str, *, suffix: str | None = None) -> Path:
