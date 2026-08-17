@@ -51,8 +51,10 @@ Guia detalhado: **`packaging/README_MAC.md`**.
 bash packaging/mac/build_mac.sh      # venv + deps + .icns + PyInstaller -> dist/Ads Express.app
 bash packaging/mac/create_dmg.sh     # gera o .dmg (com atalho pra Applications + removedor de quarentena)
 ```
-Quem receber: roda `remove_quarantine.command` (tira o bloqueio do Gatekeeper de app não assinado)
-e depois `first_run_mac.command` (Homebrew/Node/CLIs/logins/ffmpeg).
+O `build_mac.sh` já **assina o app ad-hoc** (grátis): na 1ª abertura o usuário faz só
+**botão direito → Abrir → Abrir** (sem Terminal). Depois roda `first_run_mac.command`
+(Homebrew/Node/CLIs/logins/ffmpeg). Plano B, se algum Mac reclamar de "danificado":
+`remove_quarantine.command` (incluído no DMG).
 
 ### Distribuição pública (assinada + notarizada) — precisa de você
 Requer **conta Apple Developer** ($99/ano): cert "Developer ID Application" + senha de app.
@@ -68,7 +70,8 @@ bash packaging/mac/create_dmg.sh
   `/usr/local/bin`, `~/.npm-global/bin` ao PATH no macOS (senão os CLIs "somem").
 - **`http://127.0.0.1` bloqueado (ATS)** → exceção `NSAllowsLocalNetworking` no `Info.plist`.
 - **`.app` só-leitura** → dados em `~/Library/Application Support/Ads Express/`.
-- **"App está danificado" (Gatekeeper)** → `remove_quarantine.command` ou notarização.
+- **"App está danificado" (Gatekeeper)** → evitado pelo ad-hoc signing do `build_mac.sh`
+  (basta botão direito → Abrir); `remove_quarantine.command` é o plano B, notarização o definitivo.
 - **Apple Silicon vs Intel** → `universal2` no spec.
 
 ---

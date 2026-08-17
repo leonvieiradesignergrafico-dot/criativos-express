@@ -84,9 +84,23 @@ rm -rf "$ROOT/build" "$ROOT/dist/Ads Express" "$ROOT/dist/Ads Express.app"
 ADSEXPRESS_ARCH="$ARCH" ADSEXPRESS_VERSION="$VERSION" \
   pyinstaller packaging/AdsExpress_mac.spec --noconfirm --clean
 
-# 5) resultado
+# 5) assinatura ad-hoc (GRÁTIS, sem conta Apple)
+# Uma assinatura ad-hoc (--sign -) da ao bundle uma identidade valida "de si mesmo".
+# Nao substitui a notarizacao (paga), mas troca o erro "app esta danificado" (que
+# BLOQUEIA a abertura) pelo aviso de "desenvolvedor nao identificado", que o usuario
+# contorna com um simples botao-direito -> Abrir (uma vez). Se depois voce rodar o
+# codesign_notarize.sh, ele re-assina por cima (--force) sem problema.
 APP="$ROOT/dist/Ads Express.app"
-echo "==> [5/5] Verificando resultado"
+echo "==> [5/6] Assinatura ad-hoc (free; passo Gatekeeper = botao-direito -> Abrir)"
+if [ -d "$APP" ]; then
+  codesign --force --deep --sign - "$APP" \
+    && codesign --verify --deep --strict "$APP" \
+    && echo "    assinado ad-hoc OK" \
+    || echo "    AVISO: ad-hoc signing falhou; o app ainda abre via remove_quarantine.command" >&2
+fi
+
+# 6) resultado
+echo "==> [6/6] Verificando resultado"
 if [ -d "$APP" ]; then
   echo
   echo "======================================================================"
@@ -94,12 +108,12 @@ if [ -d "$APP" ]; then
   echo "   $APP"
   echo
   echo " PRÓXIMOS PASSOS:"
-  echo "   • Teste local (sem assinatura), removendo a quarentena:"
-  echo "       bash packaging/mac/remove_quarantine.command   (ou dê 2 cliques nele)"
-  echo "   • Distribuição bonita (DMG):"
+  echo "   • Empacotar pra entregar (DMG que o usuário arrasta p/ Aplicativos):"
   echo "       bash packaging/mac/create_dmg.sh"
-  echo "   • Distribuição SEM aviso do Gatekeeper (recomendado p/ entregar a clientes):"
-  echo "       assine + notarize -> bash packaging/mac/codesign_notarize.sh"
+  echo "   • App já está ad-hoc-assinado (grátis): na 1ª vez o usuário faz"
+  echo "       BOTÃO DIREITO no app -> Abrir -> Abrir. Sem Terminal, e o Mac lembra."
+  echo "   • (Plano B, se ainda reclamar de 'danificado'): remove_quarantine.command"
+  echo "   • (Opcional, pago) Sumir com o aviso de vez: codesign_notarize.sh (\$99/ano Apple)"
   echo "   • Primeira execução do usuário (Node/CLIs/ffmpeg + pasta de dados):"
   echo "       bash packaging/mac/first_run_mac.command"
   echo "======================================================================"

@@ -52,20 +52,24 @@ buíde por arquitetura (rode `ADSEXPRESS_ARCH=arm64` no Mac M-series e
 
 ## 2. Distribuir — dois caminhos
 
-### 2A. Rápido / interno (SEM assinatura) — grátis
-Para você mesmo ou uma equipe pequena. O app funciona 100%, só carrega o aviso do
-Gatekeeper que se resolve removendo a quarentena.
+### 2A. Rápido / interno (SEM pagar) — grátis
+Para você mesmo ou uma equipe pequena. O `build_mac.sh` **assina o app ad-hoc**
+(`codesign --sign -`, grátis, sem conta Apple): isso troca o erro "app está
+danificado" (que BLOQUEIA) pelo aviso brando de "desenvolvedor não identificado",
+que o usuário contorna com um clique-direito.
 
 ```bash
-bash packaging/mac/build_mac.sh
+bash packaging/mac/build_mac.sh           # ja sai ad-hoc-assinado
 bash packaging/mac/create_dmg.sh          # gera dist/Ads Express <versão>.dmg
 ```
 
-O usuário: abre o `.dmg`, arrasta **Ads Express** para **Aplicativos**, e então
-**dá dois cliques no `remove_quarantine.command`** (incluído no DMG). Pronto, abre.
+O usuário: abre o `.dmg`, arrasta **Ads Express** para **Aplicativos**, e na
+**primeira** abertura faz **botão direito no app → Abrir → Abrir**. Sem Terminal,
+e o macOS lembra da decisão pras próximas vezes.
 
-> Alternativa sem o script: botão direito no app → **Abrir** → **Abrir** (só na
-> primeira vez). Ou `xattr -dr com.apple.quarantine "/Applications/Ads Express.app"`.
+> Plano B (se algum Mac ainda insistir em "danificado"): **dois cliques no
+> `remove_quarantine.command`** (incluído no DMG). Equivale a
+> `xattr -dr com.apple.quarantine "/Applications/Ads Express.app"`.
 
 ### 2B. Profissional (ASSINADO + NOTARIZADO) — abre sem nenhum aviso
 Requer a conta paga Apple Developer e o certificado *Developer ID Application*.
