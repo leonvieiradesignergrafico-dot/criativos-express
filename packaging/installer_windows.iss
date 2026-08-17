@@ -33,6 +33,10 @@ OutputBaseFilename=AdsExpress-Setup-{#AppVersion}
 SetupIconFile=icons\app.ico
 UninstallDisplayIcon={app}\{#AppExe}
 WizardStyle=modern
+; Visual premium: banner escuro (Welcome/Finished) + ícone nas telas internas.
+WizardImageFile=icons\wizard_large.bmp
+WizardSmallImageFile=icons\wizard_small.bmp
+WizardImageStretch=yes
 Compression=lzma2
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64compatible
