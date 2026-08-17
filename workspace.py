@@ -27,15 +27,18 @@ BUNDLE_DIR = Path(getattr(sys, "_MEIPASS", ROOT))
 
 
 def _data_root() -> Path:
-    """Onde ficam os dados GRAVÁVEIS do usuário (config/ e gerados/):
+    """Onde ficam os dados GRAVÁVEIS do usuário (config/ e entregas/):
     - código-fonte: a própria pasta do projeto (comportamento idêntico ao de sempre);
-    - Windows congelado: ao lado do .exe (instalação per-user, gravável);
-    - macOS congelado: ~/Library/Application Support/Ads Express — um .app em
-      /Applications é SÓ-LEITURA e não pode gravar ao lado de si (regra dura do Mac)."""
+    - Windows congelado: %LOCALAPPDATA%\\Ads Express — pasta ESTÁVEL do usuário, que
+      NÃO some ao rebuildar/reinstalar o app e é compartilhada entre todas as cópias
+      (antes era ao lado do .exe, o que apagava os dados a cada novo build);
+    - macOS congelado: ~/Library/Application Support/Ads Express (mesma ideia; um .app
+      em /Applications é SÓ-LEITURA e não pode gravar ao lado de si)."""
     if getattr(sys, "frozen", False):
         if sys.platform == "darwin":
             return Path.home() / "Library" / "Application Support" / "Ads Express"
-        return Path(sys.executable).resolve().parent
+        base = os.environ.get("LOCALAPPDATA") or str(Path.home() / "AppData" / "Local")
+        return Path(base) / "Ads Express"
     return Path(__file__).resolve().parent
 
 
