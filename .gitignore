@@ -1,12 +1,28 @@
 # Segredos
 .env
+config/.env
 
-# Saídas geradas por produto (copies, prompts e criativos)
+# Estado de trabalho do pipeline por produto (copies, prompts, formatos, status, cache)
+config/products/**/output/
 products/*/output/
+
+# Imagens de criativo geradas (dado precioso, fora do git — como o antigo output/criativos)
+gerados/
 
 # Python
 __pycache__/
 *.pyc
+
+# Logs
+*.log
+
+# Empacotamento (PyInstaller / Inno Setup)
+build/
+dist/
+packaging/build/
+packaging/dist/
+packaging/Output/
+*.spec.bak
 .venv/
 venv/
 
@@ -16,3 +32,18 @@ node_modules/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Deploy local: atalho gerado (contém caminhos absolutos da máquina)
+*.lnk
+deploy_local/icone.ico
+
+# Vídeo UGC
+videos/
+config/avatares/*/referencia/
+config/avatares/*/voz/*.wav
+avatares/*/referencia/
+avatares/*/voz/*.wav
+
+# Influenciadores (fotos de pessoas reais não vão pro git)
+config/influenciadores/*/referencia/
+influenciadores/*/referencia/

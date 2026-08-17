@@ -45,17 +45,73 @@ fi
 
 ENTITLEMENTS="$HERE/entitlements.plist"
 
-echo "==> [1/5] Assinando (codesign --deep --options runtime) ..."
-# --options runtime = hardened runtime (exigido pela notarização).
-# --deep assina frameworks/dylibs embutidos. --force re-assina se já houver assinatura.
-codesign --deep --force --verbose \
-  --options runtime \
-  --timestamp \
-  --entitlements "$ENTITLEMENTS" \
-  --sign "$DEVELOPER_ID" \
-  "$APP"
+echo "==> [1/5] Assinando 'inside-out' (hardened runtime, sem --deep) ..."
+# Por que NÃO usar --deep: a Apple DESENCORAJA --deep para bundles com muitas
+# dylibs (o PyInstaller gera dezenas). O --deep pode deixar código aninhado
+# mal-assinado (flags/entitlements erradas em binários internos) e a notarização
+# então REJEITA o app. O jeito correto é assinar "inside-out": primeiro todo
+# binário Mach-O interno (.dylib, .so, frameworks, executáveis embarcados), do
+# mais interno pro mais externo, e só DEPOIS o .app inteiro por último.
+#
+# Flags em cada assinatura (idênticas p/ todos):
+#   --force            = re-assina se já houver assinatura.
+#   --options runtime  = hardened runtime (exigido pela notarização).
+#   --timestamp        = timestamp seguro da Apple (exigido pela notarização).
+#   --entitlements ... = as permissões do hardened runtime.
+
+# Nome do executável principal dentro de Contents/MacOS (não deve ser assinado
+# aqui na varredura interna — ele é assinado junto com o .app no passo final).
+MAIN_BIN="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Contents/Info.plist" 2>/dev/null || true)"
+MAIN_PATH="$APP/Contents/MacOS/$MAIN_BIN"
+
+sign_one() {
+  # Assina um único binário interno com as mesmas flags (sem --deep).
+  codesign --force --verbose \
+    --options runtime \
+    --timestamp \
+    --entitlements "$ENTITLEMENTS" \
+    --sign "$DEVELOPER_ID" \
+    "$1"
+}
+
+# 1a) Todas as bibliotecas dinâmicas (.dylib) e módulos de extensão Python (.so).
+#     -print0 + read -d '' trata corretamente nomes com espaço.
+#     'sort -rz' ordena decrescente => caminhos mais profundos (internos) primeiro.
+echo "    -> assinando .dylib e .so ..."
+find "$APP" \( -name "*.dylib" -o -name "*.so" \) -print0 \
+  | sort -rz \
+  | while IFS= read -r -d '' lib; do
+      sign_one "$lib"
+    done
+
+# 1b) Demais binários Mach-O embarcados (executáveis internos, frameworks, helpers)
+#     em Contents/Frameworks, Contents/Resources e Contents/MacOS — EXCETO o
+#     executável principal (assinado no passo final junto do bundle).
+echo "    -> assinando executáveis Mach-O embarcados ..."
+for dir in "$APP/Contents/Frameworks" "$APP/Contents/Resources" "$APP/Contents/MacOS"; do
+  [ -d "$dir" ] || continue
+  find "$dir" -type f -perm +111 -print0 \
+    | sort -rz \
+    | while IFS= read -r -d '' bin; do
+        # pula o executável principal e o que não for Mach-O.
+        [ "$bin" = "$MAIN_PATH" ] && continue
+        case "$bin" in
+          *.dylib|*.so) continue ;;  # já assinados no passo 1a.
+        esac
+        if /usr/bin/file "$bin" | grep -q 'Mach-O'; then
+          sign_one "$bin"
+        fi
+      done
+done
+
+# 1c) Por ÚLTIMO, o .app inteiro (sem --deep). Isso assina o executável principal
+#     e sela o bundle já com todo o código interno assinado.
+echo "    -> assinando o bundle .app (por último) ..."
+sign_one "$APP"
 
 echo "==> [2/5] Verificando a assinatura ..."
+# Na VERIFICAÇÃO --deep é ok (e desejável): percorre e confere todo o nested code.
+# O que a Apple desencoraja é ASSINAR com --deep, não verificar com --deep.
 codesign --verify --deep --strict --verbose=2 "$APP"
 
 echo "==> [3/5] Zipando p/ notarização ..."

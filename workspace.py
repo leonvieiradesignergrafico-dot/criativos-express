@@ -44,26 +44,68 @@ def _data_root() -> Path:
 DATA_ROOT = _data_root()
 
 
-def _augment_path_macos() -> None:
-    """Apps de JANELA no macOS NÃO herdam o PATH do shell de login. Sem isso,
-    ferramentas de Homebrew/npm (node, claude, codex, ffmpeg) somem do PATH e todo
-    subprocess falha (o `shutil.which('claude')` volta None). Prepende os locais
-    canônicos ao PATH — idempotente e inócuo fora do Mac."""
-    if sys.platform != "darwin":
-        return
-    extras = [
-        "/opt/homebrew/bin", "/opt/homebrew/sbin",   # Apple Silicon (brew)
-        "/usr/local/bin", "/usr/local/sbin",           # Intel (brew) / geral
-        str(Path.home() / ".npm-global" / "bin"),      # npm prefix custom comum
-        str(Path.home() / ".local" / "bin"),
-    ]
+def _prepend_ao_path(dirs: list[str]) -> None:
+    """Prepende diretórios ao PATH sem duplicar o que já existe. Preserva a ordem
+    recebida (o primeiro da lista termina na frente do PATH)."""
     partes = (os.environ.get("PATH") or "").split(os.pathsep)
-    novos = [p for p in extras if p and p not in partes]
+    novos = [d for d in dirs if d and d not in partes]
     if novos:
         os.environ["PATH"] = os.pathsep.join(novos + partes)
 
 
-_augment_path_macos()
+def _dirs_fixos_macos() -> list[str]:
+    """Locais canônicos onde node/claude/codex/ffmpeg costumam viver no Mac.
+    Vazio fora do macOS (o Windows usa só o cli_paths.env)."""
+    if sys.platform != "darwin":
+        return []
+    return [
+        "/opt/homebrew/bin", "/opt/homebrew/sbin",   # Apple Silicon (brew)
+        "/usr/local/bin", "/usr/local/sbin",           # Intel (brew) / geral
+        str(Path.home() / ".nvm" / "current" / "bin"),  # nvm (prometido no README_MAC)
+        str(Path.home() / ".npm-global" / "bin"),      # npm prefix custom comum
+        str(Path.home() / ".local" / "bin"),
+    ]
+
+
+def _dirs_cli_paths_env() -> list[str]:
+    """Lê config/cli_paths.env (gravado pelo first-run de Mac/Windows) e devolve os
+    DIRETÓRIOS dos binários registrados. O arquivo tem linhas `NODE_PATH=/abs/node`,
+    `CLAUDE_PATH=...`, `CODEX_PATH=...`, `FFMPEG_PATH=...` (nome da ferramenta em
+    MAIÚSCULAS + `_PATH`, valor = caminho absoluto do binário). Sem honrar isto, quem
+    instalou Node via nvm ou prefixo npm custom fica com `shutil.which('claude')` ->
+    None mesmo após o first-run. Robusto a arquivo ausente/malformado — nunca levanta."""
+    dirs: list[str] = []
+    try:
+        arq = CONFIG_DIR / "cli_paths.env"
+        if not arq.exists():
+            return dirs
+        for linha in arq.read_text(encoding="utf-8", errors="replace").splitlines():
+            linha = linha.strip()
+            if not linha or linha.startswith("#") or "=" not in linha:
+                continue
+            _chave, _, valor = linha.partition("=")
+            valor = valor.strip().strip('"').strip("'")
+            if not valor:
+                continue
+            d = str(Path(valor).parent)
+            if d and d not in dirs:
+                dirs.append(d)
+    except Exception:  # noqa: BLE001 — jamais quebrar o import de workspace por isto
+        return dirs
+    return dirs
+
+
+def _augment_path() -> None:
+    """Ajusta o PATH no IMPORT do módulo, ANTES de qualquer `shutil.which` em runtime.
+    Apps de JANELA no macOS NÃO herdam o PATH do shell de login e o nvm/prefixo npm
+    custom (Win e Mac) não fica nos diretórios canônicos — sem isto, todo subprocess
+    (node/claude/codex/ffmpeg) falha porque o which volta None.
+    Ordem final do PATH: cli_paths.env (mais específico/confiável) → diretórios fixos
+    → PATH original. Prepende os fixos primeiro e o cli_paths por cima, para o
+    cli_paths acabar na frente."""
+    _prepend_ao_path(_dirs_fixos_macos())    # fixos primeiro…
+    _prepend_ao_path(_dirs_cli_paths_env())  # …e cli_paths por cima (fica na frente)
+
 
 # --- Layout de disco (fonte única de verdade) ---------------------------------
 # config/  = TODA configuração + dados de entrada (config.toml, .env, produtos,
@@ -73,6 +115,10 @@ _augment_path_macos()
 #            gerados/<cliente|_sem-cliente>/<produto>/<DD-MM-YYYY>/ (o dia da geração).
 CONFIG_DIR = DATA_ROOT / "config"
 GERADOS_DIR = DATA_ROOT / "gerados"
+
+# Ajusta o PATH assim que CONFIG_DIR existe (o cli_paths.env vive dentro dele) e
+# ANTES de qualquer shutil.which em runtime.
+_augment_path()
 
 
 def _base(sub: str) -> Path:

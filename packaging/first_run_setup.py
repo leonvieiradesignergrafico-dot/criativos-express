@@ -259,6 +259,39 @@ def verificar_ffmpeg() -> None:
           "  (ou baixe em https://www.gyan.dev/ffmpeg/builds/)")
 
 
+# --- Caminhos das CLIs para o app honrar --------------------------------------
+def _config_dir() -> Path:
+    """Mesma pasta config/ que o app usa (espelha workspace._data_root): ao lado do
+    .exe quando congelado; senão a raiz do projeto (packaging/ fica um nível abaixo)."""
+    if getattr(sys, "frozen", False):
+        base = Path(sys.executable).resolve().parent
+    else:
+        base = Path(__file__).resolve().parent.parent
+    return base / "config"
+
+
+def gravar_cli_paths() -> None:
+    """Grava config/cli_paths.env com os caminhos ABSOLUTOS das CLIs, para o app
+    honrar (o workspace prepende esses diretórios ao PATH em runtime). Mesmo formato
+    do first_run_mac (NODE_PATH=..., CLAUDE_PATH=..., etc.): quem instala Node via
+    nvm-windows/prefixo npm custom não fica no PATH que o app enxerga sozinho."""
+    linhas = [
+        "# Caminhos ABSOLUTOS detectados pelo Setup. O app adiciona estes",
+        "# diretórios ao PATH em runtime (nvm-windows/prefixo npm custom não entram sozinhos).",
+    ]
+    for tool in ("node", "npm", "claude", "codex", "ffmpeg"):
+        p = _which(tool)
+        if p:
+            linhas.append(f"{tool.upper()}_PATH={p}")
+    try:
+        cfg = _config_dir()
+        cfg.mkdir(parents=True, exist_ok=True)
+        (cfg / "cli_paths.env").write_text("\n".join(linhas) + "\n", encoding="utf-8")
+        ok(f"Caminhos das ferramentas salvos para o app: {cfg / 'cli_paths.env'}")
+    except Exception as e:  # noqa: BLE001
+        aviso(f"Não consegui gravar o cli_paths.env ({e}).")
+
+
 # --- Resumo -------------------------------------------------------------------
 def resumo() -> None:
     titulo("Resumo")
@@ -300,6 +333,7 @@ def main() -> int:
     else:
         aviso("Sem Node.js não dá para instalar as CLIs. Resolva o passo 1 e rode o Setup de novo.")
     verificar_ffmpeg()
+    gravar_cli_paths()
     resumo()
     pausar()
     return 0
