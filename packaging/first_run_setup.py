@@ -259,6 +259,45 @@ def verificar_ffmpeg() -> None:
           "  (ou baixe em https://www.gyan.dev/ffmpeg/builds/)")
 
 
+# --- Google Cloud SDK / gcloud (opcional) -------------------------------------
+GCLOUD_URL = "https://cloud.google.com/sdk/docs/install"
+
+
+def verificar_gcloud() -> None:
+    titulo("Extra · Google Cloud SDK / gcloud (opcional — só para o fluxo de VÍDEO)")
+    if _which("gcloud"):
+        # `gcloud --version` imprime várias linhas; a 1ª já traz "Google Cloud SDK <ver>".
+        ok(f"gcloud encontrado: {_versao('gcloud')}")
+        passo("Login: use o botão \"Google Cloud\" na tela inicial do app (ou rode " +
+              c("gcloud auth login", "cyan") + ").")
+        passo("O fluxo de vídeo (Veo) também exige o " + c("VEO_PROJECT", "cyan") +
+              " (id do projeto GCP) no config.")
+        return
+    aviso("gcloud (Google Cloud SDK) não encontrado. Ele só é necessário para gerar VÍDEO com o Veo (não para imagem).")
+    if os.name == "nt" and _which("winget"):
+        if perguntar_sim("Instalar o Google Cloud SDK agora (via winget)?", False):
+            try:
+                _run(["winget", "install", "-e", "--id", "Google.CloudSDK",
+                      "--accept-source-agreements", "--accept-package-agreements"])
+                aviso("Feche e reabra o terminal/Setup para o gcloud entrar no PATH.")
+            except Exception as e:  # noqa: BLE001
+                falha(f"Falha no winget: {e}")
+            passo("Depois de instalar: faça login pelo botão \"Google Cloud\" na tela inicial do app "
+                  "(ou " + c("gcloud auth login", "cyan") + ").")
+            passo("O fluxo de vídeo (Veo) também exige o " + c("VEO_PROJECT", "cyan") +
+                  " (id do projeto GCP) no config.")
+            return
+    passo("Para instalar depois: " + c("winget install -e --id Google.CloudSDK", "cyan") +
+          "  (ou baixe em " + GCLOUD_URL + ")")
+    try:
+        webbrowser.open(GCLOUD_URL)
+    except Exception:  # noqa: BLE001
+        pass
+    passo("Depois de instalar: login pelo botão \"Google Cloud\" na tela inicial do app "
+          "(ou " + c("gcloud auth login", "cyan") + "); o vídeo (Veo) também exige o " +
+          c("VEO_PROJECT", "cyan") + " (id do projeto GCP) no config.")
+
+
 # --- Caminhos das CLIs para o app honrar --------------------------------------
 def _config_dir() -> Path:
     """Mesma pasta config/ que o app usa (espelha workspace._data_root): ao lado do
@@ -300,6 +339,7 @@ def resumo() -> None:
         ("CLI claude", bool(_which("claude"))),
         ("CLI codex", bool(_which("codex"))),
         ("ffmpeg (vídeo, opcional)", bool(_which("ffmpeg"))),
+        ("gcloud (vídeo/Veo, opcional)", bool(_which("gcloud"))),
     ]
     for nome, presente in itens:
         (ok if presente else aviso)(nome + (": pronto" if presente else ": pendente"))
@@ -333,6 +373,7 @@ def main() -> int:
     else:
         aviso("Sem Node.js não dá para instalar as CLIs. Resolva o passo 1 e rode o Setup de novo.")
     verificar_ffmpeg()
+    verificar_gcloud()
     gravar_cli_paths()
     resumo()
     pausar()

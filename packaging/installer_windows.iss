@@ -51,8 +51,10 @@ Source: "..\dist\Setup Ads Express\*"; DestDir: "{app}\setup"; Flags: recursesub
 
 [Dirs]
 ; Pastas de dados GRAVÁVEIS do usuário, ao lado do executável.
+; config\ = entradas; entregas\ = saídas geradas (imagens e vídeos).
 Name: "{app}\config"
-Name: "{app}\gerados"
+Name: "{app}\entregas\gerados"
+Name: "{app}\entregas\videos"
 
 [Icons]
 ; Atalhos "Ads Express" (Menu Iniciar + Área de Trabalho) com o ícone do app.
@@ -68,5 +70,5 @@ Filename: "{app}\setup\Setup Ads Express.exe"; Description: "Preparar dependênc
 Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent unchecked
 
 [UninstallDelete]
-; NÃO apagamos config\ nem gerados\ (dados do usuário) — só o que o instalador trouxe.
+; NÃO apagamos config\ nem entregas\ (dados do usuário) — só o que o instalador trouxe.
 Type: dirifempty; Name: "{app}"

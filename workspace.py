@@ -114,7 +114,9 @@ def _augment_path() -> None:
 # gerados/ = SOMENTE as imagens de criativo geradas, em
 #            gerados/<cliente|_sem-cliente>/<produto>/<DD-MM-YYYY>/ (o dia da geração).
 CONFIG_DIR = DATA_ROOT / "config"
-GERADOS_DIR = DATA_ROOT / "gerados"
+# Saídas geradas ficam agrupadas sob entregas/ (gerados/ + videos/) pra manter a
+# raiz limpa: config/ = entradas, entregas/ = o que o app produz.
+GERADOS_DIR = DATA_ROOT / "entregas" / "gerados"
 
 # Ajusta o PATH assim que CONFIG_DIR existe (o cli_paths.env vive dentro dele) e
 # ANTES de qualquer shutil.which em runtime.
@@ -139,9 +141,8 @@ PRODUCTS = _base("products")
 AVATARES = _base("avatares")
 # Influenciadores REAIS (fotos enviadas pelo usuário) dos criativos estáticos.
 INFLUENCIADORES = _base("influenciadores")
-# Vídeo UGC (fluxo separado do de imagem): escrita em videos/ (fora do escopo desta
-# reorganização — segue na raiz por enquanto).
-VIDEOS = DATA_ROOT / "videos"
+# Vídeo UGC (fluxo separado do de imagem): escrita sob entregas/videos/.
+VIDEOS = DATA_ROOT / "entregas" / "videos"
 _LOCKS_DIR = VIDEOS / ".locks"
 _PRODUCT_RE = re.compile(r"^[^\\/]+$")
 # Nome de pasta de lote diário em gerados/: DD-MM-AAAA.

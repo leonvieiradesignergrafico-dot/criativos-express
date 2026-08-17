@@ -14,7 +14,8 @@
 #      @openai/codex (comando 'codex').
 #   5. Guia os LOGINS (claude /login e codex login) — usam SEU plano, sem custo de API.
 #   6. Confere o ffmpeg (opcional, só p/ o fluxo de VÍDEO) e oferece instalar.
-#   7. Grava os caminhos ABSOLUTOS de node/claude/codex/ffmpeg num arquivo que o app
+#   7. Confere o Google Cloud SDK / gcloud (opcional, só p/ o VÍDEO Veo) e oferece instalar.
+#   8. Grava os caminhos ABSOLUTOS de node/claude/codex/ffmpeg/gcloud num arquivo que o app
 #      lê — porque um app .app do macOS NÃO herda o PATH do Terminal (ver README_MAC.md).
 #
 set -uo pipefail
@@ -49,7 +50,7 @@ echo   "  Este assistente instala o que o app precisa. Pode rodar quantas vezes 
 # ---------------------------------------------------------------------------
 # 1) Pasta de dados + config padrão
 # ---------------------------------------------------------------------------
-titulo "1/6 · Pasta de dados do app"
+titulo "1/7 · Pasta de dados do app"
 mkdir -p "$CONFIG_DIR" "$GERADOS_DIR"
 ok "Pasta criada: $APP_SUPPORT"
 if [ ! -f "$CONFIG_DIR/config.toml" ]; then
@@ -87,7 +88,7 @@ fi
 # ---------------------------------------------------------------------------
 # 2) Homebrew
 # ---------------------------------------------------------------------------
-titulo "2/6 · Homebrew (gerenciador de pacotes do Mac)"
+titulo "2/7 · Homebrew (gerenciador de pacotes do Mac)"
 # Em Apple Silicon o brew vive em /opt/homebrew; em Intel, /usr/local.
 for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
   [ -x "$b" ] && eval "$("$b" shellenv)" && break
@@ -110,7 +111,7 @@ fi
 # ---------------------------------------------------------------------------
 # 3) Node.js
 # ---------------------------------------------------------------------------
-titulo "3/6 · Node.js (obrigatório — as CLIs rodam sobre ele)"
+titulo "3/7 · Node.js (obrigatório — as CLIs rodam sobre ele)"
 if command -v node >/dev/null 2>&1; then
   ok "Node.js: $(node --version)   npm: $(npm --version 2>/dev/null || echo '?')"
 else
@@ -138,14 +139,14 @@ instalar_cli(){ # $1 comando ; $2 pacote npm
     aviso "Para instalar depois: npm install -g $pkg"
   fi
 }
-titulo "4/6 · CLIs de IA (Claude Code + Codex)"
+titulo "4/7 · CLIs de IA (Claude Code + Codex)"
 instalar_cli "claude" "$CLAUDE_PKG"
 instalar_cli "codex"  "$CODEX_PKG"
 
 # ---------------------------------------------------------------------------
 # 5) Logins (usam SEU plano — custo de API = zero)
 # ---------------------------------------------------------------------------
-titulo "5/6 · Login das CLIs (usa seu plano Claude e ChatGPT)"
+titulo "5/7 · Login das CLIs (usa seu plano Claude e ChatGPT)"
 if command -v claude >/dev/null 2>&1; then
   if perguntar "Fazer/checar o login do Claude agora? (abre o navegador)"; then
     passo "Abrindo o Claude — se pedir, digite /login. Feche com Ctrl+C quando terminar."
@@ -165,7 +166,7 @@ fi
 # ---------------------------------------------------------------------------
 # 6) ffmpeg (opcional)
 # ---------------------------------------------------------------------------
-titulo "6/6 · ffmpeg (opcional — só para o fluxo de VÍDEO)"
+titulo "6/7 · ffmpeg (opcional — só para o fluxo de VÍDEO)"
 if command -v ffmpeg >/dev/null 2>&1; then
   ok "ffmpeg: $(ffmpeg -version 2>/dev/null | head -n1)"
 else
@@ -176,6 +177,23 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 7) Google Cloud SDK / gcloud (opcional — só para o VÍDEO Veo)
+# ---------------------------------------------------------------------------
+titulo "7/7 · Google Cloud SDK / gcloud (opcional — só para o VÍDEO Veo)"
+if command -v gcloud >/dev/null 2>&1; then
+  ok "gcloud: $(gcloud --version 2>/dev/null | head -n1 || echo 'presente')"
+else
+  aviso "gcloud não encontrado (só é necessário para o fluxo de VÍDEO Veo/Omni, não imagem)."
+  if command -v brew >/dev/null 2>&1 && perguntar "Instalar o Google Cloud SDK via Homebrew agora?"; then
+    brew install --cask google-cloud-sdk || aviso "Falha ao instalar o google-cloud-sdk."
+  else
+    aviso "Instalação manual do gcloud: https://cloud.google.com/sdk/docs/install"
+  fi
+fi
+passo "Login do Google Cloud: use o botão \"Google Cloud\" na tela inicial do app (ou rode 'gcloud auth login')."
+passo "O VÍDEO também precisa do VEO_PROJECT (id do projeto GCP) no config."
+
+# ---------------------------------------------------------------------------
 # PATH do .app: grava os caminhos absolutos que o app deve usar.
 # (Um app do macOS NÃO herda o PATH do shell — ver README_MAC.md / flag p/ o main agent.)
 # ---------------------------------------------------------------------------
@@ -184,7 +202,7 @@ CLI_ENV="$CONFIG_DIR/cli_paths.env"
 {
   echo "# Caminhos ABSOLUTOS detectados pelo first_run_mac. O app deve adicionar estes"
   echo "# diretórios ao PATH em runtime (apps .app do macOS não herdam o PATH do Terminal)."
-  for tool in node npm claude codex ffmpeg; do
+  for tool in node npm claude codex ffmpeg gcloud; do
     p="$(command -v "$tool" 2>/dev/null || true)"
     if [ -n "$p" ]; then
       # macOS traz bash 3.2 (sem ${var^^}); usa tr p/ maiúsculas.
@@ -202,6 +220,7 @@ for t in node claude codex; do
   if command -v "$t" >/dev/null 2>&1; then ok "$t: pronto"; else aviso "$t: pendente"; faltou=1; fi
 done
 command -v ffmpeg >/dev/null 2>&1 && ok "ffmpeg: pronto (vídeo)" || aviso "ffmpeg: pendente (só vídeo)"
+command -v gcloud >/dev/null 2>&1 && ok "gcloud: pronto (vídeo Veo)" || aviso "gcloud: pendente (só vídeo Veo)"
 echo
 if [ "$faltou" -eq 0 ]; then
   printf "  ${GREEN}Tudo pronto! Pode abrir o Ads Express e gerar criativos.${RST}\n"
