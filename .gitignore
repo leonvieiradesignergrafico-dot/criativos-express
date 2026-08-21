@@ -26,9 +26,14 @@ AdsExpress-Setup-*.exe
 Ads Express *.dmg
 # App buildado direto na pasta do projeto (clicável, com ícone) — não versionar
 Ads Express (*)/
+Ads Express (*)*/
 *.spec.bak
 .venv/
 venv/
+
+# Entregas de cliente (binários grandes, ficam só local)
+entregas/
+Entregas Finais/
 
 # Node
 node_modules/
