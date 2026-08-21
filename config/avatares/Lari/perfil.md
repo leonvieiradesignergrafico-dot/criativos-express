@@ -1,0 +1,1 @@
+Mulher brasileira, 24 anos, pele morena, cabelo castanho escuro comprido e preso em rabo baixo, sobrancelhas naturais, expressão amigável. Estilo blogueira casual, camiseta lisa, casa brasileira média com corredor ou cozinha simples ao fundo, foto vertical de celular com luz natural. Ultra realista, sem aparência de modelo, sem logos.

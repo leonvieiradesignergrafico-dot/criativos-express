@@ -101,6 +101,10 @@ document.addEventListener("keydown", (e) => {
 // colapsável; produtos soltos (sem cliente) caem em "Sem cliente".
 const SEM_CLIENTE = "Sem cliente";
 const _COLAPSO_KEY = "ce_clientes_colapsados";
+// Sanfonas de cliente começam SEMPRE fechadas ao abrir a ferramenta. Guardamos só
+// em memória (não em localStorage) quais o usuário abriu nesta sessão — assim um
+// re-render não fecha o que está aberto, mas reabrir a ferramenta zera tudo.
+let _clientesExpandidos = new Set();
 function _lerColapsados() {
   try { return new Set(JSON.parse(localStorage.getItem(_COLAPSO_KEY) || "[]")); }
   catch (e) { return new Set(); }
@@ -144,7 +148,6 @@ async function carregarProdutos() {
     return a.localeCompare(b, "pt");
   });
 
-  const colapsados = _lerColapsados();
   // clientes existentes (p/ o "Atribuir a cliente…"); exclui o balde "Sem cliente"
   clientesConhecidos = nomes.filter((n) => n !== SEM_CLIENTE);
 
@@ -188,7 +191,7 @@ async function carregarProdutos() {
     const itens = grupos.get(cli);
     const grupo = document.createElement("li");
     grupo.className = "cli-grupo";
-    if (colapsados.has(cli)) grupo.classList.add("colapsado");
+    if (!_clientesExpandidos.has(cli)) grupo.classList.add("colapsado");
 
     const head = document.createElement("button");
     head.type = "button";
@@ -199,9 +202,8 @@ async function carregarProdutos() {
       `<span class="cli-count">${itens.length}</span>`;
     head.addEventListener("click", () => {
       grupo.classList.toggle("colapsado");
-      const set = _lerColapsados();
-      if (grupo.classList.contains("colapsado")) set.add(cli); else set.delete(cli);
-      _salvarColapsados(set);
+      if (grupo.classList.contains("colapsado")) _clientesExpandidos.delete(cli);
+      else _clientesExpandidos.add(cli);
     });
 
     const sub = document.createElement("ul");
@@ -387,12 +389,41 @@ function trocarStep(step, skipLoad) {
 }
 
 // -------------------------------------------------------------- Contexto ---
+// Tipo do produto (físico/digital): definido aqui e lido pela ferramenta de
+// vídeo. Persistido em config.md via endpoint do blueprint /ugc.
+function _refletirTipoProduto(tipo) {
+  document.querySelectorAll("#ctxTipoProduto button").forEach((b) =>
+    b.classList.toggle("sel", b.dataset.tipo === tipo));
+}
+async function carregarTipoProdutoCtx() {
+  _refletirTipoProduto(null);
+  if (!produto) return;
+  try {
+    const r = await (await fetch(`/ugc/api/tipo_produto/${encodeURIComponent(produto)}`)).json();
+    if (r.ok) _refletirTipoProduto(r.tipo || null);
+  } catch (e) { /* sem tipo salvo ainda */ }
+}
+document.querySelectorAll("#ctxTipoProduto button").forEach((btn) =>
+  btn.addEventListener("click", async () => {
+    if (!produto) { toast("Selecione um produto primeiro."); return; }
+    try {
+      const r = await (await fetch(`/ugc/api/tipo_produto/${encodeURIComponent(produto)}`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tipo: btn.dataset.tipo }),
+      })).json();
+      if (!r.ok) throw new Error(r.erro || "Falha ao salvar o tipo.");
+      _refletirTipoProduto(r.tipo);
+      toast(`Produto marcado como ${r.tipo === "digital" ? "digital" : "físico"}.`);
+    } catch (e) { toast(e.message); }
+  }));
+
 async function carregarContexto() {
   const d = await (await fetch(`/api/contexto/${produto}`)).json();
   const produtoDetalhes = await fetch(`/api/referencia_produto/${produto}`).then((r) => r.json()).catch(() => ({}));
   const porNome = Object.fromEntries((produtoDetalhes.detalhes || []).map((x) => [x.arquivo, x]));
   el("nomeProdutoTxt").value = produto;
   el("configTxt").value = d.config || "";
+  carregarTipoProdutoCtx();
   const refs = el("ctxRefs");
   refs.innerHTML = ((d.referencias || []).length || (d.referencias_estilo || []).length)
     ? "" : '<div class="ctx-vazio">Nenhuma foto em referencia/ ainda.</div>';
@@ -597,7 +628,12 @@ function addMsg(tipo, texto) {
   const div = document.createElement("div");
   div.className = "msg " + tipo;
   // IA (menos o estado "pensando") vem em markdown; usuário fica como texto puro.
-  if (tipo.startsWith("ai") && !tipo.includes("pensando")) {
+  if (tipo.includes("pensando")) {
+    // Indicador de "digitando/pensando" estilo chat de IA: 3 bolinhas + label com shimmer.
+    const label = (texto && texto !== "pensando…") ? texto : "Pensando";
+    div.innerHTML = `<span class="thinking-orb" aria-hidden="true"></span>`
+      + `<span class="thinking-label">${escapeHtml(label)}</span>`;
+  } else if (tipo.startsWith("ai")) {
     div.innerHTML = mdToHtml(texto);
   } else {
     div.textContent = texto;
@@ -794,6 +830,18 @@ el("chatInput").addEventListener("input", (e) => {
 // ------------------------------------------- Copies (cards dentro do chat) --
 let grupoCopiesAtivo = null; // só o grupo mais recente aceita seleção
 
+// Selo discreto do formato (padrao/wikihow/noticia), exibido em copies, prompts e
+// thumbs da grade. Ausente = 'padrao'. fmtLabel/formatosCatalogo definidos adiante.
+function formatoSelo(formato) {
+  const f = String(formato || "padrao");
+  const cls = f.replace(/[^a-z0-9_-]/gi, "") || "padrao";
+  return `<span class="fmt-selo fmt-${cls}">${escapeHtml(fmtLabel(f))}</span>`;
+}
+// Id base do arquivo (criativo_03.png / _refinado1 -> criativo_03), pra casar o
+// formato vindo do status (mapa por id base dos prompts).
+const idBaseArq = (nome) =>
+  (String(nome).match(/^(criativo_\d+)/) || [null, String(nome).replace(/\.png$/i, "")])[1];
+
 function renderCopyGroup(copies) {
   // Copies já usadas ficam no histórico, não misturadas ao lote selecionável.
   copies = (copies || []).filter((c) => c.status !== "usada");
@@ -814,6 +862,7 @@ function renderCopyGroup(copies) {
         <input type="checkbox" class="chk-copy" data-id="${escapeHtml(c.id || "")}"${c.status === "usada" ? " disabled" : ""}>
         <span class="tag">${escapeHtml(c.id || "")}</span>
         <span class="tag angulo">${escapeHtml(c.angulo || "ângulo")}</span>
+        ${formatoSelo(c.formato)}
       </div>
       <h4>${escapeHtml(c.headline || "")}</h4>
       <p>${escapeHtml(c.apoio || c.subheadline || c.corpo || "")}</p>
@@ -888,9 +937,6 @@ function renderEstiloEscolha() {
   el("visualChat").innerHTML = "";
   el("listaVisuais").innerHTML =
     `<div class="visual-escolha">
-       <div class="ve-icone">
-         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5 10.1 7.6z" fill="currentColor"/></svg>
-       </div>
        <div class="ve-titulo">${n} cop${n === 1 ? "y" : "ies"} pronta${n === 1 ? "" : "s"} pra virar direção visual</div>
        <label class="chk-label" style="margin:8px 0 4px">direções por copy
          <select id="visualQtdInicial" class="visual-variantes" aria-label="Quantidade de direções por copy">
@@ -1010,7 +1056,9 @@ function setVisuais(visuais, resposta, sessionIdVisual) {
   dadosVisuais = Array.isArray(visuais) ? visuais : [];
   sessaoVisual = sessionIdVisual || sessaoVisual;
   el("visualChat").innerHTML = "";
-  if (resposta) addVisualMsg("ai", resposta);
+  // Prosa da IA suprimida de propósito: no Estilo Visual mostramos só os cards
+  // de direção visual (o texto explicativo poluía a tela).
+  // if (resposta) addVisualMsg("ai", resposta);
   renderVisuais();
 }
 
@@ -1460,8 +1508,15 @@ function renderVisuais() {
       `<span class="tag">${escapeHtml(v.id || v.copy_id || "")}</span>` +
       `<span class="tag angulo">${escapeHtml(papelVisual)}</span>` +
       `<span class="tag angulo">${escapeHtml(v.angulo || "ângulo")}</span>` +
-      `<strong title="${escapeHtml(copyVisual)}">${escapeHtml(copyVisual)}</strong></div>` +
+      `<strong title="${escapeHtml(copyVisual)}">${escapeHtml(copyVisual)}</strong>` +
+      `<span class="visual-chevron" aria-hidden="true">›</span></div>` +
       `<textarea>${escapeHtml(v.visual || "")}</textarea>`;
+    // Sanfona (igual aos Prompts): card começa FECHADO; clicar no cabeçalho abre/fecha.
+    // Clicar no checkbox só seleciona, não abre.
+    row.querySelector(".visual-card-head").addEventListener("click", (e) => {
+      if (e.target.closest(".chk-visual")) return;
+      row.classList.toggle("aberto");
+    });
     row.querySelector("textarea").addEventListener("input", (e) => {
       v.visual = e.target.value;
       clearTimeout(visualSalvarTimer);
@@ -1543,7 +1598,7 @@ async function enviarMensagemVisual() {
     })).json();
     if (!r.ok) { toast(r.erro || "Erro ao refinar"); return; }
     sessaoVisual = r.session_id || sessaoVisual;
-    if (r.resposta) addVisualMsg("ai", r.resposta);
+    // Prosa da IA suprimida: só os cards de direção visual aparecem.
     dadosVisuais = r.visuais || dadosVisuais;
     renderVisuais();
   } catch (e) { toast("Erro de conexão"); }
@@ -1601,6 +1656,7 @@ function renderPrompts() {
         <input type="checkbox" class="chk-prompt" data-id="${escapeHtml(p.id || "")}">
         <span class="tag">${escapeHtml(p.id || "")}</span>
         <span class="tag angulo">${escapeHtml(p.angulo || "ângulo")}</span>
+        ${formatoSelo(p.formato)}
         <span class="prompt-headline">${escapeHtml(p.copy || "")}</span>
         ${p.status === "gerado" ? '<span class="tag ok">gerado ✓</span>' : ""}
         <svg class="ic chev" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2060,6 +2116,7 @@ async function carregarStatus() {
     if (existentes.has(arq)) return;
     const v = versao(arq) || Date.now();
     const src = `/criativos/${produto}/${encodeURIComponent(arq)}?t=${v}`;
+    const fmt = (s.formatos && s.formatos[idBaseArq(arq)]) || "padrao";
     const d = document.createElement("div");
     d.className = "thumb";
     d.innerHTML = `
@@ -2071,7 +2128,7 @@ async function carregarStatus() {
           <button class="btn danger btn-mini" data-acao="descartar">Descartar</button>
         </div>
       </div>
-      <div class="rod"><span>${arq}</span><button class="btn ghost btn-mini" data-acao="refinar-fora">Refinar</button></div>`;
+      <div class="rod">${formatoSelo(fmt)}<span>${arq}</span><button class="btn ghost btn-mini" data-acao="refinar-fora">Refinar</button></div>`;
     d.querySelector('[data-acao="refinar"]').addEventListener("click", (e) => {
       e.stopPropagation(); abrirRefino(arq);
     });
@@ -2125,7 +2182,14 @@ function atualizarFerramentasCriativos(s) {
 function criarSkeleton() {
   const d = document.createElement("div");
   d.className = "thumb thumb-skel";
-  d.innerHTML = `<div class="skel-img"></div><div class="skel-rod"><span class="skel-line"></span></div>`;
+  // Placeholder de geração de imagem: glow que morfa dentro do tile + badge de
+  // resolução + label com shimmer, e uma linha de legenda (o prompt) shimmerando.
+  const res = (typeof tamanhoPadrao === "function" ? tamanhoPadrao() : "1024x1024").replace("x", " × ");
+  d.innerHTML = `<div class="skel-img gen-img">`
+    + `<span class="gen-glow"></span>`
+    + `<span class="gen-res">${res}</span>`
+    + `<span class="gen-label">Gerando</span>`
+    + `</div><div class="skel-rod"><span class="skel-line"></span></div>`;
   return d;
 }
 
@@ -2164,6 +2228,24 @@ async function descartarCriativo(arq, thumbEl) {
     toast("Criativo descartado ✓");
     return true;
   } catch (e) { toast("Erro de conexão"); return false; }
+}
+
+// Descarte SEM confirmação individual (usado pela oferta em lote pós-correção do
+// QA, onde o usuário já confirmou uma vez). Move o arquivo pra descartados/ e tira
+// o thumb da grade. Devolve true/false.
+async function descartarSilencioso(arq) {
+  try {
+    const r = await (await fetch(`/api/descartar_criativo/${produto}`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ arquivo: arq }),
+    })).json();
+    if (!r.ok) return false;
+    const img = el("grade").querySelector(`img[data-arq="${CSS.escape(arq)}"]`);
+    if (img) { const t = img.closest(".thumb"); if (t) t.remove(); }
+    filaRefino = filaRefino.filter((i) => i.arq !== arq);
+    delete refinoDrafts[arq];
+    return true;
+  } catch (e) { return false; }
 }
 
 // -------------------------------------------------------------- Refino -----
@@ -2536,6 +2618,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ------------------------------------------------------------ Histórico ----
+// "+ Novas imagens" (toolbar) delega pra "Nova rodada": arquiva o lote atual e limpa a tela.
+el("btnNovasImagens")?.addEventListener("click", () => el("btnNovaRodada")?.click());
 el("btnNovaRodada").addEventListener("click", async () => {
   if (!produto) return;
   const temImagens = el("grade").querySelector("img");
@@ -2645,8 +2729,8 @@ async function criarCliente() {
     })).json();
     if (!r.ok) { erro.textContent = r.erro || "Não foi possível criar."; return; }
     fecharNovoCliente();
-    // garante a sanfona aberta (não colapsada) para o cliente novo aparecer expandido
-    const set = _lerColapsados(); set.delete(r.cliente); _salvarColapsados(set);
+    // garante a sanfona aberta para o cliente novo aparecer expandido nesta sessão
+    _clientesExpandidos.add(r.cliente);
     await carregarProdutos();
     toast(r.existente ? `Cliente "${r.cliente}" já existia ✓` : `Cliente "${r.cliente}" criado ✓`);
   } catch (e) {
@@ -3439,6 +3523,9 @@ async function corrigirQA() {
   const btn = el("btnQACorrigir");
   btn.disabled = true;
   btn.textContent = `Corrigindo ${total}…`;
+  // Fotografa os arquivos ANTES da correção: as versões corrigidas nascem com nome
+  // novo (criativo_NN_refinadoK.png), então o que aparecer a mais depois é o corrigido.
+  const antes = new Set(arqsNaTela());
   // As correções rodam em LOTE (até 6 em paralelo, config `workers`), não 1 a 1.
   const linhaProgresso = (feitos) =>
     `<span class="spin"></span> Corrigindo em lote — ${Math.min(feitos, total)} de ${total} pronta(s)…`;
@@ -3456,9 +3543,107 @@ async function corrigirQA() {
     btn.textContent = `Corrigindo ${Math.min(feitos, total)}/${total}…`;
   });
   const box = el("qaCorrigindo");
-  if (box) box.innerHTML = `<span class="spin"></span> Verificando as imagens corrigidas de novo…`;
-  // Re-verifica o estado novo (a grade agora tem as versões corrigidas).
-  await carregarQA();
+  if (box) box.innerHTML = `<span class="spin"></span> Re-verificando só as imagens corrigidas…`;
+
+  // Descobre os arquivos NOVOS (as versões corrigidas) e casa cada um com o original
+  // que foi mandado corrigir, pelo id base (criativo_NN).
+  let s;
+  try { s = await (await fetch(`/api/status/${produto}`)).json(); } catch (e) { s = {}; }
+  const todos = (s && s.arquivos) || arqsNaTela();
+  const novos = todos.filter((a) => !antes.has(a));
+  const corrigidos = [];  // { original, novo }
+  marcados.forEach((d) => {
+    const base = idBaseArq(d.arquivo);
+    const cands = novos.filter((a) => idBaseArq(a) === base).sort();
+    if (cands.length) corrigidos.push({ original: d.arquivo, novo: cands[cands.length - 1] });
+  });
+
+  // Nenhuma versão nova saiu (falha na correção): mostra a verificação geral e sai.
+  if (!corrigidos.length) {
+    if (box) box.remove();
+    toast("Nenhuma versão corrigida foi gerada");
+    await carregarQA();
+    return;
+  }
+
+  // Roda o MESMO QA só nos arquivos corrigidos (o endpoint aceita lista de arquivos).
+  let diag = [];
+  try {
+    const r = await (await fetch(`/api/diagnosticar_criativos/${produto}`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ modelo: modelo(), arquivos: corrigidos.map((c) => c.novo) }),
+    })).json();
+    if (r.ok) diag = r.diagnostico || [];
+  } catch (e) { /* sem diagnóstico: trata tudo como incerto (não oferece descarte) */ }
+  const porArq = {};
+  diag.forEach((d) => { porArq[d.arquivo] = d; });
+
+  // Classifica: correção CONFIRMADA (re-QA sem erro) x AINDA com erro.
+  const confirmadas = [];  // { original, novo }
+  const aindaErro = [];    // { original, novo, diag }
+  corrigidos.forEach((c) => {
+    const d = porArq[c.novo];
+    if (d && sevClasse(d) === "ok") confirmadas.push(c);
+    else aindaErro.push({ ...c, diag: d });
+  });
+
+  if (box) box.remove();
+  renderResultadoCorrecao(confirmadas, aindaErro);
+}
+
+// Painel pós-correção: confirma o que a re-verificação aprovou, mantém sinalizado o
+// que ainda tem erro e OFERECE descartar as versões antigas erradas (com confirmação).
+function renderResultadoCorrecao(confirmadas, aindaErro) {
+  const body = el("qaBody");
+  el("btnQACorrigir").style.display = "none";
+  el("btnQAReverificar").style.display = "";
+
+  const partes = [];
+  if (confirmadas.length)
+    partes.push(`✓ Correção confirmada em <b>${confirmadas.length}</b> imagem(ns).`);
+  if (aindaErro.length)
+    partes.push(`⚠ <b>${aindaErro.length}</b> imagem(ns) ainda com erro após a correção — mantidas sinalizadas.`);
+  const resumo = partes.join(" ") || "Sem imagens corrigidas.";
+
+  const cardConfirmada = (c) => `
+    <div class="qa-card ok">
+      <img src="/criativos/${produto}/${encodeURIComponent(c.novo)}?t=${Date.now()}" alt="${escapeHtml(c.novo)}" loading="lazy">
+      <div class="qa-info">
+        <span class="qa-arq">${escapeHtml(c.novo)}</span>
+        <span class="qa-sev ok">✓ Correção confirmada</span>
+        <div class="qa-fix">Versão antiga a descartar: <b>${escapeHtml(c.original)}</b></div>
+      </div>
+    </div>`;
+  const cardErro = (c) => {
+    const probs = (c.diag && Array.isArray(c.diag.problemas)) ? c.diag.problemas.filter(Boolean) : [];
+    return `
+    <div class="qa-card grave">
+      <img src="/criativos/${produto}/${encodeURIComponent(c.novo)}?t=${Date.now()}" alt="${escapeHtml(c.novo)}" loading="lazy">
+      <div class="qa-info">
+        <span class="qa-arq">${escapeHtml(c.novo)}</span>
+        <span class="qa-sev grave">⚠ Ainda com erro</span>
+        ${probs.length ? `<ul class="qa-probs">${probs.map((p) => `<li>${escapeHtml(p)}</li>`).join("")}</ul>` : ""}
+      </div>
+    </div>`;
+  };
+
+  const cards = confirmadas.map(cardConfirmada).join("") + aindaErro.map(cardErro).join("");
+  const acao = confirmadas.length
+    ? `<div class="qa-pos-acoes"><button class="btn primary btn-mini" id="btnQADescartarAntigas">Descartar ${confirmadas.length} versão(ões) antiga(s)</button></div>`
+    : "";
+  body.innerHTML = `<div class="qa-resumo">${resumo}</div>${acao}<div class="qa-lista">${cards}</div>`;
+
+  const btnDesc = el("btnQADescartarAntigas");
+  if (btnDesc) btnDesc.addEventListener("click", async () => {
+    const antigos = confirmadas.map((c) => c.original);
+    if (!confirm(`Descartar ${antigos.length} versão(ões) antiga(s) errada(s)? Elas vão para a pasta descartados/ (não são apagadas).`)) return;
+    btnDesc.disabled = true;
+    btnDesc.textContent = "Descartando…";
+    let ok = 0;
+    for (const arq of antigos) { if (await descartarSilencioso(arq)) ok++; }
+    toast(`${ok} versão(ões) antiga(s) descartada(s) ✓`);
+    await carregarQA();
+  });
 }
 
 el("btnVerificarImagens")?.addEventListener("click", () => {
@@ -3531,6 +3716,9 @@ function abrirFormatos() {
   el("formatosOverlay").hidden = false;
 }
 const fecharFormatos = () => { el("formatosOverlay").hidden = true; };
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el("formatosOverlay") && !el("formatosOverlay").hidden) fecharFormatos();
+});
 
 el("btnFormatos").addEventListener("click", abrirFormatos);
 el("formatosFechar").addEventListener("click", fecharFormatos);

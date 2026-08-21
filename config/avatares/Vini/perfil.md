@@ -1,0 +1,1 @@
+Homem brasileiro, 28 anos, pele negra, cabelo crespo curto, barba bem curta, expressão confiante porém natural. Creator UGC brasileiro médio, camisa lisa, sala simples de apartamento comum ao fundo, luz lateral de janela, enquadramento vertical de celular, ultra realista, sem estúdio, sem luxo e sem logos.

@@ -1,0 +1,184 @@
+[
+  {
+    "file": "ref-anuncio-01.png",
+    "from": "anuncio",
+    "ad_id": "120247409726790701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748514863_27751520857800554_7347968901309904189_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=arSzT3-TErkQ7kNvwGhPKh1&_nc_oc=AdrgvYMr2dxsPnkAO1R7Wr8xxYfSmUkj4IaUHnOTbc8u9v5m0Twz7DYD1Z2POnujx5E&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJZVTcN3BKmXDQ6AqSvGij9CayTgPqLCypSyf6rQWnevx-9KuItdnNB7qp_qYg3MPis9ypV8IH3LQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFVYlshod1KzbeBgYTcpdgY3g2rdHffNpaKZPu_A7vzsA&oe=6A8031A2"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726880701",
+    "video_id": "1019753284165524",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-03.png",
+    "from": "anuncio",
+    "ad_id": "120247409726860701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/746261142_898879722647513_7569696714702339936_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=eEvqA9GWcIkQ7kNvwFm-qxk&_nc_oc=AdrouDaOupwyhVFwIZ8uUK18U_1U87INcFHQ5YqZjf19IaqkB-3pfl2CvFRPq9HyHns&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI0ls94BX7G0uN3TgxPBT15CQfE58QFUjq1eO2mEvBZyPvHkBDVKJvS0RxnvKNRfs-3MvTUtDWoBw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQHk6kRF6wUoG-nkz7SSArbv3mTHnSX8mNE43jZiIz9smg&oe=6A804B52"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726860701",
+    "video_id": "2105820230284761",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-05.png",
+    "from": "anuncio",
+    "ad_id": "120247409726870701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/748813096_27751520837800556_8181331960085863776_n.png?_nc_cat=102&ccb=1-7&_nc_ohc=OcFoG5nGnGwQ7kNvwEiHzUi&_nc_oc=AdrsyC6KPzKeLrOhpjNRmLoQEqiYckh4KhlHyTaLvIXrA4ka0fDZjZfKSyi_5yksC4c&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI4qhkRtDUfolukPa1U8pbFBJDMWccyEgEiV8lJA4I2EPixr9ThbMSrosdLFzI33Vj2sLBXxRhotg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFb-4p8jKDPWc_YKP1BBkgYZhMJ2d74q1yKUeKErt_jnw&oe=6A804B58"
+  },
+  {
+    "file": "ref-anuncio-07.png",
+    "from": "anuncio",
+    "ad_id": "120247409726770701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748701655_27751520911133882_779088552072924757_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=uJDl5dsiGvoQ7kNvwGc2xQm&_nc_oc=Adp0-pcfavUeJw8T81w13r82Qe_zkF81yXwjM7GOZTmZNBBE3kX-DSV_0OD8NGzVEus&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQKj2OXimdEfY8XKmS65qCet23m_AVKVH8IgS_LQeLYouI_cdgvkFZrA6IbCF1IrsKaECOa6BOYLVA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQGdkDXyXkU-fq0i9dsAqV5tZDO-17dj2PKdokVD16EHIQ&oe=6A803786"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726850701",
+    "video_id": "2929277127436210",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726820701",
+    "video_id": "1347850837499591",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-10.png",
+    "from": "anuncio",
+    "ad_id": "120247409726810701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748908191_27752237444395562_3064707310919657976_n.png?_nc_cat=108&ccb=1-7&_nc_ohc=sYlvkNXm8C4Q7kNvwGgOinD&_nc_oc=AdqilBJGjCMPV5rfdKgztyEqqVr0E4UYRQnDChxZbY931HCzmwJ1H_tM5_V_eEGK034&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=4kplkOsbRhFiocgPxTDaLQ&_nc_tpa=Q5bMBQKQ8zE4k3qz-mxcQ_-3wD7DA7bJyd2NkUejJtHCsXGGbOw99aTkHA3jjvWh92vUfj0sprxFt-66fg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFFVYKTQvoQkZZWNxvH7bhO7Wx63-zqw9NMo4_OSqJylQ&oe=6A806201"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726750701",
+    "video_id": "1368387311292772",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-12.png",
+    "from": "anuncio",
+    "ad_id": "120247409726740701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748359622_27752237464395560_3733243911004973784_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=gI4SeCdYxFUQ7kNvwF8VUee&_nc_oc=AdrvK2JFa2UhALdYeTI7-KW8tQf56uoMuwUhIKYK3J3f6zdwtfL7VfWzJGAQPBIOhcg&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=4kplkOsbRhFiocgPxTDaLQ&_nc_tpa=Q5bMBQJVj8IHoqImWqeaWUgSRjeiHEm_oXRoplQt2TMnwbMY1L1zaF2r89Lt0stfC7wr7mXwTRqqcMV5KA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQGmQPAuje5UFI8Uswx95Eycm_gj7iYwTT-CcOO05LplzA&oe=6A805CCA"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726840701",
+    "video_id": "1383657960356042",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-14.png",
+    "from": "anuncio",
+    "ad_id": "120247409726780701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748536393_27751709057781734_6986262656744764573_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=Cb2F652FrSgQ7kNvwHCyCty&_nc_oc=AdqHDofUFoxJl8tBcY1em1iJbLTloyWQHOFdemvBLQs3X7dHK93tOeXFl2iO1GUQgXw&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=4kplkOsbRhFiocgPxTDaLQ&_nc_tpa=Q5bMBQIWmmp0aJxAG7iirtMHaNYyIBLFKB7Xx6FCYNwa8rILktyQnkTxbziFuTqFccI0dSRKIOOlVWr_eg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFBAyKiRl5LA6PLjeilwN9ye5O8VWwvXjglpASvSrWuiQ&oe=6A806456"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120247409726800701",
+    "video_id": "1050224304160349",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-16.png",
+    "from": "anuncio",
+    "ad_id": "120246909287060701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748359622_27752237464395560_3733243911004973784_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=gI4SeCdYxFUQ7kNvwFUygna&_nc_oc=AdqhLNPzYwDl6xyqeA4OrO-UvoiiUVv0cnf8URr4WyMbcCrHOrf_4RpNWeT71oBUyM4&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQK3qfamuRAuTAdJ0YyzrB5x4u2MSIs8u1YfgihhVtSRJ8ab8OU41M1ZMPM9NN5U6P0EU07XS8ZJnw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQHzAwux0IDSqdr14H5FUrsn1MPlYWAMqSwiJM6NWCd7Zw&oe=6A80248A"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246907598990701",
+    "video_id": "1353057527020402",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-19.png",
+    "from": "anuncio",
+    "ad_id": "120246906440510701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748536393_27751709057781734_6986262656744764573_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=Cb2F652FrSgQ7kNvwHgwnBA&_nc_oc=Adod_RjKXYCkSYceHpnHirUqx5B0HYoL2_XPA_BXOEqTg-n-O4OqqYOvBkK8DxF6QEc&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIAGZNWsoJ-cbfpoe8ANCFb_upTGsUfX23prQaiozrxoaKZSWkd0FY6Q1VyddqAa-PtwLMrcgN9lA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFFGkTMGJHoy7VFKShPGk25O2mB4Pt4f2JhqoCrD-Ghtg&oe=6A802C16"
+  },
+  {
+    "file": "ref-anuncio-20.png",
+    "from": "anuncio",
+    "ad_id": "120246906419920701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748514863_27751520857800554_7347968901309904189_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=arSzT3-TErkQ7kNvwGhPKh1&_nc_oc=AdrgvYMr2dxsPnkAO1R7Wr8xxYfSmUkj4IaUHnOTbc8u9v5m0Twz7DYD1Z2POnujx5E&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQLY1gve0ixF8KC6KytyjNjI2JyhpiqfWdkqhy6VrcpM0wGnsH2T23vZTlKJrRfXq780VIsRebzypg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQF_0JYJpxO6puNKg2tTRSCUlslEQNRuTg0vOdMUPiROXg&oe=6A8031A2"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246907551580701",
+    "video_id": "1447670100902896",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246907560610701",
+    "video_id": "2091177188493423",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-23.png",
+    "from": "anuncio",
+    "ad_id": "120246908886230701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748908191_27752237444395562_3064707310919657976_n.png?_nc_cat=108&ccb=1-7&_nc_ohc=sYlvkNXm8C4Q7kNvwEkbo4N&_nc_oc=Adqd3DtJ6O0ZD0m7nfFjGFZiSpj8lb2xs1mpy8Uv0edKFfG_N3NPa0k091RDCE4MTr4&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQKrz8b2KGy-k_UH50bGfw1FxGpFKUkuLDJWrBn2JPawKkmP7nugepz41BJGCgXBQGinkB_6HMIV9w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFmH6hVdqWLLyZj9YFbHAtzKCQaAO1w739M_D4s6O8VEA&oe=6A8029C1"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246906531100701",
+    "video_id": "2271930320217239",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246907583360701",
+    "video_id": "1825382698869802",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246907566660701",
+    "video_id": "1479946530569060",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": null,
+    "from": "anuncio-video",
+    "ad_id": "120246907574560701",
+    "video_id": "925590260568356",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  {
+    "file": "ref-anuncio-29.png",
+    "from": "anuncio",
+    "ad_id": "120246905359390701",
+    "field": "thumbnail_url",
+    "url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/748813096_27751520837800556_8181331960085863776_n.png?_nc_cat=102&ccb=1-7&_nc_ohc=OcFoG5nGnGwQ7kNvwEiHzUi&_nc_oc=AdrsyC6KPzKeLrOhpjNRmLoQEqiYckh4KhlHyTaLvIXrA4ka0fDZjZfKSyi_5yksC4c&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJSsLliT9Xdgz9p3kSWglcYuHiF6JZ_AcV8MWM_Cuf59Ehj7rXgll3hvKY09xm4_H7KeIRtHThn8A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFXx9n9vZM5ggOwPGEEK6r1AXjoQaRt9Y4YxAuZxXOVOQ&oe=6A804B58"
+  }
+]

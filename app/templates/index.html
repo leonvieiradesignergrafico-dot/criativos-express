@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ brand_nome|default('Impressora de Criativos') }}</title>
-  <link rel="stylesheet" href="/static/style.css?v=20260810-1">
+  <title>{{ brand_nome|default('Ads Express') }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/static/style.css?v=20260817-v13">
   {% if brand == 'collab' %}<link rel="stylesheet" href="/static/brand-collab.css?v=20260729-4">{% endif %}
 </head>
 <body>
@@ -12,20 +15,18 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="brand">
+        <a class="brand-back" href="/" title="Trocar de ferramenta (criativos em vídeo)" aria-label="Voltar para a escolha de ferramenta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </a>
         {% if brand_logo %}
         <img class="brand-logo" src="{{ brand_logo }}" alt="{{ brand_nome }}">
         {% else %}
-        <span class="dot">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 22H4a2 2 0 0 1-2-2V6"/>
-            <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/>
-            <circle cx="12" cy="8" r="2"/>
-            <rect width="16" height="16" x="6" y="2" rx="2"/>
-          </svg>
-        </span>
-        <h1>{{ brand_nome|default('Impressora de Criativos') }}</h1>
+        <img class="brand-wordmark" src="/static/ads-express.png?v=2" alt="Ads Express">
         {% endif %}
+        <span class="brand-sub">Imagem</span>
       </div>
       <div class="side-label">Produtos</div>
       <ul class="produtos" id="produtos"></ul>
@@ -47,6 +48,7 @@
           <div class="titulo" id="tituloProduto">Nenhum produto</div>
           <div class="sub" id="subProduto">selecione um produto à esquerda</div>
         </div>
+        <button id="btnNovasImagens" class="btn ghost mini novo-inline" type="button" title="Arquiva a rodada atual e começa um lote novo de imagens">+ Novas imagens</button>
         <div class="spacer"></div>
         <div class="segmented" id="steps">
           <button data-step="contexto"><span class="stepnum">1</span> Contexto</button>
@@ -87,6 +89,14 @@
                     <input id="nomeProdutoTxt" type="text" maxlength="80">
                     <button class="btn ghost" id="btnRenomearProduto" type="button">Renomear produto</button>
                   </div>
+                </div>
+                <div class="ctx-tipo-produto">
+                  <label>Tipo do produto</label>
+                  <div class="segmented" id="ctxTipoProduto" role="group" aria-label="Tipo do produto">
+                    <button type="button" data-tipo="fisico">Físico</button>
+                    <button type="button" data-tipo="digital">Digital</button>
+                  </div>
+                  <p class="ctx-hint">Físico = mostra o objeto; Digital = mostra uma tela/app.</p>
                 </div>
                 <p class="ctx-hint">Regras, tom, oferta e regras visuais. É o que a IA mais respeita.</p>
                 <textarea id="configTxt" class="ctx-config" spellcheck="false" placeholder="# Configuração do produto..."></textarea>
@@ -160,13 +170,6 @@
         <div class="step ativo" id="step-copies">
           <div class="chat" id="chat">
             <div class="vazio-central" id="chatVazio">
-              <div class="icone">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5 10.1 7.6z"
-                    fill="currentColor"/>
-                  <path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" opacity=".55"/>
-                </svg>
-              </div>
               <div class="big">Selecione um produto</div>
               Escolha um produto na barra lateral para começar a criar as copies num chat com o Claude.
             </div>
@@ -184,25 +187,27 @@
           </div>
           <div class="chat-input">
             <input type="file" id="anexoInput" accept="image/png,image/jpeg,image/webp" multiple hidden>
-            <button class="btn ghost formatos-btn" id="btnFormatos" type="button" title="Escolher os formatos dos criativos" aria-haspopup="dialog">
-              <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <span id="formatosBtnLbl">Padrão</span>
-            </button>
-            <button class="btn ghost anexar" id="btnAnexar" title="Anexar imagem de referência" aria-label="Anexar imagem">
-              <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M21 11.5l-8.6 8.6a5 5 0 01-7-7l8.5-8.6a3.3 3.3 0 014.7 4.7l-8.5 8.5a1.7 1.7 0 01-2.4-2.4l7.8-7.8"
-                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            <textarea id="chatInput" rows="1" placeholder="Descreva o que você quer... (ex: quero 6 copies em 3 ângulos focados em pertencimento)"></textarea>
-            <button class="btn primary send" id="btnEnviar" title="Enviar">
-              <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 19V6M12 6l-6 6M12 6l6 6" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
+            <div class="composer">
+              <button class="btn ghost formatos-btn" id="btnFormatos" type="button" title="Escolher os formatos dos criativos" aria-haspopup="dialog">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <span id="formatosBtnLbl">Padrão</span>
+              </button>
+              <button class="btn ghost anexar" id="btnAnexar" title="Anexar imagem de referência" aria-label="Anexar imagem">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M21 11.5l-8.6 8.6a5 5 0 01-7-7l8.5-8.6a3.3 3.3 0 014.7 4.7l-8.5 8.5a1.7 1.7 0 01-2.4-2.4l7.8-7.8"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <textarea id="chatInput" rows="1" placeholder=""></textarea>
+              <button class="btn primary send" id="btnEnviar" title="Enviar">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 19V6M12 6l-6 6M12 6l6 6" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
           </div>
 
           <!-- Popup de Formatos: escolha (multi) dos formatos do lote -->
@@ -212,7 +217,7 @@
                 <strong id="formatosTit">Formatos do criativo</strong>
                 <button class="formatos-x" id="formatosFechar" type="button" aria-label="Fechar">&times;</button>
               </div>
-              <p class="formatos-sub">Marque os formatos que quer gerar. O primeiro marcado é o formato ativo do lote.</p>
+              <p class="formatos-sub">Escolha o formato do lote. O primeiro marcado é o que será gerado agora (dá pra deixar outros marcados e alternar depois).</p>
               <div class="formatos-lista" id="formatosLista"></div>
               <div class="formatos-acoes">
                 <button class="btn ghost" id="formatosCancelar" type="button">Cancelar</button>
@@ -224,7 +229,6 @@
 
         <!-- Passo: Estilo visual -->
         <div class="step" id="step-estilo">
-          <p class="ctx-hint">Aqui você decide as <b>cenas</b> de cada copy (você escolhe quantas direções gerar por copy e pode refiná-las no chat). Ao enviar para Prompts, cada direção aprovada vira um prompt final com os textos da arte. Quer um influenciador cadastrado na cena? Peça com <b>@Nome</b> (ex.: "as duas primeiras com a @Julia") — o @ segue junto até a geração da imagem.</p>
           <div class="visual-referencias">
             <div class="visual-ref-col">
               <div class="visual-ref-title"><strong>Referências de estilo</strong><span>imagens para inspirar composição, luz, paleta e direção visual</span></div>
@@ -472,7 +476,7 @@
               stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span class="esc-card-tit">Adicionar Cliente</span>
-          <span class="esc-card-sub">Cria uma sanfona nova para agrupar produtos</span>
+          <span class="esc-card-sub">Cadastre um novo cliente</span>
         </button>
         <button class="esc-card" id="escProduto" type="button">
           <svg class="esc-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -670,6 +674,6 @@
   </div>
 
   <div class="toast" id="toast"></div>
-  <script src="/static/app.js?v=20260810-1"></script>
+  <script src="/static/app.js?v=20260817-3"></script>
 </body>
 </html>

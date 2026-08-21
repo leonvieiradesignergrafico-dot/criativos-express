@@ -1,0 +1,1 @@
+Mulher brasileira, 27 anos, pele clara oliva, cabelo ruivo escuro ondulado na altura do peito, sorriso discreto e espontâneo. Creator UGC de rotina, roupa básica lisa, sala comum de apartamento brasileiro com estante simples e luz lateral de janela. Natural, plausível, sem estúdio, sem luxo, sem logos.

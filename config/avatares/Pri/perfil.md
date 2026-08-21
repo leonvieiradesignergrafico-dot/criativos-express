@@ -1,0 +1,1 @@
+Mulher brasileira, 25 anos, pele morena clara, cabelo castanho cacheado volumoso, sorriso aberto e natural, aparência cotidiana. Creator UGC casual, blusa lisa, cozinha ou sala de casa brasileira média ao fundo, luz natural e enquadramento de celular. Realista, espontânea, sem glamour de estúdio e sem logos.

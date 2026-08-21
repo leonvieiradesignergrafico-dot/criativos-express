@@ -1,0 +1,1 @@
+Mulher brasileira, 22 anos, pele parda, cabelo preto liso longo, rosto oval e expressão alegre. Blogueira casual brasileira média, camiseta lisa, ambiente de quarto ou sala simples de casa média, fundo levemente desorganizado mas agradável, luz natural de celular. Ultra realista, sem modelo profissional e sem logos.

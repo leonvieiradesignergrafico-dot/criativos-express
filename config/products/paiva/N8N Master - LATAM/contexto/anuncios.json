@@ -1,0 +1,127 @@
+[
+  {
+    "id": "120241988044650355",
+    "name": "abril15",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-n8n-abril-21-04-{SM-1007}",
+    "adset_id": "120241988044550355",
+    "copy": {
+      "message": "DOMINA N8N Y AUMENTA TUS INGRESOS HASTA 3 VECES\n\n• Descubre el secreto para cobrar más por automatizaciones avanzadas\n• N8N Master: método integral que te enseña a dominar N8N y herramientas clave para destacarte en la industria. ¿Estás listo?",
+      "headline": "Domina N8N por $10 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://vfxart.com.br/n8n-master-latam",
+    "creative": {
+      "id": "1031309650071387",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/645204532_1533280558133276_6438085283575596539_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=2k3TyC51hs8Q7kNvwEprrNP&_nc_oc=Ado7pTRfWsQvJ9XgguEeEV1rzYKhgkc_KrCv15io5Keo6cRdyC_Tj5c-HiSkN0Id6lI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=_IrbjsO3S3esDsT0P6eP1Q&_nc_tpa=Q5bMBQI1MPrxobddP1uajn-XAGnkaRgX-4OVZWQbbVuZ3mvz-qh9ojjbmQIjdZmEXUKHGZjH-oKi2jxvSQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=b696e2&_nc_sid=58080a&oh=00_AQGWOo5sVIT1QO28W9yY86G05XuReOmu1fbKvI0iarIW6A&oe=6A805732",
+      "video_id": "1630834317949427",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120245988406930355",
+    "name": "junho3",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-n8n-junho-15-06-{SM-1007}",
+    "adset_id": "120245988406880355",
+    "copy": {
+      "message": "DOMINA N8N Y AUMENTA TUS INGRESOS HASTA 3 VECES\n\n• Descubre el secreto para cobrar más por automatizaciones avanzadas\n• N8N Master: método integral que te enseña a dominar N8N y herramientas clave para destacarte en la industria. ¿Estás listo?",
+      "headline": "Domina N8N por $10 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://vfxart.com.br/n8n-master-latam",
+    "creative": {
+      "id": "1469782201589068",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t15.5256-10/716070035_1019365560775920_236597703403732973_n.jpg?_nc_cat=105&ccb=1-7&_nc_ohc=xtycy8r5l1IQ7kNvwFDIS1l&_nc_oc=AdpzMcJix_ICtxWraxGqUdxlBJS0WuA3zggputkr4LtLnxIFuwqIWwaAC2-7BgwvxfQ&_nc_zt=23&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=_IrbjsO3S3esDsT0P6eP1Q&_nc_tpa=Q5bMBQIwEIhs4hjbg0vU_TeqRG_4QxvSaUydyiB1QE6Xa2YZxbuE0rbQoXpDqGm5VOysqtyndZ_q2Lv1ew&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=b696e2&_nc_sid=58080a&oh=00_AQF4UW7RoIv4FqILQVZJS32uwebjTViNDCe_P2ePZt_x7g&oe=6A8042F3",
+      "video_id": "1311507047761571",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120241988044660355",
+    "name": "abril2",
+    "status": "ACTIVE",
+    "effective_status": "ACTIVE",
+    "campaign_name": "cbo-n8n-abril-21-04-{SM-1007}",
+    "adset_id": "120241988044550355",
+    "copy": {
+      "message": "DOMINA N8N Y AUMENTA TUS INGRESOS HASTA 3 VECES\n\n• Descubre el secreto para cobrar más por automatizaciones avanzadas\n• N8N Master: método integral que te enseña a dominar N8N y herramientas clave para destacarte en la industria. ¿Estás listo?",
+      "headline": "Domina N8N por $10 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://vfxart.com.br/n8n-master-latam",
+    "creative": {
+      "id": "911843648513449",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/671201292_1264237122487409_340925836085562225_n.jpg?_nc_cat=111&ccb=1-7&_nc_ohc=PqA_w1bic7IQ7kNvwFOcH0-&_nc_oc=AdrZzUijBTC5qZ1MkmhAp5mdSBor1P8jRHkRt9OT7Ag8cCtCdb5xpUhZ8hqF5GSFANs&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=_IrbjsO3S3esDsT0P6eP1Q&_nc_tpa=Q5bMBQK0drPFehdf1syzTNzLmsd5n4hfC9Iyg7fehbtyOXiw0D7stXexpGpb1DpnLAGb6ed-78EJ_cFdpQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=b696e2&_nc_sid=58080a&oh=00_AQEhgIqqz6_fQWNKzYkTlSfjG3o1ouM8jaxpYGpKGWsPlA&oe=6A802C6C",
+      "video_id": "1646652713240710",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120241988044680355",
+    "name": "abril6",
+    "status": "ACTIVE",
+    "effective_status": "ACTIVE",
+    "campaign_name": "cbo-n8n-abril-21-04-{SM-1007}",
+    "adset_id": "120241988044550355",
+    "copy": {
+      "message": "DOMINA N8N Y AUMENTA TUS INGRESOS HASTA 3 VECES\n\n• Descubre el secreto para cobrar más por automatizaciones avanzadas\n• N8N Master: método integral que te enseña a dominar N8N y herramientas clave para destacarte en la industria. ¿Estás listo?",
+      "headline": "Domina N8N por $10 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://vfxart.com.br/n8n-master-latam",
+    "creative": {
+      "id": "1676128323387066",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/673074743_26550486297923511_7194855958096800114_n.jpg?_nc_cat=110&ccb=1-7&_nc_ohc=TkjYbvgDO_EQ7kNvwEUSiUr&_nc_oc=AdpBsZ5qNVAzgqo2JwPlda7ReRmByiuwTxoJ1RXGyphTIgdLop0iuFLNxKHezvlGIIY&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=_IrbjsO3S3esDsT0P6eP1Q&_nc_tpa=Q5bMBQI04WWeF-5ntCpS77CJaLB8uw54xgcvQTF9vqTRfwHMYrlB4jCHxTMMcxueEdP3R6vO6_KvEZuZ8w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=b696e2&_nc_sid=58080a&oh=00_AQFWXKS2Xnfg-oXofgalJ6pqStmdWFrVG2hzcdZ-NaRUow&oe=6A804228",
+      "video_id": "2029652604633821",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120241988044670355",
+    "name": "abril7",
+    "status": "ACTIVE",
+    "effective_status": "ACTIVE",
+    "campaign_name": "cbo-n8n-abril-21-04-{SM-1007}",
+    "adset_id": "120241988044550355",
+    "copy": {
+      "message": "DOMINA N8N Y AUMENTA TUS INGRESOS HASTA 3 VECES\n\n• Descubre el secreto para cobrar más por automatizaciones avanzadas\n• N8N Master: método integral que te enseña a dominar N8N y herramientas clave para destacarte en la industria. ¿Estás listo?",
+      "headline": "Domina N8N por $10 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://vfxart.com.br/n8n-master-latam",
+    "creative": {
+      "id": "974065708289209",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/670891512_951915840923664_7463592627149225768_n.jpg?_nc_cat=110&ccb=1-7&_nc_ohc=zGjc9ummqeYQ7kNvwGy8peS&_nc_oc=AdqlP2qAM7Nsfsb_P_XSC18vGx7WDPj9A7gbDjGD4IvqQo-gcjQo4Bcq1DY6kUxGPks&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=_IrbjsO3S3esDsT0P6eP1Q&_nc_tpa=Q5bMBQISjdr5sxr4SO3wlzTIjLlqGEsSUOOVrrpbkV3BUDpUzpEWdSzmGXJ-SMlYtLFplE37tnnQybRCmA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=b696e2&_nc_sid=58080a&oh=00_AQGyvC7n_AOaNUGh_6qZqZEvsl8RKMO1nih1m5kQ_qnGUA&oe=6A802A34",
+      "video_id": "944592511806816",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  }
+]

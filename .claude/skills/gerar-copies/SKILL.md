@@ -66,7 +66,7 @@ Toda copy que sai daqui PRECISA ter, sem exceção:
 > derruba CTR e conversão. Diagnostique consciência + sofisticação ANTES de escrever (cérebro).
 
 ### Calibração por FORMATO (o gancho vive em lugares diferentes)
-- **Imagem estática:** o gancho é a HEADLINE (lida em 2s, no mudo). Referência 6 a 10 palavras; o teste de 2 segundos manda, alto impacto sem cortar o payload.
+- **Imagem estática:** o gancho é a HEADLINE (lida no mudo, de relance). SEM limite de palavras: diga a promessa completa e concreta, alto impacto, nunca cortada pela metade nem vaga.
 - **Carrossel:** o card 1 é o gancho puro (pattern interrupt); os cards seguintes entregam prova,
   mecanismo, objeção, oferta — um argumento por card, sequência com progressão, nunca 5 vezes o mesmo.
 - **Vídeo UGC / motion:** o gancho são os **primeiros 3s** (fala + primeiro frame + legenda no
@@ -145,19 +145,19 @@ O input **sempre começa pelo prompt do usuário** (o que ele quer). Identifique
    diretamente. **Não gere as copies antes de o usuário aprovar/ajustar os ângulos.**
 
 4. **Gere as copies.** Cada copy é composta de DUAS camadas (definidas no cérebro):
-   - **Copy de imagem** (o que vai estampado no criativo estático — curta, mas a régua é
-     IMPACTO E CLAREZA, não a contagem de palavras; nem verbosa, nem telegrama vazio):
-     - **Headline:** referência 6 a 10 palavras, teste de 2 segundos manda (não a contagem),
-       com substância — tensão, promessa, emoção ou identidade **E o resultado prometido**
-       (REGRA DO PAYLOAD do cérebro). Curta e vazia reprova tanto quanto longa; tensão sem
-       payload reprova tanto quanto descrição sem gancho.
-     - **Apoio:** o PADRÃO do texto de apoio na arte. Parágrafo de 2 a 3 linhas (~15 a 30
-       palavras) no estilo dos anúncios de referência, preenchido em praticamente todo criativo.
-       Prosa com emoção/benefício, nunca lista "X, Y, do Z", nunca muito maior que 3 linhas.
-       Uma linha solta curta é fina demais, deixa a arte pobre: na dúvida, escreva o parágrafo.
+   - **Copy de imagem** (o que vai estampado no criativo estático — a régua é COMPLETUDE,
+     IMPACTO E CLAREZA, SEM limite de palavras; nem verbosa/parede de texto, nem telegrama vazio):
+     - **Headline:** SEM contagem de palavras. Diga a promessa COMPLETA e concreta (tensão,
+       emoção ou identidade **E o resultado prometido** com âncora — REGRA DO PAYLOAD do cérebro).
+       PROIBIDO headline vaga ou cortada pela metade só pra ficar curta; completude vem antes de
+       brevidade. Ainda tem que ler bem de relance (é um outdoor).
+     - **Apoio:** o PADRÃO do texto de apoio na arte. Parágrafo em prosa no estilo dos anúncios
+       de referência, do tamanho que o argumento pedir sem virar parede de texto, preenchido em
+       praticamente todo criativo. Emoção/benefício, nunca lista "X, Y, do Z". Uma linha solta
+       curta é fina demais: na dúvida, escreva o parágrafo completo.
      - **Subheadline:** alternativa RARA de uma linha; por padrão vazia. Só use (e aí sem apoio)
        no caso raro de querer uma frase seca de destaque. Nunca as duas juntas.
-     - **CTA:** 2 a 3 palavras, verbo de ação, cabe num botão.
+     - **CTA:** verbo de ação, curto o bastante pra caber num botão.
    - **Corpo/legenda** (o texto do anúncio no feed): NÃO vai na imagem, então pode e deve
      vender à vontade — desenvolva dor, prova e objeção, com primeira linha forte e frases
      curtas. Os limites de tamanho valem só para o texto da arte, nunca para o corpo.
@@ -176,10 +176,10 @@ O input **sempre começa pelo prompt do usuário** (o que ele quer). Identifique
 
    ## Ângulo 1 — <nome do ângulo>
    ### Copy 1
-   **Headline:** ...            <!-- copy DE IMAGEM, ref. 6-10 palavras, com payload -->
-   **Apoio:** ...               <!-- PADRÃO: parágrafo de 2-3 linhas p/ a arte, quase sempre presente -->
+   **Headline:** ...            <!-- copy DE IMAGEM, SEM limite de palavras, completa e com payload -->
+   **Apoio:** ...               <!-- PADRÃO: parágrafo em prosa p/ a arte, quase sempre presente -->
    **Subheadline:** ...         <!-- RARA: uma linha; por padrão omita -->
-   **CTA:** ...                 <!-- 2 a 3 palavras, botão -->
+   **CTA:** ...                 <!-- verbo de ação, cabe no botão -->
    **Corpo:** ...               <!-- legenda/copy longa do anúncio -->
    ```
 
@@ -191,10 +191,10 @@ O input **sempre começa pelo prompt do usuário** (o que ele quer). Identifique
 - Nunca contrarie o `config.md` (oferta, proibições, tom).
 - Não prometa o que o produto não entrega.
 - Fidelidade ao produto real acima de criatividade solta.
-- **Copy de imagem: equilíbrio, não telegrama.** Headline ref. 6 a 10 palavras (teste de 2
-  segundos manda) MAS com substância/emoção/payload; subheadline opcional até ~10 e sempre em
-  FRASE (nunca lista "X, Y, do Z" de palavras-chave; sem frase boa, deixe vazia); CTA até 3.
-  Se estourar o tamanho, encurte sem cortar o payload; se ficar curto e vazio, dê substância.
+- **Copy de imagem: completude, não telegrama.** Headline SEM limite de palavras, com
+  substância/emoção/payload completos e concretos (nunca vaga nem cortada pela metade);
+  subheadline opcional sempre em FRASE (nunca lista "X, Y, do Z"; sem frase boa, deixe vazia);
+  CTA curto pra caber no botão. Se ficar curto e vazio, dê substância; nunca corte o payload.
 - **PROIBIDO hífen e travessão no texto da copy** (`-`, `–`, `—`). Deixam cara de IA.
   Use vírgula, ponto, dois-pontos, parênteses ou quebre em duas frases. Vale para
   toda copy de todo produto.

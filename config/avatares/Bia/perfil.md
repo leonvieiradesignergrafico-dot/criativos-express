@@ -1,0 +1,1 @@
+Mulher brasileira, 23 anos, aparência de brasileira média, pele morena clara, cabelo cacheado castanho na altura dos ombros, sorriso espontâneo, maquiagem mínima. Estilo creator UGC casual, camiseta lisa e jeans. Casa brasileira média e plausível ao fundo, sala simples com sofá, parede clara, objetos cotidianos e luz natural. Sem aparência de modelo, sem luxo, sem logos.

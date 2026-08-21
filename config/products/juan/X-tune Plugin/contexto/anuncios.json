@@ -1,0 +1,777 @@
+[
+  {
+    "id": "120242636701580658",
+    "name": "Promoção",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-xtune-estaticos-23-05{SM-7354}",
+    "adset_id": "120242636701570658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1655221292190115",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/706188012_4271767509738105_3013547840962259638_n.png?stp=dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=B3P23lTKSbkQ7kNvwGjMPj1&_nc_oc=AdpD73vh7RKN2fKWPBpxzLIO03VUgsnbJFbgHtOyftb8P7Wx2K0e6I2j619jQ-P2msE&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQKp5VfZUyCqiYRrO2RcK0B_39d6Ko5sroNGmKd6tr8cJJn6IeHxFQS8Cd5TAEOMET8SSMwTg0ihpQ&oh=00_AQEnKpjXz8FFPh3F9Pe5DIA5GWlUIiB4Gf6G_2S7E96ifw&oe=6A804C87",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/18397463504166262491?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQIxgp9AiXw3Ig0A9kTG91oJ8q-cNCJ0Ho98Qsc2zDi4WRaPLFMQSCQJr4IGK8eJp2TLkmMR61koqYKzyfqLpb-Qs8z0aRBaOI5ITP1tdV_zG_VXp7L8iAmwsQPMAp-MqOIAHgs43nXECuf89ICYU0vF&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adro0EZv4brsdEnm61loM4MhK9aTw2yCtfFDP64oxg1fMxEsUFCMfnedMG6KqJoLWcQ&ccb=13-1&oh=06_Q3_CAXRPA0kO4YhvzfiJ48GR6mkI6-53j15j7Hd5FTIahjW3&oe=6A7C39A2&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120242636870860658",
+    "name": "Vocal amador",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "abo-xtune-estaticos-23-05{SM-7354}",
+    "adset_id": "120242636870810658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1114481734678868",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/706276976_4271768249738031_4136342956005354515_n.png?stp=dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=g303fXfxVWQQ7kNvwHWN8D2&_nc_oc=AdqyulmayeXHVXl_9oeFERcUcMFO6_wz8ordHfomKjFu9vUXOkCbybyminkupAxGEFE&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQKxV2B9eA0fSRoaM5d5FIYYpDxqC0_F69SPas_UoXLQY0-DPVdL7iUgXT-_GhVABsgiSnueZN4iOw&oh=00_AQEcjiRCrrTJ3795bZfsRA92yq_nIkis7Wm-QOG2x5OsiQ&oe=6A803102",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/5264828130591410335?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQL35SCqtBwEbeYt78IAl9ohjgTDJLh_xpBuOnXd2tforEdQ3vIjIUIdn_BA0oy53p4Nu8TQw8NIspeL4kt8fCCHuDySwxJM9Qys1-6a3-dFLZxenEYqy2vOrOngKc5p95pvkiJXAkSLPgb0Kujs-n0w&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adp9iCQ34WJMLgjCr1VyQd4bYJCF9AdJRnLAxgs-LGLgzTLxsQF4ZURx0p9tvd-goIE&ccb=13-1&oh=06_Q3_CAUfrsVJOyvGPwsSdo3vxb4wOoEnHFDWPt3nnpNmByBKW&oe=6A7C2A19&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120242636870840658",
+    "name": "Trio",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-xtune-estaticos-23-05{SM-7354}",
+    "adset_id": "120242636870830658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1532761251786062",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/706236975_4271768166404706_4193152971059706127_n.png?stp=dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=yvEfyTAtBv0Q7kNvwFs__mR&_nc_oc=AdrbFgXb5h2zFS0yO1KjmkZvaI2l7q4RURbxYXh-DjKiG8E8CZn-gdHYDWh0jkcJClI&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJhU_oK9fHZxnZP7HMWHDF_FJP5E6iWsoAIFxWKGnvocPKnw2Jf8Dsf989aOk1G2Zci_kAE5G9D9g&oh=00_AQEwyBus7rPKKwakTxti0XwQSed1xUSHV8VaLcResr7SVw&oe=6A803006",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/6618801744763894364?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQIXBhLeRijepNjI1JWEdXUQ0BoMdWe5rdHV5QY8HlyZNWh0yxT2eGmK5_0Orp5VYfPlN0b46_oJO3ZZSrIHOdXmGSz_DOEzMNyEqBXeB62Jfh2hL9lh9a5Dg9CAE6gAKfLC3j-2eYzAsviJPTpLWQIA&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdoPfTmekWmohutS_IABFfOrZ2whbPZi_1quThbPi8tUc4Yq43WdmxXZ2L4ofRCzMwE&ccb=13-1&oh=06_Q3_CAV-tLfucT4uPhpSIxqovi6eRZoWkBT6_uOJwM0g4-m2V&oe=6A7C2B16&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120242636870870658",
+    "name": "Hits",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "abo-xtune-estaticos-23-05{SM-7354}",
+    "adset_id": "120242636870800658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "2179520849473016",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/706504466_4271768036404719_4408755790471600801_n.png?stp=dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=XeVk8rV1D4EQ7kNvwE8Cndk&_nc_oc=AdrysNnMYlkkokWVzRICiJIdfCDUcUDrnFww1biAWYG-V-1xc55Cg-Xmg4o3qTbXmZE&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQK0nvgXEpnpyDFLkA-SemDGFDDEGp_zpuCdEadoC0i7iTWyLI0joSO1xyxfaptWXRXML9lXQ1xEZQ&oh=00_AQEIDFwpYJzUR6FqBOTkVBrgCdGqysvBivhB4gpn1V_1gw&oe=6A8032D8",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/1306108932071231023?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQI4Xz0LoNXadDmVOPEFR3SLZnAkO9TVsVVlBoPs-tBLwVQhckMVEaBr_J3V2cjr5b8rFjrjIosB-QgDtwGrwiLLYn6ToAAEvPJtQ7o4dBBAT63ah6V1QwYQ1Pc5HA6WVZtZyumrGpqctdpAts9B19uc&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adpg8IDk1iXXNrDmcF6nulMKSyzumk9aymmunfyJtVffsZLHV65lCZG13bN5v7GF2o8&ccb=13-1&oh=06_Q3_CAQyFZMqlhw4TlxZ4J4fJImRC21VG9UFkeGNH9mFVxn1T&oe=6A7C487A&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120242636870820658",
+    "name": "Preço absurdo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "abo-xtune-estaticos-23-05{SM-7354}",
+    "adset_id": "120242636870850658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "2451359858722928",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/706197707_4271768513071338_6830308389060975061_n.png?stp=dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=c2wUleF1aEwQ7kNvwG0T1wH&_nc_oc=Adr0SJ1u15vtBJWdIVP5uprEU3lGzHnxcZA8dDQWUswglCJU9rEo5oXC7fsHLmsXLfE&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJtfB6hqc7ha2tjSvp9JAkpnU-qO6q-a5-dmFRgPTjF2L_2VaHvjiFLi9fsaRVGWSQneC_fTsA08g&oh=00_AQEsiq-A-LOf0KKEe5vSwxdXReMxk9SvdBBZtJaHcR3MHQ&oe=6A8038AA",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/14670229923686282347?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQIg82oL2-8Tc8ORi1gzLdMx5LMXy3PceoFwyJWJTZCUKhKpLUbeSvhfzVJq4OqQqmKMzZ7R27TcLwxOhCRjxMR_TOP0h0bhYAQV2Zdg8REnx3Bp1rnqcsovnzAW95gWLDoRow5iccnvWavucy4LFavW&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdpNQDtIDAtCoBta7iZ8kxWDJQHeNnpvzpioigmSgVpllnTDYgbGiCsqBbPa7WdaE8I&ccb=13-1&oh=06_Q3_CAVKttPCjkFvS_zv7aXyLwxf8GqqHk5RQl-R8jOcyGTdi&oe=6A7C2554&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120242636525910658",
+    "name": "balão ao vivo",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "CBO - XTUNE ESTÁTICOS (09/05) {SM-73540}",
+    "adset_id": "120242636525900658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por apenas R$ 17💸",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "2092832277927128",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/684235976_1591071701958715_2748493662219039061_n.jpg?_nc_cat=111&ccb=1-7&_nc_ohc=LehcC43vHEYQ7kNvwE66dmM&_nc_oc=AdpMvx61SoH0Jhz6KM4tjxwinh6rnEpyiFc_yY4_p6YOqODJU7m1tF1Kqzl7UG6RhRw&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJxvZ45aUbJ-jU4UDjhdZQho4AIOAWzpF-w96yAbxTf_wnK9SGOBg-_K4g5xNbmxYxLMBOjQ5T5cg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQF0XjWbx120MX6WJo0X9XD-HzPQQWufMh-Vd99Yo9wzCg&oe=6A80383C",
+      "video_id": "1693520588286015",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120241134556540658",
+    "name": "sem atraso sem travar",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "CBO - XTUNE ESTÁTICOS (09/05) {SM-73540}",
+    "adset_id": "120241134556550658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "963494786051056",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/670870871_4231339830447540_3463009539552070813_n.png?stp=dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=JlpSgKUvFK0Q7kNvwHR7tmt&_nc_oc=Adpuxu7oXLcrkHVMh9ew9EjL_06H72qVtT1jmTgjE4XpPsT9IXf6r7LVYjZZR5kEWbE&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIADuUuhbVQQuwvdD7SCGZWgnlo__qd7xzOsMCSefSdxPCWeAYAHrdzZHBZhwG8kNycnNXUzv6fVQ&oh=00_AQFviaVN4pMa8eL1BI8jEQNOq4oecvz9yjRrQmWV7cuoKw&oe=6A803DA4",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/7954040593547895434?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQKK8wcdBArWk6_Jbfbkcy2Sb7G2LKL66oc07RhnJYU1ioC3RJr3R7A7OOrtW0Ngq35sPvqD5FkK9-d2lVl851_Z3a01LNV0-ZO8BcQSO4xWrlB5Ud_cCGsBipmvmnsF5O1ghACD_6XgtZ_M80-4xf2f&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adpz6g4_dKIF0pUc6qEC2Wikc_wH0l8X8blC17z8o5ukAmX8m6eJ5oJFF4SxzqbADuc&ccb=13-1&oh=06_Q3_CAXMwKFas6P-AOK1Mny10Sar30asI_WUH7Yk7UzAbNoYX&oe=6A7C3258&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240125058100658",
+    "name": "sem atraso sem travar",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - Xtune Estáticos (11/04)  {SM-7354}",
+    "adset_id": "120240125058080658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "963494786051056",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/670870871_4231339830447540_3463009539552070813_n.png?stp=dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=JlpSgKUvFK0Q7kNvwHR7tmt&_nc_oc=Adpuxu7oXLcrkHVMh9ew9EjL_06H72qVtT1jmTgjE4XpPsT9IXf6r7LVYjZZR5kEWbE&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIADuUuhbVQQuwvdD7SCGZWgnlo__qd7xzOsMCSefSdxPCWeAYAHrdzZHBZhwG8kNycnNXUzv6fVQ&oh=00_AQFviaVN4pMa8eL1BI8jEQNOq4oecvz9yjRrQmWV7cuoKw&oe=6A803DA4",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/7954040593547895434?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQKK8wcdBArWk6_Jbfbkcy2Sb7G2LKL66oc07RhnJYU1ioC3RJr3R7A7OOrtW0Ngq35sPvqD5FkK9-d2lVl851_Z3a01LNV0-ZO8BcQSO4xWrlB5Ud_cCGsBipmvmnsF5O1ghACD_6XgtZ_M80-4xf2f&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adpz6g4_dKIF0pUc6qEC2Wikc_wH0l8X8blC17z8o5ukAmX8m6eJ5oJFF4SxzqbADuc&ccb=13-1&oh=06_Q3_CAXMwKFas6P-AOK1Mny10Sar30asI_WUH7Yk7UzAbNoYX&oe=6A7C3258&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240125058120658",
+    "name": "vocal dos sonhos",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - Xtune Estáticos (11/04)  {SM-7354}",
+    "adset_id": "120240125058070658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1575055396937767",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/670275453_4231339880447535_6348947318132821235_n.png?stp=dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=9KyenbrMmagQ7kNvwGXxa_O&_nc_oc=Adr0pHx1Cmth8vy419iziZ7FEeaYaBX8hUWMg2INc7oqcYJ-p1Kh9DagPnI0b6SOMAQ&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQK5EtH9r6kGKgJAmMzdCUL7WJqPkR489jakLCNDP70tzuxpKfGCa_ZR6Dq0nx5bW3vo6zgQpLngmw&oh=00_AQFlbbincHEKbpeBWYJqjXwskiNv5eALOF6cKy3k06k-Pw&oe=6A80368E",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/18149859049488018314?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQK4WCDWfFdrprCMZlqk3UiGZKm9J8Dj15i9-_5ez4VlsdXi1s5yVQfnLaMQQ_YUoHsjLZDr3gg_lU7dy3jsjBNmzhkvENMDhz91f05cSToF_gI5Vjg8yexX0TixO3fPXRcCkx5Kd0wzW7Kz7q0NFEIw&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdpdDs538bbIpSsCWDDzqgw3cq-vLJyQPADTgY66kBbmmKVXBak7heDu3t36xA51l2w&ccb=13-1&oh=06_Q3_CAdA8hs8FmZO-iun3ur1u8ctSznsTaXfh8wgf9JTKFWS-&oe=6A7C25BE&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120241135060980658",
+    "name": "demo prática",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (29/04) {SM-7354}",
+    "adset_id": "120241135060970658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por apenas R$ 17💸",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1689915835364956",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/684698115_26636407146052426_7162692216003990398_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=PsoQIRzBUOMQ7kNvwH-X1KV&_nc_oc=AdrvvmvFJCVL-76Cq13zmgQxS0X8OiZHhQItm5ZaD6REwV8H3K7HeEhDfZzupPk0ppE&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJ0guR5iPA3sZELMQC5GbEzQHbalrFeXZ86bBE9FowIUM3f-WnpIKr9YP_jVbAC3Wj_M2HAAqc8Zw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQECRlUyZ5m1i6ICgZgZvW3VVUkXDN7UO6Baf0OHuYYXPQ&oe=6A80270F",
+      "video_id": "26653314047628994",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240506329790658",
+    "name": "Hits",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - XTUNE ESTÁTICOS (18/04) {SM-7354}",
+    "adset_id": "120240506329750658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "3468470963304020",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/674197093_4237533163161540_9140033135531476987_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=BGOEBjZbxHoQ7kNvwFc7mqW&_nc_oc=AdpHOEuOS1NbBJ0Md5L8VkPKKeXwfhrcUHZvCDQhR_OR1ubPH7hUjZTFfe6KVJueNgA&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJNFW0pnrSR3GznRwZQ22OrlB54D6cqimxrE7TGiVNR0hDWNP3kJK9meCYDW8ntBcIkC_tcl6aWKA&oh=00_AQE5e-rC-0Htsgw9PWe-VQWKuc8IYK2mjKGBT8Z829Gcrw&oe=6A802382",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/16553365458533651115?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQKhLJXV7qyhcyJI0TM2GRUgOgZH-o39GCUna0YeZnkR-HgyCwdybSxi4MR8J5iMl0zP3TfkOax_BweRLb03dNobNDPJ9RWZwdKwqo1eWXeGFndz4MUWnDtQuDbnT2Llk_h3oulLBE9_kJeI35kSusl8&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdrmOZ9KFGRK3zYZTzQN08_-Q7CWPLkuyCo2O5a9oufsEs-snkuWGPMctoNhk7reNbw&ccb=13-1&oh=06_Q3_CATCNql2qKmkQ8prIF2f0o_gVJLuB7mVzckywBNGROR1q&oe=6A7C475E&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120241135813920658",
+    "name": "apenas demo",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (29/04) {SM-7354}",
+    "adset_id": "120241135813930658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por apenas R$ 17💸",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "2022119788738006",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/684227720_1509042077593130_9040321066275433495_n.jpg?_nc_cat=111&ccb=1-7&_nc_ohc=0bMZactcyOsQ7kNvwHD3xh-&_nc_oc=Adqe7gfB8zvj0JzBZ_btnBXtHSzWru-IG93BjB5IChdzk5HinftEdfRAWpDZwPfOs3o&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQLVeJnQb4t1A1tIYMFLykDroBIQYNhjhVnGUMsen47MWarFM9N67TI-rEGsHYisd0H_VVHuHJzSog&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEH8UmACK380itLBjdHTe8hslaE1nI2-LWKkl45-1knLw&oe=6A8033D6",
+      "video_id": "1349468303898517",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240506329760658",
+    "name": "Primeiro Take",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - XTUNE ESTÁTICOS (18/04) {SM-7354}",
+    "adset_id": "120240506329730658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "964918319341002",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/675909287_4237547903160066_4938253468065044223_n.png?stp=dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=g4yyjXIPkBoQ7kNvwEhT517&_nc_oc=Adp2mLkuYymSDdf6wc0jj1h-1habQdbu7taqUyJAbzqP5cRAXVlmoqbF09UhkJw3RDk&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQKofcuq3FrwgNNbHZOg2iSiGrMqHjog-Y3z1iXG0qGwdtYs7wX-zDDX35xb9G7k89AZP_eXvmoFMw&oh=00_AQGTCYybziOYOz4p6KuG6CJw7kAzfuePW_VyrwDM8NcQCA&oe=6A8016C1",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/11060738886651276278?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQKosLLvNgqC3OxdzTSdPuxwz14nYga1zvP3ovUNPfjJDEBjgKyB76nK9UYx3Vje7jK3HFMd_3XE6SITEEJ9kJZr0mQkoJLvY8dsDQnGbKHnZM_8s025H3ESBUCtdObsbtbw9vqlt-NTh8K2pQBMppYK&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdpzxwofApCoN5gdaQkqllNO3C0DgqspvoTmZY9eDPDIU2DrWW4cpg44iaj-dka4WNw&ccb=13-1&oh=06_Q3_CAdLv_Kl-svBcx-WS05vhndHYjtPyT2xt_oQF5iYHwRC4&oe=6A7C3CC5&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120241135813910658",
+    "name": "perguntas e respostas",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (29/04) {SM-7354}",
+    "adset_id": "120241135813900658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por apenas R$ 17💸",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "4405944176308811",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/681993238_989927243595267_6153006682563363539_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=cEgqfinslxMQ7kNvwEzwWE9&_nc_oc=AdrshTUl2uRn6RabXjWCaiYL3-b7Fi7llYL6y6L4U8xAdGaYLbfI_2V9VmNtSmDuyf4&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQLHJUxgnk02QReh4iXGKsJVC70eqcEMcvk7oau-MSD18u2M16GYp_MgGGw7J52YJgQh4Yh6C9D-kA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGlQkMAzYUnjmMZ3YXa517Pl0GEzPVt8v-gYh39U0mdXg&oe=6A803E6D",
+      "video_id": "1353981333206548",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120241135813890658",
+    "name": "balão ao vivo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - XTUNE (29/04) {SM-7354}",
+    "adset_id": "120241135813880658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por apenas R$ 17💸",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "2092832277927128",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/684235976_1591071701958715_2748493662219039061_n.jpg?_nc_cat=111&ccb=1-7&_nc_ohc=LehcC43vHEYQ7kNvwE66dmM&_nc_oc=AdpMvx61SoH0Jhz6KM4tjxwinh6rnEpyiFc_yY4_p6YOqODJU7m1tF1Kqzl7UG6RhRw&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJxvZ45aUbJ-jU4UDjhdZQho4AIOAWzpF-w96yAbxTf_wnK9SGOBg-_K4g5xNbmxYxLMBOjQ5T5cg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQF0XjWbx120MX6WJo0X9XD-HzPQQWufMh-Vd99Yo9wzCg&oe=6A80383C",
+      "video_id": "1693520588286015",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120241134526020658",
+    "name": "vocal dos sonhos",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "CBO - XTUNE ESTÁTICOS (09/05) {SM-73540}",
+    "adset_id": "120241134526010658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1575055396937767",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/670275453_4231339880447535_6348947318132821235_n.png?stp=dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=9KyenbrMmagQ7kNvwGXxa_O&_nc_oc=Adr0pHx1Cmth8vy419iziZ7FEeaYaBX8hUWMg2INc7oqcYJ-p1Kh9DagPnI0b6SOMAQ&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQK5EtH9r6kGKgJAmMzdCUL7WJqPkR489jakLCNDP70tzuxpKfGCa_ZR6Dq0nx5bW3vo6zgQpLngmw&oh=00_AQFlbbincHEKbpeBWYJqjXwskiNv5eALOF6cKy3k06k-Pw&oe=6A80368E",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/18149859049488018314?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQK4WCDWfFdrprCMZlqk3UiGZKm9J8Dj15i9-_5ez4VlsdXi1s5yVQfnLaMQQ_YUoHsjLZDr3gg_lU7dy3jsjBNmzhkvENMDhz91f05cSToF_gI5Vjg8yexX0TixO3fPXRcCkx5Kd0wzW7Kz7q0NFEIw&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdpdDs538bbIpSsCWDDzqgw3cq-vLJyQPADTgY66kBbmmKVXBak7heDu3t36xA51l2w&ccb=13-1&oh=06_Q3_CAdA8hs8FmZO-iun3ur1u8ctSznsTaXfh8wgf9JTKFWS-&oe=6A7C25BE&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240598198950658",
+    "name": "quantos plugins",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - XTUNE (20/04) {SM-7354}",
+    "adset_id": "120240598198930658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua voz limpa e profissional✨",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "829014033003925",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/676256316_1382321286986867_4939770494997908781_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=CwQy5TP9PPMQ7kNvwHJU1le&_nc_oc=AdowzY430jPpXGAgxHjq-7RJi41uiOPqYHWoBoyzJGVy5JeGvVAIYKcHAXCtAEGGZaI&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIk7fZq3sxbTdQcx_31lkpck4C0QQ3t-Q01aqY4viiF5DETwEg_ghSxonaIsRie1qxK6Qehx862mA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQH2ime0UR7rIyICAPCEP5JhWq2-LLXZ3yUJEyjqAYMiCg&oe=6A804885",
+      "video_id": "989810507059683",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240598198900658",
+    "name": "ugc 2",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (20/04) {SM-7354}",
+    "adset_id": "120240598198910658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua voz limpa e profissional✨",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "761270633618667",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/675448450_965753332488005_7918956645376498987_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=4-kQnsrsdlUQ7kNvwFbJk7x&_nc_oc=AdonmFZP7DaX66KZUqdXilmQ0bdFYrpnQfYwA9nr-Qb1q3lSo9Bx3kYvqLcfWLEgTZk&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQLtga7SrsvTJ7ws0VvMeJh4SH4QP4msjYVEWns38djRtkXSxgk8-SDf77G16b8GF5rBLXLf3Y_doQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a3ac17&_nc_sid=58080a&oh=00_AQHaRViigynq3_s_u8Yvupk1M5Lhc7q-gylaZOyoYIQhnQ&oe=6A8016C6",
+      "video_id": "994430969910070",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240598198920658",
+    "name": "pegou vírus",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (20/04) {SM-7354}",
+    "adset_id": "120240598198960658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua voz limpa e profissional✨",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1477129437339797",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/676103126_983862117409009_8994723383884830590_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=QlonCj6VGOUQ7kNvwE9KBcB&_nc_oc=Adp-Nlq8b8mWzcEfmLPtpmOmYKhKQFa-N9h3wjdP0dx7x2xNFc917M68fi1ozOB5Sao&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJFG2FIS_kT2_ncersl0Ec925muppZ0uLLV4lZLkf7ZbACi2dTU4iECfwnem36zCkZSoJiXYgSU2A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGnpGUgcZ6skgiklUftGp9RDLmMU_OnhD_YTq2YWJbBTA&oe=6A8028B4",
+      "video_id": "1470815764503338",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240598198940658",
+    "name": "exemplo plugin",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (20/04) {SM-7354}",
+    "adset_id": "120240598198970658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua voz limpa e profissional✨",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "969735349320195",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/675008925_1610766040155557_3624191887626445669_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=xaNxzkBr3wUQ7kNvwGHcc4C&_nc_oc=AdpH-MKcSR97LvgwMn9Ecc1U-rjqawfGx_yIYEM_dumj5HCarwePl28u_oyQczpNUCw&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQLycc5hTABtXHJ29J7hlPm1eUf-6gKWEFJ-LnUNhxRWfX426L9mZ3x_c9aOSVwEj5qMrdVAEn_ZlA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHkRC9gdOT0suaos-iUCQLi_VbV8DSvMXQKozoRIcl3hg&oe=6A80220D",
+      "video_id": "742297985542743",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240597949630658",
+    "name": "ugc 1",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE (20/04) {SM-7354}",
+    "adset_id": "120240597949620658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua voz limpa e profissional✨",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1298485005583651",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/675227914_3872243099748534_3073324790898533551_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=gq7YpVFYTRkQ7kNvwFMN1xA&_nc_oc=Adpa_lYgfQ7bFnY3KH7rMmMOdyST3Bspw3XI3UjuOkGWgfp6e5FVw5NfOTuOW5O_zZg&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQI93_x3Hyzc0QrbjE7wW6fHXduqt94YFmxfVqvgic-tnImyZT1-mwT1vJTAQDP1bhjzEcOrd2ThNQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a3ac17&_nc_sid=58080a&oh=00_AQFbw3WtWiAbw9J_aWI_8nUF0hQeMPRr_S9X4g5nNeZKng&oe=6A802AFE",
+      "video_id": "1482000040237138",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240505410290658",
+    "name": "Logo",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE ESTÁTICOS (18/04) {SM-7354}",
+    "adset_id": "120240505410310658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "751615854652147",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/674195013_4237532649828258_627325211556469756_n.png?stp=dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=V4H0Z8D-GCwQ7kNvwGBNYDy&_nc_oc=AdovRnd_dzJe7jKwd39dhg5S2WGyx8x7QT5VMc3d82cBPBSYGviiyTr65GuXgWKfUBM&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIbqNF2WfiICVZpBvCDJZeh2vBIsBxd1H8dtjQiypZWLswsSd7bFw--vinDGNYKwVLVw-qi9L3AIg&oh=00_AQGuFuRqPce8u2A3y7-2vSSNeqM1MtfnUXoXdWme8IvhYA&oe=6A8026A9",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/8420846293034891210?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQKzv5sb-lRiCfgjT22-wBBbVHkWyf58VMuP4W_wgq-DlLDLnZ8HKETcJXj_ABsqHogyDic--4IOJ-9Isdu2XJ426vQkmKvh0jq6FGwEFx8zndRIDslQymRMHHrfWfru4-B4mOcErs1gxcVW6uyWFrTW&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdrIvf1FTwdJjRIc5N_RQXTlZtGP9qF9Q2GUvQQfgK__S8f3AWjVNPTiFdXoOhSrHtI&ccb=13-1&oh=06_Q3_CAYy0ey6grPiFbVJ6h6DlSEhv7FE0s6_sem2qjbRRTIOJ&oe=6A7C4C5F&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240506329770658",
+    "name": "Respeito",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE ESTÁTICOS (18/04) {SM-7354}",
+    "adset_id": "120240506329740658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1830906661198637",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/676495179_4237532853161571_8513582310444558055_n.png?stp=dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=xp6bLfO4ClgQ7kNvwGft1wY&_nc_oc=AdqUh1Me5-KQGjeTMQXllafIfBBk6lftzk8rRuWe-SGkQa7MVpyPWOGrtEEdPLY-obc&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIEEf6w5Svm0vTG1dktsW0t7M3RVnaNWrthjatOuSeJIon0KmjGAMJkwGyHRczpTeLKOvzx36i-vQ&oh=00_AQH98kYWhovJQ7r6hm99XscjGkGQVO7tYVTk1E083FO7_Q&oe=6A802320",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/4289020225191200118?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQKy9Wd79avGZWlQf_TS6sQ_HciG-8_bxfNt9IMfpmoc5nGpiDw7BQfqaG82OYKJtIu4AoudnlBKJbqDGOH-8SmjndT_1p_YqPTfiGSRW36KNJSiwlUwX_8IE3AxysWd1Z4cNPfjZXLO77he2jhqNrUX&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdotodTEWd9k8yWQPza0oJrhqhVSU5eOy2Z3i9uqkQZIorW16dTLWzXTIzwTRz4zq-k&ccb=13-1&oh=06_Q3_CAeMi6mveWbv60LFLDcbr5a-inUkxLGENo0P7CKZ3gje8&oe=6A7C5422&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240506329780658",
+    "name": "Produtor",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - XTUNE ESTÁTICOS (18/04) {SM-7354}",
+    "adset_id": "120240506329810658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17",
+      "description": "",
+      "cta": "SEE_DETAILS"
+    },
+    "cta": "SEE_DETAILS",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1399356648886535",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/675329932_4237532756494914_4394021762208622035_n.png?stp=dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=maPC3uENpL4Q7kNvwFNX9mw&_nc_oc=Adp_TCkcbh8sUkZq1yrY3zWLymJEdTMonh1vejbJgtRrrN935OWkcsWY8aNwfQqgWKQ&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQK848DGwMk-YAGTvvnAEdVZzeA13wI-2QlYkpFLS6MOVZ88skJWHvDKwz5iciHw4-G8lqxbG7dGyA&oh=00_AQFJOzcXBmxI9Ut6PxhjyIDY857gbxcV2YjbZ7rM89ZUuQ&oe=6A804975",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/1204496239997388507?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQJ8bz9HbBgCnAoF4BBEa7WGUVOAa13Aeld1Dy-ZfrDihuLvWGn50-S0QmvvMzFXqfo0y-YK1zoiEm_porHI533-08sZR4OqHYnJRuXu6VYtSy-C1JE4rcURGMo1q2MVOruzJ3k2Ckx1OXLXblM_Sbtr&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdpeCZaFIUsmRovu8WKhH4tr9cfKTpF1fySFwoEVYRsJoCqBh33GNnd-3dtLDCGKftQ&ccb=13-1&oh=06_Q3_CAe1_lgFT3PrqA7YjOZKSE9l918rp6hT-kCGTxnZ6INoN&oe=6A7C3165&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "SEE_DETAILS"
+    }
+  },
+  {
+    "id": "120240125058050658",
+    "name": "outro nível",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - Xtune Estáticos (11/04)  {SM-7354}",
+    "adset_id": "120240125058110658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1681937279606906",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/670006810_4231340040447519_8036161201498463481_n.png?stp=dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=jrvBzCQeeCMQ7kNvwGKTpDQ&_nc_oc=AdrFH97TlCzlM8tH9EFblC36wHbk_vWOGs275veqHzbsM2jJPyKsmKN44BOadiHJvYI&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJU6JAAgh_3jXugLIcaFtJsh7fwv0OjPNkNUZhTX0KIXvW9B37clTg-Y_uzBRZK9h-wOSR08pt7zQ&oh=00_AQEIuowLl3wl4Vn-iYHyDpHFJJwcCD0RK4HUlHQt8OFGcg&oe=6A80232C",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/13919278502836566289?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQJ_3ePLRWN_Pku86FRSJTcB4duPSbcvCpFsLSOzwKo1ZxQLSAP2BEBJ6j5R9mwaTr1ilETjCe-6sX8GHCKqtI-LQcsQLGJ9_R8teOVQs8NJJNa_5YmL3ymElwGO3J1sv0AaN_Z7bPANRuzFp2sRTcvW&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adr0_rrwhl492rUFW-bk3pmsG-NU1xKPgGfg_KXd-UFOASv_bQyt6pxuB9_8wvAXQyI&ccb=13-1&oh=06_Q3_CAT6ME4nbNOr5EbULs3plIOAcWS40wFjfaO08bvnfAapi&oe=6A7C4507&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240124842720658",
+    "name": "balão tempo real",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - Xtune (11/04) {SM-7354}",
+    "adset_id": "120240124842740658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17 💸",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "2434536226987138",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/668336139_953998350377064_2837558226980216381_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=gsgSGGAV69oQ7kNvwFM4Y0s&_nc_oc=AdrojP_lMX7XQFsZIPzw5fQQajZIBh8TCuD_Z1hNm5dbLAKe1vyJkz_PAqHDFTmHx2Y&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQI2dECkSBFovBgLZZc8b7SG-s8rZcvMeFD_EEvQ3v3jnB1nEFOe0lqq3zZxUQcauOzSrHxaB8KxEw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGmdMG9i3s-NedcY3KQdxH2ubWv2GqnpwvU6wmNAR_mQA&oe=6A803CD2",
+      "video_id": "1290253949113110",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240125058090658",
+    "name": "som de estúdio",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - Xtune Estáticos (11/04)  {SM-7354}",
+    "adset_id": "120240125058060658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1317824177075472",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/670659714_4231339963780860_8733709057749428685_n.png?stp=dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=R4fDaWhoqP8Q7kNvwEO1V7I&_nc_oc=AdrJ4JttDQZ_ryIiEx1ghHIEXuyJE0Uk--qVsLTDvTfQ6RqXmj-6mD6ZlT3HNSynztA&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQKTb0d3SBbx4Yl9Inxu74j279K-UBaBtsHRUXvh3nh0Msg0vBL7m-LqkdwhSmDPilg_ETDXzbwekg&oh=00_AQGmhGUxJogYb5cwcgXJ3Jl1ji9nlzHwzFdIM4u90dFELA&oe=6A80488D",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/14881647455177611521?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQI7VrtOtIFkaOMPnFKz9rNkZV0-SIQ6WrbAwD0IkTuPL0kdFvzyQXCXoeSxZh1oK-GtT1XFlMEOA_ZuybIf-RKSkG0jT-NpSwxy_wodirPEhlgUCyJYpNYh4JnHsxxGP5IzTlT1tRhefQ9NDJVHUbpF&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=Adr7sLkrGqFAv1AGMyyAgD2oem2TZtIglgVdA4__wBmEVB-oBAUA3Hc8F5KGrc2NmKE&ccb=13-1&oh=06_Q3_CAXjxGwlZR6MBN04Hd3oiUXnAhQCmJv1niT8-TYNlrhMx&oe=6A7C2589&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240124842690658",
+    "name": "vocal torto",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "ABO - Xtune (11/04) {SM-7354}",
+    "adset_id": "120240124842730658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17 💸",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "934851122749927",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/669758883_818437204651125_5363857245877945082_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=3t6ZBks6V2AQ7kNvwE14rgQ&_nc_oc=Adp6CGWv0QWnPAYsDAiesB8ejCaRTBeYIDaqE0iSS1ZL5zIdiTMc0wf1-7NGNCeqsmQ&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIzpU_q5PnuBp86iite-0xPT0nruxEuHA5mDNzSR__pCw5Z8-0WfWnOJAA2wjq90LHFHALaSsJZOA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEyDcM6H5ziwejS2s0mmsAyP1nCJcP2QrRGzudTQj31_Q&oe=6A802F7D",
+      "video_id": "2563830164049685",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240124986490658",
+    "name": "grava e afina",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - Xtune Estáticos (11/04)  {SM-7354}",
+    "adset_id": "120240124986470658",
+    "copy": {
+      "message": "É mais barato que um lanche para ter o som dos grandes artistas. O XTUNE afina sua voz e dá brilho com apenas um clique. Aproveite o preço de lançamento e profissionalize seu som!",
+      "headline": "Deixe sua mixagem mais leve! 💻",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "821768150974917",
+      "object_type": "SHARE",
+      "image_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/670521817_4231339843780872_6931699933906687306_n.png?stp=dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=d5bd00&_nc_ohc=xekVIZbAii8Q7kNvwHAUr7N&_nc_oc=Ado75xIjBM1WDADbBlJhBKKW5kB9tLBj4MeV9uXtWm6wm94v5Z-2csKJLvrkra3bPuQ&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQIuUzN_ELomKa2xFkz6ZeCDn3VQwM0X24_z8UEczuGDpgyTdggfpoVLD0LeOccuj64LYRak-hZFHA&oh=00_AQEDJlt8LRwGftAvK5OTFYSqL6qFet_0Z8ZADzaXG_RRSQ&oe=6A804065",
+      "thumbnail_url": "https://external-gru1-2.xx.fbcdn.net/emg1/v/t13/8010761986402003735?url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQJNOC6JPLrTRyJMj1dOQJ-r3REFoK4DMSn2AsXwjA4yvQ5EcK39-h1amYvRj9UUhyb-wQw5a6rNMg9ng91zxGijZd8rx8bg8sZtj92WFO2lhEgFPJu_QV3aUL84foM8Mw2jvqhRJFUaWQNiXfY4iBe0&fb_obo=1&utld=facebook.com&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_oc=AdqNy7xK1JKgPTyNzMAxPBZ2ZwpOlpgVQL2qOvLzduuj5I084YBAdyhfL6eTzWIgLqY&ccb=13-1&oh=06_Q3_CAWREYp0sYwUVy5KbUcTvXXaKtrxW3jKIxPANJK7vyrdp&oe=6A7C375B&_nc_sid=58080a",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240124842710658",
+    "name": "balão preço",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - Xtune (11/04) {SM-7354}",
+    "adset_id": "120240124842750658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17 💸",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1437140718156589",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/669365985_956054503456812_728007017213216495_n.jpg?_nc_cat=110&ccb=1-7&_nc_ohc=BV4x7SsLbigQ7kNvwFxJt0y&_nc_oc=AdrsqhPdoYyAbL3IkKuiMn4HSZWVtwMfpt19eSDRoyIfCrU9Skg2_66AwCe7EhP8ckw&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJeEZ5--RT4z5Z7mfDwM67AMA75GI93GzAadvc8mNlA7pMLnLaYgaGF3UVppWmH7kd5ZrnrYuHLNA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFJ6NsA6SY75yYF6ahqPr-1i2CmmgTMPCUb9PUaGvG_qA&oe=6A803007",
+      "video_id": "26696033293369986",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120240124356240658",
+    "name": "balão comparativo",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "ABO - Xtune (11/04) {SM-7354}",
+    "adset_id": "120240124356230658",
+    "copy": {
+      "message": "Pare de usar 5 plugins diferentes só para tentar afinar uma voz. O XTUNE resolve tudo sozinho com apenas 4 botões. Tenha um vocal profissional por apenas R$ 17. Clique e confira!",
+      "headline": "Vocal profissional por R$ 17 💸",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/xtune/?doing_wp_cron=1774720659.1851310729980468750000",
+    "creative": {
+      "id": "1336847241605257",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/670870534_920885574090938_2803732043255326216_n.jpg?_nc_cat=110&ccb=1-7&_nc_ohc=NeWu5bTCIwcQ7kNvwHUTLc_&_nc_oc=Adr78r1DBM1Bs5j2WxNNC8_iF5mOx-Bsl9J5-MW5lJB_zUhO3Sd1tywblGHmmDNmolA&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=nyW5Gq25st4hAKM9xs9h7w&_nc_tpa=Q5bMBQJRJOBpFiDLmhKBpDQv9_omSuTw6CyweJXoxWeO6D6ju9im-hLhNPbyyFeKxvRE6V_dKGG3iOHdDw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFqzjHESp_CmPcO7GIF2GlR-BV3JxxlzQgYfaWdLM_oew&oe=6A80481F",
+      "video_id": "1636688260597918",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  }
+]

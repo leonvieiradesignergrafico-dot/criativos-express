@@ -1,0 +1,3 @@
+67 criativo(s) de vídeo neste produto.
+Transcrição NÃO executada (dry-run / sem --transcribe).
+Rodar depois: worker com --transcribe (baixa via /api/meta/video + faster-whisper).

@@ -1,0 +1,1 @@
+Homem brasileiro, 27 anos, pele parda, cabelo preto curto levemente ondulado, barba curta, sorriso espontâneo. Influenciador UGC casual, camiseta lisa e ambiente de apartamento brasileiro comum, cozinha ou sala média ao fundo, foto vertical de celular com luz natural. Plausível, ultra realista, sem luxo e sem logos.

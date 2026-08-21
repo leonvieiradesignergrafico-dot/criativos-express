@@ -111,32 +111,35 @@ antes de esperteza: se a pessoa não entende o que está sendo vendido, não cli
 Todo criativo estático tem DUAS camadas de texto, com regras opostas:
 
 ### 1. Copy DE IMAGEM (o texto estampado no criativo)
-É lida em **1 a 2 segundos** enquanto a pessoa rola o feed. Não é texto: é um **outdoor**.
-Se precisa ser lida com atenção, já falhou. **Referências de tamanho (limite superior, não meta):**
+É lida em segundos enquanto a pessoa rola o feed. Não é texto corrido: é um **outdoor**.
+Se precisa ser lida com atenção, já falhou. **NÃO EXISTE LIMITE DE PALAVRAS — a régua é
+COMPLETUDE + IMPACTO + CLAREZA.** O que define cada elemento é o QUE ele precisa dizer, não
+quantas palavras tem:
 
-| Elemento | Referência | Nota |
+| Elemento | O que precisa dizer | Nota |
 |---|---|---|
-| **Headline** | **referência: 6 a 10 palavras** | Carrega a ideia inteira sozinha, INCLUINDO o payload (resultado + âncora). O número é só bússola — quem decide é o teste de 2 segundos (leia em voz alta) logo abaixo. Nunca corte o resultado só pra bater uma meta de contagem; nunca alongue só porque "ainda cabe". |
-| **Apoio** (PADRÃO) | **2 a 3 linhas curtas, ~15 a 30 palavras** | O parágrafo de apoio da ARTE — **é o padrão, quase todo criativo tem um.** Estilo dos anúncios de referência do dono: emoção/benefício em prosa, não uma linha solta. Não pode ficar muito maior que isso. |
-| **Subheadline** | **raríssima, evite** | Só a use se o criativo pedir UMA frase curta de destaque em vez do parágrafo de apoio. Na dúvida, use o **apoio**, não a subheadline. Nunca as duas juntas. |
-| **CTA** | **2 a 3 palavras** | Verbo de ação. Tem que caber num botão. |
-| Selo/badge | máx. 4 palavras, opcional | Ex.: "Produto Oficial", "Frete Grátis". |
+| **Headline** | A ideia INTEIRA e COMPLETA sozinha, com o payload explícito (o resultado concreto + a âncora). | Use quantas palavras forem necessárias pra a promessa ficar completa e específica. **PROIBIDO headline vaga, genérica ou "pela metade" só pra ficar curta.** Ainda tem que ser legível de relance (é um outdoor), mas **completude vem ANTES de brevidade.** Depois de completa, enxugue só conectivo dispensável, nunca o payload. |
+| **Apoio** (PADRÃO) | O argumento de apoio em prosa (emoção/benefício/prova), no estilo dos anúncios de referência do dono. | **É o padrão, quase todo criativo tem um.** Use as linhas que precisar pra completar o argumento; não vire parede de texto, mas não corte a ideia pela metade. Prosa de verdade, nunca lista de palavras soltas. |
+| **Subheadline** | (raríssima, evite) UMA frase de destaque no lugar do apoio. | Na dúvida use o **apoio**. Nunca as duas juntas. |
+| **CTA** | Verbo de ação que caiba num botão. | Curto o suficiente pra caber no botão (não conte palavras). |
+| Selo/badge | Rótulo curto, opcional. | Ex.: "Produto Oficial", "Frete Grátis". |
 
-> **A régua é IMPACTO E CLAREZA, não a contagem de palavras.** O limite existe pra
-> caber num criativo e ser lido em 2 segundos, não pra transformar a copy em telegrama.
-> Uma headline de 6 palavras com tensão/promessa/emoção vence uma de 3 palavras vazia.
-> Encurtar é bom até o ponto em que a frase ainda DIZ ALGO; passou disso, você não
-> enxugou, você esvaziou. Prefira a versão que emociona, não a mais curta.
+> **A régua é COMPLETUDE, IMPACTO e CLAREZA — não a contagem de palavras (não há mais limite de
+> contagem).** Uma headline NUNCA pode sair incompleta, vaga ou truncada ("pela metade") pra
+> caber num número. Diga a promessa inteira e concreta; só depois enxugue conectivo dispensável,
+> nunca o payload. Uma headline completa e específica vence sempre uma curta e vazia. Legível de
+> relance sim; telegrama vazio ou frase cortada no meio, jamais.
 
-- **Teste dos 2 segundos (o critério REAL — a contagem de palavras é só referência, este teste
-  manda):** leia a headline em voz alta. Se travar a língua ou passar de 2 segundos, corte
-  conectivo dispensável, nunca o payload. "Dê a ele o símbolo do time que faz parte da vida
-  dele" reprova por longa E vazia. "Pra ele" ou "Presente Fiel" reprovam por curtas E vazias.
-  Curta com identidade mas sem produto/resultado ("Feito para quem nasceu Fiel") também reprova
-  agora — mesma lógica da REGRA DO PAYLOAD logo abaixo (troque por "A pulseira de quem nasceu
-  Fiel" ou similar, amarrando produto/resultado na mesma frase).
-- Corte conectivo dispensável ("esse", "que", "para você", "o seu") — mas NÃO corte a
-  palavra que carrega a emoção ou o benefício só pra bater uma meta de contagem.
+- **Teste da frase completa (o critério REAL):** leia a headline em voz alta. Ela diz a promessa
+  INTEIRA sozinha (o que é + o resultado + a âncora), sem depender do apoio pra fazer sentido, e
+  sem terminar no meio de uma ideia? Se sim, está pronta — não importa o tamanho. Se está vaga
+  ("Veja o plugin que deixa o vocal pronto" — pronto COMO? entrega O QUÊ?), reescreva com o
+  payload concreto ("O plugin que deixa seu vocal com mix de estúdio em 1 clique"). "Dê a ele o
+  símbolo do time" reprova por vazia; "Pra ele"/"Presente Fiel" reprovam por vazias; "Feito para
+  quem nasceu Fiel" reprova por não ter produto/resultado (troque por "A pulseira de quem nasceu
+  Fiel", amarrando produto/resultado na mesma frase).
+- Corte conectivo dispensável ("esse", "que", "para você", "o seu") só se sobrar — mas NUNCA
+  corte o payload nem deixe a frase incompleta pra economizar palavra.
 - A subheadline NUNCA repete a headline com outras palavras. Ou traz um fato novo
   (preço, prova, prazo, condição) **em forma de frase**, ou não existe.
 
@@ -206,16 +209,16 @@ tem que ter um verbo, um benefício ou uma emoção, e fluir como algo que uma p
   (deixe `""`) do que empurrar três palavras soltas.
 
 **O parágrafo de apoio (`apoio`) — o PADRÃO do texto de apoio na arte.**
-Quase TODO criativo leva um parágrafo de apoio de **2 a 3 linhas** (≈15 a 30 palavras), no
-estilo dos anúncios de referência do dono (ex.: "Uma fragrância feita para quem é louco pelo
-Corinthians no peito. Use com orgulho o perfume, que carrega uma parte da nossa história.").
-Regras:
-- **É o padrão, não o opcional.** Preencha `apoio` com 2 a 3 linhas em praticamente todo
-  criativo. Uma subheadline solta de uma linha (ex.: "Carregue 1976 na pele todo dia") é fina
-  demais e deixa a arte pobre — não é o alvo. Quando bater dúvida entre "linha curta" e
-  "parágrafo de 2-3 linhas", escreva o **parágrafo**.
-- **Do tamanho das referências, nunca muito maior.** 2 a 3 linhas curtas. Se passar disso,
-  vira legenda dentro da imagem, e aí é texto demais de novo. Corte.
+Quase TODO criativo leva um parágrafo de apoio em prosa, no estilo dos anúncios de referência do
+dono (ex.: "Uma fragrância feita para quem é louco pelo Corinthians no peito. Use com orgulho o
+perfume, que carrega uma parte da nossa história."). **Sem contagem de palavras:** use o tamanho
+que o argumento pedir pra ficar completo. Regras:
+- **É o padrão, não o opcional.** Preencha `apoio` em praticamente todo criativo. Uma
+  subheadline solta de uma linha (ex.: "Carregue 1976 na pele todo dia") é fina demais e deixa a
+  arte pobre, não é o alvo. Na dúvida entre "linha curta" e "parágrafo", escreva o **parágrafo
+  completo**.
+- **Completo, mas sem virar parede de texto.** Desenvolva a ideia inteira; só não deixe virar
+  legenda enorme dentro da imagem. Completude e clareza mandam, não um número de linhas.
 - Prosa de verdade (frases com verbo/emoção), nunca lista de palavras-chave.
 - Só deixe `apoio` vazio e use uma `subheadline` de uma linha no caso raro em que o criativo
   pede UMA frase seca de destaque em vez do parágrafo. Nunca as duas juntas.
@@ -344,10 +347,10 @@ especificidade extrema ou mudança de ângulo (identidade, inimigo comum, contra
 - **História / narrativa pessoal** — lead em forma de causo, alta identificação (legenda; na
   imagem vira uma frase de identificação).
 
-## Fórmulas de headline que convertem (para IMAGEM — curtas, sem cara de IA)
+## Fórmulas de headline que convertem (para IMAGEM — completas, sem cara de IA)
 
-Use como esqueleto e vista com a linguagem do público. Referência de 6 a 10 palavras (o teste
-de 2 segundos manda, não a contagem)
+Use como esqueleto e vista com a linguagem do público. Sem limite de palavras: escreva a
+promessa COMPLETA e concreta; completude e clareza mandam, não a contagem
 **E sempre passando no teste do payload da REGRA DO PAYLOAD** (tampando o resto, dá pra saber o
 quê e o resultado?). As duas fórmulas mais fáceis de errar são Identidade/pertencimento e
 Pergunta: sozinhas elas soam bem mas ficam sem produto/resultado — por isso os exemplos abaixo
@@ -404,7 +407,7 @@ sempre amarram o objeto ou o resultado na mesma frase, nunca deixam a identidade
 ## CTA que parece clicável
 
 O CTA da imagem imita um botão. Regras:
-- **2 a 3 palavras**, verbo de ação em primeiro lugar ou posse em primeira pessoa.
+- **Curto o bastante pra caber no botão** (sem contar palavras), verbo de ação em primeiro lugar ou posse em primeira pessoa.
 - Bons: "Quero a minha", "Pedir agora", "Garantir a minha", "Resgatar oferta", "Eu quero".
 - Ruins: "Quero garantir para o meu pai" (longo demais para botão), "Saiba mais" (fraco,
   zero posse), "Clique aqui" (genérico).
@@ -525,15 +528,15 @@ coberta. O checklist não é promessa: é etapa da resposta.
 0. **A RÉGUA MESTRA:** essa copy faz a pessoa PARAR o scroll e QUERER clicar? Tem gancho
    (emoção/curiosidade/identidade/medo de perder) + motivo concreto pra agir agora? Se você não
    sabe responder "por que alguém pararia e clicaria nisso?", ela é fina/vaga demais, reescreva.
-1. Headline passa no teste de 2 segundos (referência 6 a 10 palavras) E ainda SIGNIFICA algo (não virou telegrama vazio, nem cortou o payload pra caber)?
+1. Headline diz a promessa COMPLETA sozinha (o que é + resultado + âncora), sem terminar no meio de uma ideia e sem cortar o payload pra ficar curta? (sem limite de palavras; completude e clareza mandam)
 2. A headline tem tensão, promessa, emoção ou identidade? (se é só um rótulo curto, reescreva)
 2b. **PAYLOAD:** tampando o apoio/subheadline, a headline sozinha diz o QUE o produto faz e o
    resultado prometido (com âncora de especificidade: mecanismo, tempo, comparação)? Pergunta
    retórica sem resposta na mesma frase, ou negação de dor sem substituto concreto, reprovam
    aqui mesmo que pareçam ganchos bons (ver REGRA DO PAYLOAD).
 3. Subheadline: se existe, é uma FRASE (tem verbo/benefício/emoção) e NÃO uma lista
-   "X, Y, do Z"? Se não há frase boa, está como `""`? Tem no máximo ~10 palavras?
-4. CTA tem 2 a 3 palavras e cabe num botão?
+   "X, Y, do Z"? Se não há frase boa, está como `""`?
+4. CTA é curto o bastante pra caber num botão (verbo de ação)?
 5. O criativo vende UMA ideia só? (teste do "e também")
 6. Tem pelo menos um elemento específico (número, nome, fato) em vez de genérico?
 6b. **VERDADE:** todo número/preço/estoque/prova social existe MESMO no config/contexto e não
@@ -543,7 +546,7 @@ coberta. O checklist não é promessa: é etapa da resposta.
 6c. **PERSONA:** essa copy faz sentido pra quem REALMENTE compra este produto (Passo 0), ou
    está seguindo uma leitura literal de uma palavra solta no config que não reflete o motivo de
    compra de verdade?
-7. A headline sobrevive ao teste dos 2 segundos em voz alta?
+7. Lida em voz alta, a headline soa COMPLETA e clara (não termina no meio de uma ideia nem fica vaga)?
 8. O corpo/legenda está RICO (vende, agita, prova) e não foi encolhido como a imagem?
 9. Nenhum anti-padrão de IA? Nenhum hífen/travessão?
 10. Fiel ao config (oferta, tom, proibições)?
@@ -606,13 +609,14 @@ antes de exibir; a lista de ângulos permanece visível. Formato do copies-json:
 ```
 
 Regras do bloco:
-- `headline` = a headline DE IMAGEM (referência 6 a 10 palavras, teste de 2 segundos manda, com substância/emoção E payload, nunca
-  telegrama). `apoio` = **o PADRÃO**: parágrafo de apoio da ARTE, 2 a 3 linhas (~15 a 30
-  palavras) no estilo das referências, preenchido em praticamente todo criativo (prosa com
-  emoção/benefício, nunca uma linha solta nem lista "X, Y, do Z"). `subheadline` = alternativa
-  RARA de uma linha, use `""` por padrão; só preencha (e aí deixe `apoio` vazio) no caso raro de
-  querer uma frase seca de destaque. Nunca as duas juntas. `cta` = CTA de
-  botão (2 a 3 palavras). `corpo` = a legenda/copy longa do post, FORA da imagem — **OPT-IN**:
+- `headline` = a headline DE IMAGEM (SEM limite de palavras: a promessa COMPLETA e concreta com
+  o payload, nunca vaga nem cortada pela metade). `apoio` = **o PADRÃO**: parágrafo de apoio da
+  ARTE em prosa, no estilo das referências, do tamanho que o argumento pedir sem virar parede de
+  texto, preenchido em praticamente todo criativo (emoção/benefício, nunca uma linha solta nem
+  lista "X, Y, do Z"). `subheadline` = alternativa RARA de uma linha, use `""` por padrão; só
+  preencha (e aí deixe `apoio` vazio) no caso raro de querer uma frase seca de destaque. Nunca as
+  duas juntas. `cta` = CTA de botão (verbo de ação, curto o bastante pra caber no botão). `corpo`
+  = a legenda/copy longa do post, FORA da imagem — **OPT-IN**:
   deixe `""` por padrão e só preencha se o usuário pedir a legenda. Quando preencher, pode
   vender à vontade (rica, longa).
 - O app lê esse bloco para montar os cards selecionáveis na interface. Sem ele, as copies

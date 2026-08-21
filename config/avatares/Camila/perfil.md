@@ -1,0 +1,1 @@
+Mulher brasileira, 26 anos, pele parda, cabelo preto longo levemente ondulado, olhos castanhos, expressão simpática e natural. Influenciadora casual de bairro, roupa básica lisa, ambiente de apartamento brasileiro comum com cozinha ou sala ao fundo, luz de janela e textura real de celular. Não parecer celebridade ou modelo, sem logos.

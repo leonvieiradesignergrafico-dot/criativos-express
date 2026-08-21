@@ -1,0 +1,1 @@
+Homem brasileiro, 21 anos, pele clara, cabelo castanho escuro curto e bagunçado de forma natural, rosto jovem e simpático. Creator casual, camiseta lisa, quarto comum de casa média com escrivaninha e objetos cotidianos ao fundo, luz de janela e textura real de celular. Sem aparência de modelo, sem logos.

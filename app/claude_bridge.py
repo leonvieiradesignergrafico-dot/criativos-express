@@ -15,6 +15,25 @@ from pathlib import Path
 # console (pythonw). Esta flag suprime a janela. Vira 0 em outros SOs.
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
+# Serializa chamadas CONCORRENTES ao claude CLI. No app empacotado (PyInstaller
+# windowed), disparar MUITOS `claude` ao mesmo tempo trava (dava Erro 500 na copy/
+# roteiro em paralelo). Antes o limite era 2 — o que serializava um lote de 3 roteiros
+# (2 rodavam, o 3º esperava, ~2x o tempo). Subimos o default pra 3 (um lote típico de
+# roteiros roda todo em paralelo) e deixamos configurável por env pra ajustar sem rebuild.
+# As partes pesadas (Veo/imagem) não passam por aqui e seguem paralelas.
+import threading as _threading
+
+
+def _concorrencia_max() -> int:
+    try:
+        n = int(os.environ.get("CLAUDE_BRIDGE_CONCURRENCY", "3"))
+    except (TypeError, ValueError):
+        n = 3
+    return max(1, min(n, 8))   # teto de 8 pra não estourar o app empacotado
+
+
+_CLAUDE_SEM = _threading.BoundedSemaphore(_concorrencia_max())
+
 # Aliases amigáveis -> nome de modelo passado ao claude.
 MODELOS = {
     "sonnet": "sonnet",
@@ -86,6 +105,7 @@ def _run(cmd: list[str], timeout: int, cwd: str | None, stdin_text: str | None =
         stdin_handle = subprocess.DEVNULL
 
     timed_out = False
+    _CLAUDE_SEM.acquire()   # no máx. 2 claude simultâneos (app empacotado trava com muitos)
     try:
         proc = subprocess.Popen(
             cmd, stdin=stdin_handle, stdout=out_f, stderr=err_f, cwd=cwd, text=True,
@@ -101,6 +121,7 @@ def _run(cmd: list[str], timeout: int, cwd: str | None, stdin_text: str | None =
             else:
                 proc.kill()
     finally:
+        _CLAUDE_SEM.release()
         out_f.close()
         err_f.close()
         if stdin_handle is not subprocess.DEVNULL:

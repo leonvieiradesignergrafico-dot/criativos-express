@@ -65,8 +65,23 @@ Nunca duas com o mesmo ângulo no mesmo lote.
   hífen/travessão, sem data no futuro?
 - **ÂNGULO (0-3):** distinto dos outros do lote?
 
-## Saída
+## Saída — CONTRATO OBRIGATÓRIO (a ferramenta só lê ISTO)
 
-Termine com o bloco ```copies-json``` (a ferramenta lê daqui). Campos por copy: `id`, `angulo`,
-`categoria`, `headline`, `subtitulo`, `autor`, `apoio` (raro), `cta` (raro), `corpo`. Acentos e
-cedilha SEMPRE corretos; sem hífen/travessão. Numere estável (copy_01, copy_02…).
+A resposta TEM que terminar com UM único bloco ```copies-json``` e as copies vivem SÓ dentro dele.
+**NUNCA escreva as copies como texto/markdown solto** (nada de "Copy 1 — …", listas ou parágrafos
+com as headlines soltas). Se as copies não estiverem dentro do bloco ```copies-json```, a
+ferramenta NÃO enxerga nada e o formato Notícia sai VAZIO. Regra dura, sem exceção.
+
+- O bloco é ```copies-json``` seguido de um ARRAY JSON VÁLIDO (lista de objetos).
+- JSON válido: aspas duplas nas chaves/valores; aspas duplas DENTRO do texto viram `\"` (escapadas)
+  ou use aspas simples/curvas; sem vírgula sobrando; sem comentários.
+- Campos por copy: `id`, `angulo`, `categoria`, `headline`, `subtitulo`, `autor`, `apoio` (raro),
+  `cta` (raro), `corpo`. Acentos e cedilha SEMPRE corretos; sem hífen/travessão.
+- Numere estável (copy_01, copy_02…) e gere EXATAMENTE a quantidade pedida.
+
+Formato exato do fim da resposta:
+```copies-json
+[
+  {"id":"copy_01","angulo":"…","categoria":"…","headline":"…","subtitulo":"…","autor":"…","corpo":"…"}
+]
+```

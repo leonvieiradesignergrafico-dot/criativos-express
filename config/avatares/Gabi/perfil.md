@@ -1,0 +1,1 @@
+Mulher brasileira, 28 anos, pele negra, cabelo crespo curto bem cuidado, rosto expressivo, sorriso acolhedor. Aparência brasileira comum e plausível, creator de conteúdo casual, blusa lisa, fundo de sala de apartamento médio com iluminação natural e pequenas imperfeições reais. Sem glamour excessivo, sem logos.

@@ -1,0 +1,702 @@
+[
+  {
+    "id": "23854614047750799",
+    "name": "AD 04",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} Criativos Resort + Helicoptero",
+    "adset_id": "23854614047720799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "976818938149525",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQKa7z-bO2eV4erVK0FPG_4dv2xRnEquw7fmpZG-CIHWhZ0yOpOTFMKUwHyDe1QR_B8TOjQNqytKnA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHWxBc7MTCP2EVRoHmsK0Xd44mihxz8SZaderSNhhcyxA&oe=6A801E7E",
+      "video_id": "1533341561493483",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657632620799",
+    "name": "AD 01",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657632600799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1612969476595844",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQJlv5UUTBxcUGZH6pV4XTGjdLNbpfpQ-8-GOkA1DsgjNn7OfR-PZtwGNAEXlwcWtW2ES5cBGmGRvw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQF57l9xfAfZdPcFXFxxB0okCrd3c4pPpK9ahg-wG3aaLA&oe=6A801E7E",
+      "video_id": "1439645720758145",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657794670799",
+    "name": "AD 01",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657794630799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1651827799493317",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQK_642QpyQpgZJ4HJtyioZLgifqYwKkwFns7_M2i9DxTt1PJwclp0VLMN2OnjaqGsBBveYk3FNpFg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHPUtgBsKzkvz7A9g8Q50vHthe2Udx4I4MOiN-k5H-X6Q&oe=6A801E7E",
+      "video_id": "1884089498974528",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854601271970799",
+    "name": "AD 01",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} -Perfume R$247",
+    "adset_id": "23854601271990799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "26443843545293227",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQKDrH1pQRFj9OAkbNfCTcv2eHGV4r2S7JmyfwNy54fI4oeK3BYr0vqvACqBatFdJefjG1luEdwmag&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGdOfgdUcFaEbczUrXcC4tm1TNXnxQQjQRGt5NQU2aIhQ&oe=6A801E7E",
+      "video_id": "1419910946563349",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657752570799",
+    "name": "AD 01",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657752530799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "3395492000616671",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQLRwZY3UR0smN9VWdor6PP6mk_yja6bg9pawgXFf2S2FCcnj2wv6MtUr0wz3fLbqeV4tHoxScUarw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEKOkLCaj4kdhy6TJXVPiMactMh6FLDQ-jI3hP8-wbehw&oe=6A801E7E",
+      "video_id": "984254523947520",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854614047780799",
+    "name": "AD 01",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} Criativos Resort + Helicoptero",
+    "adset_id": "23854614047720799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1323595146296079",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQJaxZ1TyI11srhQfDdq94PSrWP3qfKiI1m6sFfdeevAmEUYdauAlT9A_Rw-AHXD-sCRTqX3WexE-w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFPDe3sD2Ot9yybkkAQb92GUYkz3XEZxcMvZhFtGBvNSw&oe=6A801E7E",
+      "video_id": "987197060663644",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657794650799",
+    "name": "AD 03 (02 - CTA)",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657794630799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "4562050364119931",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/661297758_1277922544300173_313446921693297577_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=TupTL6LzTwgQ7kNvwG00_4P&_nc_oc=AdpnLvxtodzWQvPLmOMFnamPvJhQPGQTyMOGk6ng2ra0j21hKR-C7Fl-HhsZmi9TD8A&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQKUqD_aoR0ru9p4PcZKwv5S_-cACSDvVJaryecNLp8HzD26_-n7wVO-vBw7o9mausxqnRT-Wchahw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGnMNw-D3bSDrjmGz_ecnVzpX4JjT3OIPp09v6mQEeWjQ&oe=6A801F90",
+      "video_id": "964522422629315",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657752560799",
+    "name": "AD 04",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657752530799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "28045260641761366",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/663763476_948728007855326_9011894190316229679_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=cnMENQKhgdMQ7kNvwGhWd9U&_nc_oc=AdqTK15oxmKyDEJuje5Qi9BUte1TeqT9xCwWL_5VtroFdsI8qZfoOIkmC-lnabFPvvI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQKs5naRKHDZ8xcnw8uqIsvX23oPm4D4hEy4Umjr9uRQ4BngnODSYwmxAq6gXQcC9T-lx5Z1WIh0Lg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFDBceemCsEy5h9qL-hHR9PxYe5WXYGrzJ_qUP7hwezKA&oe=6A802487",
+      "video_id": "1437673334317265",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854601485050799",
+    "name": "AD 02 -",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} -Perfume R$247",
+    "adset_id": "23854601271990799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "963239796253588",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/662727292_1470572348057173_8826330594146492123_n.jpg?_nc_cat=108&ccb=1-7&_nc_ohc=8bJrvFg63JEQ7kNvwHmkZho&_nc_oc=AdpFIYax-OXyrjm8tb9vu9oXidV5hAjp3gxSFCfdZawfKLlc0aZn93ETfWcRNFXe9I4&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQLYlSx0b_CxIYBurkuu5dOo6FRackt7L7roCEcxUIMFCemts1A_FBWPRaDHkjgLkazd34Pwdj70dg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGIhyHl_66qgeTnOdFPn8GjTANGwHBfNyL81GFVAlBBiA&oe=6A804805",
+      "video_id": "1461194318828122",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657752550799",
+    "name": "AD 02 -",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657752530799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1311838354164782",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/662727292_1470572348057173_8826330594146492123_n.jpg?_nc_cat=108&ccb=1-7&_nc_ohc=8bJrvFg63JEQ7kNvwHmkZho&_nc_oc=AdpFIYax-OXyrjm8tb9vu9oXidV5hAjp3gxSFCfdZawfKLlc0aZn93ETfWcRNFXe9I4&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQLwtIJQ9O6zFW5G9PTUZY3kgsUZnIUrcnVc6HY6Las4VrZzQ8vdwIvo-YuZYCW3PRMc_jN3UMBzCg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQG7Y-zUU8ya8zX2sfF-sH1KSgAWJ3A0-8BC8uHg0wUIDQ&oe=6A804805",
+      "video_id": "1651290749104739",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657632630799",
+    "name": "AD 02 -",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657632600799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Frequência, decisão e domínio em um único gesto.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1474102984439886",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/662727292_1470572348057173_8826330594146492123_n.jpg?_nc_cat=108&ccb=1-7&_nc_ohc=8bJrvFg63JEQ7kNvwHmkZho&_nc_oc=AdpFIYax-OXyrjm8tb9vu9oXidV5hAjp3gxSFCfdZawfKLlc0aZn93ETfWcRNFXe9I4&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQKEE6vsTxx_ircFWsq2ECwJevk0OJLfp3RwyPXSA44iUStIHC_7QxUhUTblI-x0gMCAN_xQNmczuw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQF2Xbv89zRO-T1wWFC-9T6bDypne9duHnkcxGp9QC_dSg&oe=6A804805",
+      "video_id": "774479415600491",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854614047760799",
+    "name": "AD 03 (02 - CTA)",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} Criativos Resort + Helicoptero",
+    "adset_id": "23854614047720799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "971376808925554",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/661297758_1277922544300173_313446921693297577_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=TupTL6LzTwgQ7kNvwG00_4P&_nc_oc=AdpnLvxtodzWQvPLmOMFnamPvJhQPGQTyMOGk6ng2ra0j21hKR-C7Fl-HhsZmi9TD8A&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQIpW3O8n84i7o1CzZ9TfkxXl9rIgNWiuz13YLrDo9TSDSVxf36DBQwJ2aUKMLlhSZmEvrWi_QNR6A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQH-teTN1B68kGmq48SUoHxEOax938-tyxIQWViX84A3FA&oe=6A801F90",
+      "video_id": "793521300251376",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657794640799",
+    "name": "AD 06",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657794630799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "961822093504254",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660815417_1475160277336311_3285017049799682949_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=62_uQaHmifQQ7kNvwHDFLvS&_nc_oc=AdrroajHXgondcfvVIDr6qzjfxSba4Kj08MZrGrx8UD79ggIPEjR1j6kp19WJFsNhdM&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=aDlA-9p0Pvh6b12kRTmDGQ&_nc_tpa=Q5bMBQKiVFU3UPsp-1o5S5TskzazP5qFTtbDd6bxiQHcYTJqdf9UHbmlR9W4KdDkqxX7eC4bqczlFjVKtA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHFzINNa1YfeAEONk4arsuORtlf7blKly2MN4J2_mvsDQ&oe=6A8033FF",
+      "video_id": "2015814489023721",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854601485070799",
+    "name": "AD 04",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} -Perfume R$247",
+    "adset_id": "23854601271990799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1314898660554705",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/662868513_698489069992798_5212719236997753548_n.jpg?_nc_cat=104&ccb=1-7&_nc_ohc=i2jvvo5YOaEQ7kNvwHji3nO&_nc_oc=AdptNnfMcngSPlBKjjlRR-a-GwCQ6uFMROeYuOeD0BjgFO93TUUimBix6_ddzib5SUI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQJO4V7ZnDcVGZC3zahRc14FrxEFEeTdn_GOES-i2cnNG1juqdpdhiqFi6iVpE6aG2n4lOF2T-TRSA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEJNUuwIpfsT41aEXdnMhy-q5e0_HQTEuqi2WDi00yuiw&oe=6A801E7E",
+      "video_id": "2493888341043533",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854601485080799",
+    "name": "AD 05",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} -Perfume R$247",
+    "adset_id": "23854601271990799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "961185320172875",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660282119_1704863007329119_169132768626647633_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=OORBxovgHZAQ7kNvwGuY3cT&_nc_oc=AdrcTX4YciHAFtwUr-N9OY1JgE-ITPLrajV1FPh7KrNPTC4GgKOgkRv-4Ll8P9eXGck&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQKg6XcyCiNip2FN24qLgmPXjBEdMA_MoeHjlcEcRoVdoUw6SAveOJyBtzr17pXqUP4N-osOHHTmVw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGYtGwrU71zdjmTAHgHvda2hFqkzpsiKvonHHXymqu1Bw&oe=6A801B08",
+      "video_id": "1743714623738698",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657794660799",
+    "name": "AD 05",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657794630799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1469292868328489",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660282119_1704863007329119_169132768626647633_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=OORBxovgHZAQ7kNvwGuY3cT&_nc_oc=AdrcTX4YciHAFtwUr-N9OY1JgE-ITPLrajV1FPh7KrNPTC4GgKOgkRv-4Ll8P9eXGck&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQL0opXEHa2LN19B0kHhJy-qCKb7ykCUEVmlURO_IwRJbQVhOpSajeOgF-hKNh4_hjTLcy3J-thnXw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGmdJQ1ouIQTCiZ8-K_ZE1J8DNcA0AbpYNpEitBfZUwIg&oe=6A801B08",
+      "video_id": "946842188086263",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657752520799",
+    "name": "AD 06",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657752530799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1421351493095590",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660815417_1475160277336311_3285017049799682949_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=62_uQaHmifQQ7kNvwHDFLvS&_nc_oc=AdrroajHXgondcfvVIDr6qzjfxSba4Kj08MZrGrx8UD79ggIPEjR1j6kp19WJFsNhdM&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQJmojMzxNLBQSl5HL271q1nLbvUc_Oo59uwO7Bij4AAIyx8Mo5JOW2mnucbAXHvSDsC82EJWBjbAg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGxg-nSQhU4KLCIlYIdzdMWtfr94bVP4USQQORnrL_L_A&oe=6A8033FF",
+      "video_id": "1851550518844411",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854614047770799",
+    "name": "AD 02 -",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} Criativos Resort + Helicoptero",
+    "adset_id": "23854614047720799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1897664430920934",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/662727292_1470572348057173_8826330594146492123_n.jpg?_nc_cat=108&ccb=1-7&_nc_ohc=8bJrvFg63JEQ7kNvwHmkZho&_nc_oc=AdpFIYax-OXyrjm8tb9vu9oXidV5hAjp3gxSFCfdZawfKLlc0aZn93ETfWcRNFXe9I4&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQLWnr4hw7eRdYW8owvecFaI1WHXJVedkQJm9HxsPcIejMXUcCl3OlDakizILT0aWRCui1mEuAHK0w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHGDx2QBhiutrMqYjAb_ozyypZ7Y0KF7j9-N4zplqAV2g&oe=6A804805",
+      "video_id": "974315318402969",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657794690799",
+    "name": "AD 04",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657794630799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1493218242338264",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/663763476_948728007855326_9011894190316229679_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=cnMENQKhgdMQ7kNvwGhWd9U&_nc_oc=AdqTK15oxmKyDEJuje5Qi9BUte1TeqT9xCwWL_5VtroFdsI8qZfoOIkmC-lnabFPvvI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQJLvB1QJnh8h5DNrLNSVF0_cmnfCVzBS3msoKPNYQL28xHMRtx5k4ldeg8ACAgc2G9P9d6IrM2lYg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHGbCpsQDvkZacTOiS1k4k_82nHfH1qVVDPEsqeORR1PA&oe=6A802487",
+      "video_id": "1272567677853333",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854614047740799",
+    "name": "AD 05",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} Criativos Resort + Helicoptero",
+    "adset_id": "23854614047720799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1265732628566093",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660282119_1704863007329119_169132768626647633_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=OORBxovgHZAQ7kNvwGuY3cT&_nc_oc=AdrcTX4YciHAFtwUr-N9OY1JgE-ITPLrajV1FPh7KrNPTC4GgKOgkRv-4Ll8P9eXGck&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQJxp0jidHAtrZB6MGnTc4tO2ZmMrQGJ9QLjgtmGJjPrTf9_zSlMFWZ7C6Ztc0EXwv-T1Aad80CKPg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQH3dctyHlhNvIedzJl2n4hib4ToEFeD48kOUIPhXA60RQ&oe=6A801B08",
+      "video_id": "27414383714831544",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657632650799",
+    "name": "AD 04",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657632600799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1347347874119881",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/663763476_948728007855326_9011894190316229679_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=cnMENQKhgdMQ7kNvwGhWd9U&_nc_oc=AdqTK15oxmKyDEJuje5Qi9BUte1TeqT9xCwWL_5VtroFdsI8qZfoOIkmC-lnabFPvvI&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQIVTQBay5Khes2JgGtQ0b6SerJ8TKK_1fkkolfD1Mgqajj9CRAIy_Mnn9lifTIbCXgF9SD2Tqr6iw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQF70HoZrIzKipoJm_h6LScNrKnQ6NURyVxQ6RIytO-kOw&oe=6A802487",
+      "video_id": "930704519787269",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657794680799",
+    "name": "AD 02 -",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657794630799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1488011152880357",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/662727292_1470572348057173_8826330594146492123_n.jpg?_nc_cat=108&ccb=1-7&_nc_ohc=8bJrvFg63JEQ7kNvwHmkZho&_nc_oc=AdpFIYax-OXyrjm8tb9vu9oXidV5hAjp3gxSFCfdZawfKLlc0aZn93ETfWcRNFXe9I4&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQLLS4eX4H8JbP8xyhJszY5eZNzVh4pwIoUNQoiGUzXjhAYPwnw6jwEic-G7l_NNU6W5J2_rnpRBPQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFtNN94M7nkLtJ1PgHVxLqMNwZNp0N0NgdNuFHV2qpvAA&oe=6A804805",
+      "video_id": "1581017532972957",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657727460799",
+    "name": "AD 06",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657632600799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1492357222398980",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660815417_1475160277336311_3285017049799682949_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=62_uQaHmifQQ7kNvwHDFLvS&_nc_oc=AdrroajHXgondcfvVIDr6qzjfxSba4Kj08MZrGrx8UD79ggIPEjR1j6kp19WJFsNhdM&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQIH6oAP4PypZoq4SI9DBDHKVcywPjqGr0PlGOjM2cn0F-mqybFkdPBeIsT5Sz5o4jk9telgfapxTg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHM2bAzOnz_4atX3_XkRJGQC98KuVUqd2FVncKfhcNCFQ&oe=6A8033FF",
+      "video_id": "1947725989184823",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854601485060799",
+    "name": "AD 03 (02 - CTA)",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][ADV+} -Perfume R$247",
+    "adset_id": "23854601271990799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1730572884975474",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/661297758_1277922544300173_313446921693297577_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=TupTL6LzTwgQ7kNvwG00_4P&_nc_oc=AdpnLvxtodzWQvPLmOMFnamPvJhQPGQTyMOGk6ng2ra0j21hKR-C7Fl-HhsZmi9TD8A&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQIX1TEzfKGeD5YxU89PT4c4Z4fpS7Sq54iCwpzpyu_ErEDd5tyZF8ZO02Q2rNnu9ZKKAL9I5_M_jA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGZovB5XZJfV8RrkAVX2derANjjyAGScxirAXny0_jEzA&oe=6A801F90",
+      "video_id": "1424590236088524",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657632610799",
+    "name": "AD 03 (02 - CTA)",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657632600799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1647825039677429",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/661297758_1277922544300173_313446921693297577_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=TupTL6LzTwgQ7kNvwG00_4P&_nc_oc=AdpnLvxtodzWQvPLmOMFnamPvJhQPGQTyMOGk6ng2ra0j21hKR-C7Fl-HhsZmi9TD8A&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQI3l2bVw2NuYG0heOwGNmmjYCImjGFWM05oKag6OT1FXwY-q_ep0xB4yAFZAE4WmmQw33dIGtfvaw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEXlCvDMvWUL6IWEOJtKEBnJAxzf7-gy4L_BGcY73KQGg&oe=6A801F90",
+      "video_id": "1467342718184103",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657752580799",
+    "name": "AD 03 (02 - CTA)",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657752530799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "882508581476195",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/661297758_1277922544300173_313446921693297577_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=TupTL6LzTwgQ7kNvwG00_4P&_nc_oc=AdpnLvxtodzWQvPLmOMFnamPvJhQPGQTyMOGk6ng2ra0j21hKR-C7Fl-HhsZmi9TD8A&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQJBu-gEJjDsNUPJ0LTog31xx_bKcM1TV1PZIm8YdrCSAt8sYVqFjrnZxlOI9RPWP6wmOHHAWid9Iw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHFoPHHZn70hegBPQR6pp9nJkfhb76TGI9-mghvk8_6EQ&oe=6A801F90",
+      "video_id": "923819427368237",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657752540799",
+    "name": "AD 05",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657752530799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1586543969083851",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660282119_1704863007329119_169132768626647633_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=OORBxovgHZAQ7kNvwGuY3cT&_nc_oc=AdrcTX4YciHAFtwUr-N9OY1JgE-ITPLrajV1FPh7KrNPTC4GgKOgkRv-4Ll8P9eXGck&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQKS11JCPQNtkzLaZIbsEEwjVGUrcLfYA5rzVID44pOalTOWc_1EV74BEW_1Ptewhjc6TF3_WQvdlw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQF99qo3CO9qs3TfsAlNmDMOzKmtJlkxpbNZV1lc6SYztA&oe=6A801B08",
+      "video_id": "2015705615691868",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "23854657632640799",
+    "name": "AD 05",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "[ABO][VENDAS][MARÇAL][FRIO} -Perfume R$247",
+    "adset_id": "23854657632600799",
+    "copy": {
+      "message": "Existe um momento antes de qualquer decisão importante.\nÉ ali que você define como vai entrar.\nO Perfume dos Negócios foi criado para isso: ativar frequência, foco e postura de governante antes de qualquer reunião.\nPrimeiro lote com 2000 unidades.\nPreço de lançamento: R$297.",
+      "headline": "Entre na sala com frequência de quem já decidiu.",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://marcalparfum.com.br/",
+    "creative": {
+      "id": "1288666399323976",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/660282119_1704863007329119_169132768626647633_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=OORBxovgHZAQ7kNvwGuY3cT&_nc_oc=AdrcTX4YciHAFtwUr-N9OY1JgE-ITPLrajV1FPh7KrNPTC4GgKOgkRv-4Ll8P9eXGck&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=6P99MMC7KAawRLINjN4yVQ&_nc_tpa=Q5bMBQJNTE7SOGzsNkdfvYMp14rCmBN4Qv-jLEQwumY_-eCIGFqv-_5ugQZJP7hB7RyuOcuz9X7ghK6zpA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFoYANOG3Zkne60zoRPCdTIcWUb_B7P7_WdMPZ2KbO3gQ&oe=6A801B08",
+      "video_id": "1329151255983192",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  }
+]

@@ -17,8 +17,10 @@ import base64
 import json
 import mimetypes
 import os
+import random
 import shutil
 import subprocess
+import threading
 import time
 import urllib.request
 from pathlib import Path
@@ -97,19 +99,22 @@ def _project() -> str:
 
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)  # no Windows, não abre console do gcloud
 _tok_cache = {"val": None, "exp": 0.0}
+_tok_lock = threading.Lock()
 
 
 def _token() -> str:
     """Access token do gcloud, cacheado ~45min. Sem cache seria 1 chamada a cada poll (8s),
-    piscando um console do Windows toda vez."""
-    now = time.time()
-    if _tok_cache["val"] and now < _tok_cache["exp"]:
-        return _tok_cache["val"]
-    val = subprocess.check_output([_gcloud(), "auth", "print-access-token"],
-                                  text=True, creationflags=_NO_WINDOW).strip()
-    _tok_cache["val"] = val
-    _tok_cache["exp"] = now + 2700
-    return val
+    piscando um console do Windows toda vez. O lock evita que várias threads (lote de 6
+    clipes) disparem `gcloud` em paralelo — só a primeira busca, as demais reusam o cache."""
+    with _tok_lock:
+        now = time.time()
+        if _tok_cache["val"] and now < _tok_cache["exp"]:
+            return _tok_cache["val"]
+        val = subprocess.check_output([_gcloud(), "auth", "print-access-token"],
+                                      text=True, creationflags=_NO_WINDOW).strip()
+        _tok_cache["val"] = val
+        _tok_cache["exp"] = now + 2700
+        return val
 
 
 def _base() -> str:
@@ -130,10 +135,27 @@ def _post(url: str, body: dict, token: str, timeout: int = 120) -> dict:
         raise RuntimeError(f"Vertex/Veo recusou ({e.code}): {e.read().decode(errors='replace')[:600]}")
 
 
+# Espaçamento entre submits: quando 6 clipes disparam juntos, bater no Vertex no MESMO
+# instante é o que provoca o throttle (code 8 / high load). Serializa só o INSTANTE do
+# submit (~0,8s entre um e outro); a parte longa (poll) segue concorrente. Reduz o pico.
+_submit_gate = threading.Lock()
+_ultimo_submit = [0.0]
+_ESPACO_SUBMIT_S = 0.8
+
+
+def _espacar_submit() -> None:
+    with _submit_gate:
+        espera = _ultimo_submit[0] + _ESPACO_SUBMIT_S - time.time()
+        if espera > 0:
+            time.sleep(espera)
+        _ultimo_submit[0] = time.time()
+
+
 def submit(image_path, prompt: str, duration_s: int = 5, resolution: str = "720p",
            model: str = "veo_fast", gerar_audio: bool = False) -> dict:
     """Enfileira a geração i2v e retorna {request_id (operation), endpoint (model_id)}.
     gerar_audio=True: fala/áudio NATIVO do Veo (cenas de fala); False: b-roll mudo."""
+    _espacar_submit()
     # motor="veo" com um modelo_api de outro backend (ex.: seedance_lite) cai no veo_fast.
     model_id = MODEL_MAP.get(model) or (model if model.startswith("veo-") else MODEL_MAP["veo_fast"])
     b64, mime = _keyframe_9x16_b64(Path(image_path))
@@ -190,20 +212,56 @@ def aguardar(operation: str, model_id: str, output_path, timeout: int = 900,
     return str(output_path)
 
 
+# Erros TRANSITÓRIOS do Veo/Vertex (throttle/sobrecarga): valem retry com backoff, não falha final.
+# Ex.: {"code": 8, "message": "The service is currently experiencing high load..."} (RESOURCE_EXHAUSTED).
+_TRANSIENTE = ("code\": 8", "code': 8", "high load", "resource_exhausted", "unavailable",
+               "currently experiencing", "try again later", "overloaded", "rate limit",
+               "(429)", "(500)", "(502)", "(503)", "(504)", "deadline", "timeout")
+# Backoff base entre tentativas (segundos). 7 tentativas, ~5min de orçamento — throttle
+# transitório do Veo raramente dura tanto. Jitter ±35% decorrelaciona as 6 threads.
+_BACKOFF_S = (8, 16, 28, 45, 70, 100)
+
+
+def _cancelado(cancel_event) -> bool:
+    return cancel_event is not None and cancel_event.is_set()
+
+
 def generate(image_path, prompt: str, output_path, duration_s: int = 5,
              resolution: str = "720p", model: str = "veo_fast",
              timeout: int = 900, cancel_event=None, request_id: str | None = None,
              on_submit=None, gerar_audio: bool = False, **_ignored) -> str:
     """Gera 1 clipe i2v no Veo. on_submit(info) é chamado após o submit (persistência).
     request_id no formato 'model_id::operation' só retoma o poll (não paga de novo).
-    gerar_audio=True: fala/áudio nativo (cenas de fala)."""
-    if request_id and "::" in request_id:
-        model_id, operation = request_id.split("::", 1)
-    else:
-        info = submit(image_path, prompt, duration_s=duration_s,
-                      resolution=resolution, model=model, gerar_audio=gerar_audio)
-        if on_submit:
-            on_submit(info)
-        model_id, operation = info["endpoint"], info["request_id"]
-    return aguardar(operation, model_id, output_path,
-                    timeout=timeout, cancel_event=cancel_event)
+    gerar_audio=True: fala/áudio nativo (cenas de fala).
+
+    Erros transitórios do Veo (sobrecarga/throttle: code 8, 'high load', 429/503) são
+    reenviados automaticamente com backoff — antes qualquer pico derrubava a cena."""
+    retomar = bool(request_id and "::" in request_id)
+    ultimo = None
+    for i in range(len(_BACKOFF_S) + 1):
+        try:
+            if retomar:
+                model_id, operation = request_id.split("::", 1)
+            else:
+                info = submit(image_path, prompt, duration_s=duration_s,
+                              resolution=resolution, model=model, gerar_audio=gerar_audio)
+                if on_submit:
+                    on_submit(info)
+                model_id, operation = info["endpoint"], info["request_id"]
+            return aguardar(operation, model_id, output_path,
+                            timeout=timeout, cancel_event=cancel_event)
+        except RuntimeError as e:
+            ultimo = e
+            msg = str(e).lower()
+            transitorio = any(t in msg for t in _TRANSIENTE)
+            # Não repete se: retomando um op já com erro, cancelado, acabou o orçamento de
+            # tentativas, ou o erro é permanente (prompt/quota fixa). Aí falha de vez.
+            if retomar or _cancelado(cancel_event) or i >= len(_BACKOFF_S) or not transitorio:
+                raise
+            espera = _BACKOFF_S[i] * random.uniform(0.65, 1.35)   # backoff com jitter ±35%
+            fim = time.time() + espera                            # espera respeitando o cancelamento
+            while time.time() < fim:
+                if _cancelado(cancel_event):
+                    raise
+                time.sleep(1)
+    raise ultimo  # inalcançável (o loop sempre retorna ou levanta)

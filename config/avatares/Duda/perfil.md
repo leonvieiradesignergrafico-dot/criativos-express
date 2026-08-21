@@ -1,0 +1,1 @@
+Mulher brasileira, 21 anos, pele clara com sardas discretas, cabelo castanho médio liso, franja leve, sorriso natural. Creator UGC jovem e casual, moletom ou camiseta lisa, quarto de casa média com escrivaninha, plantas simples e objetos reais ao fundo. Ultra realista, espontânea, sem estúdio, sem luxo e sem logos.

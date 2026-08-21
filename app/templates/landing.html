@@ -3,47 +3,294 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Criativos Express</title>
+<title>Ads Express</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-  :root { --bg:#161618; --card:#1e1e21; --card2:#26262a; --borda:#34343a; --txt:#f2f2f4; --txt2:#9d9da6; --azul:#0a84ff; --verde:#30d158; }
+  :root {
+    --bg:#fafafa; --card:#ffffff; --card2:#f4f4f5; --border:#e4e4e7;
+    --txt:#09090b; --txt2:#52525b; --txt3:#a1a1aa; --accent:#18181b; --on-accent:#fafafa;
+    --fill:rgba(24,24,27,.05);
+    --shadow:0 1px 3px 0 rgba(9,9,11,.08), 0 1px 2px -1px rgba(9,9,11,.06);
+    --shadow-h:0 10px 30px -8px rgba(9,9,11,.16), 0 3px 8px -3px rgba(9,9,11,.08);
+  }
+  @media (prefers-color-scheme:dark){
+    :root {
+      --bg:#09090b; --card:#18181b; --card2:#1f1f23; --border:#27272a;
+      --txt:#fafafa; --txt2:#a1a1aa; --txt3:#71717a; --accent:#fafafa; --on-accent:#18181b;
+      --fill:rgba(250,250,250,.06);
+      --shadow:0 1px 3px 0 rgba(0,0,0,.4);
+      --shadow-h:0 12px 34px -8px rgba(0,0,0,.65), 0 3px 8px -3px rgba(0,0,0,.5);
+    }
+  }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--txt); min-height:100vh; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; padding:32px;
-    font-family:-apple-system,"SF Pro Display","Segoe UI",sans-serif; }
-  h1 { font-size:30px; font-weight:600; letter-spacing:-.02em; margin-bottom:6px; }
-  .sub { color:var(--txt2); font-size:15px; margin-bottom:44px; }
-  .cards { display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:760px; width:100%; }
+  body {
+    background:var(--bg); color:var(--txt); min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px;
+    font-family:"Inter","Segoe UI Variable Display",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    letter-spacing:-.011em; -webkit-font-smoothing:antialiased;
+  }
+  .wordmark { height:62px; width:auto; display:block; margin-bottom:14px; }
+  @media (prefers-color-scheme:light){ .wordmark { filter:invert(1); } }
+  .sub { color:var(--txt2); font-size:14.5px; margin-bottom:40px; }
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:760px; width:100%; }
   @media (max-width:720px){ .cards{ grid-template-columns:1fr; } }
-  .card { background:var(--card); border:1px solid var(--borda); border-radius:18px; padding:32px 28px;
-    text-decoration:none; color:inherit; transition:transform .15s, border-color .15s, background .15s;
-    display:flex; flex-direction:column; gap:12px; }
-  .card:hover { transform:translateY(-4px); border-color:var(--azul); background:var(--card2); }
-  .icone { font-size:44px; }
-  .card h2 { font-size:20px; font-weight:600; }
-  .card p { color:var(--txt2); font-size:13.5px; line-height:1.5; }
-  .tag { align-self:flex-start; margin-top:6px; font-size:11px; padding:3px 10px; border-radius:99px;
-    background:rgba(48,209,88,.14); color:var(--verde); border:1px solid rgba(48,209,88,.3); }
-  .tag.beta { background:rgba(10,132,255,.14); color:var(--azul); border-color:rgba(10,132,255,.3); }
-  footer { margin-top:40px; color:var(--txt2); font-size:12px; }
+  .card {
+    background:var(--card); border:1px solid var(--border); border-radius:14px; padding:26px 24px;
+    text-decoration:none; color:inherit; box-shadow:var(--shadow);
+    transition:transform .16s cubic-bezier(.16,1,.3,1), border-color .16s, box-shadow .16s;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .card:hover { transform:translateY(-2px); border-color:var(--txt3); box-shadow:var(--shadow-h); }
+  .icone {
+    width:44px; height:44px; display:grid; place-items:center; border-radius:11px;
+    background:var(--card2); border:1px solid var(--border); color:var(--txt);
+  }
+  .icone svg { width:23px; height:23px; }
+  .card h2 { font-size:17px; font-weight:600; letter-spacing:-.02em; }
+  .card p { color:var(--txt2); font-size:13px; line-height:1.55; }
+  .tag {
+    align-self:flex-start; margin-top:6px; font-size:11px; font-weight:500;
+    padding:3px 10px; border-radius:999px; background:var(--fill); color:var(--txt2);
+    border:1px solid var(--border);
+  }
+  .tag.beta { background:var(--accent); color:var(--on-accent); border-color:transparent; font-weight:600; }
+  footer { margin-top:38px; color:var(--txt3); font-size:12px; }
+
+  /* --- Logins compactos (Claude / ChatGPT / Google) --- */
+  .logins { display:flex; flex-direction:column; align-items:center; gap:11px; margin-top:26px; }
+  .logins-titulo {
+    font-size:11px; font-weight:500; color:var(--txt3);
+    text-transform:uppercase; letter-spacing:.07em;
+  }
+  .login-row { display:flex; gap:12px; }
+  .login-btn {
+    position:relative; width:60px; height:52px; padding:0; display:grid; place-items:center;
+    background:var(--card); border:1px solid var(--border); border-radius:14px; cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:transform .16s cubic-bezier(.16,1,.3,1), border-color .16s, box-shadow .16s;
+  }
+  .login-btn:hover { transform:translateY(-2px); border-color:var(--txt3); box-shadow:var(--shadow-h); }
+  .login-btn svg { width:27px; height:27px; display:block; }
+  .login-dot {
+    position:absolute; top:7px; right:7px; width:9px; height:9px; border-radius:50%;
+    background:var(--txt3); box-shadow:0 0 0 2px var(--card); transition:background .2s;
+  }
+  .login-btn[data-ok="1"] .login-dot { background:#22c55e; }
+  .login-btn[data-ok="0"] .login-dot { background:#ef4444; }
+
+  /* --- Modal (projeto Google Cloud) + toast --- */
+  .modal-overlay {
+    position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center;
+    padding:20px; background:rgba(0,0,0,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    animation:fade .18s ease;
+  }
+  .modal-overlay[hidden] { display:none; }
+  @keyframes fade { from{opacity:0} to{opacity:1} }
+  .modal {
+    width:min(420px, 100%); background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:24px; box-shadow:var(--shadow-h); text-align:left;
+    animation:pop .22s cubic-bezier(.16,1,.3,1);
+  }
+  @keyframes pop { from{opacity:0; transform:translateY(8px) scale(.98)} to{opacity:1; transform:none} }
+  .modal-ico {
+    width:40px; height:40px; border-radius:11px; background:var(--card2); border:1px solid var(--border);
+    display:grid; place-items:center; margin-bottom:14px; color:var(--txt);
+  }
+  .modal-ico svg { width:22px; height:22px; }
+  .modal h3 { font-size:17px; font-weight:600; letter-spacing:-.02em; margin-bottom:6px; }
+  .modal p { font-size:13px; color:var(--txt2); line-height:1.55; margin-bottom:16px; }
+  .modal p code { font-family:ui-monospace,"Cascadia Code",Consolas,monospace; font-size:12px;
+    background:var(--fill); padding:1px 5px; border-radius:5px; }
+  .modal input {
+    width:100%; background:var(--card2); border:1px solid var(--border); border-radius:10px;
+    padding:11px 13px; color:var(--txt); font:inherit; font-size:14px; outline:none;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .modal input:focus { border-color:var(--txt3); box-shadow:0 0 0 3px var(--fill); }
+  .modal input::placeholder { color:var(--txt3); }
+  .modal-erro { font-size:12.5px; color:#ef4444; margin-top:8px; }
+  .modal-acoes { display:flex; justify-content:flex-end; gap:9px; margin-top:18px; }
+  .mbtn {
+    appearance:none; border:1px solid transparent; cursor:pointer; font:inherit; font-size:13.5px;
+    font-weight:600; padding:9px 16px; border-radius:10px; background:var(--accent); color:var(--on-accent);
+    transition:transform .14s, opacity .14s;
+  }
+  .mbtn:hover { transform:translateY(-1px); }
+  .mbtn.ghost { background:transparent; border-color:var(--border); color:var(--txt2); font-weight:500; }
+  .mbtn.ghost:hover { color:var(--txt); border-color:var(--txt3); }
+  .toast {
+    position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px); z-index:60;
+    background:var(--card); border:1px solid var(--border); color:var(--txt);
+    padding:11px 18px; border-radius:12px; font-size:13.5px; box-shadow:var(--shadow-h);
+    opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; max-width:80vw;
+  }
+  .toast.show { opacity:1; transform:translate(-50%,0); }
+  .toast[data-ok="0"] { border-color:rgba(239,68,68,.55); }
 </style>
 </head>
 <body>
-  <h1>Criativos Express</h1>
+  <img class="wordmark" src="/static/ads-express.png?v=2" alt="Ads Express">
   <div class="sub">O que você vai criar hoje?</div>
   <div class="cards">
     <a class="card" href="/imagem">
-      <div class="icone">🖼️</div>
-      <h2>Criativos de Imagem</h2>
+      <div class="icone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 22H4a2 2 0 0 1-2-2V6"/>
+          <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/>
+          <circle cx="12" cy="8" r="2"/>
+          <rect width="16" height="16" x="6" y="2" rx="2"/>
+        </svg>
+      </div>
+      <h2>Criativos Estáticos</h2>
       <p>Copies de alta conversão e criativos estáticos fiéis ao produto, em lote. Da copy ao anúncio pronto pra Meta.</p>
-      <span class="tag">esteira completa</span>
     </a>
     <a class="card" href="/ugc">
-      <div class="icone">🎬</div>
-      <h2>Vídeo UGC</h2>
+      <div class="icone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/>
+          <path d="m6.2 5.3 3.1 3.9"/>
+          <path d="m12.4 3.4 3.1 4"/>
+          <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+        </svg>
+      </div>
+      <h2>Criativos em Vídeo</h2>
       <p>Da copy ao vídeo UGC realista: roteiro, keyframes grátis, avatar consistente, narração e montagem com jump cuts.</p>
-      <span class="tag beta">novo</span>
     </a>
   </div>
-  <footer>Mesmos produtos e referências nos dois caminhos.</footer>
+
+  <div class="logins">
+    <div class="logins-titulo">Contas</div>
+    <div class="login-row" id="login-row">
+      <button class="login-btn" data-tool="claude" data-ok="0" title="Claude">
+        <span class="login-dot"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D97757" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+          <line x1="12" y1="3.5" x2="12" y2="20.5"/><line x1="3.5" y1="12" x2="20.5" y2="12"/>
+          <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </button>
+      <button class="login-btn" data-tool="codex" data-ok="0" title="ChatGPT">
+        <span class="login-dot"></span>
+        <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--txt)" aria-hidden="true">
+          <path d="M22.28 9.82a5.98 5.98 0 0 0-.52-4.91 6.05 6.05 0 0 0-6.51-2.9A6.07 6.07 0 0 0 4.98 4.18a5.98 5.98 0 0 0-4 2.9 6.05 6.05 0 0 0 .74 7.1 5.98 5.98 0 0 0 .51 4.91 6.05 6.05 0 0 0 6.52 2.9A5.98 5.98 0 0 0 13.26 24a6.06 6.06 0 0 0 5.77-4.21 5.99 5.99 0 0 0 4-2.9 6.06 6.06 0 0 0-.75-7.07zm-9.02 12.61a4.48 4.48 0 0 1-2.88-1.04l.14-.08 4.78-2.76a.79.79 0 0 0 .39-.68v-6.74l2.02 1.17a.07.07 0 0 1 .04.05v5.58a4.5 4.5 0 0 1-4.49 4.5zM3.6 18.3a4.47 4.47 0 0 1-.53-3.01l.14.08 4.78 2.76a.77.77 0 0 0 .78 0l5.84-3.37v2.33a.08.08 0 0 1-.03.06L9.74 19.95a4.5 4.5 0 0 1-6.14-1.65zM2.34 7.9a4.49 4.49 0 0 1 2.37-1.98v5.68a.77.77 0 0 0 .39.68l5.81 3.35-2.02 1.17a.08.08 0 0 1-.07 0l-4.83-2.79A4.5 4.5 0 0 1 2.34 7.9zm16.6 3.86-5.84-3.4L15.12 7.2a.08.08 0 0 1 .07 0l4.83 2.79a4.49 4.49 0 0 1-.68 8.1v-5.68a.79.79 0 0 0-.4-.67zm2.01-3.02-.14-.09-4.77-2.78a.78.78 0 0 0-.79 0L9.41 9.23V6.9a.07.07 0 0 1 .03-.06l4.83-2.79a4.5 4.5 0 0 1 6.68 4.66zM8.31 12.86l-2.02-1.16a.08.08 0 0 1-.04-.06V6.07a4.5 4.5 0 0 1 7.38-3.45l-.14.08L8.7 5.46a.79.79 0 0 0-.39.68zm1.1-2.37 2.6-1.5 2.61 1.5v3l-2.6 1.5-2.6-1.5z"/>
+        </svg>
+      </button>
+      <button class="login-btn" data-tool="gcloud" data-ok="0" title="Google Cloud">
+        <span class="login-dot"></span>
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+          <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+          <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/>
+          <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="veoModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.5 19a4.5 4.5 0 0 0 .36-8.99A6 6 0 0 0 6.3 9.2 4 4 0 0 0 7 17h10.5Z"/>
+        </svg>
+      </div>
+      <h3>Projeto do Google Cloud</h3>
+      <p>Cole o <b>ID do projeto</b> (o "Código" no console, ex.: <code>project-…</code>). É usado pra gerar vídeo com Veo/Omni.</p>
+      <input id="veoInput" type="text" placeholder="project-xxxxxxxx" autocomplete="off" spellcheck="false">
+      <div class="modal-erro" id="veoErro"></div>
+      <div class="modal-acoes">
+        <button class="mbtn ghost" id="veoCancel">Cancelar</button>
+        <button class="mbtn" id="veoOk">Salvar</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast" data-ok="1"></div>
+
+  <script>
+    const NOMES = {claude:"Claude", codex:"ChatGPT", gcloud:"Google Cloud"};
+    let veoOk = true, STATUS = {};   // gcloud também precisa do VEO_PROJECT pro vídeo
+    function estadoDe(tool, st){
+      if(!st) return {ok:false, txt:"verificando…"};
+      if(tool === "gcloud"){
+        if(!st.instalado) return {ok:false, txt:"clique p/ instalar o SDK"};
+        if(!st.conectado) return {ok:false, txt:"clique p/ conectar"};
+        if(!veoOk)        return {ok:false, txt:"clique p/ informar o projeto"};
+        return {ok:true, txt:"conectado"};
+      }
+      if(!st.instalado) return {ok:false, txt:"instale pelo Setup"};
+      if(!st.conectado) return {ok:false, txt:"clique p/ conectar"};
+      return {ok:true, txt:"conectado"};
+    }
+    function pintar(){
+      document.querySelectorAll(".login-btn").forEach(btn => {
+        const tool = btn.dataset.tool, e = estadoDe(tool, STATUS[tool]);
+        btn.dataset.ok = e.ok ? "1" : "0";
+        btn.title = NOMES[tool] + " — " + e.txt;   // hover mostra o detalhe
+      });
+    }
+    async function checarVeo(){
+      try { const r = await fetch("/api/veo_project"); veoOk = !!(await r.json()).veo_project; }
+      catch(e){ veoOk = true; }
+    }
+    async function carregar(){
+      try {
+        await checarVeo();
+        STATUS = await (await fetch("/api/logins")).json();
+        pintar();
+      } catch(e){ /* servidor subindo ainda; tenta de novo no foco */ }
+    }
+    function toast(msg, ok = true){
+      const t = document.getElementById("toast");
+      t.textContent = msg; t.dataset.ok = ok ? "1" : "0"; t.classList.add("show");
+      clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 3600);
+    }
+    function abrirVeo(){
+      document.getElementById("veoErro").textContent = "";
+      document.getElementById("veoInput").value = "";
+      document.getElementById("veoModal").hidden = false;
+      setTimeout(() => document.getElementById("veoInput").focus(), 40);
+    }
+    function fecharVeo(){ document.getElementById("veoModal").hidden = true; }
+    async function salvarVeo(){
+      const pid = document.getElementById("veoInput").value.trim();
+      if(!pid){ document.getElementById("veoErro").textContent = "Cole o ID do projeto."; return; }
+      const res = await (await fetch("/api/veo_project", {method:"POST",
+        headers:{"Content-Type":"application/json"}, body: JSON.stringify({veo_project: pid})})).json();
+      if(res.ok){ veoOk = true; fecharVeo(); toast("Projeto salvo — vídeo pronto ✓"); carregar(); }
+      else document.getElementById("veoErro").textContent = res.msg || "Não consegui salvar o projeto.";
+    }
+    function pedirVeoProject(){ abrirVeo(); }   // abre o modal estilizado (não o prompt nativo)
+    document.getElementById("login-row").addEventListener("click", async (ev) => {
+      const btn = ev.target.closest(".login-btn"); if(!btn) return;
+      const tool = btn.dataset.tool, st = STATUS[tool] || {};
+      // gcloud conectado mas sem projeto: pede só o projeto (não re-loga).
+      if(tool === "gcloud" && st.conectado && !veoOk){ await pedirVeoProject(); return; }
+      try {
+        const res = await (await fetch("/api/login/" + tool, {method:"POST"})).json();
+        if(res.msg) toast(res.msg, res.ok !== false);
+        // gcloud recém-conectado sem projeto: já emenda o pedido do VEO_PROJECT.
+        if(tool === "gcloud" && res.ok && res.acao !== "instalar"){
+          setTimeout(async () => { await checarVeo(); if(!veoOk) pedirVeoProject(); }, 8000);
+        }
+      } catch(e){}
+      setTimeout(carregar, 6000);
+    });
+    // Reconsulta quando a janela volta ao foco (usuário terminou o login no browser).
+    // Fiação do modal do projeto Google Cloud.
+    document.getElementById("veoOk").addEventListener("click", salvarVeo);
+    document.getElementById("veoCancel").addEventListener("click", fecharVeo);
+    document.getElementById("veoModal").addEventListener("click", (e) => {
+      if(e.target.id === "veoModal") fecharVeo();   // clicar fora fecha
+    });
+    document.getElementById("veoInput").addEventListener("keydown", (e) => {
+      if(e.key === "Enter") salvarVeo();
+      else if(e.key === "Escape") fecharVeo();
+    });
+    window.addEventListener("focus", carregar);
+    carregar();
+  </script>
 </body>
 </html>

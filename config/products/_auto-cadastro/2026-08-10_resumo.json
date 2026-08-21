@@ -1,0 +1,73 @@
+{
+  "gen_date": "2026-08-10",
+  "dry_run": false,
+  "fonte_descoberta": "banco",
+  "clientes": 1,
+  "resumo": [
+    {
+      "cliente": "paiva",
+      "ok": true,
+      "total_ads": 65,
+      "produtos_novos": 6,
+      "produtos_atualizados": 0,
+      "conflitos": [],
+      "sem_pagina": 4,
+      "erros": [],
+      "produtos": [
+        {
+          "slug": "n8n-master",
+          "action": "created",
+          "ads": 11,
+          "flags": [
+            "9 vídeo(s) — transcrição pendente (dry-run)"
+          ]
+        },
+        {
+          "slug": "sem-pagina",
+          "action": "created",
+          "ads": 4,
+          "flags": [
+            "sem-pagina (anúncios sem link de destino)",
+            "so_pausados (nenhum anúncio ativo no grupo)",
+            "4 vídeo(s) — transcrição pendente (dry-run)"
+          ]
+        },
+        {
+          "slug": "mateuspaiva-art",
+          "action": "created",
+          "ads": 3,
+          "flags": [
+            "so_pausados (nenhum anúncio ativo no grupo)",
+            "3 vídeo(s) — transcrição pendente (dry-run)"
+          ]
+        },
+        {
+          "slug": "n8n-master-latam",
+          "action": "created",
+          "ads": 5,
+          "flags": [
+            "5 vídeo(s) — transcrição pendente (dry-run)"
+          ]
+        },
+        {
+          "slug": "app-de-elite-vsl",
+          "action": "created",
+          "ads": 2,
+          "flags": [
+            "so_pausados (nenhum anúncio ativo no grupo)",
+            "2 vídeo(s) — transcrição pendente (dry-run)"
+          ]
+        },
+        {
+          "slug": "assetspack",
+          "action": "created",
+          "ads": 40,
+          "flags": [
+            "so_pausados (nenhum anúncio ativo no grupo)",
+            "40 vídeo(s) — transcrição pendente (dry-run)"
+          ]
+        }
+      ]
+    }
+  ]
+}

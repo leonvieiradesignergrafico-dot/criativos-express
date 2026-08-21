@@ -1,0 +1,752 @@
+[
+  {
+    "id": "120252627603310181",
+    "name": "ad4-10",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252627603320181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1360259522882362",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKkJ7u64R3cVmv5nPVS-jfaCx_FE_wTUrizcP9qPaHnmukj8dPkSfQuvy4Kp-kyXocutJy0lZ8BYQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHm2x1JLXShaChrBxBwrCh4NqLYU7i-7tdmKX83nlLZsA&oe=6A804AD0",
+      "video_id": "1367223818147934",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252625745480181",
+    "name": "ad4-5",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252625745470181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1360259522882362",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKkJ7u64R3cVmv5nPVS-jfaCx_FE_wTUrizcP9qPaHnmukj8dPkSfQuvy4Kp-kyXocutJy0lZ8BYQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHm2x1JLXShaChrBxBwrCh4NqLYU7i-7tdmKX83nlLZsA&oe=6A804AD0",
+      "video_id": "1367223818147934",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252625739060181",
+    "name": "ad4-4",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252625739070181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1620789739661900",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKEtY-NUWCxUXDzp9-qzNfjnTjnK-WX3BLoJU8d0LK4mUGFQm-eVsTUCPkaVLpEv6OuBifUkoQxlQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFgjtOVLkuk2NldpYyvbiRNnEVKksMlV8adhi7vool54Q&oe=6A804AD0",
+      "video_id": "1374467624124506",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252625706760181",
+    "name": "ad4-2",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252625706770181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1604024001272712",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJYh9IsmAFwvLOGGVXwS46N9ksqPruyvXGQtOhXurcKXyjgyhfzZBDJrzDj5no2hRktaL2zSgnHeQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFC6BJjX7bt1HyyOuGuVZHson4FjEqR9O8sw7-O7_paxQ&oe=6A804AD0",
+      "video_id": "2108822717181472",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252625782460181",
+    "name": "ad4-6",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252625782450181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1620789739661900",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKEtY-NUWCxUXDzp9-qzNfjnTjnK-WX3BLoJU8d0LK4mUGFQm-eVsTUCPkaVLpEv6OuBifUkoQxlQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFgjtOVLkuk2NldpYyvbiRNnEVKksMlV8adhi7vool54Q&oe=6A804AD0",
+      "video_id": "1374467624124506",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252627595810181",
+    "name": "ad4-7",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252627595820181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1620789739661900",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKEtY-NUWCxUXDzp9-qzNfjnTjnK-WX3BLoJU8d0LK4mUGFQm-eVsTUCPkaVLpEv6OuBifUkoQxlQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFgjtOVLkuk2NldpYyvbiRNnEVKksMlV8adhi7vool54Q&oe=6A804AD0",
+      "video_id": "1374467624124506",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252625713780181",
+    "name": "ad4-3",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252625713770181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "28740999828835674",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQLtst54n_JStpIeXp4ABRv1iVKIX93vV1c2ANZ6BthFjSVxnJaq-95nCqrwEmAV4G53AuZsl8FS5g&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHTqOwrKEZLKRwcmhxedEMq-mLGdkFmzCXQV0JEJI17Lw&oe=6A804AD0",
+      "video_id": "37391772937133420",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252627598060181",
+    "name": "ad4-8",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252627598050181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2246728542751181",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKaD9zivSwHym-wYL_QGrn-_vLyBEfyt7OCODc75IcHw5Tef8FWGD9yGRIxa889_YPC-AMiNppsZw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFpa2yTC80qQhkGfsBS3RoFkI6d1lNbJCa19xrN0SGcUw&oe=6A804AD0",
+      "video_id": "2254701275329256",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252627601290181",
+    "name": "ad4-9",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252627601280181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1360259522882362",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKkJ7u64R3cVmv5nPVS-jfaCx_FE_wTUrizcP9qPaHnmukj8dPkSfQuvy4Kp-kyXocutJy0lZ8BYQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHm2x1JLXShaChrBxBwrCh4NqLYU7i-7tdmKX83nlLZsA&oe=6A804AD0",
+      "video_id": "1367223818147934",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252625647320181",
+    "name": "ad4-1",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-06-08",
+    "adset_id": "120252625647160181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1360259522882362",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKkJ7u64R3cVmv5nPVS-jfaCx_FE_wTUrizcP9qPaHnmukj8dPkSfQuvy4Kp-kyXocutJy0lZ8BYQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHm2x1JLXShaChrBxBwrCh4NqLYU7i-7tdmKX83nlLZsA&oe=6A804AD0",
+      "video_id": "1367223818147934",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252620539010181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120252620539000181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2092060861719792",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL98Vbff6qmG00vxEvkc1pFuuvm8CUIbYbOytCCmtJkSsYkjjpwDQGa8P3u8dnLCXyVEUSMuDrN5w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHo2KvpBqwZR6R8i9GQLxZ8FZKK-EhkpLLPBrTR_hLFkg&oe=6A804AD0",
+      "video_id": "2452199135260446",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252540475520181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-04-08-bid",
+    "adset_id": "120252540475570181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2642865412775048",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJTAdXMz3SIbqJFdXNwR0Nd7Is6dUTGk-6CFMeKEOGDdw6IkhlApr13BecaRsSgJlN-_0GUfRmHvw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFz0r_uCo69LDYjT6zBR1Lt16xAXbLAF4MERdxdxo9LGQ&oe=6A802606",
+      "video_id": "1666695254394424",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252540475550181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-04-08-bid",
+    "adset_id": "120252540475570181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "4505270936423877",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL4yXN4vqPiqFkkgpCqzbo9InHffqh5qigRSSHKTpFaJa9-PHUYz3rQK1KvDS52PmNva4lVr26lyg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFYq7GI_ztvWMHPDqEghTkJ9KGGYNAriTwLveF-yS40pQ&oe=6A804AD0",
+      "video_id": "2239869623462603",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252382887490181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120252382887480181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1032843662670720",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL3KfwqSVl3jTYao8p8ip62PMs-KbAuyP2oYFpA1QUhze0wnxSOU5e2ujcw-zILp7ZgKSDoGmdVMg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEqgU7AbkIsI3TMXu5E_y61-8sS2jBdFj4dITe8TJ97UA&oe=6A802606",
+      "video_id": "1305995041735119",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252382871530181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "ACTIVE",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120252382871540181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2092060861719792",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL98Vbff6qmG00vxEvkc1pFuuvm8CUIbYbOytCCmtJkSsYkjjpwDQGa8P3u8dnLCXyVEUSMuDrN5w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHo2KvpBqwZR6R8i9GQLxZ8FZKK-EhkpLLPBrTR_hLFkg&oe=6A804AD0",
+      "video_id": "2452199135260446",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252322497310181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-28-07",
+    "adset_id": "120252322497300181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1032703342817086",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKmcAdVrbGY-NbJsrhia_wbAYS341oX7OLuGWwwVdtiFvNrbEJBJe5MBjEnQL1Qtu0KLErXzUi1AQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGNPDLlB_br913brNQ33-0hwkiv12ymmwNfSz548Xe8BA&oe=6A804AD0",
+      "video_id": "1392840676106403",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252322501440181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-28-07",
+    "adset_id": "120252322501420181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1032703342817086",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQKmcAdVrbGY-NbJsrhia_wbAYS341oX7OLuGWwwVdtiFvNrbEJBJe5MBjEnQL1Qtu0KLErXzUi1AQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGNPDLlB_br913brNQ33-0hwkiv12ymmwNfSz548Xe8BA&oe=6A804AD0",
+      "video_id": "1392840676106403",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252322501430181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-28-07",
+    "adset_id": "120252322501420181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2090881214853904",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJ0FWzYs3oM3gfBsvYXd7ut35DggeaKbMDFWYWTap5jz2IFag_cOvO4-iw68TUdNkgs_qAle7fd_g&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFeLL2g-lhqx1raXW8b7WIRC-CSZQ-2mTdMQyKSwimTQg&oe=6A802606",
+      "video_id": "1062190036492423",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252322499200181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-28-07",
+    "adset_id": "120252322499180181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "4505270936423877",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL4yXN4vqPiqFkkgpCqzbo9InHffqh5qigRSSHKTpFaJa9-PHUYz3rQK1KvDS52PmNva4lVr26lyg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFYq7GI_ztvWMHPDqEghTkJ9KGGYNAriTwLveF-yS40pQ&oe=6A804AD0",
+      "video_id": "2239869623462603",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252322499190181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-28-07",
+    "adset_id": "120252322499180181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2642865412775048",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJTAdXMz3SIbqJFdXNwR0Nd7Is6dUTGk-6CFMeKEOGDdw6IkhlApr13BecaRsSgJlN-_0GUfRmHvw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFz0r_uCo69LDYjT6zBR1Lt16xAXbLAF4MERdxdxo9LGQ&oe=6A802606",
+      "video_id": "1666695254394424",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252322497320181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-28-07",
+    "adset_id": "120252322497300181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2090881214853904",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJ0FWzYs3oM3gfBsvYXd7ut35DggeaKbMDFWYWTap5jz2IFag_cOvO4-iw68TUdNkgs_qAle7fd_g&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQFeLL2g-lhqx1raXW8b7WIRC-CSZQ-2mTdMQyKSwimTQg&oe=6A802606",
+      "video_id": "1062190036492423",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252070831770181",
+    "name": "ad4",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-animus-18-07",
+    "adset_id": "120252070831790181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2538205863366618",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQLZV0gBrokwNrQ9I3awFE8SR7fj0PzsVqJuN-NMpk6kpiVr1DQSeFQTREL-scdClSrvRt-aWUftOA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQGnXvqKPjj8HlbSeYTkNHdGy-rGeoljjM64sLXTLUx5pg&oe=6A804AD0",
+      "video_id": "1066862262569559",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252070843080181",
+    "name": "ad1",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-18-07",
+    "adset_id": "120252070831790181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1009432028541257",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747168114_2465175790662352_7026735926909881984_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=oXN3bv4GV1sQ7kNvwEYha9D&_nc_oc=AdooAxir1qu6mT3ZyC12enArb41P3dhWYQxUD-n5Ro2R1nHQwdzrn4RHcHb03Mg_lgw&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQLYXdyC-A6zVFN-GC6LHqiRiImfBOADPxu-wVjQo-cuc0_xZzkLsQ9DazrKAFWnM1QG8HrfHIxp1g&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEW2Jvxdd41PP-rmDfvzU3gDE8axii9OcXqeggQUH4qUg&oe=6A801602",
+      "video_id": "1898784870793808",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252070843100181",
+    "name": "ad2",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-18-07",
+    "adset_id": "120252070831790181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1095253182837584",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/748160751_1398181135484523_6570324186338495732_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=7B1tU1FX0MgQ7kNvwHdTEc-&_nc_oc=AdqkF095e_n1jJnbfJtZOnYKwVMmhZ18pRGxEYSO3L7s2QiRlybRIVdOT8FbDSBUOyQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJ1sB0PN0WXLO9Bkw1xvJunodGXnmn7lYsvBwzrAlwvLcp5arcpJ5LzEM4Jlh3dKJGoKd2-Px7qHQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQErBkX5qSgbHM3sV0JG4nZXDIqNOjgCHDo-HPrQlH9Qlg&oe=6A804512",
+      "video_id": "1906470280009933",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120252070843090181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-animus-18-07",
+    "adset_id": "120252070831790181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1032843662670720",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL3KfwqSVl3jTYao8p8ip62PMs-KbAuyP2oYFpA1QUhze0wnxSOU5e2ujcw-zILp7ZgKSDoGmdVMg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEqgU7AbkIsI3TMXu5E_y61-8sS2jBdFj4dITe8TJ97UA&oe=6A802606",
+      "video_id": "1305995041735119",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120251964492110181",
+    "name": "ad5",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120251964492120181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1500756891319500",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t15.5256-10/748053390_2091821578071053_6680544397218879065_n.jpg?_nc_cat=105&ccb=1-7&_nc_ohc=iHE9e92DpP8Q7kNvwEZexE4&_nc_oc=AdrJRWUxLkxmIsd8AlmCflffdACJ5Op38e7965zmMBSuR63ZETUopnufFoRGy4xpWHQ&_nc_zt=23&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJ1UgkIVLhDea5LCOa8jNAydaYjrs08ZXSk8VCbZFNa5DKCAtBNIbIzevAVumaH9Se0tfXZ-yadXg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEbBRlczD5cKP81z1Gj-oxwrkjF6x_jrGThTY5Hz_VLJg&oe=6A80493F",
+      "video_id": "2165276134043417",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120251964478630181",
+    "name": "ad3",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120251964478650181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1032843662670720",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/742461996_4336122316604775_5431062838937333495_n.jpg?_nc_cat=100&ccb=1-7&_nc_ohc=r_PIeC71JVUQ7kNvwGGLu8Z&_nc_oc=AdrfinyP_kMGkcT7LtXM1yw3c6OUUc-5Lo0erFcJM3p61y3toXRyDb5Ji84coM6NCKM&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL3KfwqSVl3jTYao8p8ip62PMs-KbAuyP2oYFpA1QUhze0wnxSOU5e2ujcw-zILp7ZgKSDoGmdVMg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEqgU7AbkIsI3TMXu5E_y61-8sS2jBdFj4dITe8TJ97UA&oe=6A802606",
+      "video_id": "1305995041735119",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120251964462660181",
+    "name": "ad2",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120251964462670181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1095253182837584",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/748160751_1398181135484523_6570324186338495732_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=7B1tU1FX0MgQ7kNvwHdTEc-&_nc_oc=AdqkF095e_n1jJnbfJtZOnYKwVMmhZ18pRGxEYSO3L7s2QiRlybRIVdOT8FbDSBUOyQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQJ1sB0PN0WXLO9Bkw1xvJunodGXnmn7lYsvBwzrAlwvLcp5arcpJ5LzEM4Jlh3dKJGoKd2-Px7qHQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQErBkX5qSgbHM3sV0JG4nZXDIqNOjgCHDo-HPrQlH9Qlg&oe=6A804512",
+      "video_id": "1906470280009933",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120251964332370181",
+    "name": "ad1",
+    "status": "ACTIVE",
+    "effective_status": "ADSET_PAUSED",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120251964332360181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "1009432028541257",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747168114_2465175790662352_7026735926909881984_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=oXN3bv4GV1sQ7kNvwEYha9D&_nc_oc=AdooAxir1qu6mT3ZyC12enArb41P3dhWYQxUD-n5Ro2R1nHQwdzrn4RHcHb03Mg_lgw&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQLYXdyC-A6zVFN-GC6LHqiRiImfBOADPxu-wVjQo-cuc0_xZzkLsQ9DazrKAFWnM1QG8HrfHIxp1g&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQEW2Jvxdd41PP-rmDfvzU3gDE8axii9OcXqeggQUH4qUg&oe=6A801602",
+      "video_id": "1898784870793808",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  },
+  {
+    "id": "120251964484760181",
+    "name": "ad4",
+    "status": "ACTIVE",
+    "effective_status": "ACTIVE",
+    "campaign_name": "abo-animus-15-07",
+    "adset_id": "120251964484750181",
+    "copy": {
+      "message": "Mixagem Vocal com 1 clique\nEsse único plugin faz a mixagem completa sem você precisar usar 15 plugins diferentes e ainda travar o seu PC.\n\nPor apenas R$ 17. Clique no botão e garanta o seu.",
+      "headline": "Apenas R$ 17 🔥",
+      "description": "",
+      "cta": "LEARN_MORE"
+    },
+    "cta": "LEARN_MORE",
+    "link": "https://thejay.com.br/animus",
+    "creative": {
+      "id": "2092060861719792",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/747526439_1509119630437863_9175885475650506175_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=RCfzd7z7zqkQ7kNvwHzBnAs&_nc_oc=Adrh6ZotuwxFbyhsFeDqCGhoqWJ4XhQ_GyExqzyzzDkYJz226Z7ZIftd3ZaNvx5tfzQ&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=am6T2dOAD6RLMUbanTVfrQ&_nc_tpa=Q5bMBQL98Vbff6qmG00vxEvkc1pFuuvm8CUIbYbOytCCmtJkSsYkjjpwDQGa8P3u8dnLCXyVEUSMuDrN5w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQHo2KvpBqwZR6R8i9GQLxZ8FZKK-EhkpLLPBrTR_hLFkg&oe=6A804AD0",
+      "video_id": "2452199135260446",
+      "link_url": "",
+      "call_to_action_type": "LEARN_MORE"
+    }
+  }
+]

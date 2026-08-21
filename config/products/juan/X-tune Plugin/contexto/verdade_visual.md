@@ -1,0 +1,4 @@
+# VERDADE VISUAL DO PRODUTO (memória de imagem)
+# Correções DURÁVEIS de como o produto realmente é/aparece, aprendidas quando você refina um criativo (ex.: 'vem sempre numa caixinha preta', 'não existe versão transparente'). Entram automaticamente em TODA geração de imagem deste produto. Edite/apague à vontade.
+
+- a headline não pode ter erro de digitação como 'difícii' em vez de 'difícil'

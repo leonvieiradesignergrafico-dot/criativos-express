@@ -34,6 +34,11 @@ def _data_root() -> Path:
       (antes era ao lado do .exe, o que apagava os dados a cada novo build);
     - macOS congelado: ~/Library/Application Support/Ads Express (mesma ideia; um .app
       em /Applications é SÓ-LEITURA e não pode gravar ao lado de si)."""
+    # Override explícito (dev/diagnóstico): aponta os dados graváveis pra uma pasta
+    # arbitrária — ex.: rodar o código-fonte lendo os dados do .exe congelado.
+    override = os.environ.get("ADSEXPRESS_DATA_ROOT")
+    if override:
+        return Path(override)
     if getattr(sys, "frozen", False):
         if sys.platform == "darwin":
             return Path.home() / "Library" / "Application Support" / "Ads Express"

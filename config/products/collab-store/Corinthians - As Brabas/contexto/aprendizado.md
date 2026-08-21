@@ -1,0 +1,34 @@
+# COMO O USUÁRIO REFINA AS COPIES (memória de estilo deste produto)
+# Preenchido ao fim de cada conversa. NÃO é conteúdo de campanha nem pedido pontual: são as PREFERÊNCIAS DURÁVEIS de refino (tom, tamanho, o que ele corta, o que aprova ou rejeita como padrão). Serve pra copy ficar cada vez mais assertiva. Edite/apague à vontade.
+
+- Nunca associar o ângulo de date/rolê sensual a nada relacionado ao Corinthians/Timão; identidade de torcida e sensualidade não se misturam nesta marca
+- Toda headline deve mencionar explicitamente 'body splash' ou Corinthians/Timão, nunca deixar essas referências implícitas
+- Rejeita ângulos e headlines repetidos ou quase idênticos entre copies do mesmo lote, mesmo com redação diferente
+- Qualquer número de estoque/escassez citado precisa ser quantificado ou específico, nunca 'poucas' vago sem contexto claro
+- Aprova pedidos de headline com formato direto tipo 'Nome do Produto das/dos [identidade]'
+- Toda copy deste produto precisa mencionar explicitamente Corinthians, Timão ou Fiéis, não só implicar identidade genérica
+- Headline com substantivo elíptico ('as duas', 'poucas unidades') deve ser completada com o objeto explícito ('2 body splashs do Timão', 'unidades do body splash')
+- Nunca usar a palavra 'sensual' ou qualquer conotação sensual em nenhuma copy deste produto
+- Rejeita gírias ou expressões de torcida inventadas que soam artificiais (ex.: 'rolê da Fiel', 'frescor corinthiano', 'braba do Timão')
+- Quando o config não tem número exato, ainda assim busca um referente concreto em vez de deixar vago; aceita e usa números reais que o próprio usuário fornece na conversa
+- Ao usar subheadline, ela deve trazer informação nova, nunca repetir a headline com outras palavras
+- Prefere headlines ancoradas em frases já validadas na página de vendas em vez de inventar frases novas do zero
+- Ao mencionar o combo, prefere especificidade ('combo com 2 body splashs do Timão') em vez de referência vaga ('as duas')
+- Headline sempre precisa citar explicitamente o produto ('body splash') ou o time (Corinthians/Timão) — não pode depender de contexto implícito
+- Nunca deixar substantivo elíptico sem referente na headline (ex.: 'duas o quê', 'poucas o quê', 'venda de quê'); sempre completar com o objeto
+- Rejeita gírias/expressões de torcida inventadas que soam artificiais (ex.: 'rolê da Fiel', 'frescor corinthiano'); só usa combinação de palavra de torcida com substantivo que já existe no vocabulário real do produto/torcedor
+- Nunca usar a palavra 'sensual' ou qualquer conotação sensual nas copies deste produto
+- Quando o apoio/subheadline menciona 'as duas' (fragrâncias), trocar por algo mais específico como 'os 2 body splashs do Timão'
+- Apoio não pode repetir a mesma informação da headline; deve trazer um fato novo
+- Números concretos (estoque, unidades) só entram se fornecidos explicitamente pelo usuário ou pelo config; não usar 'poucas unidades' de forma vaga quando puder ser específico
+- Ao revisar um ângulo que ele considera fraco ou repetitivo com outra copy do lote ('parece a copy X'), prefere que se troque o ângulo inteiro, não só a redação
+- Prefere ângulos ancorados em frases já validadas na página de vendas em vez de ângulos totalmente novos
+- Gosta de reforçar identidade de torcida (Corinthians/Timão) espalhada por várias copies do lote, não concentrada em uma única peça
+- Quer confirmação explícita antes de aplicar mudanças de grafia que contradizem uma instrução anterior recente, já que ele mudou de ideia uma vez sobre 'Corintiano' vs 'Corinthiano'
+- Aprova ângulo de 'presente/presentear' sem prender a data comemorativa específica, tratando como pedido atemporal e não como pedido de ocasião
+- Aceita explicitamente usar 'presente' e 'presentear' na copy quando o pedido do usuário for sobre esse ângulo
+- Aprova reforçar a promoção/combo como gatilho de 'momento perfeito para presentear', ligando urgência da oferta ao ato de presentear
+- Rejeita ângulo de lançamento/novidade tratado como pura urgência genérica; prefere que urgência de estoque/pré-venda venha amarrada a um motivo especifico (presentear, lançamento oficial) e não solta
+- Ao pedir troca de frase dentro do apoio, espera que a frase substituta mantenha o restante do texto ao redor coerente, não só a troca literal isolada
+- Aceita repetir o mesmo CTA entre duas copies do lote quando o ângulo de ambas for logicamente o mesmo (compra para si mesma), sem exigir CTA distinto nesse caso
+- Quando avisado sobre headlines quase idênticas entre duas copies do lote, decide manter mesmo assim se o pedido dele for explícito, não exige unicidade forçada

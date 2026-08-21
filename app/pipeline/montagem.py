@@ -6,10 +6,15 @@
 """
 from __future__ import annotations
 
+import re
+import json
+import shutil
+import time
 import subprocess
 from pathlib import Path
 
-from workspace import carregar_config, ler_json, video_dir
+from workspace import atomic_write_json, carregar_config, ler_json, video_dir
+from app.pipeline import fala_veo, qualidade
 
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
@@ -39,6 +44,80 @@ def _duracao(path: Path) -> float:
         return float(r.stdout.decode().strip())
     except ValueError:
         return 0.0
+
+
+def _silencios(clip: Path, noise: str = "-30dB", dmin: float = 0.25) -> list[tuple[float, float | None]]:
+    """Intervalos de SILÊNCIO (start, end) do clipe via ffmpeg silencedetect. end=None = vai até o fim."""
+    r = subprocess.run(
+        [_ffmpeg(), "-i", str(clip), "-af", f"silencedetect=noise={noise}:d={dmin}", "-f", "null", "-"],
+        capture_output=True, creationflags=_NO_WINDOW, timeout=120)
+    err = r.stderr.decode(errors="replace")
+    starts = [float(x) for x in re.findall(r"silence_start:\s*([0-9.]+)", err)]
+    ends = [float(x) for x in re.findall(r"silence_end:\s*([0-9.]+)", err)]
+    out: list[tuple[float, float | None]] = []
+    for i, s in enumerate(starts):
+        out.append((s, ends[i] if i < len(ends) else None))
+    return out
+
+
+def _corte_auto(clip: Path, dur: float, sugestao: dict | None = None,
+                pad_ini: float = 0.06, pad_fim: float = 0.18) -> tuple[float, float]:
+    """Calcula (inicio_s, fim_s) aparando o SILÊNCIO de ponta (dead air) da fala. Conservador:
+    só corta silêncio colado no começo/fim; nunca deixa a cena com menos de ~1s (segurança)."""
+    inicio, fim = 0.0, dur
+    for s, e in _silencios(clip):
+        if s <= 0.30 and e is not None:                 # silêncio de ABERTURA -> começa onde a fala entra
+            inicio = max(inicio, max(0.0, e - pad_ini))
+        if e is None or e >= dur - 0.08:                # silêncio até o FIM -> corta o rabo morto
+            fim = min(fim, s + pad_fim)
+    if sugestao and not sugestao.get("fala_inicial_embolada"):
+        # O alinhamento ao roteiro remove palavras/sílabas fantasmas que não são silêncio.
+        inicio = max(inicio, max(0.0, float(sugestao.get("inicio_s") or 0.0)))
+        fim_sugerido = float(sugestao.get("fim_s") or 0.0)
+        if fim_sugerido > 0:
+            fim = min(fim, fim_sugerido)
+    if fim - inicio < 1.0:                              # trim exagerado: cancela e mantém o clipe inteiro
+        return 0.0, dur
+    return round(inicio, 2), round(fim, 2)
+
+
+def aparar_auto(produto: str, vid: str) -> None:
+    """Preenche edicao.inicio_s/fim_s de cada take de FALA aparando o silêncio de ponta,
+    AUTOMATICAMENTE — assim o vídeo já sai sem os silêncios/'gorduras' na maioria dos casos.
+    Respeita ajuste MANUAL do usuário (edicao.manual=True): nunca sobrescreve o que ele mexeu."""
+    d = video_dir(produto, vid)
+    rot_file = d / "roteiro.json"
+    roteiro = ler_json(rot_file)
+    if not roteiro:
+        return
+    mudou = False
+    for c in roteiro.get("cenas") or []:
+        cl = c.get("clipe") or {}
+        if not (cl.get("gerado") and cl.get("arquivo")):
+            continue
+        ed = c.get("edicao") or {}
+        if ed.get("manual"):        # usuário já ajustou na timeline: respeita 100%
+            continue
+        if not cl.get("eh_fala"):   # b-roll mudo não tem silêncio de fala pra aparar
+            continue
+        clip = d / "clipes" / cl["arquivo"]
+        dur = _duracao(clip)
+        if dur <= 0:
+            continue
+        sugestao = cl.get("corte_sugerido")
+        if not sugestao:
+            detalhe = cl.get("transcricao_detalhada")
+            if detalhe:
+                sugestao = qualidade.sugerir_corte_por_fala(
+                    detalhe, fala_veo.adaptar(c.get("narracao") or ""), dur)
+        ini, fim = _corte_auto(clip, dur, sugestao=sugestao)
+        nova = {"inicio_s": ini, "fim_s": fim, "remover": bool(ed.get("remover", False)),
+                "auto": True, "sugerido_por_fala": bool(sugestao)}
+        if nova != ed:
+            c["edicao"] = nova
+            mudou = True
+    if mudou:
+        atomic_write_json(rot_file, roteiro)
 
 
 def _ts(seg: float) -> str:
@@ -94,6 +173,7 @@ def montar(produto: str, vid: str, legendas: bool = False, trilha: str | None = 
     # mas é forçado a False aqui — nenhum caller consegue ligar a queima por engano.
     legendas = False
     d = video_dir(produto, vid)
+    aparar_auto(produto, vid)   # auto-corta o silêncio de ponta dos takes ANTES de montar
     roteiro = ler_json(d / "roteiro.json")
     final_dir = d / "final"
     tmp_dir = d / "final" / ".tmp"
@@ -126,9 +206,13 @@ def montar(produto: str, vid: str, legendas: bool = False, trilha: str | None = 
         clipe_tem_audio = bool(c["clipe"].get("tem_audio"))
         overlay_wav = wav.exists() and (c.get("audio") or {}).get("arquivo") and not clipe_tem_audio
         dur_audio = _duracao(wav) if overlay_wav else 0.0
-        alvo = max(dur_video, dur_audio + 0.25) if overlay_wav else dur_video
-        if alvo > dur_video + 0.05:
-            vf += f",tpad=stop_mode=clone:stop_duration={alvo - dur_video:.2f}"
+        alvo = dur_video
+        # Nunca esconda falta de imagem congelando o último frame. Se um áudio externo
+        # não couber no take, a cena precisa ser corrigida/regenerada.
+        if overlay_wav and dur_audio + 0.25 > dur_video + 0.05:
+            raise RuntimeError(
+                f"Cena {c['n']}: áudio ({dur_audio:.2f}s) maior que o vídeo ({dur_video:.2f}s). "
+                "O take deve ser regenerado; congelamento de frame é proibido.")
         if clipe_tem_audio:
             cmd = [ff, "-y", "-ss", f"{inicio:.3f}", "-i", str(clipe),
                    "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "0:a"]
@@ -152,6 +236,7 @@ def montar(produto: str, vid: str, legendas: bool = False, trilha: str | None = 
                      encoding="utf-8")
     bruto = tmp_dir / "bruto.mp4"
     _run([ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lista), "-c", "copy", str(bruto)])
+    final_dir.mkdir(parents=True, exist_ok=True)
 
     # 3) legendas + trilha + loudnorm --------------------------------------
     final_dir.mkdir(parents=True, exist_ok=True)
@@ -181,7 +266,71 @@ def montar(produto: str, vid: str, legendas: bool = False, trilha: str | None = 
             "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(saida)]
     _run(cmd, timeout=900)
 
+    manual = any(bool((c.get("edicao") or {}).get("manual")) for c in cenas)
+    # A primeira saída final (já normalizada/loudnorm/faststart) é a referência imutável.
+    bruto_guardado = final_dir / "video-bruto.mp4"
+    if not manual and not bruto_guardado.exists():
+        shutil.copy2(saida, bruto_guardado)
+    if manual:
+        shutil.copy2(saida, final_dir / "video-ajustado.mp4")
+    historico = final_dir / "historico-edicao.jsonl"
+    registro = {
+        "gerado_em": time.time(), "versao": "ajustada" if manual else "bruta",
+        "arquivo": "video-ajustado.mp4" if manual else "video-bruto.mp4",
+        "cortes": [{"n": c["n"], **(c.get("edicao") or {})} for c in cenas],
+    }
+    with historico.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(registro, ensure_ascii=False) + "\n")
+
     from workspace import atomic_write_json
     roteiro["estado"] = "montado"
     atomic_write_json(d / "roteiro.json", roteiro)
     return saida
+
+
+def montar_lote(produto: str, vids: list[str], cancel_event=None) -> None:
+    """Monta o vídeo final de CADA vid do lote em PARALELO (ffmpeg local, GRÁTIS) —
+    cada anúncio vira 1 mp4 no seu próprio final/. Erro num vídeo não derruba os
+    outros. Progresso agregado em videos/<produto>/lote_status.json (mesmo padrão de
+    keyframes/clipes em lote)."""
+    from concurrent.futures import ThreadPoolExecutor
+    from app.pipeline._status import JobStatus
+    from workspace import VIDEOS
+
+    alvos = []
+    for vid in vids:
+        try:
+            d = video_dir(produto, vid)
+        except Exception:  # noqa: BLE001
+            continue
+        r = ler_json(d / "roteiro.json")
+        cenas = (r or {}).get("cenas") or []
+        # monta quem tem ao menos 1 clipe pronto (senão não há o que montar)
+        if any((c.get("clipe") or {}).get("gerado") for c in cenas):
+            alvos.append(vid)
+
+    total = len(alvos)
+    status = JobStatus(VIDEOS / produto / "lote_status.json", "montar_lote", total)
+    if total == 0:
+        status.fim()
+        return
+
+    def _cancelado():
+        return cancel_event is not None and cancel_event.is_set()
+
+    def _job(vid):
+        if _cancelado():
+            return
+        rotulo = f"{vid[-6:]}/final"
+        status.comecou(rotulo)
+        try:
+            montar(produto, vid)   # monta 1 anúncio com os clipes que existirem
+            status.terminou(rotulo)
+        except Exception as e:  # noqa: BLE001
+            if not _cancelado():
+                status.terminou(rotulo, erro=str(e))
+
+    # ffmpeg é local/CPU (não é API paga); 4 montagens simultâneas é seguro.
+    with ThreadPoolExecutor(max_workers=min(4, total)) as ex:
+        list(ex.map(_job, alvos))
+    status.fim()

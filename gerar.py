@@ -17,13 +17,12 @@ import subprocess
 import sys
 import threading
 import time
-import tomllib
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from workspace import atomic_write_json, atomic_write_text, influencer_dir, product_dir
+from workspace import (atomic_write_json, atomic_write_text, carregar_config,
+                       criativos_dir, influencer_dir, product_dir)
 
 ROOT = Path(__file__).resolve().parent
-PRODUCTS = ROOT / "products"
 
 # No Windows, subprocessos de console (ex.: ffmpeg) abrem uma janela CMD quando o
 # pai roda sem console (pythonw). Esta flag suprime a janela. Vira 0 em outros SOs.
@@ -120,11 +119,6 @@ def carregar_verdade_visual(product_path: Path) -> str:
         "FATOS VISUAIS OBRIGATORIOS DESTE PRODUTO (correcoes ja aprendidas em refinos "
         "anteriores; valem SEMPRE e tem prioridade sobre o briefing da cena):\n" + corpo
     )
-
-
-def carregar_config() -> dict:
-    with open(ROOT / "config.toml", "rb") as f:
-        return tomllib.load(f)
 
 
 def coletar_referencias(product_dir: Path) -> list[Path]:
@@ -429,6 +423,20 @@ def _cancelado(cancel_event) -> bool:
     return bool(cancel_event is not None and cancel_event.is_set())
 
 
+def _tamanho_quadrado(tamanho, padrao: str) -> str:
+    """Criativo estático é sempre 1:1 (quadrado). O diretor de arte às vezes devolve
+    um tamanho de feed (ex.: 1080x1350) que sairia em retrato e deixava o lote com
+    proporções mistas; só aceita o tamanho do prompt se for quadrado (W==H), senão
+    cai no tamanho quadrado da config."""
+    try:
+        w, h = str(tamanho).lower().split("x")
+        if int(w) == int(h):
+            return f"{int(w)}x{int(h)}"
+    except Exception:  # noqa: BLE001 — tamanho ausente/malformado: usa o padrão
+        pass
+    return padrao
+
+
 def _marcar_prompt_gerado(prompts_file: Path, cid: str) -> None:
     """Grava status='gerado' na entrada do prompts.json (ciclo de vida da UI)."""
     try:
@@ -491,9 +499,9 @@ def gerar_criativos(produto: str, backend: str | None = None, on_progress=None,
     # PolÃ­tica segura: por padrÃ£o sÃ³ gera o que ainda nÃ£o existe. SubstituiÃ§Ã£o
     # explÃ­cita continua disponÃ­vel para chamadas internas/confirmadas pela UI.
     if modo == "pendentes":
+        lote_hoje = criativos_dir(produto, para_gerar=True)
         entradas = [e for e in entradas
-                    if not (product_path / "output" / "criativos" /
-                            f"{str(e.get('id') or '')}.png").exists()]
+                    if not (lote_hoje / f"{str(e.get('id') or '')}.png").exists()]
 
     # Paralelismo: roda SEMPRE até o teto (config `workers`, hoje 6) por vez. Fila
     # rolante — assim que um job termina, o próximo entra. Ex.: 8 imagens com teto 6 =>
@@ -563,9 +571,12 @@ def gerar_criativos(produto: str, backend: str | None = None, on_progress=None,
     referencias = pacotes[None]["referencias"]
     n_estilo_base = pacotes[None]["n_estilo"]
 
-    out_dir = product_path / "output" / "criativos"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    status_file = out_dir / "status.json"
+    # Imagens do lote -> gerados/<cliente>/<produto>/<DD-MM-AAAA de HOJE>/. O status
+    # é estado de trabalho e fica sob config (output/), não junto das imagens.
+    out_dir = criativos_dir(produto, para_gerar=True, create=True)
+    output_dir = product_path / "output"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    status_file = output_dir / "status.json"
 
     # Trava ENTRE PROCESSOS via heartbeat: se ja existe um status vivo (batimento
     # ha menos de 60s) de outra execucao, recusa iniciar. Evita dois processos
@@ -645,7 +656,8 @@ def gerar_criativos(produto: str, backend: str | None = None, on_progress=None,
             status["atuais"].append(cid)
             salvar()
 
-        tamanho = entrada.get("tamanho", size)
+        # Força 1:1: o tamanho do prompt só vale se for quadrado; senão usa o da config.
+        tamanho = _tamanho_quadrado(entrada.get("tamanho"), size)
         texto = entrada.get("prompt", "")
         # Influenciador POR CRIATIVO: só quando o prompt menciona @Nome.
         influ_nome = influenciador_no_texto(texto)
@@ -747,7 +759,7 @@ def refinar_criativo(produto: str, arquivo: str, instrucao: str,
     timeout = int(cfg.get("timeout", 300))
 
     product_path = product_dir(produto)
-    out_dir = product_path / "output" / "criativos"
+    out_dir = criativos_dir(produto, create=True)
     base_file = out_dir / arquivo
     if base_file.name != arquivo or base_file.parent != out_dir.resolve() or base_file.suffix.lower() != ".png":
         raise ValueError("Arquivo invÃ¡lido.")
@@ -765,7 +777,7 @@ def refinar_criativo(produto: str, arquivo: str, instrucao: str,
     referencias = [base_file] + coletar_referencias(product_path)[:2] + referencias_influ
     verdade_visual = carregar_verdade_visual(product_path)
     novo_nome = _proxima_versao(out_dir, arquivo)
-    status_file = status_file or (out_dir / "status.json")
+    status_file = status_file or (product_path / "output" / "status.json")
 
     status = {
         "id": __import__('uuid').uuid4().hex,
@@ -846,7 +858,7 @@ def refazer_criativo(produto: str, arquivo: str, instrucao: str,
     timeout = int(cfg.get("timeout", 300))
 
     product_path = product_dir(produto)
-    out_dir = product_path / "output" / "criativos"
+    out_dir = criativos_dir(produto, create=True)
     base_file = out_dir / arquivo
     if base_file.name != arquivo or base_file.parent != out_dir.resolve() or base_file.suffix.lower() != ".png":
         raise ValueError("Arquivo invalido.")
@@ -870,7 +882,7 @@ def refazer_criativo(produto: str, arquivo: str, instrucao: str,
     referencias = [base_file] + extras + produto_refs + referencias_influ
     verdade_visual = carregar_verdade_visual(product_path)
     novo_nome = _proxima_versao(out_dir, arquivo)
-    status_file = out_dir / "status.json"
+    status_file = product_path / "output" / "status.json"
 
     status = {
         "id": __import__('uuid').uuid4().hex,

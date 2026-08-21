@@ -80,8 +80,23 @@ Pontue cada copy 0 a 3; nada < 2 passa; regenere no ato:
 - **ARTE (0-3):** dá pra desenhar o mecanismo desse ângulo de forma CLARA (casa com um formato
   do diretor de arte WikiHow)?
 
-## Saída
+## Saída — CONTRATO OBRIGATÓRIO (a ferramenta só lê ISTO)
 
-Mesmo formato do fluxo Padrão: termine com o bloco ```copies-json``` (a ferramenta lê daqui).
-Campos por copy: `id`, `angulo`, `headline`, `subheadline` (raro), `apoio`, `cta`, `corpo`.
-Acentos e cedilha SEMPRE corretos; sem hífen/travessão. Numere estável (copy_01, copy_02…).
+A resposta TEM que terminar com UM único bloco ```copies-json``` e as copies vivem SÓ dentro dele.
+**NUNCA escreva as copies como texto/markdown solto** (nada de "Copy 1 — …", listas ou parágrafos
+com as headlines soltas). Se as copies não estiverem dentro do bloco ```copies-json```, a
+ferramenta NÃO enxerga nada e o formato WikiHow sai VAZIO. Regra dura, sem exceção.
+
+- O bloco é ```copies-json``` seguido de um ARRAY JSON VÁLIDO (lista de objetos).
+- JSON válido: aspas duplas nas chaves/valores; aspas duplas DENTRO do texto viram `\"` (escapadas)
+  ou use aspas simples/curvas; sem vírgula sobrando; sem comentários.
+- Campos por copy: `id`, `angulo`, `headline`, `subheadline` (raro), `apoio`, `cta`, `corpo`.
+  Acentos e cedilha SEMPRE corretos; sem hífen/travessão.
+- Numere estável (copy_01, copy_02…) e gere EXATAMENTE a quantidade pedida.
+
+Formato exato do fim da resposta:
+```copies-json
+[
+  {"id":"copy_01","angulo":"…","headline":"…","apoio":"…","cta":"…","corpo":"…"}
+]
+```

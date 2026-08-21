@@ -125,7 +125,7 @@ button:disabled { cursor: default; }
 svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex: none; }
 
 .app {
-  display: grid; grid-template-columns: 260px 1fr; grid-template-rows: 100vh;
+  display: grid; grid-template-columns: 276px 1fr; grid-template-rows: 100vh;
   height: 100vh; overflow: hidden;
 }
 /* itens do grid não podem crescer além da linha (senão a página inteira rola em vez
@@ -445,11 +445,36 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 }
 .msg.ai hr { border: none; border-top: 1px solid var(--line); margin: 12px 0; }
 
-.msg.pensando { color: var(--text-2); display: flex; gap: 6px; align-items: center; }
-.msg.pensando::before {
-  content: ""; width: 7px; height: 7px; border-radius: var(--r-full); background: var(--text-3);
-  animation: pulse 1s ease-in-out infinite;
+.msg.pensando {
+  color: var(--text-2); display: inline-flex; gap: 10px; align-items: center;
+  padding: 8px 14px 8px 10px; border-radius: var(--r-full);
+  background: rgba(29, 29, 29, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(120, 120, 128, 0.22), inset 0 0 40px 0 rgba(255, 255, 255, 0.02);
 }
+@media (prefers-color-scheme: light) {
+  .msg.pensando { background: rgba(120, 120, 128, 0.10); }
+}
+/* Thinking orb: UMA esfera limpa que respira, com glow difuso — CSS puro. */
+.thinking-orb {
+  width: 20px; height: 20px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 35% 30%, #eaf0ff 0%, #7d8dff 38%, #5a5cf0 68%, #4432c8 100%);
+  box-shadow: 0 0 16px 3px rgba(106, 125, 255, 0.35);
+  animation: orb-breathe 2.2s ease-in-out infinite;
+}
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(0.92); box-shadow: 0 0 10px 2px rgba(106, 125, 255, 0.28); }
+  50% { transform: scale(1.06); box-shadow: 0 0 18px 4px rgba(106, 125, 255, 0.5); }
+}
+@media (prefers-reduced-motion: reduce) { .thinking-orb { animation-duration: 4s; } }
+.thinking-label {
+  font-size: 13.5px; font-weight: 500;
+  background: linear-gradient(90deg, var(--text-3) 0%, var(--text) 50%, var(--text-3) 100%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: thinking-shimmer 1.8s linear infinite;
+}
+@keyframes thinking-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+/* mantido: pulse ainda é usado por outros indicadores */
 @keyframes pulse { 0%, 100% { opacity: .3; transform: scale(.8); } 50% { opacity: 1; transform: scale(1); } }
 
 .chat-input {
@@ -548,6 +573,8 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .btn.primary:hover { background: var(--accent-press); }
 .btn.primary:disabled { opacity: .45; cursor: default; box-shadow: none; transform: none; }
 .btn.ghost { background: var(--fill); color: var(--text); box-shadow: var(--shadow-1); }
+.btn.mini { padding: 5px 11px; font-size: 12px; }
+.novo-inline { flex: none; white-space: nowrap; }
 .btn.ghost:hover { background: var(--fill-strong); }
 .btn.send {
   width: 46px; height: 46px; padding: 0; flex: none; border-radius: var(--r-lg);
@@ -605,6 +632,9 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .ctx-nome-produto > div { display: flex; gap: 8px; align-items: center; }
 .ctx-nome-produto input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; background: var(--panel-2); color: var(--text); font: inherit; font-size: 13px; }
 .ctx-nome-produto input:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
+.ctx-tipo-produto { margin: 0 0 14px; }
+.ctx-tipo-produto > label { display: block; margin-bottom: 7px; color: var(--text-2); font-size: 12px; font-weight: 650; }
+.ctx-tipo-produto .ctx-hint { margin: 6px 0 0; }
 
 /* ------------------------------------------ Prompts (linhas compactas) -- */
 .step#step-estilo { overflow-y: auto; padding: 0 18px 18px; }
@@ -636,6 +666,13 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .visual-card-head strong { flex: 1; min-width: 0; color: var(--text-2); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .visual-card textarea { width: 100%; min-height: 90px; resize: vertical; border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; background: var(--panel-2); color: var(--text); font: inherit; font-size: 13px; line-height: 1.5; }
 .visual-card textarea:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
+/* Sanfona (igual aos Prompts): card fechado por padrão — só o cabeçalho aparece. */
+.visual-card > textarea { display: none; }
+.visual-card.aberto > textarea { display: block; animation: stepIn .2s var(--ease-out); }
+.visual-card-head { cursor: pointer; }
+.visual-card:not(.aberto) .visual-card-head { margin-bottom: 0; }
+.visual-chevron { flex: none; color: var(--text-3); font-size: 17px; line-height: 1; transition: transform .18s var(--ease-out); }
+.visual-card.aberto .visual-chevron { transform: rotate(90deg); }
 .prompts-bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 6px 0 12px; }
 .chips { display: flex; gap: 6px; }
 .chip {
@@ -674,6 +711,19 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .prompt-body textarea:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
 .tag.angulo { background: rgba(48, 209, 88, .16); color: #30d158; }
 .tag.ok { background: rgba(48, 209, 88, .16); color: #30d158; }
+
+/* Selo de formato (padrao/wikihow/noticia) — discreto, usado em copies,
+   prompts e thumbs da grade. */
+.fmt-selo {
+  font-size: 10px; font-weight: 650; letter-spacing: .01em;
+  padding: 2px 8px; border-radius: var(--r-full); white-space: nowrap;
+  background: var(--fill); color: var(--text-2);
+}
+.fmt-selo.fmt-wikihow { background: rgba(10, 132, 255, .15); color: #0a84ff; }
+.fmt-selo.fmt-noticia { background: rgba(255, 159, 10, .16); color: #ff9f0a; }
+/* Na grade, o selo mora na legenda (rod) do thumb, antes do nome do arquivo. */
+.thumb .rod .fmt-selo { flex: none; }
+.thumb .rod > span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .prompts-titulo { font-size: 13px; font-weight: 600; color: var(--text-2); }
 .prompt-instrucoes { margin: 0 0 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-md); }
 .prompt-instrucoes label { display: block; margin-bottom: 7px; color: var(--text-2); font-size: 12px; font-weight: 650; }
@@ -752,7 +802,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
   background: var(--accent);
   transition: width .6s var(--ease-out);
 }
-.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 22px; }
 .thumb {
   border-radius: var(--r-lg); overflow: hidden; background: var(--panel);
   border: 1px solid var(--line); box-shadow: var(--shadow-2); opacity: 0;
@@ -786,7 +836,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 }
 .thumb-acoes .btn.ghost:hover { background: rgba(255, 255, 255, 0.30); }
 .thumb .rod {
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
   padding: 10px 13px; font-size: 11.5px; color: var(--text-2); font-variant-numeric: tabular-nums;
 }
 .thumb .rod a { color: var(--accent); text-decoration: none; font-weight: 600; }
@@ -799,6 +849,39 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .skel-img {
   width: 100%; aspect-ratio: 1/1; background: var(--skel-base);
   position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Placeholder de GERAÇÃO DE IMAGEM: glow que morfa dentro do tile + badge de
+   resolução + label com shimmer (substitui a varredura simples). */
+.gen-img { background: #0b0b0f; }
+.gen-img::after { content: none; }  /* desliga a varredura; o glow morfando é o efeito */
+.gen-glow {
+  position: absolute; width: 150%; height: 150%; left: -25%; top: -25%; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(124, 141, 255, 0.55) 0%, rgba(162, 75, 255, 0.34) 38%,
+    rgba(255, 90, 170, 0.16) 62%, transparent 74%);
+  filter: blur(16px); pointer-events: none;
+  animation: gen-morph 5s ease-in-out infinite;
+}
+@keyframes gen-morph {
+  0%   { transform: translate(-8%, -6%) scale(1); }
+  33%  { transform: translate(10%, 5%) scale(1.15); }
+  66%  { transform: translate(-5%, 10%) scale(0.92); }
+  100% { transform: translate(-8%, -6%) scale(1); }
+}
+.gen-res {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  font-size: 10.5px; font-weight: 600; color: rgba(255, 255, 255, 0.82);
+  background: rgba(0, 0, 0, 0.38); border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 2px 8px; border-radius: var(--r-full);
+}
+.gen-label {
+  position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 650; letter-spacing: 0.02em;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0%, #fff 50%, rgba(255, 255, 255, 0.35) 100%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: thinking-shimmer 1.8s linear infinite;
 }
 .skel-rod { display: flex; align-items: center; padding: 12px 13px; }
 .skel-line {
@@ -986,6 +1069,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 
 /* --- QA / verificação --- */
 .qa-resumo { font-size: 12.5px; color: var(--text-2); margin-bottom: 14px; line-height: 1.5; }
+.qa-pos-acoes { display: flex; justify-content: flex-end; margin-bottom: 14px; }
 .qa-lista { display: flex; flex-direction: column; gap: 12px; }
 .qa-card {
   display: grid; grid-template-columns: 74px 1fr auto; gap: 14px; align-items: start;
@@ -1481,7 +1565,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .prompt-row { margin-bottom: 10px; }
 .prompt-head { min-height: 48px; padding: 10px 12px; }
 .prompt-body { padding: 0 12px 12px; }
-.grade { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.grade { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 22px; }
 .historico { margin-top: 24px; padding-top: 16px; }
 .console-box { margin-bottom: 14px; }
 .logos-topo { grid-template-columns: 280px minmax(0, 1fr); gap: 22px; margin-bottom: 20px; padding-bottom: 18px; }
@@ -1559,7 +1643,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
    Sem tocar no HTML/JS: usa "padding elástico" pra centrar o
    conteúdo em telas largas (a janela nativa roda ~1920px).
    ============================================================ */
-:root { --content-max: 1080px; --chat-max: 820px; }
+:root { --content-max: 1080px; --chat-max: 1160px; }
 
 /* (1) Cap de largura: centra o conteúdo e corta linhas gigantes.
    max() garante degradê suave em telas estreitas (fica no padding base). */
@@ -1567,8 +1651,8 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 .step#step-estilo  { padding: 0   max(28px, calc((100% - var(--content-max)) / 2)) 18px; }
 .chat              { padding: 24px max(24px, calc((100% - var(--chat-max)) / 2)) 18px; }
 /* Rodapé do chat acompanha a mesma coluna das mensagens */
-.anexos-bar        { padding: 10px max(24px, calc((100% - var(--chat-max)) / 2)) 0; }
-.chat-input        { padding: 9px  max(20px, calc((100% - var(--chat-max)) / 2)); }
+.anexos-bar        { padding: 10px 24px 0; }
+.chat-input        { padding: 9px 24px; }   /* full-width, largo como o de vídeo */
 
 /* Blocos de texto corrido capados p/ leitura confortável (~72ch) */
 .ctx-hint, .np-hint, .visual-ref-title span { max-width: 72ch; }
@@ -1772,3 +1856,436 @@ body { letter-spacing: -0.004em; }
 .fmt-opt .fmt-ativo { font-size: 10.5px; font-weight: 700; color: var(--red); border: 1px solid var(--red); border-radius: var(--r-full); padding: 1px 7px; }
 .fmt-opt .fmt-desc { font-size: 12px; color: var(--muted, #8e8e93); line-height: 1.4; }
 .formatos-acoes { display: flex; justify-content: flex-end; gap: 9px; margin-top: 16px; }
+
+/* ============================================================================
+   REDESIGN — ShadCN / Vercel "neutro premium" (v5)
+   Camada final: sobrescreve os tokens Apple-HIG por um sistema neutro (zinc),
+   sombras planas, bordas 1px nítidas, raios apertados e tipografia Inter.
+   Fica por último de propósito (mesma especificidade → vence por ordem).
+   ============================================================================ */
+:root {
+  --font: "Inter", "Geist", "Segoe UI Variable Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "SF Mono", "Cascadia Code", ui-monospace, "Menlo", monospace;
+
+  /* Primário neutro (near-black), como o "primary" do tema neutral do ShadCN */
+  --red: #ef4444;
+  --accent: #18181b;               /* zinc-900 */
+  --accent-press: #333338;
+  --accent-soft: rgba(24, 24, 27, 0.06);
+  --on-accent: #fafafa;
+  --on-accent-soft: rgba(255, 255, 255, 0.22);
+  --user-bubble: #18181b;
+  --user-ink: #fafafa;
+
+  /* Canvas cinza-claríssimo (zinc-50) + superfícies brancas separadas por borda */
+  --bg: #fafafa;
+  --bg-grad: #fafafa;
+  --window: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #f4f4f5;              /* zinc-100 — insets/inputs */
+  --panel-3: #e4e4e7;              /* zinc-200 */
+  --fill: rgba(24, 24, 27, 0.05);
+  --fill-strong: rgba(24, 24, 27, 0.10);
+
+  /* Texto: zinc-950 / zinc-600 / zinc-400 */
+  --text: #09090b;
+  --text-2: #52525b;
+  --text-3: #a1a1aa;
+  --line: #e4e4e7;                 /* zinc-200 — borda nítida 1px */
+  --line-2: #f1f1f3;
+
+  /* Sombras planas e discretas (ShadCN) */
+  --shadow-1: 0 1px 2px 0 rgba(9, 9, 11, 0.05);
+  --shadow-2: 0 1px 3px 0 rgba(9, 9, 11, 0.08), 0 1px 2px -1px rgba(9, 9, 11, 0.06);
+  --shadow-3: 0 10px 30px -8px rgba(9, 9, 11, 0.16), 0 3px 8px -3px rgba(9, 9, 11, 0.08);
+
+  /* Raios apertados */
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-full: 9999px;
+
+  --bubble-ai: #f4f4f5;
+  --ring: 0 0 0 3px rgba(9, 9, 11, 0.16);
+
+  --skel-base: #f1f1f3;
+  --shimmer-glow: rgba(255, 255, 255, 0.65);
+
+  /* Motion: sem overshoot bouncy — curvas secas e rápidas */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --red: #f87171;
+    --accent: #fafafa;             /* primário near-white no escuro */
+    --accent-press: #e4e4e7;
+    --accent-soft: rgba(250, 250, 250, 0.10);
+    --on-accent: #18181b;
+    --on-accent-soft: rgba(0, 0, 0, 0.20);
+    --user-bubble: #27272a;        /* zinc-800 */
+    --user-ink: #fafafa;
+
+    --bg: #09090b;                 /* zinc-950 */
+    --bg-grad: #09090b;
+    --window: #0c0c0e;
+    --panel: #18181b;              /* zinc-900 */
+    --panel-2: #0f0f11;
+    --panel-3: #27272a;            /* zinc-800 */
+    --fill: rgba(250, 250, 250, 0.07);
+    --fill-strong: rgba(250, 250, 250, 0.13);
+
+    --text: #fafafa;
+    --text-2: #a1a1aa;             /* zinc-400 */
+    --text-3: #71717a;             /* zinc-500 */
+    --line: #27272a;               /* zinc-800 */
+    --line-2: #1c1c1f;
+
+    --shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+    --shadow-2: 0 1px 3px 0 rgba(0, 0, 0, 0.40);
+    --shadow-3: 0 12px 34px -8px rgba(0, 0, 0, 0.65), 0 3px 8px -3px rgba(0, 0, 0, 0.5);
+
+    --bubble-ai: #1c1c20;
+    --ring: 0 0 0 3px rgba(250, 250, 250, 0.20);
+
+    --skel-base: #27272a;
+    --shimmer-glow: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* ---- Normalização: mata os "Apple-isms" que não são só token ---------------- */
+
+/* Fundo chapado (sem gradiente radial) */
+body { background: var(--bg); background-attachment: fixed; letter-spacing: -0.011em; }
+
+/* Superfícies de chrome sólidas e nítidas (sem frosted glass leitoso) */
+.sidebar, .toolbar {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--window);
+}
+
+/* Botões: retangulares arredondados (não pílula), sombra mínima */
+.btn { border-radius: var(--r-md); transition: background .15s var(--ease-io), border-color .15s, box-shadow .15s, transform .08s var(--ease-io); }
+.btn:active { transform: none; }
+.btn.primary { box-shadow: none; }
+.btn.primary:hover { background: var(--accent-press); }
+.btn.danger { box-shadow: none; }
+.btn.ghost { box-shadow: none; border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--fill); }
+.btn.send, .btn.anexar, .chat-input .anexar, .visual-anexar { border-radius: var(--r-md); }
+
+/* Marca (logo): quadrado ShadCN, sem gradiente/inner-glow Apple */
+.brand .dot {
+  background: var(--accent); color: var(--on-accent);
+  box-shadow: none; border-radius: var(--r-md);
+}
+
+/* Item de produto ativo na sidebar: highlight discreto (fill), não bloco preto */
+.produtos li.ativo,
+.produtos li.produto-item.ativo {
+  background: var(--fill-strong); color: var(--text); box-shadow: none;
+}
+.produtos li.ativo .pnome { font-weight: 600; }
+.produtos li.ativo .avatar { background: linear-gradient(155deg, #a1a1a8, #71717a); color: #fff; }
+.produtos li.produto-item.ativo .prod-act { color: var(--text-2); }
+.produtos li.produto-item.ativo .prod-act:hover { background: var(--fill-strong); color: var(--text); }
+
+/* "Novo produto" em destaque: botão sólido neutro sem sombra */
+.novo-btn.destaque { box-shadow: none; border-radius: var(--r-md); }
+.novo-btn.destaque:hover { background: var(--accent-press); }
+
+/* Segmented control: pílula interna quadrada, item selecionado = superfície branca */
+.segmented { border-radius: var(--r-md); }
+.segmented button { border-radius: var(--r-sm); }
+.segmented button.sel { box-shadow: var(--shadow-1); border: 1px solid var(--line); }
+
+/* Balões de chat: cantos ~12px (não squircle 20px), planos com borda hairline */
+.msg { border-radius: 12px; box-shadow: none; }
+.msg.ai { border: 1px solid var(--line); }
+.msg.user { box-shadow: var(--shadow-1); border-bottom-right-radius: 5px; }
+.msg.ai { border-bottom-left-radius: 5px; }
+
+/* "Pensando…": pílula neutra, sem o vidro escuro Apple */
+.msg.pensando { background: var(--fill); box-shadow: inset 0 0 0 1px var(--line); }
+@media (prefers-color-scheme: light) { .msg.pensando { background: var(--fill); } }
+
+/* Orb "pensando" e glow de geração: neutralizados (monocromático, não roxo) */
+.thinking-orb {
+  background: radial-gradient(circle at 33% 28%, #f4f4f5 0%, #a1a1aa 46%, #52525b 100%);
+  box-shadow: 0 0 12px 2px rgba(120, 120, 130, 0.30);
+}
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(0.92); box-shadow: 0 0 8px 1px rgba(120, 120, 130, 0.22); }
+  50% { transform: scale(1.06); box-shadow: 0 0 14px 3px rgba(120, 120, 130, 0.4); }
+}
+.gen-img { background: #0a0a0b; }
+.gen-glow {
+  background: radial-gradient(circle at 50% 50%,
+    rgba(244, 244, 245, 0.42) 0%, rgba(161, 161, 170, 0.24) 40%,
+    rgba(113, 113, 122, 0.10) 62%, transparent 74%);
+}
+
+/* Cards: hover discreto (borda escurece), sem “levitar” exagerado */
+.card { box-shadow: none; }
+.card:hover { box-shadow: var(--shadow-2); transform: none; border-color: var(--text-3); }
+.thumb { box-shadow: var(--shadow-1); }
+.thumb:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+
+/* Tags/badges: estilo ShadCN (fundo sutil + texto neutro, borda hairline) */
+.tag { background: var(--fill); color: var(--text-2); border: 1px solid var(--line); }
+
+/* Inputs/textarea: foco com borda accent + ring neutro (padrão já usa --ring) */
+textarea:focus, input:focus, .np-input:focus { outline: none; }
+
+/* Lightbox / toast / popover flutuante: menos blur, superfície sólida legível */
+.lightbox { background: rgba(9, 9, 11, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.toast {
+  background: var(--accent); color: var(--on-accent); border: 1px solid var(--line);
+  backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: var(--shadow-3);
+}
+.hist-fab, .hist-pop {
+  background: var(--window); backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+
+/* Modais/overlays: scrim mais escuro e limpo */
+.modal-overlay { background: rgba(9, 9, 11, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.formatos-overlay { background: rgba(9, 9, 11, 0.45); }
+.modal, .np-modal, .esc-modal, .nc-modal, .painel-ia, .formatos-modal { box-shadow: var(--shadow-3); }
+
+/* ============================================================================
+   REDESIGN v5 — Loader de geração de imagem (dot-matrix shimmer)
+   Reimplementa o loader do 21st.dev @kvnkld/image-generation: um campo de
+   pontos MONOCROMÁTICO com uma onda de brilho varrendo na diagonal.
+   Sem roxo/magenta, sem glow colorido. Puro CSS sobre o markup existente
+   (.gen-img > .gen-glow + .gen-res + .gen-label) — nenhum DOM novo.
+   ------------------------------------------------------------------------- */
+
+/* Tokens do campo de pontos. A "tela" de geração é sempre um canvas escuro
+   neutro (afordância clássica de geração) em ambos os temas; pontos claros. */
+:root {
+  --gen-canvas: #0a0a0b;
+  --gen-canvas-2: #131316;
+  --gen-dot: rgba(250, 250, 250, 0.10);   /* ponto base, apagado */
+  --gen-dot-lit: rgba(250, 250, 250, 0.72); /* ponto sob a onda de brilho */
+  --gen-cell: 14px;                         /* espaçamento da matriz */
+}
+
+/* Tela: canvas escuro plano com uma leve profundidade radial e borda hairline. */
+.gen-img {
+  background:
+    radial-gradient(120% 120% at 50% 0%, var(--gen-canvas-2) 0%, var(--gen-canvas) 60%);
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 250, 0.06);
+}
+/* Garante que a varredura genérica do skeleton NÃO apareça na tela de geração
+   (só o campo de pontos é o efeito aqui). Especificidade + ordem vencem. */
+.skel-img.gen-img::after { content: none; background: none; animation: none; }
+
+/* .gen-glow deixa de ser um glow radial e passa a ser o CAMPO DE PONTOS base. */
+.gen-glow {
+  position: absolute; inset: 14px; width: auto; height: auto;
+  border-radius: 0; filter: none; transform: none; animation: none;
+  background-color: transparent;
+  background-image: radial-gradient(circle at center, var(--gen-dot) 0 1px, transparent 1.7px);
+  background-size: var(--gen-cell) var(--gen-cell);
+  background-position: center;
+  pointer-events: none;
+}
+/* Camada de brilho: os MESMOS pontos, porém acesos, revelados por uma banda
+   diagonal que varre o tile → onda de brilho percorrendo a matriz de pontos. */
+.gen-glow::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at center, var(--gen-dot-lit) 0 1px, transparent 1.7px);
+  background-size: var(--gen-cell) var(--gen-cell);
+  background-position: center;
+  -webkit-mask-image: linear-gradient(115deg, transparent 34%, #000 50%, transparent 66%);
+  mask-image: linear-gradient(115deg, transparent 34%, #000 50%, transparent 66%);
+  -webkit-mask-size: 260% 260%;
+  mask-size: 260% 260%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  animation: gen-dot-sweep 2.6s var(--ease-io) infinite;
+}
+@keyframes gen-dot-sweep {
+  0%   { -webkit-mask-position: 130% 130%; mask-position: 130% 130%; }
+  100% { -webkit-mask-position: -30% -30%; mask-position: -30% -30%; }
+}
+
+/* Badge de resolução: hairline neutro, números tabulares. */
+.gen-res {
+  top: 10px; right: 10px;
+  font-size: 10.5px; font-weight: 600; font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em; color: rgba(250, 250, 250, 0.78);
+  background: rgba(9, 9, 11, 0.55); border: 1px solid rgba(250, 250, 250, 0.14);
+  padding: 3px 8px; border-radius: var(--r-full);
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+}
+
+/* Label "Gerando": micro-legenda neutra na base do tile, shimmer sutil (sem arco-íris). */
+.gen-label {
+  inset: auto 0 12px 0; z-index: 2; display: flex; justify-content: center;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  background: linear-gradient(90deg,
+    rgba(250, 250, 250, 0.38) 0%, rgba(250, 250, 250, 0.92) 50%, rgba(250, 250, 250, 0.38) 100%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: thinking-shimmer 2s linear infinite;
+}
+
+/* Skeleton genérico (.skel-img/.skel-line): varredura mais lenta e discreta,
+   já é neutra via --shimmer-glow; só suaviza o ritmo e arredonda o tile. */
+.skel-img:not(.gen-img)::after, .skel-line::after {
+  animation-duration: 1.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gen-glow::after { animation: none; -webkit-mask-image: none; mask-image: none; opacity: 0.5; }
+  .gen-label { animation: none; -webkit-text-fill-color: rgba(250, 250, 250, 0.82); color: rgba(250, 250, 250, 0.82); background: none; }
+  .skel-img:not(.gen-img)::after, .skel-line::after { animation: none; }
+}
+
+/* ============================================================================
+   REDESIGN v7 — composer premium (hero input + border-beam), sidebar minimal,
+   AI-loader de geração, back/switch de ferramenta. Tudo token-driven (neutro).
+   ============================================================================ */
+
+/* ---- Composer: hero input com feixe de borda (border-beam) neutro ---------- */
+@property --beam-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+.chat-input .composer {
+  position: relative; display: flex; align-items: center; gap: 5px;
+  width: 100%; padding: 5px 6px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-xl);
+  box-shadow: none;
+  transition: border-color .18s var(--ease-io), box-shadow .18s var(--ease-io);
+}
+.chat-input .composer:focus-within {
+  border-color: var(--line);
+  box-shadow: none;   /* sem glow no foco — deixa o beam limpo */
+}
+/* Glint diagonal que varre a borda de forma parelha (não distorce nos lados como
+   o cônico). Suave e constante — some no meio-tom, brilha só na passagem. */
+.chat-input .composer::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(115deg,
+    transparent 44%,
+    color-mix(in srgb, var(--text) 60%, transparent) 50%,
+    transparent 56%) no-repeat;
+  background-size: 260% 260%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: .55; pointer-events: none;
+  animation: beam-sweep 3.4s linear infinite;
+  transition: opacity .3s var(--ease-io);
+}
+.chat-input .composer:focus-within::before { opacity: .95; }
+@keyframes beam-sweep {
+  0%   { background-position: 135% 135%; }
+  100% { background-position: -35% -35%; }
+}
+
+/* textarea cola no container (sem borda/box própria) */
+.chat-input .composer textarea {
+  flex: 1; border: none; background: transparent; box-shadow: none; border-radius: 0;
+  min-height: 40px; padding: 9px 6px; resize: none;
+}
+.chat-input .composer textarea:focus { outline: none; border: none; box-shadow: none; }
+/* botões-ícone fantasmas dentro do composer */
+.chat-input .composer .btn.ghost {
+  border: none; background: transparent; box-shadow: none; color: var(--text-2); border-radius: var(--r-md);
+}
+.chat-input .composer .btn.ghost:hover { background: var(--fill); color: var(--text); }
+.chat-input .composer .anexar { width: 38px; height: 38px; }
+.chat-input .composer .anexar .ic { width: 18px; height: 18px; }
+.chat-input .composer .formatos-btn { padding: 8px 11px; }
+/* send: quadrado accent, centralizado verticalmente */
+.chat-input .composer .btn.send {
+  width: 38px; height: 38px; align-self: center; box-shadow: none; border-radius: var(--r-md);
+}
+.chat-input .composer .btn.send .ic { width: 18px; height: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-input .composer::before { animation: none; opacity: .3; }
+}
+
+/* ---- Sidebar mais minimalista e densa (textos menores) --------------------- */
+.brand h1 { font-size: 14px; }
+.brand .dot { width: 26px; height: 26px; }
+.brand .dot .ic { width: 16px; height: 16px; }
+.side-label { font-size: 10px; padding: 2px 10px 6px; letter-spacing: 0.06em; }
+.produtos li {
+  font-size: 12.5px; padding: 5px 8px; gap: 8px; margin-bottom: 1px; border-radius: 8px;
+}
+.produtos li .avatar { width: 22px; height: 22px; border-radius: 6px; font-size: 10.5px; }
+.produtos li .pnome { font-weight: 450; }
+.produtos li.ativo .pnome { font-weight: 550; }
+.cli-head { font-size: 10.5px; padding: 5px 8px; letter-spacing: 0.05em; }
+.cli-count { min-width: 16px; height: 16px; font-size: 10px; padding: 0 5px; }
+.cli-lista { padding-left: 4px; margin: 1px 0 3px; }
+
+/* ---- Back/switch de ferramenta (voltar para escolher vídeo) ---------------- */
+.brand-back {
+  display: grid; place-items: center; width: 26px; height: 26px; flex: none;
+  border-radius: 7px; color: var(--text-2); text-decoration: none;
+  transition: background .14s, color .14s; -webkit-app-region: no-drag;
+}
+.brand-back:hover { background: var(--fill); color: var(--text); }
+.brand-back svg { width: 16px; height: 16px; }
+
+/* ---- AI-loader de geração (estilos visuais + prompts) ---------------------- */
+/* Barra indeterminada com brilho neutro percorrendo — substitui o spinner. */
+.carregando .spin, .visual-carregando .spin { display: none; }
+.carregando::before, .visual-carregando::before {
+  content: ""; width: 190px; height: 6px; border-radius: var(--r-full); margin-bottom: 6px;
+  background-color: var(--fill);
+  background-image: linear-gradient(90deg, transparent 0%,
+    color-mix(in srgb, var(--text) 55%, transparent) 45%,
+    color-mix(in srgb, var(--text) 55%, transparent) 55%, transparent 100%);
+  background-size: 42% 100%; background-repeat: no-repeat;
+  animation: ai-load-slide 1.15s var(--ease-io) infinite;
+}
+@keyframes ai-load-slide {
+  0% { background-position: -45% 0; }
+  100% { background-position: 145% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carregando::before, .visual-carregando::before {
+    animation: none; background-position: 50% 0;
+  }
+}
+
+/* ---- Scrollbar fina/neutra nos popups de formato (paridade com o tema) ----- */
+.formatos-modal, .formatos-lista { scrollbar-width: thin; scrollbar-color: var(--fill-strong) transparent; }
+.formatos-modal::-webkit-scrollbar, .formatos-lista::-webkit-scrollbar { width: 8px; }
+.formatos-modal::-webkit-scrollbar-track, .formatos-lista::-webkit-scrollbar-track { background: transparent; }
+.formatos-modal::-webkit-scrollbar-thumb, .formatos-lista::-webkit-scrollbar-thumb {
+  background: var(--fill-strong); border-radius: var(--r-full);
+  border: 2px solid transparent; background-clip: content-box;
+}
+.formatos-modal::-webkit-scrollbar-thumb:hover, .formatos-lista::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3); background-clip: content-box;
+}
+
+/* ---- Marca "Ads Express" (logo lockup branco) ------------------------------ */
+.brand-wordmark { height: 34px; width: auto; display: block; }
+/* logo é arte branca → inverte para preto no tema claro */
+@media (prefers-color-scheme: light) { .brand-wordmark { filter: invert(1); } }
+/* rótulo da ferramenta ao lado do logo (Imagem) — igual ao "Vídeo" do UGC */
+.brand .brand-sub {
+  font-size: 10.5px; font-weight: 700; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: .05em;
+  padding-left: 9px; margin-left: 4px; border-left: 1px solid var(--line);
+}
+
+/* ---- Orb "Pensando": 20% menor no geral + contração maior na animação ------ */
+.thinking-orb { width: 16px; height: 16px; }
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(0.72); box-shadow: 0 0 7px 1px rgba(120,120,130,.20); }
+  50%      { transform: scale(1.02); box-shadow: 0 0 13px 3px rgba(120,120,130,.40); }
+}
+
+/* Seletor de modelo (Sonnet) na mesma altura do segmented das etapas */
+.toolbar .modelo-btn { height: 38px; }

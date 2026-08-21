@@ -1,0 +1,1 @@
+Homem brasileiro, 24 anos, pele morena clara, cabelo castanho curto, barba rala natural, expressão simpática. Creator UGC casual, camiseta lisa, sala de casa brasileira média com sofá e objetos cotidianos ao fundo, luz natural de janela, aparência de brasileiro médio, sem modelo profissional, sem logos.

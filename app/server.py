@@ -38,11 +38,19 @@ def _bridge(modelo):
     if str(modelo or "").lower().startswith("gpt"):
         return codex_text_bridge
     return claude_bridge
-from workspace import (JOBS, INFLUENCIADORES, atomic_write_json, atomic_write_text,  # noqa: E402
-                       influencer_dir, ler_json, product_dir, safe_child, safe_descendant)
+from workspace import (JOBS, GERADOS_DIR, INFLUENCIADORES, PRODUCTS,  # noqa: E402
+                       BUNDLE_DIR, atomic_write_json, atomic_write_text,
+                       criativos_dir, ensure_user_config, gerados_dir_de_id,
+                       influencer_dir, ler_json, product_dir,
+                       safe_child, safe_descendant)
 
-PRODUCTS = ROOT / "products"
-PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
+# Templates/estáticos/prompts são só-leitura: no .exe congelado vivem no bundle
+# (BUNDLE_DIR/app/...); no código-fonte, ao lado deste arquivo. Origem única.
+_APP_ASSETS = (BUNDLE_DIR / "app") if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
+PROMPTS_DIR = _APP_ASSETS / "prompts"
+
+# Primeira execução do app empacotado: materializa config/config.toml gravável.
+ensure_user_config()
 
 # Referências de ESTILO por produto: imagens que o usuário anexa na aba de copies
 # marcando "estilo da imagem". Ficam ativas até serem removidas e entram na geração
@@ -55,7 +63,12 @@ REF_PRODUTO_INFO = "referencias_produto.json"
 # são enviados; ficam sob output/ e são limpos a cada nova conversa.
 ANEXOS_CHAT_DIR = ".anexos_chat"
 
-app = Flask(__name__)
+if getattr(sys, "frozen", False):
+    app = Flask(__name__,
+                template_folder=str(_APP_ASSETS / "templates"),
+                static_folder=str(_APP_ASSETS / "static"))
+else:
+    app = Flask(__name__)
 
 # Fluxo de Vídeo UGC: segundo caminho da ferramenta, montado sob /ugc (não colide
 # com nenhuma rota de imagem). Toda a lógica vive em app/ugc_web.py.
@@ -129,12 +142,23 @@ def _formato_ativo(produto: str) -> str:
     return _ler_formatos(produto)[0]
 
 
+_FORMATO_LABEL = {"padrao": "Padrão", "wikihow": "WikiHow", "noticia": "Notícia"}
+
+
+def _info_formato(fmt: str) -> str:
+    return _FORMATO_LABEL.get(fmt, fmt)
+
+
 def _cerebro_copy(produto: str) -> str:
     return _cerebro(_CEREBRO_COPY.get(_formato_ativo(produto), "copywriter.md"), SYSTEM_COPY)
 
 
 def _cerebro_arte(produto: str) -> str:
     return _cerebro(_CEREBRO_ARTE.get(_formato_ativo(produto), "diretor_arte.md"))
+
+
+def _cerebro_arte_de(fmt: str) -> str:
+    return _cerebro(_CEREBRO_ARTE.get(fmt, "diretor_arte.md"))
 
 
 def _data_noticia_str() -> str:
@@ -152,10 +176,12 @@ def _data_noticia_str() -> str:
     return f"{data_fmt} · {atual}"
 
 
-def _bloco_data_noticia(produto: str) -> str:
-    """Bloco a injetar no contexto quando o formato ativo é Notícia: entrega a
-    string de data LITERAL que o print deve exibir (o modelo não inventa data)."""
-    if _formato_ativo(produto) != "noticia":
+def _bloco_data_noticia(produto: str, formato: str | None = None) -> str:
+    """Bloco a injetar no contexto quando o formato é Notícia: entrega a string de
+    data LITERAL que o print deve exibir (o modelo não inventa data). `formato` None
+    usa o ativo do produto (compat); no MIX, passa o formato do grupo."""
+    fmt = formato or _formato_ativo(produto)
+    if fmt != "noticia":
         return ""
     return ("\n\n[FORMATO NOTÍCIA] Data/hora LITERAL para o print (use EXATAMENTE esta string, "
             "não invente outra, não altere): '" + _data_noticia_str() + "'.\n")
@@ -473,7 +499,7 @@ Mensagem do usuário: {mensagem}"""
 # CRIATIVOS_BRAND (definido pelo launcher) e pode ser sobrescrita por ?brand=.
 # "default" = visual atual; "collab" = skin premium claro (cliente Collab Store).
 BRANDS = {
-    "default": {"nome": "Impressora de Criativos", "logo": None},
+    "default": {"nome": "Ads Express", "logo": None},
     "collab": {"nome": "Criativos Collab Store", "logo": "/static/brand-collab-logo.png"},
 }
 
@@ -482,6 +508,30 @@ BRANDS = {
 def landing():
     """Tela inicial: escolha entre o fluxo de Imagem e o de Vídeo UGC."""
     return render_template("landing.html")
+
+
+@app.route("/api/logins")
+def api_logins():
+    """Estado das 3 contas (Claude, ChatGPT, Google Cloud) pros botões da tela inicial."""
+    from app import logins
+    return jsonify(logins.status_todos())
+
+
+@app.route("/api/login/<tool>", methods=["POST"])
+def api_login(tool):
+    """Dispara o login interativo da ferramenta numa janela de terminal."""
+    from app import logins
+    return jsonify(logins.iniciar_login(tool))
+
+
+@app.route("/api/veo_project", methods=["GET", "POST"])
+def api_veo_project():
+    """Lê/grava o VEO_PROJECT (id do projeto GCP) usado no fluxo de vídeo."""
+    from app import logins
+    if request.method == "POST":
+        pid = (request.get_json(silent=True) or {}).get("veo_project", "")
+        return jsonify(logins.set_veo_project(pid))
+    return jsonify({"veo_project": logins.get_veo_project()})
 
 
 @app.route("/imagem")
@@ -700,6 +750,37 @@ def _move_dir_resiliente(origem: Path, destino: Path, tentativas: int = 3) -> No
         raise ultimo_erro or OSError(f"Não foi possível mover {origem} -> {destino}")
 
 
+def _mover_gerados(old_id: str, new_id: str) -> None:
+    """Acompanha o rename/atribuição do produto movendo a pasta de imagens em
+    gerados/ (as imagens vivem separadas do config, então precisam viajar junto)."""
+    old_g = gerados_dir_de_id(old_id)
+    new_g = gerados_dir_de_id(new_id)
+    if not old_g.exists() or new_g.exists():
+        return
+    new_g.parent.mkdir(parents=True, exist_ok=True)
+    _move_dir_resiliente(old_g, new_g)
+    # limpa o bucket de cliente antigo em gerados/ se ficou vazio
+    try:
+        if old_g.parent.resolve() != GERADOS_DIR.resolve() and not any(old_g.parent.iterdir()):
+            old_g.parent.rmdir()
+    except OSError:
+        pass
+
+
+def _remover_gerados(produto: str) -> None:
+    """Remove a pasta de imagens em gerados/ do produto (e o bucket de cliente vazio)."""
+    g = gerados_dir_de_id(produto)
+    if not g.exists():
+        return
+    parent = g.parent
+    _rmtree_resiliente(g)
+    try:
+        if parent.resolve() != GERADOS_DIR.resolve() and not any(parent.iterdir()):
+            parent.rmdir()
+    except OSError:
+        pass
+
+
 @app.route("/api/produtos/<produto>/renomear", methods=["POST"])
 def renomear_produto(produto):
     """Renomeia a pasta inteira do produto, preservando todo o conteúdo."""
@@ -729,6 +810,7 @@ def renomear_produto(produto):
         # release() só limpa o caminho antigo. Remove o que foi para o destino, senão
         # o próximo lock (com o novo id) bate num marcador de PID vivo e falha (409).
         (destino / "output" / ".generation.lock").unlink(missing_ok=True)
+        _mover_gerados(produto, novo_id)  # as imagens em gerados/ seguem o novo id
     except Exception as e:  # noqa: BLE001
         return jsonify({"ok": False, "erro": f"Não foi possível renomear: {e}. "
                         "Feche visualizadores/exportações abertos dessa pasta e tente de novo."}), 500
@@ -749,6 +831,7 @@ def remover_produto(produto):
     try:
         parent = alvo.parent
         _rmtree_resiliente(alvo)
+        _remover_gerados(produto)  # remove também as imagens em gerados/ do produto
         # remove a pasta do cliente se esvaziou (só se for subpasta de PRODUCTS, não a própria PRODUCTS)
         try:
             if parent.resolve() != PRODUCTS.resolve() and not any(parent.iterdir()):
@@ -798,6 +881,7 @@ def atribuir_produto(produto):
         _move_dir_resiliente(origem, destino)
         # remove o marcador de lock que viajou junto (ver nota em renomear_produto)
         (destino / "output" / ".generation.lock").unlink(missing_ok=True)
+        _mover_gerados(produto, f"{cliente}~{nome_final}")  # imagens seguem o novo id
     except Exception as e:  # noqa: BLE001
         return jsonify({"ok": False, "erro": f"Não foi possível mover: {e}. "
                         "Feche visualizadores/exportações abertos dessa pasta e tente de novo."}), 500
@@ -900,12 +984,8 @@ def _sem_bloco_audit(s: str) -> str:
     return _RE_BLOCO_AUDIT.sub("", s).strip() if isinstance(s, str) else s
 
 
-def _processar_bloco_copies(produto: str, resposta: str, preservar_usadas: bool = True):
-    """Extrai o bloco ```copies-json``` da resposta do chat, salva copies.json/md.
-
-    Retorna (resposta_sem_bloco, copies | None). Preserva status "usada" de ids
-    que já existiam no copies.json anterior.
-    """
+def _parse_copies_bloco(resposta: str):
+    """Só EXTRAI o bloco ```copies-json``` (sem salvar). Retorna (texto_limpo, copies|None)."""
     m = _RE_BLOCO_COPIES.search(resposta)
     if not m:
         return _sem_bloco_audit(resposta), None
@@ -915,9 +995,13 @@ def _processar_bloco_copies(produto: str, resposta: str, preservar_usadas: bool 
             raise ValueError("bloco copies-json não é uma lista")
     except Exception:  # noqa: BLE001 — bloco malformado: segue como texto normal
         return _sem_bloco_audit(resposta), None
-
     _limpar_copies(copies)  # garantia dura: nenhum hífen/travessão de pontuação passa
+    limpo = _sem_bloco_audit(_RE_BLOCO_COPIES.sub("", resposta))
+    return limpo, copies
 
+
+def _salvar_copies_lista(produto: str, copies: list, preservar_usadas: bool = True):
+    """Salva a lista de copies (já parseada/taggeada) em copies.json/md, preservando 'usada'."""
     out = product_dir(produto) / "output"
     out.mkdir(parents=True, exist_ok=True)
     # Preserva "usada" por CONTEÚDO da headline (não por id): ids se repetem entre
@@ -936,11 +1020,81 @@ def _processar_bloco_copies(produto: str, resposta: str, preservar_usadas: bool 
             c.pop("status", None)
         elif str(c.get("headline", "")).strip().lower() in usadas_headlines:
             c["status"] = "usada"
-
     atomic_write_json(f, copies)
     atomic_write_text(out / "copies.md", _copies_md_do_json(copies))
+    return copies
 
-    limpo = _sem_bloco_audit(_RE_BLOCO_COPIES.sub("", resposta))
+
+def _processar_bloco_copies(produto: str, resposta: str, preservar_usadas: bool = True):
+    """Extrai o bloco ```copies-json```, TAGGEIA cada copy com o formato ativo e salva.
+
+    Retorna (resposta_sem_bloco, copies | None). Preserva status "usada".
+    """
+    limpo, copies = _parse_copies_bloco(resposta)
+    if copies is None:
+        return limpo, None
+    fmt = _formato_ativo(produto)
+    for c in copies:
+        c.setdefault("formato", fmt)
+    _salvar_copies_lista(produto, copies, preservar_usadas)
+    return limpo, copies
+
+
+def _cerebro_copy_fmt(fmt: str) -> str:
+    """Cérebro de copy de um formato específico (não o ativo). Usado no MIX."""
+    return _cerebro(_CEREBRO_COPY.get(fmt, "copywriter.md"), SYSTEM_COPY)
+
+
+# Quantos criativos o usuário pediu (o número é o TOTAL do lote, repartido entre os
+# formatos selecionados — 3 pedidas + 3 formatos = 1 de cada). A variação por copy vem
+# depois, na etapa de Estilo visual ("direções por copy").
+_RE_QTD_COPIES = re.compile(r"(\d{1,3})\s*cop", re.IGNORECASE)
+
+
+def _qtd_pedida(mensagem: str) -> int | None:
+    m = _RE_QTD_COPIES.search(mensagem or "")
+    if not m:
+        return None
+    try:
+        n = int(m.group(1))
+    except ValueError:
+        return None
+    return max(1, min(n, 60)) if n > 0 else None
+
+
+def _repartir(total: int, k: int) -> list[int]:
+    """Divide `total` em `k` partes o mais parelho possível; o resto vai pros primeiros
+    (o 1º formato é o ativo). Ex.: 3/3 -> [1,1,1]; 5/3 -> [2,2,1]; 3/4 -> [1,1,1,0]."""
+    if k <= 0:
+        return []
+    base, rem = divmod(max(0, total), k)
+    return [base + (1 if i < rem else 0) for i in range(k)]
+
+
+def _gerar_copies_um_formato(produto, mensagem, modelo, fmt, add_dirs, qtd=None):
+    """Gera copies de UM formato (chamada fresca), taggeadas com esse formato.
+    Se `qtd` vier, instrui o modelo a gerar exatamente essa quantidade neste formato.
+    Retorna (texto_resposta_limpo, copies|[])."""
+    if qtd:
+        plural = "copy" if qtd == 1 else "copies"
+        mensagem = (f"{mensagem}\n\n[INSTRUÇÃO OBRIGATÓRIA] Gere EXATAMENTE {qtd} {plural} "
+                    f"neste formato — nem mais, nem menos. Responda SEMPRE terminando com o bloco "
+                    f"```copies-json``` (as copies vivem só dentro dele; nunca como texto solto), "
+                    f"senão este formato sai vazio.")
+    base = PREAMBULO_COPY.replace("{cerebro}", "\x00CEREBRO\x00")
+    texto = base.format(contexto=montar_contexto_produto(produto), mensagem=mensagem)
+    texto = texto.replace("\x00CEREBRO\x00", _cerebro_copy_fmt(fmt))
+    res = _bridge(modelo).conversar(texto, session_id=None, modelo=modelo,
+                                    system_prompt=SYSTEM_COPY, timeout=420, add_dirs=add_dirs)
+    limpo, copies = _parse_copies_bloco(res.get("resposta", ""))
+    if not copies:
+        # Resposta veio mas sem bloco ```copies-json``` válido (ex.: JSON quebrado por
+        # aspas duplas, ou o modelo não entregou copies). NÃO tratar como "throttle":
+        # levanta com o trecho real pra causa aparecer no banner em vez de ser mascarada.
+        trecho = (res.get("resposta", "") or "").strip().replace("\n", " ")[:180]
+        raise RuntimeError(f"sem bloco copies-json válido na resposta: {trecho!r}")
+    for c in copies:
+        c["formato"] = fmt
     return limpo, copies
 
 
@@ -1157,19 +1311,69 @@ def chat():
             return jsonify({"ok": True, "resposta": resposta, "session_id": session_id,
                             "copies": copies})
 
-        # Formato ativo (padrao/wikihow/noticia) troca o cérebro de copy e injeta,
-        # no caso Notícia, a data literal do print. Sessão nova carrega o cérebro;
-        # nas seguintes ele já está no contexto, mas a data (Notícia) sempre entra.
-        bloco_data = _bloco_data_noticia(produto)
+        # MIX de formatos: se há +1 formato marcado e é geração nova (sem sessão),
+        # gera copies de CADA formato e junta, taggeando cada copy com seu formato.
+        # Cada criativo do lote nasce no formato certo; o refino multi-turno (com
+        # session_id) e o formato único seguem o caminho simples de sempre.
+        formatos_sel = _ler_formatos(produto)
+        if not session_id and len(formatos_sel) > 1:
+            # O número pedido é o TOTAL do lote, repartido entre os formatos marcados
+            # (3 copies + 3 formatos = 1 de cada). Sem número explícito → 1 por formato.
+            total = _qtd_pedida(mensagem) or len(formatos_sel)
+            cotas = _repartir(total, len(formatos_sel))
+            todas, textos, vazios = [], [], []
+            for idx, fmt in enumerate(formatos_sel):
+                cota = cotas[idx]
+                if cota <= 0:
+                    continue   # não sobrou cota pra este formato (total < nº de formatos)
+                copies_f, erro_fmt = [], ""
+                # Retry 1x: chamadas em sequência às vezes tomam throttle transitório;
+                # não deixamos o formato sumir silenciosamente do mix. O erro real (se
+                # houver) é guardado pra aparecer no banner em vez de virar "throttle".
+                for tentativa in range(2):
+                    try:
+                        _, copies_f = _gerar_copies_um_formato(
+                            produto, mensagem + bloco_anexos, modelo, fmt, add_dirs, qtd=cota)
+                    except Exception as e:  # noqa: BLE001
+                        copies_f, erro_fmt = [], str(e)
+                    if copies_f:
+                        erro_fmt = ""
+                        break
+                    time.sleep(2)
+                if copies_f:
+                    copies_f = copies_f[:cota]   # capa pra o lote bater com o total pedido
+                    textos.append(f"**{_info_formato(fmt)}**: {len(copies_f)} copies")
+                    todas.extend(copies_f)
+                else:
+                    rotulo = _info_formato(fmt)
+                    if erro_fmt:
+                        rotulo += f" ({erro_fmt[:180]})"
+                    vazios.append(rotulo)
+            if not todas:
+                detalhe = ("; ".join(vazios)) or "o modelo pode estar sob limite"
+                return jsonify({"ok": True, "session_id": None,
+                                "resposta": "Não consegui gerar copies neste lote: " + detalhe + ". Tente de novo."})
+            for i, c in enumerate(todas, 1):
+                c["id"] = f"copy_{i:02d}"
+            _salvar_copies_lista(produto, todas, preservar_usadas=True)
+            resposta = "Mix gerado: " + ", ".join(textos) + "."
+            if vazios:
+                resposta += (" ⚠️ Não vieram: " + ", ".join(vazios)
+                             + ". Reenvie pra completar o mix.")
+            return jsonify({"ok": True, "resposta": resposta, "session_id": None, "copies": todas})
+
+        # Formato único (ou refino): troca o cérebro de copy pelo ativo. A data
+        # literal da Notícia NÃO entra aqui (a copy é atemporal); ela é injetada só
+        # no passo de imagem, onde o print realmente renderiza a data.
         if session_id:
-            texto = mensagem + bloco_anexos + bloco_data
+            texto = mensagem + bloco_anexos
         else:
             # PREAMBULO_COPY usa .format; o cérebro tem chaves { } do bloco de exemplo,
             # então injetamos por replace (não por format) pra não quebrar.
             base = PREAMBULO_COPY.replace("{cerebro}", "\x00CEREBRO\x00")
             texto = base.format(
                 contexto=montar_contexto_produto(produto),
-                mensagem=mensagem + bloco_anexos + bloco_data)
+                mensagem=mensagem + bloco_anexos)
             texto = texto.replace("\x00CEREBRO\x00", _cerebro_copy(produto))
 
         res = _bridge(modelo).conversar(
@@ -1442,22 +1646,9 @@ def confirmar_estilo(produto):
     copies = [c for c in todas if str(c.get("id")) in set(ids)]
     if not copies:
         return jsonify({"ok": False, "erro": "Nenhuma copy corresponde à seleção."}), 400
-    pedido = f"""Defina {variantes} direção(ões) visual(is) para cada copy abaixo. Não escreva o prompt final ainda.
-Crie uma cena, enquadramento, composição, paleta, clima e distribuição do texto claramente
-diferentes para cada item, sempre mantendo o produto real das fotos de referência.
-Responda com uma explicação curta e depois ```visuais-json``` com um array agrupado por copy,
-com exatamente {variantes} itens para cada copy. Cada item deve ter os campos copy_id, angulo,
-copy e visual. O campo visual deve ter 60 a 120 palavras. As direções do mesmo grupo precisam
-ser ideias realmente diferentes, e não apenas variações de palavras.
-
-CONTEXTO DO PRODUTO:
-{montar_contexto_produto(produto)}
-
-COPIES:
-{json.dumps(copies, ensure_ascii=False, indent=2)}"""
-    formato = _formato_ativo(produto)
-    if formato == "wikihow":
-        pedido += f"""
+    def _bloco_formato(fmt):
+        if fmt == "wikihow":
+            return """
 DIREÇÃO DE ARTE (FORMATO WIKIHOW):
 Cada direção é uma ILUSTRAÇÃO estilo wikiHow / artigo de saúde: contorno preto grosso, cor
 chapada (cel-shading), corpo/cena em CINZA dessaturado com UM acento de cor saturada no
@@ -1471,8 +1662,8 @@ rosa/magenta=dor irradiando ou toxina, verde/teal=toxina ou alívio, ciano=músc
 em foco. Detalhe ampliado vive DENTRO de um inset (lupa/bolha), nunca solto.
 VARIEDADE: cada direção do grupo usa um mecanismo/formato visual diferente. Nada de foto realista.
 """
-    elif formato == "noticia":
-        pedido += """
+        if fmt == "noticia":
+            return """
 DIREÇÃO DE ARTE (FORMATO NOTÍCIA):
 Cada direção é um PRINT de artigo de portal em fundo BRANCO, layout FIXO na ordem: tarja
 VERMELHA de categoria no topo (texto branco caixa alta); manchete preta pesada à esquerda;
@@ -1482,10 +1673,9 @@ ao produto num retângulo de cantos arredondados. Texto nítido e legível.
 O que VARIA entre as direções é só a imagem de baixo (REGRA 1 A CADA 2: metade com o PRODUTO real,
 metade com uma CENA realista relacionada ao tema). PROIBIDO qualquer marca de portal (g1, Globo,
 UOL), ícone de vídeo, mudo ou timestamp. Use a data literal fornecida no contexto, nunca invente.
-"""
-        pedido += _bloco_influenciadores()
-    else:
-        pedido += """
+""" + _bloco_influenciadores()
+        # padrao
+        bloco = """
 DIREÇÃO CRIATIVA OBRIGATÓRIA:
 Não trate cada copy como uma sessão de fotos com uma mulher por padrão. O produto é o herói.
 
@@ -1500,23 +1690,22 @@ Puxe entre: vitrine/ponto de venda, prateleira ou display, still life com objeto
 close hero, composição editorial, produto em uso, oferta gráfica e outros cenários de campanha real.
 
 ANATOMIA (regra dura): pessoas são opcionais e o produto é sempre o herói. Se uma direção usar pessoa,
-descreva UMA pessoa num gesto simples e nítido — NUNCA várias mãos juntas, dedos entrelaçados, brinde em
+descreva UMA pessoa num gesto simples e nítido, NUNCA várias mãos juntas, dedos entrelaçados, brinde em
 grupo ou multidão em primeiro plano (o gerador de imagem deforma dedos e membros nessas cenas).
 
 Cada direção explica uma ideia visual diferente, mantendo o produto real, o contexto e a linguagem das referências.
-"""
-        pedido += _bloco_influenciadores()
+""" + _bloco_influenciadores()
         influ_padrao = _influ_do_produto(produto)
         if influ_padrao:
-            pedido += (
+            bloco += (
                 f"\nINFLUENCIADORA PADRÃO DESTE PRODUTO: @{influ_padrao}. Regra de distribuição do "
-                f"lote: PELO MENOS 1/3 das direções (arredonde para cima) tem essa pessoa em cena — "
-                f"nessas, escreva o token @{influ_padrao} LITERAL dentro do campo visual (ex.: "
+                f"lote: PELO MENOS 1/3 das direções (arredonde para cima) tem essa pessoa em cena, "
+                f"nessas escreva o token @{influ_padrao} LITERAL dentro do campo visual (ex.: "
                 f"'@{influ_padrao} no balcão da loja, erguendo o produto...'). Nas direções com ela, "
                 "ela é a protagonista humana (a regra de evitar pessoas não se aplica a elas). As "
                 "DEMAIS direções ficam SEM ela: produto como herói ou pessoa genérica sem @. Se o "
                 "usuário pedir explicitamente outra distribuição, o pedido dele manda.\n")
-        pedido += f"""
+        bloco += f"""
 SLOTS OBRIGATÓRIOS POR COPY (na ordem):
 1. A primeira direção é FOCADA NO PRODUTO: produto como herói, sem pessoa, em close hero,
    still life, vitrine, display ou composição publicitária equivalente.
@@ -1527,27 +1716,55 @@ SLOTS OBRIGATÓRIOS POR COPY (na ordem):
    solução publicitária forte. Não repita a estrutura da direção 1 ou 2.
 Respeite rigorosamente essa ordem dentro de cada grupo de copy. Mantenha exatamente os campos pedidos.
 """
-    if instrucoes:
-        pedido += ("\n\nDIREÇÃO DO USUÁRIO (siga à risca ao criar as cenas; é o que ele "
-                   f"quer ver nas imagens):\n{instrucoes}")
+        return bloco
+
+    # MIX: agrupa as copies pelo FORMATO de cada uma e gera as direções por grupo
+    # (cada formato com seu bloco de direção + refs). Formato único = 1 grupo só.
+    por_fmt: dict[str, list] = {}
+    for c in copies:
+        por_fmt.setdefault(c.get("formato") or _formato_ativo(produto), []).append(c)
+    refs_estilo = _referencias_com_contexto(produto, "estilo") if "IMG_EXTS" in globals() else []
     try:
-        refs_estilo = _referencias_com_contexto(produto, "estilo") if "IMG_EXTS" in globals() else []
-        dirs = [str(product_dir(produto) / "referencia")]
-        if refs_estilo:
-            dirs.append(str(_ref_estilo_dir(produto)))
-        res = _bridge(modelo).conversar(pedido, session_id=None, modelo=modelo,
-                                        system_prompt=SYSTEM_ESTILO, timeout=420, add_dirs=dirs)
-        texto = res.get("resposta", "")
-        visuais = _normalizar_visuais(_extrair_json(texto), copies)
-        if not visuais:
+        visuais_all, textos = [], []
+        for fmt, grupo in por_fmt.items():
+            contexto_fmt = montar_contexto_produto(produto) + _bloco_data_noticia(produto, fmt)
+            pedido = (f"""Defina {variantes} direção(ões) visual(is) para cada copy abaixo. Não escreva o prompt final ainda.
+Crie uma cena, enquadramento, composição, paleta, clima e distribuição do texto claramente
+diferentes para cada item, sempre mantendo o produto real das fotos de referência.
+Responda com uma explicação curta e depois ```visuais-json``` com um array agrupado por copy,
+com exatamente {variantes} itens para cada copy. Cada item deve ter os campos copy_id, angulo,
+copy e visual. As direções do mesmo grupo precisam ser ideias realmente diferentes.
+
+CONTEXTO DO PRODUTO:
+{contexto_fmt}
+
+COPIES:
+{json.dumps(grupo, ensure_ascii=False, indent=2)}""" + _bloco_formato(fmt))
+            if instrucoes:
+                pedido += ("\n\nDIREÇÃO DO USUÁRIO (siga à risca ao criar as cenas; é o que ele "
+                           f"quer ver nas imagens):\n{instrucoes}")
+            dirs = [str(product_dir(produto) / "referencia")]
+            if refs_estilo:
+                dirs.append(str(_ref_estilo_dir(produto)))
+            if fmt == "wikihow" and (PROMPTS_DIR / "wikihow_ref").exists():
+                dirs.append(str(PROMPTS_DIR / "wikihow_ref"))
+            res = _bridge(modelo).conversar(pedido, session_id=None, modelo=modelo,
+                                            system_prompt=SYSTEM_ESTILO, timeout=420, add_dirs=dirs)
+            texto = res.get("resposta", "")
+            vis = _normalizar_visuais(_extrair_json(texto), grupo)
+            for v in vis:
+                v["formato"] = fmt
+            visuais_all += vis
+            limpo = re.sub(r"```visuais-json.*?```", "", texto, flags=re.S).strip()
+            if len(por_fmt) > 1:
+                textos.append(f"**{_info_formato(fmt)}**: {limpo}")
+            else:
+                textos.append(limpo)
+        if not visuais_all:
             raise ValueError("A IA não retornou direções visuais válidas.")
-        atomic_write_json(_visuais_path(produto), visuais)
-        # NÃO gravamos prompts.json aqui: as direções ficam na aba Estilo visual
-        # para o usuário revisar/ajustar e só então ENVIAR as selecionadas para a
-        # aba Prompts (via /api/promover_prompts). Assim o refino não é perdido.
-        resposta = re.sub(r"```visuais-json.*?```", "", texto, flags=re.S).strip()
-        return jsonify({"ok": True, "resposta": resposta, "visuais": visuais,
-                        "session_id": res.get("session_id")})
+        atomic_write_json(_visuais_path(produto), visuais_all)
+        return jsonify({"ok": True, "resposta": "\n\n".join(t for t in textos if t),
+                        "visuais": visuais_all, "session_id": None})
     except Exception as e:  # noqa: BLE001
         return jsonify({"ok": False, "erro": str(e)}), 500
 
@@ -1593,8 +1810,19 @@ def promover_prompts(produto):
     existentes = _ler_prompts_existentes(produto)
     antes = {str(p.get("id")) for p in existentes if isinstance(p, dict)}
     try:
-        dados = _gerar_prompts_finais(produto, modelo, selecionadas, sel,
-                                      variantes, "", existentes)
+        # MIX: agrupa as copies selecionadas pelo FORMATO de cada uma e gera os
+        # prompts por grupo (cada formato com seu cérebro de arte/refs/data). Encadeia
+        # em `acc` pra cada grupo preservar os prompts dos outros. Formato único = 1 grupo.
+        por_fmt: dict[str, list] = {}
+        for c in selecionadas:
+            por_fmt.setdefault(c.get("formato") or _formato_ativo(produto), []).append(c)
+        acc = existentes
+        for fmt, grupo in por_fmt.items():
+            grupo_ids = {str(c.get("id")) for c in grupo}
+            sel_grupo = [v for v in sel if str(v.get("copy_id")) in grupo_ids]
+            acc = _gerar_prompts_finais(produto, modelo, grupo, sel_grupo,
+                                        variantes, "", acc, formato=fmt)
+        dados = acc
         out = product_dir(produto) / "output"
         out.mkdir(parents=True, exist_ok=True)
         atomic_write_json(out / "prompts.json", dados[:1000])
@@ -1661,13 +1889,16 @@ def estilo_visual_chat(produto):
 
 
 def _gerar_prompts_finais(produto, modelo, selecionadas, visuais_sel,
-                          variantes_por_copy, instrucoes_usuario, existentes):
+                          variantes_por_copy, instrucoes_usuario, existentes, formato=None):
     """Transforma as copies selecionadas (e suas direções visuais aprovadas) em
     prompts finais de imagem, gerando N variações CLARAMENTE diferentes por copy
     quando variantes_por_copy > 1. A numeração espelha a copy de origem
     (copy_01 -> criativo_01, ou criativo_01_v1..vN quando há variações).
     Devolve a lista completa: os prompts novos + os existentes que permanecem
-    (os das copies que não foram regeradas agora). Faz UMA chamada ao modelo."""
+    (os das copies que não foram regeradas agora). Faz UMA chamada ao modelo.
+    `formato` None usa o ativo; no MIX, o caller passa o formato do grupo (cada
+    grupo de copies do mesmo formato roda com seu cérebro de arte/refs/data)."""
+    formato = formato or _formato_ativo(produto)
     copy_ids = [c.get("id") for c in selecionadas]
     copies = json.dumps(selecionadas, ensure_ascii=False, indent=2)
     instrucao_extra = (
@@ -1718,8 +1949,8 @@ pessoa como solução padrão' NÃO se aplica a esses grupos. Nos grupos SEM @, 
             "não troque o papel produto/expert/criativa e não transforme a direção do expert em "
             "uma variação criativa. Preserve a ordem e o campo variacao.\n")
 
-    contexto = montar_contexto_produto(produto) + _bloco_data_noticia(produto)
-    cerebro = _cerebro_arte(produto)
+    contexto = montar_contexto_produto(produto) + _bloco_data_noticia(produto, formato)
+    cerebro = _cerebro_arte_de(formato)
 
     # Referência de ESTILO ativa: se o usuário anexou imagem(ns) marcando "estilo",
     # o diretor de arte precisa VÊ-las (via --add-dir) e, em CADA prompt, escrever
@@ -1747,11 +1978,11 @@ pessoa como solução padrão' NÃO se aplica a esses grupos. Nos grupos SEM @, 
             "texto, mood), deixando claro que o produto mantém sua identidade real. Não copie o "
             "produto/objeto que aparece na referência de estilo; copie só a linguagem visual.\n")
     if estilo_files and contextos_estilo:
-        estilo_bloco += "Contexto especÃ­fico de uso das referÃªncias:\n" + contextos_estilo + "\n"
+        estilo_bloco += "Contexto específico de uso das referências:\n" + contextos_estilo + "\n"
 
     # Formato WikiHow: anexa referências curadas do estilo (só no passo de TEXTO,
     # que é barato) pro modelo que escreve os prompts se ancorar no traço certo.
-    if _formato_ativo(produto) == "wikihow":
+    if formato == "wikihow":
         wdir = PROMPTS_DIR / "wikihow_ref"
         if wdir.exists():
             add_dirs.append(str(wdir))
@@ -1785,6 +2016,9 @@ pessoa como solução padrão' NÃO se aplica a esses grupos. Nos grupos SEM @, 
 
     instrucoes_bloco = ("\n===== INSTRUCOES EXTRAS DO USUARIO PARA ESTAS IMAGENS =====\n"
                         + instrucoes_usuario + "\n===== FIM DAS INSTRUCOES EXTRAS =====\n") if instrucoes_usuario else ""
+    # WikiHow é ilustração de mecanismo, sem pessoa real/@influenciador: não injeta
+    # o bloco de influenciadores (evita empurrar rosto real numa ilustração chapada).
+    _influ_bloco = "" if formato == "wikihow" else _bloco_influenciadores()
     prompt = f"""{cerebro}
 
 Agora gere os prompts de imagem para ESTE produto, com base nas COPIES aprovadas e no CONTEXTO
@@ -1794,7 +2028,7 @@ REGRA DE LOTE (dura): as entradas geradas agora precisam ter cenas CLARAMENTE di
 si — cenário/locação, luz/momento, ângulo/enquadramento e layout do texto não se repetem entre
 entradas. No máximo 2 entradas com o mesmo "formato". Distribua as cenas do lote ANTES de
 escrever o primeiro prompt.
-{cenas_existentes}{estilo_bloco}{_bloco_influenciadores()}
+{cenas_existentes}{estilo_bloco}{_influ_bloco}
 {instrucoes_bloco}
 {visual_bloco}
 ===== CONTEXTO DO PRODUTO =====
@@ -1835,6 +2069,7 @@ escrever o primeiro prompt.
             variante = contagens[num]
             d["id"] = (f"criativo_{num:02d}" if variantes_por_copy == 1
                         else f"criativo_{num:02d}_v{variante}")
+            d["formato"] = formato  # rastreia o formato de cada criativo (mix)
             if variante <= variantes_por_copy:
                 normalizados.append(d)
     ordem_copies = {str(c.get("id")): i for i, c in enumerate(selecionadas)}
@@ -1962,7 +2197,7 @@ def diagnosticar_criativos(produto):
     if str(modelo).lower().startswith("gpt"):
         modelo = "sonnet"
 
-    out_dir = product_dir(produto) / "output" / "criativos"
+    out_dir = criativos_dir(produto)
     if not out_dir.exists():
         return jsonify({"ok": False, "erro": "Nenhum criativo gerado ainda."}), 400
 
@@ -1979,56 +2214,64 @@ def diagnosticar_criativos(produto):
 
     prompts = {str(p.get("id")): p for p in _ler_prompts_existentes(produto)
                if isinstance(p, dict)}
-    linhas = []
-    for a in arquivos:
-        p = prompts.get(_id_base(a))
-        copy_prevista = ""
-        if p:
-            partes = [p.get("copy") or p.get("angulo") or ""]
-            copy_prevista = " / ".join(x for x in partes if x)[:300]
-        linhas.append(f"- {a}" + (f"  (texto pretendido na copy: {copy_prevista})"
-                                  if copy_prevista else ""))
-
     ref_dir = product_dir(produto) / "referencia"
     add_dirs = [str(out_dir)]
     if ref_dir.exists():
         add_dirs.append(str(ref_dir))
 
-    pedido = (
-        "Abra e inspecione COM ATENÇÃO cada um destes arquivos de imagem (você tem acesso de "
-        "leitura à pasta onde eles estão):\n" + "\n".join(linhas) + "\n\n"
-        "As fotos REAIS do produto, para comparar embalagem, cor, logo e rótulo, estão na pasta "
-        "de referência (também acessível).\n\n"
-        "Para CADA arquivo, verifique nesta ordem de prioridade: 1) ERROS DE TEXTO na arte "
-        "(ortografia, letras trocadas/faltando, texto cortado ou embolado, sem sentido, hífen/travessão "
-        "proibidos, divergência com o texto pretendido); 2) anatomia (dedos, mãos, membros, rostos); "
-        "3) embalagem/produto divergente da referência.\n\n"
-        "Devolva SOMENTE um array JSON, um objeto por arquivo, na mesma ordem:\n"
-        "{'arquivo': 'nome.exato.png', 'ok': true|false, 'severidade': 'ok'|'leve'|'grave', "
-        "'problemas': ['defeito curto e específico', ...], "
-        "'instrucao_correcao': 'instrução cirúrgica pro refino, deixando claro que o resto fica "
-        "idêntico e que o texto correto NÃO pode ser estragado (ou string vazia se estiver ok)'}"
-    )
-    try:
+    def _linha(a: str) -> str:
+        p = prompts.get(_id_base(a))
+        copy_prevista = ""
+        if p:
+            partes = [p.get("copy") or p.get("angulo") or ""]
+            copy_prevista = " / ".join(x for x in partes if x)[:300]
+        return f"- {a}" + (f"  (texto pretendido na copy: {copy_prevista})"
+                           if copy_prevista else "")
+
+    def _pedido(lote: list) -> str:
+        return (
+            "Abra e inspecione COM ATENÇÃO cada um destes arquivos de imagem (você tem acesso de "
+            "leitura à pasta onde eles estão):\n" + "\n".join(_linha(a) for a in lote) + "\n\n"
+            "As fotos REAIS do produto, para comparar embalagem, cor, logo e rótulo, estão na pasta "
+            "de referência (também acessível).\n\n"
+            "Para CADA arquivo, verifique nesta ordem de prioridade: 1) ERROS DE TEXTO na arte "
+            "(ortografia, letras trocadas/faltando, texto cortado ou embolado, sem sentido, hífen/travessão "
+            "proibidos, divergência com o texto pretendido); 2) anatomia (dedos, mãos, membros, rostos); "
+            "3) embalagem/produto divergente da referência.\n\n"
+            "Devolva SOMENTE um array JSON, um objeto por arquivo, na mesma ordem:\n"
+            "{'arquivo': 'nome.exato.png', 'ok': true|false, 'severidade': 'ok'|'leve'|'grave', "
+            "'problemas': ['defeito curto e específico', ...], "
+            "'instrucao_correcao': 'instrução cirúrgica pro refino, deixando claro que o resto fica "
+            "idêntico e que o texto correto NÃO pode ser estragado (ou string vazia se estiver ok)'}"
+        )
+
+    def _diag_lote(lote: list) -> list:
         texto = claude_bridge.pedir_texto(
-            pedido, modelo=modelo, system_prompt=SYSTEM_QA, timeout=900, add_dirs=add_dirs)
-        diag = _extrair_json(texto)
-        if not isinstance(diag, list):
-            diag = []
-        # Casa cada item com um arquivo real pedido, tolerando caminho/variação no
-        # nome devolvido pelo modelo (usa o basename). Normaliza o campo pro nome exato.
-        validos = set(arquivos)
-        saida = []
-        for d in diag:
-            if not isinstance(d, dict):
-                continue
-            nome = str(d.get("arquivo") or "").replace("\\", "/").rsplit("/", 1)[-1].strip()
-            if nome in validos:
-                d["arquivo"] = nome
-                saida.append(d)
-        return jsonify({"ok": True, "diagnostico": saida})
+            _pedido(lote), modelo=modelo, system_prompt=SYSTEM_QA, timeout=900, add_dirs=add_dirs)
+        d = _extrair_json(texto)
+        return d if isinstance(d, list) else []
+
+    # Verifica em LOTES de 6, em PARALELO — bem mais rápido que uma única chamada
+    # com todas as imagens (a visão do modelo lê imagem a imagem dentro do contexto).
+    lotes = [arquivos[i:i + 6] for i in range(0, len(arquivos), 6)]
+    try:
+        with ThreadPoolExecutor(max_workers=min(len(lotes), 4)) as ex:
+            partes = list(ex.map(_diag_lote, lotes))
     except Exception as e:  # noqa: BLE001
         return jsonify({"ok": False, "erro": str(e)}), 500
+
+    # Achata os lotes e casa cada item com um arquivo real (basename), na ordem pedida.
+    diag = [d for sub in partes for d in sub]
+    validos = set(arquivos)
+    saida = []
+    for d in diag:
+        if not isinstance(d, dict):
+            continue
+        nome = str(d.get("arquivo") or "").replace("\\", "/").rsplit("/", 1)[-1].strip()
+        if nome in validos:
+            d["arquivo"] = nome
+            saida.append(d)
+    return jsonify({"ok": True, "diagnostico": saida})
 
 
 def _ler_prompts_existentes(produto):
@@ -2104,7 +2347,7 @@ def salvar_prompts(produto):
 
 
 def _status_erro(produto: str, e: Exception):
-    out = product_dir(produto) / "output" / "criativos"
+    out = product_dir(produto) / "output"
     out.mkdir(parents=True, exist_ok=True)
     atomic_write_json(out / "status.json", {
         "id": JOBS.new_id(), "total": 0, "feitos": 0, "atual": None, "arquivos": [],
@@ -2235,7 +2478,7 @@ def descartar_criativo(produto):
     arquivo = (body.get("arquivo") or "").strip()
     if not arquivo or "/" in arquivo or "\\" in arquivo or not arquivo.endswith(".png"):
         return jsonify({"ok": False, "erro": "Arquivo inválido."}), 400
-    pasta = product_dir(produto) / "output" / "criativos"
+    pasta = criativos_dir(produto)
     origem = safe_child(pasta, arquivo, suffix=".png")
     if not origem.exists():
         return jsonify({"ok": False, "erro": "Criativo não encontrado."}), 400
@@ -2248,7 +2491,7 @@ def descartar_criativo(produto):
     origem.rename(destino)
 
     # Tira da lista do status.json pra grade não recriar o thumb.
-    status_f = pasta / "status.json"
+    status_f = product_dir(produto) / "output" / "status.json"
     if status_f.exists():
         try:
             s = json.loads(status_f.read_text(encoding="utf-8"))
@@ -2271,7 +2514,7 @@ def refinar_fila(produto):
         return jsonify({"ok": False, "erro": "Fila de refinamentos vazia ou grande demais."}), 400
 
     limpos = []
-    pasta = product_dir(produto) / "output" / "criativos"
+    pasta = criativos_dir(produto)
     for item in itens:
         arquivo = str(item.get("arq") or "").strip() if isinstance(item, dict) else ""
         instrucao = str(item.get("instrucao") or "").strip() if isinstance(item, dict) else ""
@@ -2291,7 +2534,7 @@ def refinar_fila(produto):
         return jsonify({"ok": False, "erro": "Já existe uma geração em andamento."}), 409
     cancel = _cancel_event(produto)
     cancel.clear()
-    status_file = pasta / "status.json"
+    status_file = product_dir(produto) / "output" / "status.json"
     status = {"id": uuid.uuid4().hex, "produto": produto, "total": len(limpos),
               "feitos": 0, "atual": None, "atuais": [], "arquivos": [],
               "erros": [], "em_andamento": True, "inicio": time.time(),
@@ -2363,7 +2606,7 @@ def refinar_criativo(produto):
     if not arquivo or "/" in arquivo or "\\" in arquivo or not arquivo.endswith(".png"):
         return jsonify({"ok": False, "erro": "Arquivo inválido."}), 400
     try:
-        base = safe_child(product_dir(produto) / "output" / "criativos", arquivo, suffix=".png")
+        base = safe_child(criativos_dir(produto), arquivo, suffix=".png")
     except ValueError:
         return jsonify({"ok": False, "erro": "Arquivo inválido."}), 400
     if not base.exists():
@@ -2410,7 +2653,7 @@ def refazer_criativo(produto):
     if not arquivo or "/" in arquivo or "\\" in arquivo or not arquivo.endswith(".png"):
         return jsonify({"ok": False, "erro": "Arquivo inválido."}), 400
     try:
-        base = safe_child(product_dir(produto) / "output" / "criativos", arquivo, suffix=".png")
+        base = safe_child(criativos_dir(produto), arquivo, suffix=".png")
     except ValueError:
         return jsonify({"ok": False, "erro": "Arquivo inválido."}), 400
     if not base.exists():
@@ -2474,10 +2717,20 @@ def _mtimes_criativos(pasta: Path, arquivos: list) -> dict:
     return mt
 
 
+def _formatos_por_id(produto):
+    """Mapa {id_base -> formato} lido de prompts.json, para a grade exibir o selo
+    de formato em cada thumb. Formato ausente vira 'padrao'."""
+    mapa = {}
+    for p in _ler_prompts_existentes(produto):
+        if isinstance(p, dict) and p.get("id"):
+            mapa[_id_base(str(p["id"]))] = p.get("formato") or "padrao"
+    return mapa
+
+
 @app.route("/api/status/<produto>")
 def status(produto):
-    pasta = product_dir(produto) / "output" / "criativos"
-    f = pasta / "status.json"
+    pasta = criativos_dir(produto)
+    f = product_dir(produto) / "output" / "status.json"
     if f.exists():
         try:
             s = json.loads(f.read_text(encoding="utf-8"))
@@ -2517,6 +2770,7 @@ def status(produto):
                     except Exception:  # noqa: BLE001
                         pass
             s["mtimes"] = _mtimes_criativos(pasta, s.get("arquivos", []))
+            s["formatos"] = _formatos_por_id(produto)
             return jsonify(s)
         except Exception:
             pass
@@ -2528,12 +2782,13 @@ def status(produto):
                        and p.name.lower().startswith("criativo_"))
     return jsonify({"total": len(reais), "feitos": len(reais), "atual": None,
                     "arquivos": reais, "erros": [], "em_andamento": False,
-                    "mtimes": _mtimes_criativos(pasta, reais)})
+                    "mtimes": _mtimes_criativos(pasta, reais),
+                    "formatos": _formatos_por_id(produto)})
 
 
 @app.route("/criativos/<produto>/<path:arquivo>")
 def criativo(produto, arquivo):
-    pasta = product_dir(produto) / "output" / "criativos"
+    pasta = criativos_dir(produto)
     try:
         safe_descendant(pasta, arquivo)
     except ValueError:
@@ -3107,11 +3362,11 @@ def criar_produto():
 @app.route("/api/criativos/<produto>/arquivar", methods=["POST"])
 def arquivar_criativos(produto):
     """Move a rodada atual (imagens + status) para historico/<timestamp> e limpa a atual."""
-    pasta = product_dir(produto) / "output" / "criativos"
+    pasta = criativos_dir(produto)
     if not pasta.exists():
         return jsonify({"ok": True, "arquivados": 0})
     imgs = [f for f in pasta.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXTS]
-    status_f = pasta / "status.json"
+    status_f = product_dir(produto) / "output" / "status.json"
     if not imgs and not status_f.exists():
         return jsonify({"ok": True, "arquivados": 0})
 
@@ -3127,7 +3382,7 @@ def arquivar_criativos(produto):
 
 @app.route("/api/historico/<produto>")
 def historico(produto):
-    base = product_dir(produto) / "output" / "criativos" / "historico"
+    base = criativos_dir(produto) / "historico"
     rodadas = []
     if base.exists():
         for d in sorted(base.iterdir(), reverse=True):
@@ -3233,7 +3488,7 @@ def salvar_logo_config(produto):
 @app.route("/api/criativos_lista/<produto>")
 def criativos_lista(produto):
     """Lista os criativos atuais (criativo_*.png de nivel raiz, ignora finais/)."""
-    pasta = product_dir(produto) / "output" / "criativos"
+    pasta = criativos_dir(produto)
     itens = []
     if pasta.exists():
         for p in sorted(pasta.iterdir()):
@@ -3247,7 +3502,7 @@ def criativos_lista(produto):
 def exportar_logos(produto):
     """Recebe os PNGs ja compostos (logo sobreposto no navegador) e salva em finais/."""
     product_dir(produto)
-    pasta = product_dir(produto) / "output" / "criativos" / FINAIS_DIR
+    pasta = criativos_dir(produto) / FINAIS_DIR
     pasta.mkdir(parents=True, exist_ok=True)
     salvos = []
     for nome, file in request.files.items(multi=True):
@@ -3267,7 +3522,7 @@ def exportar_logos(produto):
 
 @app.route("/api/finais/<produto>")
 def finais_lista(produto):
-    pasta = product_dir(produto) / "output" / "criativos" / FINAIS_DIR
+    pasta = criativos_dir(produto) / FINAIS_DIR
     itens = []
     if pasta.exists():
         for p in sorted(pasta.iterdir()):

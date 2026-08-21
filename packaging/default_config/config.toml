@@ -68,6 +68,14 @@ veo_project = ""
 veo_fast = 0.75     # ~US$0,15/s * 5s
 veo_quality = 2.00  # ~US$0,40/s * 5s
 
+[qualidade]
+habilitada = true
+max_tentativas_keyframe = 3
+max_tentativas_clipe = 3
+frames_por_clipe = 16
+timeout = 180
+modelo = ""
+
 [voz]
 # Engine TTS: "eleven" (conta ElevenLabs própria, natural PT-BR) | "edge" (grátis, robótico,
 # só rascunho) | "f5" (local GPU). Obs.: no fluxo Veo a narração vem no ÁUDIO NATIVO do Veo;

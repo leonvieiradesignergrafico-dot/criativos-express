@@ -1,0 +1,752 @@
+[
+  {
+    "id": "120247409726790701",
+    "name": "img2-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1641035267649000",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748514863_27751520857800554_7347968901309904189_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=arSzT3-TErkQ7kNvwGhPKh1&_nc_oc=AdrgvYMr2dxsPnkAO1R7Wr8xxYfSmUkj4IaUHnOTbc8u9v5m0Twz7DYD1Z2POnujx5E&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJZVTcN3BKmXDQ6AqSvGij9CayTgPqLCypSyf6rQWnevx-9KuItdnNB7qp_qYg3MPis9ypV8IH3LQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFVYlshod1KzbeBgYTcpdgY3g2rdHffNpaKZPu_A7vzsA&oe=6A8031A2",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726880701",
+    "name": "video4-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1540323913792321",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/743811410_2083506523049503_3282696533054744392_n.jpg?_nc_cat=111&ccb=1-7&_nc_ohc=-yq0cwf8tDEQ7kNvwGloG2y&_nc_oc=AdqneRDVQMvVVBSX_tZXqxIn_p1_t0MleNptn3j-EKneamLL4DeMhtSnq_cBxVFKWKk&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI8A-62ZdG-yemiBsNa2q6CdW1gHfjnkXos3Ra_8L4xVBQIT0edyRS3RcG4noCHZKndGD_tdfGnqg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQHc1cF9BY__jMBCj-D2ASWgkm8QNDcHRUj8cNUT6gG9RQ&oe=6A804572",
+      "video_id": "1019753284165524",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120247409726860701",
+    "name": "video5-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1067558869066843",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/746261142_898879722647513_7569696714702339936_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=eEvqA9GWcIkQ7kNvwFm-qxk&_nc_oc=AdrouDaOupwyhVFwIZ8uUK18U_1U87INcFHQ5YqZjf19IaqkB-3pfl2CvFRPq9HyHns&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI0ls94BX7G0uN3TgxPBT15CQfE58QFUjq1eO2mEvBZyPvHkBDVKJvS0RxnvKNRfs-3MvTUtDWoBw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQHk6kRF6wUoG-nkz7SSArbv3mTHnSX8mNE43jZiIz9smg&oe=6A804B52",
+      "video_id": "2105820230284761",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120247409726760701",
+    "name": "img1-pais",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2496334614127825",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/748096581_27752254901060483_7602177316643803118_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=9uzKuRSgqqUQ7kNvwHRMLXf&_nc_oc=AdorwmfqSeBJ64wgxFk9NcsStm_jKrO6LwWWM9hH_nJAERpf9feSkuFmVGMt2yHFP2k&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIekcFS6VWu3kh6GLoHhmXNkY_P2y1xJ_MLLMT0uyyiW7wjW8mMAsSvoDHwcdoyYKFVSOfRMycDZQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQEeufQWIxELPK2XXMFezI_DZGKT4hcvrIPwyqy9jZeCaQ&oe=6A80362C",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726870701",
+    "name": "img1-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1363136559285337",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/748813096_27751520837800556_8181331960085863776_n.png?_nc_cat=102&ccb=1-7&_nc_ohc=OcFoG5nGnGwQ7kNvwEiHzUi&_nc_oc=AdrsyC6KPzKeLrOhpjNRmLoQEqiYckh4KhlHyTaLvIXrA4ka0fDZjZfKSyi_5yksC4c&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI4qhkRtDUfolukPa1U8pbFBJDMWccyEgEiV8lJA4I2EPixr9ThbMSrosdLFzI33Vj2sLBXxRhotg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFb-4p8jKDPWc_YKP1BBkgYZhMJ2d74q1yKUeKErt_jnw&oe=6A804B58",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726830701",
+    "name": "img4-pais",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1028831259935235",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/748623599_27752237431062230_5044470506021917386_n.png?_nc_cat=107&ccb=1-7&_nc_ohc=F3Yzu0_4zckQ7kNvwEQYHrh&_nc_oc=AdoUvO9lL9Mnw5NXpR2jM27vqVUpNHHQ59WwRsW0EW3sjcKwat6bXt7lJ98ps4B2giM&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJBfyu-r8vjwy6fY7PrQGtvEU0fTAVFjbk94mppDILdYvSReAAcIx6EOlE8y6Y50MdF6t4Kbyy_CA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQHy6kG-gbWpa-XDk8WMHcy0fnOgqMVlTtJHMtgu3qW1Iw&oe=6A803957",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726770701",
+    "name": "img4-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1578920620458106",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748701655_27751520911133882_779088552072924757_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=uJDl5dsiGvoQ7kNvwGc2xQm&_nc_oc=Adp0-pcfavUeJw8T81w13r82Qe_zkF81yXwjM7GOZTmZNBBE3kX-DSV_0OD8NGzVEus&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQKj2OXimdEfY8XKmS65qCet23m_AVKVH8IgS_LQeLYouI_cdgvkFZrA6IbCF1IrsKaECOa6BOYLVA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQGdkDXyXkU-fq0i9dsAqV5tZDO-17dj2PKdokVD16EHIQ&oe=6A803786",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726850701",
+    "name": "video6-antigo",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "3983422548520419",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/740343294_888875550442410_485054055481987442_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=KY7swWh-mDoQ7kNvwH-vv0A&_nc_oc=AdqloRNl1eBvFwgGGvlsGXEtfFSO75TE7GpUO0vKu9033FpMENDOaN0m21IavicuzUo&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIJSD0nobOZLuq4MBmCJBe8iL51vB8BWorpDWdGAyI5DPMdImVD6hTwpYFHzjC86wydDnE2UKPEVQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQGwmfl5UfffeIlgVcndFMcG6lYSEhFjq_iB28LtjKo5pw&oe=6A802003",
+      "video_id": "2929277127436210",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120247409726820701",
+    "name": "video3-antigo",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1062722203102985",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t15.5256-10/743373672_4472960152977664_5733566289385070123_n.jpg?_nc_cat=106&ccb=1-7&_nc_ohc=JuvPgq6vXDQQ7kNvwF07781&_nc_oc=AdqYMZpqpOWXChfaTdkvADqYK0wJx5Xj9N_vAga03izlxUFzEdh6n8k4YhRtF9EuzX8&_nc_zt=23&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQLzW27E0pKPhbxqV8Jd3zrc4hcqPZT8lptINLqu2QYBfjVcH0drkWJjOToqAhdgKAJGM6bnGZSJZg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQGLLd4VfiTl9BhBFTauoZDjhb_ihtf_dvYS6M_NQJgz4Q&oe=6A803139",
+      "video_id": "1347850837499591",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120247409726810701",
+    "name": "img2-pais",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1369374655386725",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748908191_27752237444395562_3064707310919657976_n.png?_nc_cat=108&ccb=1-7&_nc_ohc=sYlvkNXm8C4Q7kNvwEkbo4N&_nc_oc=Adqd3DtJ6O0ZD0m7nfFjGFZiSpj8lb2xs1mpy8Uv0edKFfG_N3NPa0k091RDCE4MTr4&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIOz8Ym2Tj9E4whLAyM12GquDZh6aUNGEN1cY4MZqQC59PS-yW5_O3hcG-BOLYm3Raz6xSpfOAs3A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQGp40lD8rhebO2HH1AV4TAWOXJLquWv_z6qpWe2exK6ZA&oe=6A8029C1",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726750701",
+    "name": "video7-antigo",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1347054723727897",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t15.5256-10/748264763_1724676555446977_5358352969268343942_n.jpg?_nc_cat=105&ccb=1-7&_nc_ohc=HFrBUCddvUYQ7kNvwE0sU-A&_nc_oc=AdpTXjJRSlqORCGzvel0UkAqsIoNGBsLfzkuUuDYoEoj9rA_76WKAMSEDfipvy43e-k&_nc_zt=23&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJd3IgsOcKITqgV7I5wUav-lcw8KD-x1b9CNqapT7gAAjG2-xJAC3vTUiSGO9YjWlFnphqlYvI75A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQGnkprRwFLGFlIpQiQ3Zgvv9Ko9FZ0XHrjDw6mReFz9Xw&oe=6A804385",
+      "video_id": "1368387311292772",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120247409726740701",
+    "name": "img3-pais",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "983219071340215",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748359622_27752237464395560_3733243911004973784_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=gI4SeCdYxFUQ7kNvwFUygna&_nc_oc=AdqhLNPzYwDl6xyqeA4OrO-UvoiiUVv0cnf8URr4WyMbcCrHOrf_4RpNWeT71oBUyM4&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIK8Mzz2LnsO-sFfknL0NvpvLee6Mtsdj6unqiVZ0v_kn9-df-jXGPGxwl7vaGOKqO6A6nj_GUAOg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQF0S3K5fdDwEk99aPBkfqQEGBpvzVUwLIzlhldfj5EBSQ&oe=6A80248A",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726840701",
+    "name": "video1-antigo",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1696658661447292",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/748088614_1058101450487683_4682936131020180356_n.jpg?_nc_cat=103&ccb=1-7&_nc_ohc=bx8u8hsit9IQ7kNvwH9_j7q&_nc_oc=AdopbkqTs86sWwvsV20Kz8PIWt_ssLnyHPH-UXM4gIhT8pHqpLsOmyJc559BwTyAXoI&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJtEVkal3q7lMNuvL-VTdc0ImjUpYShaaeWxxOiquWgfhliD7-25C4j1Q97DCpLz24fhF5UPbABDg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQEN1nHvUNsSaS0p158g_HZkj4WuTuejxCxPZSJwKROJyQ&oe=6A8051B1",
+      "video_id": "1383657960356042",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120247409726780701",
+    "name": "img3-aberta",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "3305883879621155",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748536393_27751709057781734_6986262656744764573_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=Cb2F652FrSgQ7kNvwHgwnBA&_nc_oc=Adod_RjKXYCkSYceHpnHirUqx5B0HYoL2_XPA_BXOEqTg-n-O4OqqYOvBkK8DxF6QEc&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJ7oXazEMoZ4uA0zGtDoj3B_HP9mbTrD1oef1lWFUAgH9BFNUfiSaGcEfrlDbgkC4C2V_5cyMT-tg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQGc4kcBsqzLycq0MHccDlyHC4gROxae645IIhIVUvFy0g&oe=6A802C16",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120247409726800701",
+    "name": "video2-antigo",
+    "status": "PAUSED",
+    "effective_status": "PAUSED",
+    "campaign_name": "cbo-vendas-altitude-03-08-2026{CO-1137}",
+    "adset_id": "120247409726710701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2213975486048971",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/748287039_904583208719342_7476202500819898670_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=kY9rtRy2VdwQ7kNvwEs68vi&_nc_oc=Adq9VnfUtr7uoP7Upa7ORDkCFoFkrxNEVJi-wvPGUzWkAGWb49P0d6OoY45qLVlWWYg&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJS12kpgWA4uybPamR5INaowMwdVkKn2Jrt5ZTpSROgUa7on2PQxdKt5XQamS4pVdbGtcCWzX9YSw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQHbRxa4juF8LJfs0ASbCX3z1yWt96ObbRHojujIBybS0Q&oe=6A802A94",
+      "video_id": "1050224304160349",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246909287060701",
+    "name": "img3-pais",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246909287070701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2050771222983837",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748359622_27752237464395560_3733243911004973784_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=gI4SeCdYxFUQ7kNvwFUygna&_nc_oc=AdqhLNPzYwDl6xyqeA4OrO-UvoiiUVv0cnf8URr4WyMbcCrHOrf_4RpNWeT71oBUyM4&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQK3qfamuRAuTAdJ0YyzrB5x4u2MSIs8u1YfgihhVtSRJ8ab8OU41M1ZMPM9NN5U6P0EU07XS8ZJnw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQHzAwux0IDSqdr14H5FUrsn1MPlYWAMqSwiJM6NWCd7Zw&oe=6A80248A",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246907598990701",
+    "name": "video7-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246907599000701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1326761622961946",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t15.5256-10/748264763_1724676555446977_5358352969268343942_n.jpg?_nc_cat=105&ccb=1-7&_nc_ohc=HFrBUCddvUYQ7kNvwE0sU-A&_nc_oc=AdpTXjJRSlqORCGzvel0UkAqsIoNGBsLfzkuUuDYoEoj9rA_76WKAMSEDfipvy43e-k&_nc_zt=23&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIv5oeJAg8_GU5JHPGOR-No6X9pokeN644DxSncH5RmI2eflIrs8CjtOkfCPBFrwZMNu3vyBgWOOg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQEEII03quYG7_DDtM-fyZhmHU2a6yNaqW0uCYgUC_Yc8Q&oe=6A804385",
+      "video_id": "1353057527020402",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246906500250701",
+    "name": "img4-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246906500240701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1551884056528484",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748701655_27751520911133882_779088552072924757_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=uJDl5dsiGvoQ7kNvwGc2xQm&_nc_oc=Adp0-pcfavUeJw8T81w13r82Qe_zkF81yXwjM7GOZTmZNBBE3kX-DSV_0OD8NGzVEus&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJ7YAc0TFWSr531gXCY_uJjURSZnF3bRIC-tjkhmigbZpjeBgV7huYQArJYaGG79YRZ-kQYh4f5xg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQHHDsaubiJ1OF5eabMub0I-J54RcPPEfaXKiOVqbQNEPw&oe=6A803786",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246908696160701",
+    "name": "img1-pais",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246908696170701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2496334614127825",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/748096581_27752254901060483_7602177316643803118_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=9uzKuRSgqqUQ7kNvwHRMLXf&_nc_oc=AdorwmfqSeBJ64wgxFk9NcsStm_jKrO6LwWWM9hH_nJAERpf9feSkuFmVGMt2yHFP2k&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIekcFS6VWu3kh6GLoHhmXNkY_P2y1xJ_MLLMT0uyyiW7wjW8mMAsSvoDHwcdoyYKFVSOfRMycDZQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQEeufQWIxELPK2XXMFezI_DZGKT4hcvrIPwyqy9jZeCaQ&oe=6A80362C",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246906440510701",
+    "name": "img3-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246906440500701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "3673069099536062",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748536393_27751709057781734_6986262656744764573_n.png?_nc_cat=110&ccb=1-7&_nc_ohc=Cb2F652FrSgQ7kNvwHgwnBA&_nc_oc=Adod_RjKXYCkSYceHpnHirUqx5B0HYoL2_XPA_BXOEqTg-n-O4OqqYOvBkK8DxF6QEc&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIAGZNWsoJ-cbfpoe8ANCFb_upTGsUfX23prQaiozrxoaKZSWkd0FY6Q1VyddqAa-PtwLMrcgN9lA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFFGkTMGJHoy7VFKShPGk25O2mB4Pt4f2JhqoCrD-Ghtg&oe=6A802C16",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246906419920701",
+    "name": "img2-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246906419930701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1240402924792555",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t45.1600-4/748514863_27751520857800554_7347968901309904189_n.png?_nc_cat=104&ccb=1-7&_nc_ohc=arSzT3-TErkQ7kNvwGhPKh1&_nc_oc=AdrgvYMr2dxsPnkAO1R7Wr8xxYfSmUkj4IaUHnOTbc8u9v5m0Twz7DYD1Z2POnujx5E&_nc_zt=1&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQLY1gve0ixF8KC6KytyjNjI2JyhpiqfWdkqhy6VrcpM0wGnsH2T23vZTlKJrRfXq780VIsRebzypg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQF_0JYJpxO6puNKg2tTRSCUlslEQNRuTg0vOdMUPiROXg&oe=6A8031A2",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246907551580701",
+    "name": "video2-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246907551570701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2477845099350039",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-1.xx.fbcdn.net/v/t15.5256-10/748287039_904583208719342_7476202500819898670_n.jpg?_nc_cat=101&ccb=1-7&_nc_ohc=kY9rtRy2VdwQ7kNvwEs68vi&_nc_oc=Adq9VnfUtr7uoP7Upa7ORDkCFoFkrxNEVJi-wvPGUzWkAGWb49P0d6OoY45qLVlWWYg&_nc_zt=23&_nc_ht=scontent-gru1-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQKPUVKJr0DGQc3UUnqlLslQ3i2s2qV2zp1tPKMx_RpcpuNuocfMKxRoYN9hlnr_JPA-2GJxPLsZAQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQG9VU3WhkHHTS81r8nEy5-xX_9sRYeF3UJGsVUCMB7XyQ&oe=6A802A94",
+      "video_id": "1447670100902896",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246907560610701",
+    "name": "video3-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246907560600701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1050848334352005",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t15.5256-10/743373672_4472960152977664_5733566289385070123_n.jpg?_nc_cat=106&ccb=1-7&_nc_ohc=JuvPgq6vXDQQ7kNvwF07781&_nc_oc=AdqYMZpqpOWXChfaTdkvADqYK0wJx5Xj9N_vAga03izlxUFzEdh6n8k4YhRtF9EuzX8&_nc_zt=23&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQLVavNzwwVWGpvsWU1AQIKU0TgNCDQhXc1XLcrR-YVLt_iYSmXGjA8kQAP5d8zX6cO_7ezyqwuciA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQGUCMXOMh5xsEQrFNmtrauD-ymzkMuHr1ayUO7EyZ001w&oe=6A803139",
+      "video_id": "2091177188493423",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246908886230701",
+    "name": "img2-pais",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246908886240701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2473394313123574",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t45.1600-4/748908191_27752237444395562_3064707310919657976_n.png?_nc_cat=108&ccb=1-7&_nc_ohc=sYlvkNXm8C4Q7kNvwEkbo4N&_nc_oc=Adqd3DtJ6O0ZD0m7nfFjGFZiSpj8lb2xs1mpy8Uv0edKFfG_N3NPa0k091RDCE4MTr4&_nc_zt=1&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQKrz8b2KGy-k_UH50bGfw1FxGpFKUkuLDJWrBn2JPawKkmP7nugepz41BJGCgXBQGinkB_6HMIV9w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFmH6hVdqWLLyZj9YFbHAtzKCQaAO1w739M_D4s6O8VEA&oe=6A8029C1",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246909370250701",
+    "name": "img4-pais",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246909370240701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1329639189346211",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t45.1600-4/748623599_27752237431062230_5044470506021917386_n.png?_nc_cat=107&ccb=1-7&_nc_ohc=F3Yzu0_4zckQ7kNvwEQYHrh&_nc_oc=AdoUvO9lL9Mnw5NXpR2jM27vqVUpNHHQ59WwRsW0EW3sjcKwat6bXt7lJ98ps4B2giM&_nc_zt=1&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJGkzeVQtA3Ncof398QcRaSK3wZmUgECC_PUQB9ReAIeO8wFVoA3TB5wCbVAIGdquCk8YULdf_1iw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQHn-vp3eO2m9Bx8MRfWl2dJDCSGdm-C3Y-r-AreYjgocw&oe=6A803957",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  },
+  {
+    "id": "120246906531100701",
+    "name": "video1-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246906531090701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2437011476775071",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru1-2.xx.fbcdn.net/v/t15.5256-10/748088614_1058101450487683_4682936131020180356_n.jpg?_nc_cat=103&ccb=1-7&_nc_ohc=bx8u8hsit9IQ7kNvwH9_j7q&_nc_oc=AdopbkqTs86sWwvsV20Kz8PIWt_ssLnyHPH-UXM4gIhT8pHqpLsOmyJc559BwTyAXoI&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQIFNN-Zq-7mss5v-9XHNNK2RJ9Nq0cOLZMr_wEADjoV3pdUpRhZzB2844Q0ZF31AaTRA1eX0mcolw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQFDmsVWf2Aaaou8yPX_bf7qJNSq5lIn88O4gyzFuFJ3yQ&oe=6A8051B1",
+      "video_id": "2271930320217239",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246907583360701",
+    "name": "video6-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246907583350701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "4339920819654454",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/740343294_888875550442410_485054055481987442_n.jpg?_nc_cat=107&ccb=1-7&_nc_ohc=KY7swWh-mDoQ7kNvwH-vv0A&_nc_oc=AdqloRNl1eBvFwgGGvlsGXEtfFSO75TE7GpUO0vKu9033FpMENDOaN0m21IavicuzUo&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI2aT0dukx7cK3nSa-kF07WE93LaZP9AeHfjAFv48FLW6AZxFgJCrmIm6wb8EOfIK-Oj-9Gs990pw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQE5Jp1Q5QOvNM4WSJGwDeaw-hkZDXHTWudhhwGhxe90mw&oe=6A802003",
+      "video_id": "1825382698869802",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246907566660701",
+    "name": "video4-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246907566650701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "2692333261160339",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/743811410_2083506523049503_3282696533054744392_n.jpg?_nc_cat=111&ccb=1-7&_nc_ohc=-yq0cwf8tDEQ7kNvwGloG2y&_nc_oc=AdqneRDVQMvVVBSX_tZXqxIn_p1_t0MleNptn3j-EKneamLL4DeMhtSnq_cBxVFKWKk&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQI3tW8k9-SYM-bqrlGIiNe9FypZqWUQPoSCdhDVsdhqRPzgE6p_vb4p4HG5UXJcAg47waO2qn0FWQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQEatwtFngFq2yBvYGwfdvZwDQnUG6Sv8nLG-__U3klhEg&oe=6A804572",
+      "video_id": "1479946530569060",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246907574560701",
+    "name": "video5-antigo",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246907574570701",
+    "copy": {
+      "message": "A fragrância que te eleva acima de tudo.\nUma assinatura aromática que une o frescor do ar das montanhas à força sofisticada do âmbar e do sândalo. Para quem vive em outro nível.",
+      "headline": "Altitude by Comandante Hamilton",
+      "description": "Clique no botão e garanta já o seu.",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1711250330129273",
+      "object_type": "VIDEO",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-1.xx.fbcdn.net/v/t15.5256-10/746261142_898879722647513_7569696714702339936_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=eEvqA9GWcIkQ7kNvwFm-qxk&_nc_oc=AdrouDaOupwyhVFwIZ8uUK18U_1U87INcFHQ5YqZjf19IaqkB-3pfl2CvFRPq9HyHns&_nc_zt=23&_nc_ht=scontent-gru2-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQLYhbYHeJBmCGYPoAr8UyMLuWP0a71p5G_jEfg9JSgff5t9TpR9xYg6oySMZCfEE9O5RK_bpWNHXg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a86139&_nc_sid=58080a&oh=00_AQGjfR61W65fb-2wte9tHvWfe4XzxqJB-QMaMxSqknT9yg&oe=6A804B52",
+      "video_id": "925590260568356",
+      "link_url": "",
+      "call_to_action_type": "SHOP_NOW"
+    }
+  },
+  {
+    "id": "120246905359390701",
+    "name": "img1-aberta",
+    "status": "ACTIVE",
+    "effective_status": "CAMPAIGN_PAUSED",
+    "campaign_name": "altitude-vendas-lp-abo-15-07-26",
+    "adset_id": "120246905359410701",
+    "copy": {
+      "message": "",
+      "headline": "",
+      "description": "",
+      "cta": "SHOP_NOW"
+    },
+    "cta": "SHOP_NOW",
+    "link": "https://perfumealtitude.com.br/",
+    "creative": {
+      "id": "1034707102588723",
+      "object_type": "SHARE",
+      "image_url": "",
+      "thumbnail_url": "https://scontent-gru2-2.xx.fbcdn.net/v/t45.1600-4/748813096_27751520837800556_8181331960085863776_n.png?_nc_cat=102&ccb=1-7&_nc_ohc=OcFoG5nGnGwQ7kNvwEiHzUi&_nc_oc=AdrsyC6KPzKeLrOhpjNRmLoQEqiYckh4KhlHyTaLvIXrA4ka0fDZjZfKSyi_5yksC4c&_nc_zt=1&_nc_ht=scontent-gru2-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=jUMS98K3luNGmTayCjb_tw&_nc_tpa=Q5bMBQJSsLliT9Xdgz9p3kSWglcYuHiF6JZ_AcV8MWM_Cuf59Ehj7rXgll3hvKY09xm4_H7KeIRtHThn8A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQFXx9n9vZM5ggOwPGEEK6r1AXjoQaRt9Y4YxAuZxXOVOQ&oe=6A804B58",
+      "video_id": "",
+      "link_url": "",
+      "call_to_action_type": ""
+    }
+  }
+]
