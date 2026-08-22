@@ -337,7 +337,17 @@ def generate(
                             f"stderr (fim):\n{(stderr or '')[-800:]}")
                     # Rate-limit transitório: sinaliza como retentável (a rede de segurança
                     # cuida do backoff). 'usage limit' (cota esgotada) NÃO cai aqui.
-                    if "rate limit" in (stderr or "").lower():
+                    _low = (stderr or "").lower()
+                    # Filtro de CONTEÚDO da OpenAI (não é erro do app nem retentável): mensagem
+                    # humana + orientação, em vez do erro cru assustador.
+                    if ("moderation_blocked" in _low or "safety system" in _low
+                            or "safety_violations" in _low or "rejected by the safety" in _low):
+                        raise RuntimeError(
+                            "A OpenAI bloqueou esta cena pelo filtro de conteúdo DELA (não é erro "
+                            "do app). Costuma acontecer com pele/corpo em close (ex.: celulite, "
+                            "biquíni). Reformule a cena — pessoa vestida, sem close no corpo/pele, "
+                            "foco no rosto ou no produto — e clique 'Gerar de novo'; ou pule a cena.")
+                    if "rate limit" in _low:
                         raise _RateLimit(_diagnostico(stderr) or "Rate limit do Codex.")
                     motivo = _diagnostico(stderr) or (
                         "Codex não gerou nenhuma imagem (possível limite de uso do plano, "

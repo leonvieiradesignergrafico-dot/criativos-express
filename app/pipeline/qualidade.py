@@ -27,19 +27,19 @@ mas reprove apenas defeitos visíveis. Responda SOMENTE JSON válido:
  "correcao_prompt":"instrução objetiva para a próxima geração"}
 
 Critérios duros:
-- anatomia humana plausível: exatamente dois braços no corpo, mãos/dedos plausíveis,
-  nenhum membro duplicado, desconectado, fundido ou surgindo sem origem;
-- respeitar a geometria esperada descrita abaixo;
-- celular pode aparecer se for OBJETO demonstrado à câmera, filmado por uma segunda
-  câmera, apoiado, ou refletido num espelho. Se o frame representa a perspectiva da
-  própria câmera frontal/selfie, esse mesmo celular e o braço que o segura NÃO aparecem;
+- anatomia (regra dura, POR PESSOA): cada pessoa tem exatamente DOIS braços e DUAS mãos
+  ligados ao próprio corpo. Reprove SÓ quando UMA pessoa tiver MAIS de dois braços/mãos, ou
+  um membro duplicado, fundido, flutuante ou sem origem corporal. Em cena de 2 pessoas, 4
+  mãos no total é NORMAL — conte por pessoa, nunca o total;
+- um braço, mão ou celular VISÍVEL no quadro (segurando o produto, apontando, segurando o
+  aparelho, refletido num espelho, o braço que segura a câmera) NÃO é defeito — é natural em
+  UGC. NÃO reprove por "o braço/mão que segura a câmera aparece". Só reprove o celular quando
+  o contrato disser celular_visivel=proibido (selfie pura, onde o aparelho é a própria câmera);
 - corpo e objetos não podem estar fundidos, esmagados nem apoiados de forma impossível;
 - mesma pessoa, roupa, ambiente e produto; produto sem deformação grosseira;
 - em clipe: uma única tomada contínua. Reprovar morph, wipe, dissolução, split screen,
   duplicação, troca de cena ou transição interna;
 - reprovar sequência visual congelada enquanto o take ainda deveria estar acontecendo;
-- conte também braços parcialmente cortados pelas bordas. Se uma mão segura produto, outra
-  aponta e um terceiro braço se estende para a lente, são TRÊS braços: reprove;
 - coerência fala-imagem: demonstrativos como "este/esses/aqui/olha" e gestos de apontar
   exigem que a coisa alegada esteja realmente visível. Reprovar quando a fala trata um
   problema como presente/visível, mas a imagem mostra pele lisa ou nenhuma evidência;
