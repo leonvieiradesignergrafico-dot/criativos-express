@@ -397,17 +397,22 @@ $("btnCriarRoteiro").addEventListener("click", async () => {
   $("novoStatus").classList.add("hidden");
   $("novoLoader").classList.remove("hidden");   // loader animado (igual "gerar visuais")
   try {
-    // Cria todos os roteiros EM PARALELO (o backend agora gera cada vídeo com id
-    // único, sem colidir). Antes era um a um (lento).
-    const resultados = await Promise.all(opcoes.map((opcao) => {
+    // Cria os roteiros UM DE CADA VEZ (sequencial). O claude em paralelo trava no app
+    // empacotado (dá timeout); serializando, cada roteiro roda sozinho e conclui rápido.
+    const resultados = [];
+    for (const opcao of opcoes) {
       // Casting POR VÍDEO: cada roteiro manda o quem-aparece dele (default: solo=auto, multi=gerado).
       const cast = opcao.castingAvatar !== undefined ? opcao.castingAvatar : castingDefault(opcao.formato);
-      return api(`/api/videos/${encodeURIComponent(state.produto)}`, {
-        copy: copyComBrief(opcao), avatar: cast, modelo: modeloSel(),
-        formato: opcao.formato || state.formato,
-        tipo_produto: state.tipoProduto,
-      }).catch((e) => ({ __erro: (e && e.message) || "erro desconhecido" }));
-    }));
+      try {
+        resultados.push(await api(`/api/videos/${encodeURIComponent(state.produto)}`, {
+          copy: copyComBrief(opcao), avatar: cast, modelo: modeloSel(),
+          formato: opcao.formato || state.formato,
+          tipo_produto: state.tipoProduto,
+        }));
+      } catch (e) {
+        resultados.push({ __erro: (e && e.message) || "erro desconhecido" });
+      }
+    }
     const criados = resultados.filter((r) => r && r.roteiro && r.roteiro.id).map((r) => r.roteiro.id);
     await carregarVideos();
     state.loteVids = criados;

@@ -230,7 +230,10 @@ def criar_roteiro(produto: str, copy: str, avatar: str | None, modelo: str | Non
         f"## Copy aprovada do anúncio\n{copy}\n\n"
         "Crie o roteiro UGC deste anúncio seguindo as regras."
     )
-    timeout = int((config_video or {}).get("roteiro_timeout", 180))
+    # O roteiro gera uma saída LONGA (várias cenas, estruturada) — mais que uma resposta
+    # de chat. 180s era curto (dava timeout no app empacotado, ainda mais com vários em
+    # paralelo). 360s dá folga sem prender o usuário por tempo demais.
+    timeout = int((config_video or {}).get("roteiro_timeout", 360))
     r = _bridge(modelo).conversar(mensagem, session_id=None, modelo=modelo,
                                   system_prompt=cerebro, timeout=timeout)
     cenas = extrair_cenas(r["resposta"], digital=(tipo_prod == "digital"),

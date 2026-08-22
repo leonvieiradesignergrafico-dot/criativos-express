@@ -168,6 +168,12 @@ def conversar(mensagem: str, session_id: str | None = None, modelo: str | None =
     saida, erro, timed_out = _run(cmd, timeout=timeout, cwd=cwd or str(NEUTRAL_DIR),
                                   stdin_text=mensagem)
     if timed_out:
+        try:  # registra no console embutido pra diagnosticar (modelo/tempo/stderr)
+            from app import console_log
+            console_log.registrar("STDERR", f"claude TIMEOUT após {timeout}s — "
+                                  f"modelo={_resolver_modelo(modelo)} stderr={(erro or '')[-400:]}")
+        except Exception:  # noqa: BLE001
+            pass
         raise RuntimeError("Claude demorou demais e foi encerrado (timeout).")
 
     # A saída deve ser um JSON com 'result' e 'session_id'.
