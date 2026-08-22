@@ -688,7 +688,7 @@ def gerar_keyframes(produto: str, vid: str, ns: list[int] | None = None,
     # dependente é gerada e pode ser reusado como referência de identidade.
     dep = _mapa_ancoras(roteiro)
     ondas = [[c for c in alvo if c["n"] not in dep], [c for c in alvo if c["n"] in dep]]
-    workers = max(1, int(carregar_config().get("keyframes", {}).get("workers", 4)))
+    workers = max(1, int(carregar_config().get("keyframes", {}).get("workers", 6)))
     try:
         for onda in ondas:
             if not onda:

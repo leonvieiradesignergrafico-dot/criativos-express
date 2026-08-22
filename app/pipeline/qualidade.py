@@ -62,20 +62,53 @@ são avaliados em outra etapa. Se rosto/cabelo/roupa forem consistentes, marque 
 """
 
 
+def _eh_selfie(fmt: str, prompt: str, espelho: bool) -> bool:
+    """SELFIE = a pessoa filma a SI MESMA com a câmera frontal (o celular É a câmera). É o
+    ÚNICO caso em que o celular/braço que o segura NÃO podem aparecer no quadro. Filmado
+    por OUTRA pessoa/suporte (experimento social, entrevista/abordagem de rua, two-shot,
+    multi-pessoa) NÃO é selfie — nesses o celular pode aparecer normalmente."""
+    if espelho:
+        return False
+    if any(x in prompt for x in ("experimento", "abordagem", "entrevista", "outra pessoa",
+            "filmado por", "dupla", "two-shot", "two shot", "câmera de mão de", "camera de mao de",
+            "segurada por", "suporte", "tripé", "tripe", "de rua")):
+        return False
+    try:
+        from app.pipeline import formatos_video as fv
+        if fmt and (fv.multi_pessoa(fmt) or fv.two_shot(fmt)):
+            return False
+    except Exception:  # noqa: BLE001
+        pass
+    if any(x in prompt for x in ("selfie", "braço estendido", "braco estendido", "câmera frontal",
+            "camera frontal", "autorretrato", "self-tape", "filma a si", "se filmando")):
+        return True
+    # Formato solo conhecido (não caiu nos não-selfie acima) = padrão UGC depoimento = selfie.
+    return bool(fmt)
+
+
 def contrato_cena(cena: dict) -> dict:
     """Normaliza a geometria explícita da cena, inclusive roteiros antigos."""
     tipo = cena.get("tipo") or ""
     prompt = (cena.get("prompt_keyframe") or "").lower()
+    fmt = (cena.get("formato_video") or "").lower()
     geo = dict(cena.get("geometria") or {})
     espelho = any(x in prompt for x in ("espelho", "reflexo", "mirror"))
     mostra_tela = tipo in ("tela_dispositivo", "avatar_aponta_tela") or any(
         x in prompt for x in ("mostrar a tela", "mostra a tela", "tela do celular"))
+    selfie = _eh_selfie(fmt, prompt, espelho)
     if not geo.get("perspectiva"):
         geo["perspectiva"] = "espelho" if espelho else "camera_frontal"
     if not geo.get("camera_operador"):
         geo["camera_operador"] = "personagem" if geo["perspectiva"] == "camera_frontal" else "outra_pessoa_ou_suporte"
     if not geo.get("celular_visivel"):
-        geo["celular_visivel"] = "obrigatorio" if mostra_tela else ("permitido" if espelho else "proibido")
+        # Celular proibido SÓ em selfie (é a própria câmera). Fora disso, permitido — corrige
+        # o falso positivo do QA em experimento social / cena filmada por outra pessoa.
+        if mostra_tela:
+            geo["celular_visivel"] = "obrigatorio"
+        elif selfie:
+            geo["celular_visivel"] = "proibido"
+        else:
+            geo["celular_visivel"] = "permitido"
     geo.setdefault("maos_visiveis", "no_maximo_duas; preferir_uma")
     geo.setdefault("acao_maos", "uma acao simples por mao; nenhuma mao ou braco sem origem corporal visivel")
     geo.setdefault("contatos_fisicos", "sem corpo fundido, esmagado ou colado em mesa, lente ou objetos")

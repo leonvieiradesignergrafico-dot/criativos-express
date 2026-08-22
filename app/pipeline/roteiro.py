@@ -241,6 +241,10 @@ def criar_roteiro(produto: str, copy: str, avatar: str | None, modelo: str | Non
     if not cenas:
         raise RuntimeError("O roteirista não devolveu um bloco roteiro-json válido. "
                            f"Resposta: {r['resposta'][:400]}")
+    # Carimba o formato em cada cena pra o controle de qualidade saber se é selfie (celular
+    # proibido) ou filmado por outra pessoa/experimento (celular permitido).
+    for _c in cenas:
+        _c.setdefault("formato_video", formato_video)
     roteiro = {
         "id": vid,
         "produto": produto,
