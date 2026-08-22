@@ -38,6 +38,15 @@ powershell -ExecutionPolicy Bypass -File packaging\build.ps1        # gera os do
 & "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" packaging\installer_windows.iss   # gera o instalador
 ```
 
+### Só mudou um prompt (`app\prompts\*.md`)? Não precisa rebuild completo
+O app instalado (`%LOCALAPPDATA%\Programs\Ads Express\`) e a cópia empacotada dentro da pasta
+do projeto (`Ads Express (app)\`) leem os prompts de uma cópia própria, **não** da fonte —
+editar `app\prompts\` não afeta essas duas cópias sozinho (drift real já aconteceu, 3 dias
+de defasagem). Pra sincronizar só os `.md` sem rodar o PyInstaller inteiro:
+```powershell
+powershell -ExecutionPolicy Bypass -File packaging\sync-prompts.ps1
+```
+
 ---
 
 ## macOS — KIT COMPLETO (precisa rodar num Mac)
