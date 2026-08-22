@@ -85,6 +85,30 @@ bash packaging/mac/create_dmg.sh
 
 ---
 
+## Entregar pro usuário final — GitHub Releases (o jeito certo)
+
+Os instaladores (`.exe`, `.dmg`) **não ficam no git** (`.gitignore`) — binário grande
+incharia o repositório pra sempre. Quem baixa o repositório do GitHub pega só o **código**.
+Pra dar ao usuário final uma **página de download** limpa (só o instalador do SO dele, sem
+ver código), use uma **Release**.
+
+Script pronto (roda no Windows via Git Bash e no Mac):
+```bash
+bash packaging/publicar_release.sh          # detecta a versão pelo nome do .exe
+bash packaging/publicar_release.sh 1.1.0    # ou informe a versão
+```
+Ele cria/atualiza a Release `vX.Y.Z` no repositório e **sobe os instaladores que achar**
+nesta máquina (`.exe` na raiz; `.dmg` na raiz ou na Área de Trabalho). Fluxo dos dois SOs:
+1. **No Windows** (depois de gerar o `.exe`): rode o script → cria a Release com o `.exe`.
+2. **No Mac** (depois do `Instalar no Mac.command` gerar o `.dmg`): rode o script → sobe o
+   `.dmg` na MESMA Release.
+
+Requisito: `gh` (GitHub CLI) logado na conta dona do repo (`gh auth login`).
+**Repositório privado** = só quem tem acesso baixa; pra download público, torne o repo
+público (ou crie um repo público só de releases).
+
+---
+
 ## O que o app precisa em runtime (os dois SOs)
 - **Node.js** + **Claude Code CLI** + **Codex CLI** (logados) — o wizard/first-run cuida.
 - **ffmpeg** (só pro fluxo de vídeo).
