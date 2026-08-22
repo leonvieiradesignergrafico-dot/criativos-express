@@ -206,6 +206,31 @@ def _semear_config() -> None:
             '[app]\nffmpeg = ""\n', encoding="utf-8")
 
 
+def _semear_produtos() -> None:
+    """Copia os produtos embutidos pra pasta de dados do usuário, SEM sobrescrever o que
+    já existe (adiciona os que faltam; preserva o trabalho local em reinstalações).
+    O app lê de config/products (novo) e products (legado) — semeia os dois."""
+    alvos = [
+        (_res("_seed/config_products"), CONFIG_DIR / "products"),
+        (_res("_seed/products"), APP_SUPPORT / "products"),
+    ]
+    for origem, destino in alvos:
+        if not origem.exists():
+            continue
+        destino.mkdir(parents=True, exist_ok=True)
+        for item in origem.iterdir():
+            alvo = destino / item.name
+            if alvo.exists():
+                continue  # já existe nesta máquina: não sobrescreve
+            try:
+                if item.is_dir():
+                    shutil.copytree(item, alvo)
+                else:
+                    shutil.copy2(item, alvo)
+            except Exception:  # noqa: BLE001 — um produto problemático não trava a instalação
+                pass
+
+
 def _gravar_cli_paths() -> None:
     CONFIG_DIR.mkdir(parents=True, exist_ok=True)
     linhas = [
@@ -299,6 +324,8 @@ class API:
             _augment_path()
             self._prog(3, "Preparando…")
             _semear_config()
+            self._prog(6, "Copiando seus produtos…")
+            _semear_produtos()
 
             self._prog(10, "Copiando o app pra Aplicativos…")
             self.app_path = _instalar_app(self._prog)

@@ -31,6 +31,15 @@ datas = [
     (_p("packaging", "icons", "app-1024.png"), "."),
     (_p("packaging", "default_config"), "_default_config"),
 ]
+
+# Produtos embutidos: o instalador copia pra pasta de dados do usuário (semente). São
+# só as DEFINIÇÕES (o output/ gerado é gitignored e não existe no checkout limpo do CI).
+for _seed_src, _seed_dst in (
+    (_p("config", "products"), os.path.join("_seed", "config_products")),
+    (_p("products"), os.path.join("_seed", "products")),
+):
+    if os.path.isdir(_seed_src):
+        datas.append((_seed_src, _seed_dst))
 binaries = []
 
 # pywebview (UI) — colete tudo, igual ao app.
