@@ -25,6 +25,16 @@ jogo, não como pitch. Encadeie no tempo verbal do relato (antes/passado → ago
 - "Sinceramente eu não acreditava, mas depois de [tempo] com [produto] o [resultado] apareceu."
 Fecho: o próprio cliente convida ("se você também [dor], clica no botão aqui embaixo").
 
+**Ceticismo dito pela própria pessoa, não pelo espectador:** um beat curto do tipo "eu pensei
+que não ia funcionar" (ANTES do resultado aparecer) deixa o depoimento mais real e já
+desarma quem tá pensando a mesma coisa — só use se essa hesitação realmente fez parte do
+relato/depoimento real, não invente a frase por efeito.
+
+**Dimensão do resultado, não só o número:** no beat de PROVA/RESULTADO, se o depoimento real
+trouxer também o IMPACTO do resultado na vida da pessoa (o que mudou na rotina, na forma como
+as pessoas passaram a tratá-la, na confiança), inclua isso além do número/métrica — é o mesmo
+fato, só que mostrando o que ele significou, não recurso novo nem claim inventado.
+
 ## ASSINATURA VISUAL / KEYFRAMES
 A cara do formato é a SELFIE HONESTA: cliente segurando o celular na mão, luz natural do cômodo dele
 (sala, quarto), rosto grande, olhar direto, expressão espontânea. No `prompt_keyframe` peça estética

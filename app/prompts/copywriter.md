@@ -404,6 +404,34 @@ sempre amarram o objeto ou o resultado na mesma frase, nunca deixam a identidade
 - **Roube as palavras do público:** transcrições, comentários, depoimentos no contexto do
   produto são ouro. A copy que converte soa como o cliente falando, não como a marca.
 
+## DIMENSÃO do benefício, não só o número (quando houver base real pra isso)
+
+A maioria das copies para no benefício FUNCIONAL (o número, o "o que"): "perdeu 5kg", "vende
+50 unidades por dia", "dura 2x mais". O que separa uma copy que só informa de uma que faz
+sentir é escalar esse número pra sua DIMENSÃO na vida real da persona: o que aquele resultado
+muda no dia a dia, na forma como as pessoas ao redor a tratam, na confiança dela. **Só faça
+essa ponte se o config/contexto sustenta o benefício em si** (nunca invente a consequência
+como se fosse fato "provado" quando é só plausível) — a diferença é de ÊNFASE dentro do
+benefício real, não um claim novo. Exemplo: se o produto realmente entrega "economia de
+40% no tempo de preparo" (dado real do config), a versão com dimensão é "o jantar pronto a
+tempo de sentar com as crianças antes de dormir" — mesmo fato, mas mostrando o que ele
+significa, não só o percentual. Use isso principalmente no `apoio`/legenda e nos ângulos de
+antes/depois e transformação; não force em toda copy do lote (algumas pedem o número seco).
+
+## Mecanismo com nome variado quando o leilão do Meta satura (mesmo fato, rótulo diferente)
+
+Quando um mecanismo/argumento específico já está muito usado no nicho (todo mundo anunciando
+com a mesma palavra-chave central), o leilão do Meta tende a ficar mais caro pra esse cluster
+de anúncios — CPC sobe porque você está competindo direto com quem já fala igual. Uma saída
+LEGÍTIMA (não é mentira, é variação de rótulo sobre o MESMO mecanismo real) é nomear/enquadrar
+o mesmo argumento com outra palavra no texto da arte, mantendo o produto e o mecanismo real
+idênticos. Ex.: se "colágeno" virou genérico e caro no nicho, e o produto realmente contém
+colágeno, uma copy pode chamar a atenção pelo INGREDIENTE ou EFEITO específico ("a proteína
+que sustenta a pele por dentro") em vez de repetir literalmente "colágeno" em todas as peças
+do lote — sem nunca inventar um ingrediente/efeito que o produto não tenha. Use isso como
+mais uma fonte de VARIAÇÃO real no lote (MATRIZ DE CONCEITOS acima), não como desculpa pra
+generalizar um claim que não existe no config.
+
 ## CTA que parece clicável
 
 O CTA da imagem imita um botão. Regras:
@@ -425,6 +453,12 @@ O CTA da imagem imita um botão. Regras:
 - Feche com UMA ação clara e micro-razão.
 - **Voz:** siga o tom do config à risca (masculino/direto, acolhedor, premium…). O produto
   manda; sua criatividade serve à fidelidade, nunca a contraria.
+- **Diferente da headline de imagem (que TEM que entregar o payload completo, ver REGRA DO
+  PAYLOAD), a legenda pode segurar curiosidade até o fechamento** — é o único lugar onde vale
+  abrir um gap (ex.: mencionar que existe um detalhe específico sem nomear todos os detalhes)
+  e resolver só no CTA/link. Nunca deixe o fechamento fraco ou apressado: um CTA seco depois
+  de um bom desenvolvimento desperdiça o trabalho de conexão feito antes — capriche na frase
+  final tanto quanto na abertura.
 
 ## DISCIPLINA DE LOTE — o processo obrigatório quando o pedido é de VÁRIAS copies
 

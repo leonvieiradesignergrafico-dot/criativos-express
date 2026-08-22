@@ -22,6 +22,8 @@ Moldes de gancho:
 - POV: "POV: você [situação cotidiana] e percebe que [dor/verdade incômoda]."
 - Ponte pro depoimento: "Eu vivia exatamente isso, até que [descoberta do produto] e [resultado]."
 O produto entra no depoimento como o que MUDOU o jogo, nunca como pitch cortado. Fecha com o cliente chamando pro botão.
+No beat de RESULTADO+PROVA, quando o depoimento real trouxer o impacto do resultado na vida da
+pessoa (não só o número), inclua isso — é o mesmo fato, só com a dimensão real que ele teve.
 
 ## ASSINATURA VISUAL / KEYFRAMES
 Duas estéticas coladas. POV: `prompt_keyframe` com enquadramento de 1ª pessoa, câmera na linha dos olhos como quem segura o celular, cenário caseiro coerente com [nicho], perspectiva subjetiva do que a pessoa vê; legenda "POV: você..." sobreposta legível só na abertura. Depoimento: selfie honesta, cliente segurando o celular, rosto grande, olhar direto, luz natural do cômodo, plano variando (close → médio → prova real). Deixe o CORTE visível pela mudança de câmera (subjetiva → rosto na câmera). `prompt_movimento`: no POV, micro mão no celular, respiração, leve pan como olhar; no depoimento, micro handheld, aceno leve, virar o antes/depois devagar. Sempre sutil.
