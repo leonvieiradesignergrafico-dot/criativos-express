@@ -67,6 +67,7 @@ echo "==> [2/5] Instalando dependências"
 python -m pip install \
   pyinstaller \
   pywebview \
+  certifi \
   pyobjc-core \
   pyobjc-framework-Cocoa \
   pyobjc-framework-WebKit \
@@ -97,6 +98,20 @@ if [ -d "$APP" ]; then
     && codesign --verify --deep --strict "$APP" \
     && echo "    assinado ad-hoc OK" \
     || echo "    AVISO: ad-hoc signing falhou; o app ainda abre via remove_quarantine.command" >&2
+fi
+
+# 5.5) Instalador premium (.app) que vai dentro do DMG — mesma UI do Windows, lógica Mac.
+# Roda DEPOIS do app (o spec embute o dist/Ads Express.app como payload). Não usa --clean
+# pra não apagar o app recém-buildado.
+echo "==> [5.5] Empacotando o instalador premium (Ads Express Installer.app)"
+ADSEXPRESS_ARCH="$ARCH" ADSEXPRESS_VERSION="$VERSION" \
+  pyinstaller packaging/AdsExpress_installer_mac.spec --noconfirm --distpath dist \
+  || echo "    AVISO: build do instalador falhou (o app em si já está pronto)."
+INSTALLER="$ROOT/dist/Ads Express Installer.app"
+if [ -d "$INSTALLER" ]; then
+  codesign --force --deep --sign - "$INSTALLER" >/dev/null 2>&1 \
+    && echo "    instalador assinado ad-hoc OK" \
+    || echo "    AVISO: ad-hoc do instalador falhou (abre via botão-direito -> Abrir)."
 fi
 
 # 6) resultado

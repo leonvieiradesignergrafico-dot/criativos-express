@@ -136,14 +136,14 @@ ADSEXPRESS_NO_PAUSE=1 bash "$HERE/first_run_mac.command"
 # ---------------------------------------------------------------------------
 # 4) Build do .app (usa o Python garantido acima)
 # ---------------------------------------------------------------------------
-titulo "5/6 · Empacotando o Ads Express.app"
+titulo "5/6 · Empacotando o app + o instalador premium"
 bash "$HERE/build_mac.sh" || { falha "Build falhou — veja o log do PyInstaller acima."; exit 1; }
 
 # ---------------------------------------------------------------------------
-# 5) Empacota o .dmg
+# 5) Empacota o .dmg (que entrega o instalador premium)
 # ---------------------------------------------------------------------------
-titulo "6/6 · Gerando o Ads Express.dmg"
-bash "$HERE/create_dmg.sh" || aviso "Não consegui gerar o .dmg — o app já está pronto em dist/Ads Express.app mesmo assim."
+titulo "6/6 · Gerando o Ads Express.dmg (com o instalador dentro)"
+bash "$HERE/create_dmg.sh" || aviso "Não consegui gerar o .dmg — o app já está pronto em dist/ mesmo assim."
 
 # ---------------------------------------------------------------------------
 echo
@@ -151,27 +151,23 @@ VERSION="${ADSEXPRESS_VERSION:-1.0.0}"
 DMG="$ROOT/Ads Express $VERSION.dmg"
 printf "${GREEN}══════════════════════════════════════════════════════════════${RST}\n"
 if [ -f "$DMG" ]; then
-  # Copia o .dmg pra Área de Trabalho — um instalador limpo, sem nada de código-fonte
-  # ao lado, no mesmo lugar de sempre (não precisa lembrar onde ficou o repositório).
+  # Copia o .dmg pra Área de Trabalho — instalador limpo, no mesmo lugar de sempre.
   DMG_DESKTOP="$HOME/Desktop/Ads Express.dmg"
   cp -f "$DMG" "$DMG_DESKTOP" 2>/dev/null && DMG="$DMG_DESKTOP"
   printf "${GREEN}  Tudo pronto! Instalador na Área de Trabalho: %s${RST}\n" "$DMG"
-  # Abre o .dmg (monta e mostra só a janela padrão "arraste pra Aplicativos" — agora
-  # LIMPA, só o app + o atalho Applications), NUNCA a pasta do repositório.
+  # Abre o .dmg (monta e mostra o "Ads Express Installer"), NUNCA a pasta do repositório.
   open "$DMG"
   echo
-  echo "  Vão aparecer 2 ícones parecidos na Área de Trabalho — é normal e esperado:"
-  echo "    1) \"Ads Express.dmg\"  = o instalador (o arquivo). Pode guardar ou jogar fora."
-  echo "    2) \"Ads Express\" (ícone de disco, com setinha) = o instalador ABERTO, temporário."
-  echo "  Na janela que abriu, ARRASTE o \"Ads Express\" para a pasta \"Applications\"."
-  echo "  Depois clique no ⏏ ao lado de \"Ads Express\" no Finder para EJETAR — aí o ícone 2 some."
+  echo "  Na janela que abriu, dê DOIS CLIQUES em \"Ads Express Installer\" — o assistente"
+  echo "  premium cuida de tudo (copia o app pra Aplicativos, instala Node/CLIs, logins)."
+  echo "  (1ª vez pode aparecer aviso de desenvolvedor: BOTÃO DIREITO -> Abrir -> Abrir.)"
+  echo "  O ícone de disco temporário some quando você ejetar (⏏) depois de instalar."
 else
-  printf "${YEL}  App buildado em dist/Ads Express.app, mas o .dmg não saiu. Confira os logs acima.${RST}\n"
+  printf "${YEL}  App buildado em dist/, mas o .dmg não saiu. Confira os logs acima.${RST}\n"
   open "$ROOT/dist" 2>/dev/null || true
 fi
 printf "${GREEN}══════════════════════════════════════════════════════════════${RST}\n"
-echo "  A partir de agora, pra instalar/atualizar é só abrir \"Ads Express.dmg\" na sua"
-echo "  Área de Trabalho e arrastar o ícone pra Aplicativos — igual qualquer app de Mac."
-echo "  (O 1ª vez que abrir o app: BOTÃO DIREITO no app -> Abrir -> Abrir.)"
+echo "  Pra distribuir/atualizar: entregue o \"Ads Express.dmg\" — o usuário só dá dois"
+echo "  cliques no instalador lá dentro. Sem terminal."
 echo "  Só volte a rodar este instalar_tudo.command quando o código mudar de novo."
 if [ -t 0 ]; then read -r -p "$(printf '\n  Pressione ENTER para sair...')" _ || true; fi
