@@ -20,7 +20,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from workspace import (atomic_write_json, atomic_write_text, carregar_config,
-                       criativos_dir, influencer_dir, product_dir)
+                       criativos_dir, influencer_dir, mirror_saida_cliente, product_dir)
 
 ROOT = Path(__file__).resolve().parent
 
@@ -719,6 +719,8 @@ def gerar_criativos(produto: str, backend: str | None = None, on_progress=None,
         status["em_andamento"] = False
         status["cancelado"] = _cancelado(cancel_event)
         salvar()
+    if status["arquivos"]:
+        mirror_saida_cliente(produto, "criativos", [out_dir / nome for nome in status["arquivos"]])
     return status
 
 
@@ -840,6 +842,8 @@ def refinar_criativo(produto: str, arquivo: str, instrucao: str,
     status["em_andamento"] = False
     status["cancelado"] = _cancelado(cancel_event)
     salvar()
+    if out_file.exists():
+        mirror_saida_cliente(produto, "criativos", [out_file])
     return status
 
 
@@ -967,6 +971,8 @@ def refazer_criativo(produto: str, arquivo: str, instrucao: str,
     status["em_andamento"] = False
     status["cancelado"] = _cancelado(cancel_event)
     salvar()
+    if out_file.exists():
+        mirror_saida_cliente(produto, "criativos", [out_file])
     return status
 
 

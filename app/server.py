@@ -41,7 +41,7 @@ def _bridge(modelo):
 from workspace import (JOBS, GERADOS_DIR, INFLUENCIADORES, PRODUCTS,  # noqa: E402
                        BUNDLE_DIR, atomic_write_json, atomic_write_text,
                        criativos_dir, ensure_user_config, gerados_dir_de_id,
-                       influencer_dir, ler_json, product_dir,
+                       influencer_dir, ler_json, mirror_saida_cliente, product_dir,
                        safe_child, safe_descendant)
 
 # Templates/estáticos/prompts são só-leitura: no .exe congelado vivem no bundle
@@ -3517,6 +3517,8 @@ def exportar_logos(produto):
         tmp.write_bytes(dados)
         tmp.replace(alvo)
         salvos.append(nome)
+    if salvos:
+        mirror_saida_cliente(produto, "criativos", [pasta / nome for nome in salvos])
     return jsonify({"ok": True, "salvos": salvos})
 
 

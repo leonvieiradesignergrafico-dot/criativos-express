@@ -1260,10 +1260,68 @@ function htmlEditorCortes(cenas) {
         <label>Fim <input class="corte-fim" type="number" min="0" step="0.05" value="${e.fim_s || 0}"></label>
         <label><input class="corte-remover" type="checkbox" ${e.remover ? "checked" : ""}> Remover take</label>
         <button type="button" class="btn mini ghost" onclick="abrirRefinoTake(${c.n})">Refazer fala/voz/animação</button>
+        ${htmlInsertTake(c)}
       </article>`;
     }).join("")}</div>
     <button type="button" class="btn primary" onclick="aplicarCortes()">Aplicar cortes e remontar</button>
   </div>`;
+}
+
+/* ---------------------------------------------------------------- inserts (B-roll/motion) */
+function htmlInsertTake(c) {
+  const ins = c.insert || {};
+  const img = ins.imagem || {};
+  const clp = ins.clipe || {};
+  return `<div class="insert-bloco">
+    <label><input class="insert-ativo" type="checkbox" ${ins.ativo ? "checked" : ""}
+      onchange="toggleInsertAtivo(${c.n}, this.checked)"> Usar insert (B-roll/motion) nesta cena</label>
+    <label>Conceito <input class="insert-conceito" type="text" placeholder="o que o insert deve ilustrar (ex: a dor de perder cliente por demora)"
+      value="${esc(ins.conceito || "")}" onblur="salvarDirecaoInsert(${c.n})"></label>
+    <div class="insert-acoes">
+      <button type="button" class="btn mini ghost" onclick="gerarInsertImagem(${c.n})">Gerar imagem</button>
+      ${img.url ? `<img class="insert-preview" src="${img.url}" alt="insert cena ${c.n}">
+        <label><input class="insert-aprovado" type="checkbox" ${img.aprovado ? "checked" : ""}
+          onchange="aprovarInsert(${c.n}, this.checked)"> Aprovar imagem</label>` : ""}
+      <button type="button" class="btn mini ghost" ${img.aprovado ? "" : "disabled"} onclick="gerarInsertClipe(${c.n})">Animar (Veo)</button>
+      ${clp.gerado ? `<span class="ok-insert">✓ clipe pronto</span>` : ""}
+    </div>
+  </div>`;
+}
+
+async function toggleInsertAtivo(n, ativo) {
+  try {
+    await api(`/api/insert/${encodeURIComponent(state.produto)}/${encodeURIComponent(state.vid)}/${n}`, { ativo });
+    toast(ativo ? "Insert ativado nesta cena." : "Insert desativado nesta cena.");
+  } catch (e) { toast(e.message, true); }
+}
+
+async function salvarDirecaoInsert(n) {
+  const el = document.querySelector(`#editorCortes .corte-take[data-n="${n}"] .insert-conceito`);
+  try {
+    await api(`/api/insert/${encodeURIComponent(state.produto)}/${encodeURIComponent(state.vid)}/${n}`,
+      { conceito: el ? el.value : "" });
+  } catch (e) { toast(e.message, true); }
+}
+
+async function gerarInsertImagem(n) {
+  try {
+    await api(`/api/gerar_insert_imagem/${encodeURIComponent(state.produto)}/${encodeURIComponent(state.vid)}/${n}`, {});
+    toast("Gerando imagem do insert…");
+  } catch (e) { toast(e.message, true); }
+}
+
+async function aprovarInsert(n, aprovado) {
+  try {
+    await api(`/api/aprovar_insert/${encodeURIComponent(state.produto)}/${encodeURIComponent(state.vid)}/${n}`, { aprovado });
+    toast(aprovado ? "Imagem do insert aprovada." : "Aprovação removida.");
+  } catch (e) { toast(e.message, true); }
+}
+
+async function gerarInsertClipe(n) {
+  try {
+    await api(`/api/gerar_insert_clipe/${encodeURIComponent(state.produto)}/${encodeURIComponent(state.vid)}/${n}`, {});
+    toast("Animando o insert no Veo…");
+  } catch (e) { toast(e.message, true); }
 }
 
 function abrirRefinoTake(n) {

@@ -285,6 +285,54 @@ def lotes(produto: str) -> list[str]:
     return sorted(nomes, key=_k, reverse=True)
 
 
+def _slug(texto: str) -> str:
+    """Normaliza um nome (cliente/produto) pra slug de pasta: sem acento, minúsculo,
+    só [a-z0-9-]. Mesma convenção usada pelo orchestrator (slugify() em *.mjs), pra
+    as pastas em clients/<cliente>/outputs/ baterem entre as ferramentas."""
+    nfkd = unicodedata.normalize("NFKD", str(texto or ""))
+    sem_acento = "".join(c for c in nfkd if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "-", sem_acento.lower()).strip("-")
+
+
+def _ecosistema_root() -> Path | None:
+    """Raiz do workspace 'Direct Response' (a pasta que contém Copy/, Landing Pages/,
+    Criativos Express/, clients/, projects/...), só quando ela realmente existe ao
+    lado desta ferramenta (rodando do código-fonte, dentro do workspace completo do
+    Leon). Se o app estiver rodando isolado (sem as outras ferramentas ao lado, ex.:
+    distribuído/congelado numa outra máquina), devolve None e o mirror vira no-op."""
+    candidato = Path(__file__).resolve().parent.parent
+    return candidato if (candidato / "clients").is_dir() else None
+
+
+def mirror_saida_cliente(produto: str, tipo: str, arquivos: list[Path], *, renomear: dict[Path, str] | None = None) -> None:
+    """Copia (nunca move) arquivos finais pra
+    clients/<cliente>/outputs/<produto>/<tipo>/ na raiz do workspace, reunindo tudo
+    que é gerado de um cliente (copy, landing, criativos, entregável) num único
+    lugar, atravessando as ferramentas do ecossistema. Best-effort e silencioso:
+    nunca levanta exceção, pois isto nunca pode derrubar o fluxo principal de
+    geração — é só uma cópia auxiliar de organização.
+
+    `renomear`: mapa opcional {arquivo: nome_no_destino}, pra casos onde o nome de
+    origem é genérico (ex.: sempre "video.mp4" dentro da pasta de cada vídeo) e
+    colidiria com o de outro vídeo/lote se copiado com o mesmo nome."""
+    try:
+        eco = _ecosistema_root()
+        if eco is None:
+            return
+        cliente, prod = _cliente_produto(produto)
+        if cliente == "_sem-cliente":
+            return
+        destino = eco / "clients" / _slug(cliente) / "outputs" / _slug(prod) / tipo
+        destino.mkdir(parents=True, exist_ok=True)
+        import shutil
+        for arq in arquivos:
+            if arq.is_file():
+                nome = (renomear or {}).get(arq, arq.name)
+                shutil.copyfile(arq, destino / nome)
+    except Exception:  # noqa: BLE001 — mirror é auxiliar, nunca pode quebrar a geração
+        pass
+
+
 def criativos_dir(produto: str, *, para_gerar: bool = False, create: bool = False) -> Path:
     """Pasta ATIVA de criativos (o lote em foco), em gerados/.
 

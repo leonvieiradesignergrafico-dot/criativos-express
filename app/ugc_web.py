@@ -32,6 +32,7 @@ from app.pipeline import copy_ugc as copy_ugc_mod
 from app.pipeline import voz as voz_mod
 from app.pipeline import formatos_video as fv
 from app.pipeline import qualidade as qualidade_mod
+from app.pipeline import inserts as inserts_mod
 from app.pipeline._status import JobStatus
 
 ugc = Blueprint("ugc", __name__, url_prefix="/ugc")
@@ -806,6 +807,92 @@ def aprovar_keyframe(produto, vid, n):
     return jsonify({"ok": True})
 
 
+# ---------------------------------------------------------------- inserts (B-roll/motion)
+@ugc.post("/api/insert/<produto>/<vid>/<int:n>")
+def definir_insert(produto, vid, n):
+    """Liga/desliga o insert e/ou grava a direção (conceito + prompts) da cena `n`."""
+    dado = request.get_json(silent=True) or {}
+    d = video_dir(produto, vid)
+    rot = ler_json(d / "roteiro.json")
+    if not next((c for c in rot["cenas"] if c["n"] == n), None):
+        return _erro("Cena não encontrada.", 404)
+    if "ativo" in dado:
+        inserts_mod.definir_ativo(produto, vid, n, bool(dado.get("ativo")))
+    if any(k in dado for k in ("conceito", "prompt_imagem", "prompt_movimento")):
+        inserts_mod.definir_direcao(produto, vid, n,
+                                     conceito=(dado.get("conceito") or "").strip(),
+                                     prompt_imagem=(dado.get("prompt_imagem") or "").strip(),
+                                     prompt_movimento=(dado.get("prompt_movimento") or "").strip())
+    return jsonify({"ok": True})
+
+
+@ugc.post("/api/gerar_insert_imagem/<produto>/<vid>/<int:n>")
+def gerar_insert_imagem(produto, vid, n):
+    d = video_dir(produto, vid)
+    rot = ler_json(d / "roteiro.json")
+    if not next((c for c in rot["cenas"] if c["n"] == n), None):
+        return _erro("Cena não encontrada.", 404)
+
+    def _job(produto_, vid_, cancel_event=None):
+        status = JobStatus(video_dir(produto_, vid_) / "status.json", "insert_imagem", 1)
+        try:
+            status.comecou(f"insert_cena_{n:02d}")
+            inserts_mod.gerar_imagem_insert(produto_, vid_, n)
+            status.terminou(f"insert_cena_{n:02d}")
+        except Exception as e:  # noqa: BLE001
+            status.terminou(f"insert_cena_{n:02d}", erro=str(e))
+        finally:
+            status.fim()
+
+    if not _rodar_em_thread(_chave(produto, vid), _job, produto, vid):
+        return _erro("Já existe um job em andamento para este vídeo.", 409)
+    return jsonify({"ok": True})
+
+
+@ugc.post("/api/aprovar_insert/<produto>/<vid>/<int:n>")
+def aprovar_insert(produto, vid, n):
+    dado = request.get_json(silent=True) or {}
+    aprovado = bool(dado.get("aprovado", True))
+    d = video_dir(produto, vid)
+    rot = ler_json(d / "roteiro.json")
+    if not next((c for c in rot["cenas"] if c["n"] == n), None):
+        return _erro("Cena não encontrada.", 404)
+    inserts_mod.aprovar_imagem_insert(produto, vid, n, aprovado)
+    return jsonify({"ok": True})
+
+
+@ugc.post("/api/gerar_insert_clipe/<produto>/<vid>/<int:n>")
+def gerar_insert_clipe(produto, vid, n):
+    dado = request.get_json(silent=True) or {}
+    d = video_dir(produto, vid)
+    rot = ler_json(d / "roteiro.json")
+    cena = next((c for c in rot["cenas"] if c["n"] == n), None)
+    if not cena:
+        return _erro("Cena não encontrada.", 404)
+    if not (cena.get("insert") or {}).get("imagem", {}).get("aprovado"):
+        return _erro("Aprove a imagem do insert antes de animar.")
+    if JobStatus.em_andamento(d / "status.json"):
+        return _erro("Já existe um job em andamento para este vídeo.", 409)
+
+    def _job(produto_, vid_, cancel_event=None):
+        status = JobStatus(video_dir(produto_, vid_) / "status.json", "insert_clipe", 1)
+        try:
+            status.comecou(f"insert_cena_{n:02d}")
+            inserts_mod.gerar_clipe_insert(produto_, vid_, n,
+                                           duration_s=int(dado.get("duration_s") or 5),
+                                           model=dado.get("modelo") or "veo_fast",
+                                           cancel_event=cancel_event)
+            status.terminou(f"insert_cena_{n:02d}")
+        except Exception as e:  # noqa: BLE001
+            status.terminou(f"insert_cena_{n:02d}", erro=str(e))
+        finally:
+            status.fim()
+
+    if not _rodar_em_thread(_chave(produto, vid), _job, produto, vid):
+        return _erro("Já existe um job em andamento para este vídeo.", 409)
+    return jsonify({"ok": True})
+
+
 # ---------------------------------------------------------------- clipes/montagem
 @ugc.post("/api/gerar_clipes/<produto>/<vid>")
 def gerar_clipes(produto, vid):
@@ -921,6 +1008,9 @@ def status(produto, vid):
     cenas = []
     for c in rot.get("cenas") or []:
         kf, cl = c["keyframe"]["arquivo"], c["clipe"]["arquivo"]
+        ins = c.get("insert") or {}
+        ins_img = (ins.get("imagem") or {}).get("arquivo")
+        ins_clipe = (ins.get("clipe") or {}).get("arquivo")
         cenas.append({
             "n": c["n"], "tipo": c["tipo"], "narracao": c["narracao"],
             "instrucao_clipe": c.get("instrucao_clipe") or "",
@@ -933,6 +1023,19 @@ def status(produto, vid):
             "qualidade": c.get("qualidade") or {"estado": "pendente"},
             "descartados": _descartes_cena(d, produto, vid, int(c["n"])),
             "edicao": c.get("edicao") or {"inicio_s": 0, "fim_s": 0, "remover": False},
+            # Insert (B-roll/motion) OPCIONAL desta cena — ver app/pipeline/inserts.py.
+            "insert": {
+                "ativo": bool(ins.get("ativo")),
+                "conceito": ins.get("conceito") or "",
+                "prompt_imagem": ins.get("prompt_imagem") or "",
+                "prompt_movimento": ins.get("prompt_movimento") or "",
+                "imagem": {**(ins.get("imagem") or {}),
+                          "url": (f"/ugc/media/{produto}/{vid}/keyframes/{ins_img}?t={_mtime(d / 'keyframes' / ins_img)}"
+                                  if ins_img else None)},
+                "clipe": {**(ins.get("clipe") or {}),
+                         "url": (f"/ugc/media/{produto}/{vid}/clipes/{ins_clipe}?t={_mtime(d / 'clipes' / ins_clipe)}"
+                                 if ins_clipe else None)},
+            },
         })
     final = d / "final" / "video.mp4"
     bruto = d / "final" / "video-bruto.mp4"

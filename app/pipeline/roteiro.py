@@ -164,12 +164,21 @@ def extrair_cenas(resposta: str, digital: bool = False, multi_pessoa: bool = Tru
                       "erro": None, "lipsync_aplicado": False},
             "qualidade": {"estado": "pendente", "etapa": None, "tentativa": 0,
                            "motivos": [], "descartes": 0},
+            # Insert (B-roll/motion graphics) OPCIONAL: substitui só o VÍDEO desta cena na
+            # montagem final, mantendo o ÁUDIO original (voz) intacto por baixo. Gerado em 2
+            # passos, como o keyframe: imagem estática aprovada -> animada via Veo i2v (mudo).
+            "insert": {
+                "ativo": False,
+                "conceito": "", "prompt_imagem": "", "prompt_movimento": "",
+                "imagem": {"arquivo": None, "aprovado": False, "tentativas": 0},
+                "clipe": {"arquivo": None, "gerado": False, "erro": None},
+            },
         })
     return limpas
 
 
 def _mesclar_cenas(antigas: list, novas: list) -> list:
-    """Preserva keyframe/áudio/clipe de cenas que NÃO mudaram (mesmo n e prompts)."""
+    """Preserva keyframe/áudio/clipe/insert de cenas que NÃO mudaram (mesmo n e prompts)."""
     por_n = {c["n"]: c for c in (antigas or [])}
     out = []
     for c in novas:
@@ -180,6 +189,8 @@ def _mesclar_cenas(antigas: list, novas: list) -> list:
                 and velha.get("elenco", "A") == c.get("elenco", "A") \
                 and velha.get("tipo") == c.get("tipo"):
             c["keyframe"], c["audio"], c["clipe"] = velha["keyframe"], velha["audio"], velha["clipe"]
+            if velha.get("insert"):
+                c["insert"] = velha["insert"]
         out.append(c)
     return out
 

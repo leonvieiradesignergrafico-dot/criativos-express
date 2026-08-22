@@ -213,16 +213,35 @@ def montar(produto: str, vid: str, legendas: bool = False, trilha: str | None = 
             raise RuntimeError(
                 f"Cena {c['n']}: áudio ({dur_audio:.2f}s) maior que o vídeo ({dur_video:.2f}s). "
                 "O take deve ser regenerado; congelamento de frame é proibido.")
+
+        # Insert (B-roll/motion graphics) OPCIONAL: troca só o VÍDEO desta cena por um
+        # clipe gerado à parte (Veo i2v, sem áudio nativo), mantendo o ÁUDIO/voz original
+        # (do próprio clipe ou do wav, conforme os mesmos 2 casos de sempre) intacto por
+        # baixo. `-stream_loop -1` cobre o insert ser mais curto/longo que `alvo` — o `-t`
+        # global no fim do cmd corta pro tamanho certo de qualquer forma.
+        insert_cfg = c.get("insert") or {}
+        insert_clipe = (insert_cfg.get("clipe") or {}).get("arquivo")
+        usa_insert = bool(insert_cfg.get("ativo")) and bool((insert_cfg.get("clipe") or {}).get("gerado")) \
+            and bool(insert_clipe) and (d / "clipes" / insert_clipe).exists()
+        video_path = (d / "clipes" / insert_clipe) if usa_insert else clipe
+        video_in = (["-stream_loop", "-1", "-i", str(video_path)] if usa_insert
+                    else ["-ss", f"{inicio:.3f}", "-i", str(video_path)])
+
         if clipe_tem_audio:
-            cmd = [ff, "-y", "-ss", f"{inicio:.3f}", "-i", str(clipe),
-                   "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "0:a"]
+            if usa_insert:
+                # vídeo vem do insert (índice 0); áudio/voz vem do clipe ORIGINAL (índice 1).
+                cmd = [ff, "-y", *video_in, "-ss", f"{inicio:.3f}", "-i", str(clipe),
+                       "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "1:a"]
+            else:
+                cmd = [ff, "-y", *video_in,
+                       "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "0:a"]
         elif overlay_wav:
-            cmd = [ff, "-y", "-ss", f"{inicio:.3f}", "-i", str(clipe), "-i", str(wav),
+            cmd = [ff, "-y", *video_in, "-i", str(wav),
                    "-filter_complex", f"[0:v]{vf}[v];[1:a]apad,atrim=0:{alvo:.2f}[a]",
                    "-map", "[v]", "-map", "[a]"]
         else:
             # cena sem narração ganha faixa de silêncio pro concat não desalinhar
-            cmd = [ff, "-y", "-ss", f"{inicio:.3f}", "-i", str(clipe), "-f", "lavfi", "-t", f"{alvo:.2f}",
+            cmd = [ff, "-y", *video_in, "-f", "lavfi", "-t", f"{alvo:.2f}",
                    "-i", "anullsrc=r=48000:cl=mono",
                    "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "1:a"]
         cmd += ["-t", f"{alvo:.2f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
@@ -282,9 +301,12 @@ def montar(produto: str, vid: str, legendas: bool = False, trilha: str | None = 
     with historico.open("a", encoding="utf-8") as f:
         f.write(json.dumps(registro, ensure_ascii=False) + "\n")
 
-    from workspace import atomic_write_json
+    from workspace import atomic_write_json, mirror_saida_cliente
     roteiro["estado"] = "montado"
     atomic_write_json(d / "roteiro.json", roteiro)
+    # Espelha o mp4 final em clients/<cliente>/outputs/<produto>/criativos/ — cobre
+    # os dois chamadores (montar_lote via app e gerar_ugc.py via orchestrator/CLI).
+    mirror_saida_cliente(produto, "criativos", [saida], renomear={saida: f"{vid}.mp4"})
     return saida
 
 
@@ -324,7 +346,7 @@ def montar_lote(produto: str, vids: list[str], cancel_event=None) -> None:
         rotulo = f"{vid[-6:]}/final"
         status.comecou(rotulo)
         try:
-            montar(produto, vid)   # monta 1 anúncio com os clipes que existirem
+            montar(produto, vid)   # monta 1 anúncio com os clipes que existirem (já espelha em clients/)
             status.terminou(rotulo)
         except Exception as e:  # noqa: BLE001
             if not _cancelado():
