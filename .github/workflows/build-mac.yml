@@ -1,0 +1,69 @@
+name: Build Mac Installer
+
+# Builda o Ads Express no macOS (na nuvem do GitHub) e publica o .dmg na página de
+# Releases. Assim ninguém precisa buildar localmente: o usuário só baixa o instalador.
+#
+# Dispara manualmente (aba Actions -> "Build Mac Installer" -> Run workflow) ou via
+# `gh workflow run build-mac.yml -f version=1.1.0`.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versão do release (ex.: 1.1.0)"
+        required: true
+        default: "1.1.0"
+
+permissions:
+  contents: write        # necessário pra criar/atualizar a Release
+
+jobs:
+  build:
+    runs-on: macos-latest            # runner Apple Silicon (arm64)
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Preparar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Buildar o app + o instalador premium + o .dmg
+        env:
+          ADSEXPRESS_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          set -e
+          chmod +x packaging/mac/*.sh 2>/dev/null || true
+          # build_mac.sh: venv + deps + app + instalador (Ads Express Installer.app)
+          bash packaging/mac/build_mac.sh
+          # create_dmg.sh: empacota o instalador dentro do .dmg
+          bash packaging/mac/create_dmg.sh
+          echo "== artefatos gerados =="
+          ls -la *.dmg dist 2>/dev/null || true
+
+      - name: Publicar o .dmg na página de Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ADSEXPRESS_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          set -e
+          TAG="v${ADSEXPRESS_VERSION}"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" \
+              --title "Ads Express ${ADSEXPRESS_VERSION}" \
+              --notes "Instalador do **Mac** (build automático na nuvem). Baixe o \`.dmg\`, dê dois cliques no instalador e pronto."
+          fi
+          shopt -s nullglob
+          enviados=0
+          for f in "Ads Express "*.dmg *.dmg; do
+            [ -f "$f" ] || continue
+            echo "Enviando: $f"
+            gh release upload "$TAG" "$f" --clobber
+            enviados=$((enviados+1))
+          done
+          if [ "$enviados" -eq 0 ]; then
+            echo "ERRO: nenhum .dmg foi gerado — veja o log do build acima." >&2
+            exit 1
+          fi
+          echo "OK: $enviados arquivo(s) publicado(s) na Release $TAG."
