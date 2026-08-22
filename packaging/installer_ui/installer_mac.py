@@ -320,14 +320,27 @@ class API:
     def abrir_app(self):
         alvo = self.app_path or (Path("/Applications") / APP_BUNDLE)
         try:
-            subprocess.Popen(["/usr/bin/open", str(alvo)])
-        except OSError:
+            # run (não Popen): espera o 'open' pedir o launch pro LaunchServices antes de
+            # a gente encerrar — o app abre independente do instalador.
+            subprocess.run(["/usr/bin/open", str(alvo)], timeout=20)
+        except Exception:  # noqa: BLE001
             pass
-        self.fechar()
+        self._sair()
 
     def fechar(self):
-        if self.window:
-            self.window.destroy()
+        self._sair()
+
+    def _sair(self):
+        """Encerra o instalador DE VERDADE. No backend Cocoa, window.destroy() chamado
+        da thread do js_api às vezes não termina o NSApplication loop — a janela fica
+        'carregando' (beachball) e só sai forçando. os._exit garante o encerramento
+        (o instalador já concluiu o trabalho quando isto é chamado)."""
+        try:
+            if self.window:
+                self.window.destroy()
+        except Exception:  # noqa: BLE001
+            pass
+        os._exit(0)
 
     # -- interno --
     def _prog(self, pct, msg):
