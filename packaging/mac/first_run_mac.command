@@ -227,4 +227,10 @@ if [ "$faltou" -eq 0 ]; then
 else
   printf "  ${YEL}Faltam itens essenciais acima. Resolva e rode este assistente de novo.${RST}\n"
 fi
-if [ -t 0 ]; then read -r -p "$(printf '\n  Pressione ENTER para sair...')" _ || true; fi
+
+# ADSEXPRESS_NO_PAUSE=1 é setado pelo instalar_tudo.command quando ele chama este
+# assistente como uma ETAPA (não a última) do fluxo — sem isso o usuário veria "Pressione
+# ENTER para sair" no MEIO do processo, achando que tudo já tinha terminado.
+if [ -t 0 ] && [ -z "${ADSEXPRESS_NO_PAUSE:-}" ]; then
+  read -r -p "$(printf '\n  Pressione ENTER para sair...')" _ || true
+fi

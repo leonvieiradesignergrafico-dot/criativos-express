@@ -50,8 +50,18 @@ else
   passo "Abrindo o instalador oficial da Apple. Uma janela vai aparecer: clique em"
   passo "\"Instalar\" e espere terminar (alguns minutos, precisa de internet)."
   xcode-select --install 2>/dev/null || true
-  passo "Aguardando você concluir a instalação na janela que abriu..."
-  until command -v clang >/dev/null 2>&1; do sleep 5; done
+  passo "Aguardando você concluir a instalação na janela que abriu (até ~20 min)..."
+  _tentativas=0
+  until command -v clang >/dev/null 2>&1; do
+    sleep 5
+    _tentativas=$((_tentativas + 1))
+    if [ "$_tentativas" -ge 240 ]; then
+      falha "Não detectei a instalação terminar depois de ~20 min."
+      aviso "Confira se a janela da Apple ainda está aberta/travada, conclua a instalação"
+      aviso "manualmente e rode este arquivo (instalar_tudo.command) de novo."
+      exit 1
+    fi
+  done
   ok "Command Line Tools instaladas."
 fi
 
@@ -98,12 +108,30 @@ else
 fi
 export ADSEXPRESS_PY="$PY"
 
+# O build_mac.sh builda "universal2" (arm64+Intel) por padrão — mas só o instalador
+# oficial do python.org é universal2; o Python do Homebrew é SEMPRE de arquitetura
+# única (a do próprio Mac). Buildar "universal2" com um Python não-universal quebra o
+# PyInstaller ("not a fat binary"). Detecta e ajusta pro que realmente vai funcionar
+# NESTE Mac, sem exigir que você instale o Python "certo" separadamente.
+if [ -z "${ADSEXPRESS_ARCH:-}" ]; then
+  PY_FILE_INFO="$("$PY" -c 'import subprocess,sys;print(subprocess.check_output(["file","-b",sys.executable]).decode())' 2>/dev/null || true)"
+  if echo "$PY_FILE_INFO" | grep -qi universal; then
+    export ADSEXPRESS_ARCH="universal2"
+    ok "Python é universal2 — build cobrindo Apple Silicon + Intel."
+  else
+    export ADSEXPRESS_ARCH="$(uname -m)"   # arm64 (Apple Silicon) ou x86_64 (Intel)
+    aviso "Python não é universal2 — build só pra esta arquitetura ($ADSEXPRESS_ARCH)."
+    aviso "Funciona normalmente NESTE Mac. Pra gerar um app que roda nos dois tipos de"
+    aviso "chip, instale o Python universal2 oficial (python.org) e rode de novo."
+  fi
+fi
+
 # ---------------------------------------------------------------------------
 # 3) Node/CLIs (claude, codex)/ffmpeg/gcloud + logins — reaproveita o assistente
 #    de primeira execução, que já faz exatamente isso (não duplica lógica).
 # ---------------------------------------------------------------------------
 titulo "4/6 · Node.js, CLIs de IA (claude/codex), ffmpeg, gcloud + logins"
-bash "$HERE/first_run_mac.command"
+ADSEXPRESS_NO_PAUSE=1 bash "$HERE/first_run_mac.command"
 
 # ---------------------------------------------------------------------------
 # 4) Build do .app (usa o Python garantido acima)
