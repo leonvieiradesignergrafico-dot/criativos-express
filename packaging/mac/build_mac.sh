@@ -106,13 +106,20 @@ fi
 echo "==> [5.5] Empacotando o instalador premium (Ads Express Installer.app)"
 ADSEXPRESS_ARCH="$ARCH" ADSEXPRESS_VERSION="$VERSION" \
   pyinstaller packaging/AdsExpress_installer_mac.spec --noconfirm --distpath dist \
-  || echo "    AVISO: build do instalador falhou (o app em si já está pronto)."
+  || { echo "ERRO: build do instalador falhou (veja o log do PyInstaller acima)."; exit 1; }
 INSTALLER="$ROOT/dist/Ads Express Installer.app"
-if [ -d "$INSTALLER" ]; then
-  codesign --force --deep --sign - "$INSTALLER" >/dev/null 2>&1 \
-    && echo "    instalador assinado ad-hoc OK" \
-    || echo "    AVISO: ad-hoc do instalador falhou (abre via botão-direito -> Abrir)."
-fi
+[ -d "$INSTALLER" ] || { echo "ERRO: instalador não foi gerado."; exit 1; }
+# Coloca o app buildado DENTRO do instalador — FORA do PyInstaller, senão ele tenta
+# re-assinar o binário aninhado e quebra. ditto preserva a assinatura ad-hoc do app.
+PAYLOAD_DIR="$INSTALLER/Contents/Resources/payload"
+mkdir -p "$PAYLOAD_DIR"
+rm -rf "$PAYLOAD_DIR/Ads Express.app"
+ditto "$APP" "$PAYLOAD_DIR/Ads Express.app" \
+  || { echo "ERRO: não consegui copiar o app pra dentro do instalador."; exit 1; }
+# Assina ad-hoc o instalador inteiro (cobre o payload aninhado agora presente).
+codesign --force --deep --sign - "$INSTALLER" >/dev/null 2>&1 \
+  && echo "    instalador (com o app dentro) assinado ad-hoc OK" \
+  || echo "    AVISO: ad-hoc do instalador falhou (abre via botão-direito -> Abrir)."
 
 # 6) resultado
 echo "==> [6/6] Verificando resultado"

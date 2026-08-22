@@ -25,8 +25,12 @@ def _p(*parts):
 
 
 # --- payload (o app buildado) + assets da UI + config semente ---
+# NOTA: o app buildado (dist/Ads Express.app) NÃO entra aqui como `datas`. Se entrasse,
+# o PyInstaller tentaria re-assinar (codesign --timestamp) o binário do app aninhado e o
+# build QUEBRA (ad-hoc não aceita --timestamp). Em vez disso o build_mac.sh copia o app
+# pra dentro de Contents/Resources/payload DEPOIS deste build (ditto, preservando a
+# assinatura). O installer_mac.py procura o payload lá.
 datas = [
-    (_p("dist", "Ads Express.app"), os.path.join("payload", "Ads Express.app")),
     (_p("packaging", "installer_ui", "installer_mac.html"), "."),
     (_p("packaging", "icons", "app-1024.png"), "."),
     (_p("packaging", "default_config"), "_default_config"),

@@ -245,10 +245,26 @@ def _gravar_cli_paths() -> None:
 
 
 # --- Copiar o app pra /Applications -------------------------------------------------
+def _payload_app() -> Path:
+    """Acha o 'Ads Express.app' embutido. O build_mac.sh copia ele pra
+    Contents/Resources/payload/ (fora do PyInstaller). Tenta também _MEIPASS e ao lado
+    do fonte, por robustez."""
+    cands = []
+    if getattr(sys, "frozen", False):
+        exe = Path(sys.executable).resolve()          # Contents/MacOS/Ads Express Installer
+        cands.append(exe.parent.parent / "Resources" / "payload" / APP_BUNDLE)
+    meipass = getattr(sys, "_MEIPASS", None)
+    if meipass:
+        cands.append(Path(meipass) / "payload" / APP_BUNDLE)
+    cands.append(_res("payload") / APP_BUNDLE)
+    for c in cands:
+        if c.exists():
+            return c
+    raise RuntimeError("Payload do app não encontrado dentro do instalador.")
+
+
 def _instalar_app(prog) -> Path:
-    payload = _res("payload") / APP_BUNDLE
-    if not payload.exists():
-        raise RuntimeError("Payload do app não encontrado dentro do instalador.")
+    payload = _payload_app()
     for base in (Path("/Applications"), Path.home() / "Applications"):
         base.mkdir(parents=True, exist_ok=True)
         dest = base / APP_BUNDLE
