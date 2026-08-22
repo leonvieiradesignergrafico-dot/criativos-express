@@ -406,7 +406,7 @@ $("btnCriarRoteiro").addEventListener("click", async () => {
         copy: copyComBrief(opcao), avatar: cast, modelo: modeloSel(),
         formato: opcao.formato || state.formato,
         tipo_produto: state.tipoProduto,
-      }).catch(() => null);
+      }).catch((e) => ({ __erro: (e && e.message) || "erro desconhecido" }));
     }));
     const criados = resultados.filter((r) => r && r.roteiro && r.roteiro.id).map((r) => r.roteiro.id);
     await carregarVideos();
@@ -420,7 +420,8 @@ $("btnCriarRoteiro").addEventListener("click", async () => {
       state.lote = false;
       abrirVideo(criados[0]);
     } else {
-      aviso($("novoStatus"), "Nenhum roteiro criado. Tente de novo.", true);
+      const err = (resultados.find((r) => r && r.__erro) || {}).__erro;
+      aviso($("novoStatus"), err ? ("Não consegui criar o roteiro: " + err) : "Nenhum roteiro criado. Tente de novo.", true);
     }
   } catch (e) { $("novoLoader").classList.add("hidden"); aviso($("novoStatus"), e.message, true); }
   finally { $("btnCriarRoteiro").disabled = false; }

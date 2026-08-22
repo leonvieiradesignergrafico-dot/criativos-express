@@ -213,6 +213,8 @@ def _semear_produtos() -> None:
     alvos = [
         (_res("_seed/config_products"), CONFIG_DIR / "products"),
         (_res("_seed/products"), APP_SUPPORT / "products"),
+        (_res("_seed/config_avatares"), CONFIG_DIR / "avatares"),
+        (_res("_seed/config_influenciadores"), CONFIG_DIR / "influenciadores"),
     ]
     for origem, destino in alvos:
         if not origem.exists():
@@ -353,7 +355,7 @@ class API:
             _augment_path()
             self._prog(3, "Preparando…")
             _semear_config()
-            self._prog(6, "Copiando seus produtos…")
+            self._prog(6, "Copiando seus produtos e avatares…")
             _semear_produtos()
 
             self._prog(10, "Copiando o app pra Aplicativos…")

@@ -41,6 +41,8 @@ datas = [
 for _seed_src, _seed_dst in (
     (_p("config", "products"), os.path.join("_seed", "config_products")),
     (_p("products"), os.path.join("_seed", "products")),
+    (_p("config", "avatares"), os.path.join("_seed", "config_avatares")),
+    (_p("config", "influenciadores"), os.path.join("_seed", "config_influenciadores")),
 ):
     if os.path.isdir(_seed_src):
         datas.append((_seed_src, _seed_dst))

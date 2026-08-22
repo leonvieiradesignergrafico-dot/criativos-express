@@ -517,9 +517,15 @@ def criar_video(produto):
     # avatar de casa solo. Força elenco gerado mesmo que um avatar tenha sido escolhido.
     if fv.two_shot(formato):
         elenco_gerado, avatar = True, None
-    try:
-        if avatar:
+    # A pessoa (avatar/influenciador) referenciada pode não existir NESTA máquina — ex.:
+    # dados não sincronizados entre Windows e Mac. Não travar o roteiro por isso: segue
+    # sem pessoa (produto + mãos), que é o comportamento seguro.
+    if avatar:
+        try:
             pessoa_dir(avatar, pessoa_tipo)
+        except ValueError:
+            avatar, pessoa_tipo = None, "avatar"
+    try:
         roteiro = roteiro_mod.criar_roteiro(produto, copy, avatar, modelo=dado.get("modelo") or None,
                                             config_video=carregar_config().get("video", {}),
                                             pessoa_tipo=pessoa_tipo,
