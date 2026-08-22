@@ -151,13 +151,20 @@ VERSION="${ADSEXPRESS_VERSION:-1.0.0}"
 DMG="$ROOT/Ads Express $VERSION.dmg"
 printf "${GREEN}══════════════════════════════════════════════════════════════${RST}\n"
 if [ -f "$DMG" ]; then
-  printf "${GREEN}  Tudo pronto! DMG: %s${RST}\n" "$DMG"
-  open "$ROOT"
+  # Copia o .dmg pra Área de Trabalho — um instalador limpo, sem nada de código-fonte
+  # ao lado, no mesmo lugar de sempre (não precisa lembrar onde ficou o repositório).
+  DMG_DESKTOP="$HOME/Desktop/Ads Express.dmg"
+  cp -f "$DMG" "$DMG_DESKTOP" 2>/dev/null && DMG="$DMG_DESKTOP"
+  printf "${GREEN}  Tudo pronto! Instalador: %s${RST}\n" "$DMG"
+  # Abre o .dmg (monta e mostra só a janela padrão "arraste pra Aplicativos"),
+  # NUNCA a pasta do repositório (cheia de código, não é o que o usuário deve ver).
+  open "$DMG"
 else
   printf "${YEL}  App buildado em dist/Ads Express.app, mas o .dmg não saiu. Confira os logs acima.${RST}\n"
   open "$ROOT/dist" 2>/dev/null || true
 fi
 printf "${GREEN}══════════════════════════════════════════════════════════════${RST}\n"
-echo "  Próxima vez: dê 2 cliques neste MESMO arquivo (instalar_tudo.command) — ele já"
-echo "  reaproveita tudo que está instalado e só rebuilda o app com o código atual."
+echo "  A partir de agora, pra instalar/atualizar é só abrir \"Ads Express.dmg\" na sua"
+echo "  Área de Trabalho e arrastar o ícone pra Aplicativos — igual qualquer app de Mac."
+echo "  Só volte a rodar este instalar_tudo.command quando o código mudar de novo."
 if [ -t 0 ]; then read -r -p "$(printf '\n  Pressione ENTER para sair...')" _ || true; fi
