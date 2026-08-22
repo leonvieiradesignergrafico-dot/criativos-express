@@ -22,7 +22,28 @@ conhecida do macOS já vem pré-resolvida — ver o checklist no fim.
 
 ---
 
-## 1. Build (o caminho de 1 comando)
+## 0. O jeito mais simples de todos (Mac novo / do zero)
+
+Se você não tem NADA instalado ainda (nem Python, nem Homebrew, nem Xcode Tools) — ou
+se perdeu um build anterior — dê **2 cliques em `packaging/mac/instalar_tudo.command`**
+no Finder (ou rode `bash packaging/mac/instalar_tudo.command` no Terminal). Ele garante
+tudo sozinho, na ordem certa:
+
+1. Xcode Command Line Tools (compilador/codesign/iconutil)
+2. Homebrew
+3. Python 3.11+
+4. Node.js + CLIs de IA (`claude`/`codex`) + ffmpeg + gcloud + logins
+5. Builda o `Ads Express.app`
+6. Gera o `Ads Express.dmg`
+
+É **idempotente**: pode rodar de novo a qualquer momento (ex.: depois de um `git pull`
+com código novo) que ele só instala o que ainda falta e rebuilda o app com o código
+atual. **Guarde este arquivo — se o `.dmg` sumir de novo, é só rodar ele de novo que
+gera outro.**
+
+---
+
+## 1. Build (o caminho de 1 comando, se você já tem tudo instalado)
 
 ```bash
 cd "/caminho/para/Criativos Express"
@@ -210,6 +231,7 @@ lendo o `cli_paths.env`.
 
 | Arquivo | Papel |
 |---------|-------|
+| `mac/instalar_tudo.command` | **⭐ comece por aqui num Mac novo** — 2 cliques e garante tudo (Xcode Tools/Homebrew/Python/Node/CLIs/ffmpeg/gcloud) + builda + gera o `.dmg` |
 | `AdsExpress_mac.spec` | spec do PyInstaller p/ o bundle `.app` (Info.plist, ATS, universal2, hidden imports Cocoa/pyobjc) |
 | `mac/make_icns.sh` | gera `icons/AdsExpress.icns` do iconset (`iconutil`), com fallback Pillow |
 | `mac/build_mac.sh` | build ponta a ponta (venv → deps → ícone → PyInstaller → `dist/Ads Express.app`) |
