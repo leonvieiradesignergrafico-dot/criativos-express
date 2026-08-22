@@ -501,6 +501,16 @@ def montar_prompt(roteiro: dict, cena: dict, extra: str | None = None,
                   "na lente ocupando o quadro. Um notebook tem tamanho de notebook, um celular de celular. "
                   "Se fosse ficar grande ou distorcido, AFASTE a câmera e mostre o objeto inteiro em ângulo "
                   "natural, com a mão/mesa dando escala — melhor menor e correto do que grande e distorcido.")
+    # VESTUÁRIO SEGURO — evita que o filtro de conteúdo da OpenAI barre a cena (pele/corpo).
+    # A pessoa sempre vestida e casual; nada de pele nua em close nem pose sensual. Vale pra
+    # TODO keyframe (crucial em produtos de corpo — celulite, emagrecimento, etc.).
+    blocos.append("VESTUÁRIO E ENQUADRAMENTO (regra dura, prioridade máxima): a pessoa está SEMPRE "
+                  "claramente VESTIDA com roupa casual do dia a dia — camiseta/top comum em cima e "
+                  "short, bermuda ou calça embaixo. NUNCA de biquíni, lingerie, sem camisa, decote "
+                  "ousado, ou pele do tronco/pernas exposta em close. Nada de pose, ângulo ou clima "
+                  "sensual/sexualizado: é conteúdo COTIDIANO e familiar. Se a cena fala de corpo/pele "
+                  "(ex.: celulite, medidas), mostre a pessoa VESTIDA fazendo o gesto ou com o produto "
+                  "— sem close na pele nua. Corpo enquadrado no máximo do MEIO DA COXA pra cima.")
     blocos.append("Formato: vertical 9:16 (1024x1536), frame de vídeo caseiro fotorrealista.")
     return "\n\n".join(blocos)
 
