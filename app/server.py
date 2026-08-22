@@ -75,6 +75,27 @@ else:
 from app.ugc_web import ugc as _ugc_bp  # noqa: E402
 app.register_blueprint(_ugc_bp)
 
+# Console de diagnóstico embutido (captura logs/erros/stderr; visível em /console).
+# Essencial no Mac, onde o .app windowed engole o stderr.
+from app import console_log  # noqa: E402
+console_log.instalar(app)
+
+
+@app.route("/console")
+def pagina_console():
+    return render_template("console.html")
+
+
+@app.route("/api/console")
+def api_console():
+    return jsonify({"linhas": console_log.linhas()})
+
+
+@app.route("/api/console/limpar", methods=["POST"])
+def api_console_limpar():
+    console_log.limpar()
+    return jsonify({"ok": True})
+
 
 def _cerebro(nome: str, fallback: str = "") -> str:
     """Lê o 'cérebro' especializado (expertise) de app/prompts/<nome>.md."""

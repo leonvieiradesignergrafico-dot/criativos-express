@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function(){ try {
+    var t = localStorage.getItem("adsexpress-theme");
+    if (t !== "dark" && t !== "light")
+      t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", t);
+  } catch(e){} })();
+</script>
+<title>Console — Ads Express</title>
+<style>
+  :root, :root[data-theme="light"]{ --bg:#fafafa; --panel:#fff; --border:#e4e4e7; --txt:#09090b; --txt2:#52525b; --accent:#18181b; --on-accent:#fafafa; }
+  :root[data-theme="dark"]{ --bg:#09090b; --panel:#161619; --border:#27272a; --txt:#fafafa; --txt2:#a1a1aa; --accent:#fafafa; --on-accent:#18181b; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--txt);height:100vh;display:flex;flex-direction:column;
+    font-family:-apple-system,"SF Pro Text","Segoe UI",system-ui,sans-serif;font-size:13px;}
+  .bar{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--panel);}
+  .bar h1{font-size:14px;font-weight:600;margin-right:auto;letter-spacing:-.01em;}
+  .btn{appearance:none;border:1px solid var(--border);background:var(--panel);color:var(--txt);
+    font:inherit;font-size:12.5px;padding:7px 12px;border-radius:9px;cursor:pointer;}
+  .btn:hover{border-color:var(--txt2);}
+  .btn.primary{background:var(--accent);color:var(--on-accent);border-color:transparent;font-weight:600;}
+  .muted{color:var(--txt2);font-size:12px;}
+  #log{flex:1;overflow:auto;padding:10px 14px;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;}
+  .ln{padding:2px 0;border-bottom:1px solid color-mix(in srgb, var(--border) 55%, transparent);}
+  .ln .lv{display:inline-block;min-width:58px;font-weight:700;opacity:.85;}
+  .ERRO .lv,.ERROR .lv,.CRITICAL .lv,.STDERR .lv{color:#ef4444;}
+  .WARNING .lv{color:#f59e0b;}
+  .INFO .lv{color:#22c55e;}
+  .vazio{color:var(--txt2);padding:20px 14px;}
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>Console</h1>
+    <span class="muted" id="cont">—</span>
+    <button class="btn" onclick="history.length>1?history.back():location.href='/'">← Voltar</button>
+    <button class="btn" id="copiar">Copiar tudo</button>
+    <button class="btn" id="limpar">Limpar</button>
+    <button class="btn primary" id="pausar">Pausar</button>
+  </div>
+  <div id="log"><div class="vazio">Sem registros ainda. Reproduza o erro no app e volte aqui.</div></div>
+<script>
+  var pausado = false, ultimoN = -1;
+  function fmtHora(t){ try { var d=new Date(t*1000); return d.toLocaleTimeString('pt-BR'); } catch(e){ return ''; } }
+  async function carregar(){
+    if(pausado) return;
+    var linhas = [];
+    try { linhas = (await (await fetch('/api/console')).json()).linhas || []; } catch(e){ return; }
+    document.getElementById('cont').textContent = linhas.length + ' linha(s)';
+    if(linhas.length === ultimoN) return;   // nada novo
+    ultimoN = linhas.length;
+    var log = document.getElementById('log');
+    if(!linhas.length){ log.innerHTML = '<div class="vazio">Sem registros ainda. Reproduza o erro no app e volte aqui.</div>'; return; }
+    var perto = (log.scrollTop + log.clientHeight) >= (log.scrollHeight - 40);
+    log.innerHTML = linhas.map(function(l){
+      var lv = (l.nivel||'').toUpperCase();
+      return '<div class="ln '+lv.replace(/[^A-Z]/g,'')+'"><span class="lv">'+lv+'</span> '+
+        '<span class="muted">'+fmtHora(l.t)+'</span>  '+
+        (l.texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>';
+    }).join('');
+    if(perto) log.scrollTop = log.scrollHeight;
+  }
+  document.getElementById('pausar').addEventListener('click', function(){
+    pausado = !pausado; this.textContent = pausado ? 'Retomar' : 'Pausar';
+  });
+  document.getElementById('copiar').addEventListener('click', async function(){
+    try {
+      var linhas = (await (await fetch('/api/console')).json()).linhas || [];
+      var txt = linhas.map(function(l){ return '['+(l.nivel||'')+'] '+(l.texto||''); }).join('\n');
+      await navigator.clipboard.writeText(txt);
+      this.textContent = 'Copiado!'; var b=this; setTimeout(function(){ b.textContent='Copiar tudo'; }, 1500);
+    } catch(e){ alert('Não consegui copiar. Selecione o texto manualmente.'); }
+  });
+  document.getElementById('limpar').addEventListener('click', async function(){
+    try { await fetch('/api/console/limpar', {method:'POST'}); ultimoN=-1; carregar(); } catch(e){}
+  });
+  carregar(); setInterval(carregar, 1200);
+</script>
+</body>
+</html>

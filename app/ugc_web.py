@@ -40,6 +40,17 @@ TEMPLATES = Path(__file__).resolve().parent / "templates"
 
 
 def _erro(msg, code=400):
+    # Registra no console embutido (traceback quando for exceção) pra depurar sem terminal.
+    try:
+        from app import console_log
+        import traceback as _tb
+        if isinstance(msg, BaseException):
+            console_log.registrar("ERRO", "".join(
+                _tb.format_exception(type(msg), msg, msg.__traceback__)))
+        else:
+            console_log.registrar("ERRO", str(msg))
+    except Exception:  # noqa: BLE001
+        pass
     return jsonify({"ok": False, "erro": str(msg)}), code
 
 
