@@ -3,11 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Tema: aplica a MESMA escolha feita na tela inicial (localStorage 'adsexpress-theme').
+    // Sem escolha, segue o sistema. Roda antes do CSS pra não piscar; o style.css usa
+    // :root[data-theme="dark"|"light"].
+    (function(){ try {
+      var K = "adsexpress-theme", t = localStorage.getItem(K);
+      if (t !== "dark" && t !== "light")
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+      if (!localStorage.getItem(K) && window.matchMedia)
+        matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function(e){
+          if (!localStorage.getItem(K))
+            document.documentElement.setAttribute("data-theme", e.matches ? "dark" : "light");
+        });
+    } catch(e){} })();
+  </script>
   <title>{{ brand_nome|default('Ads Express') }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="/static/style.css?v=20260817-v13">
+  <link rel="stylesheet" href="/static/style.css?v=20260822-theme">
   {% if brand == 'collab' %}<link rel="stylesheet" href="/static/brand-collab.css?v=20260729-4">{% endif %}
 </head>
 <body>

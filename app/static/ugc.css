@@ -893,3 +893,38 @@ body {
   .tl-track { height: 72px; }
   .tl-vid-head { flex-wrap: wrap; }
 }
+
+/* ============================================================================
+   TEMA CLARO — aplicado quando o usuário escolhe "claro" na tela inicial
+   (data-theme="light"). O UGC é escuro por padrão; aqui invertemos só as
+   SUPERFÍCIES de chrome (fundos/painéis/texto/bordas). Mídia e players de vídeo
+   seguem em fundo escuro DE PROPÓSITO (vídeo renderiza melhor no preto).
+   Fica por último → vence por ordem; :root[data-theme] vence por especificidade.
+   ============================================================================ */
+:root[data-theme="light"] {
+  --bg: #fafafa;
+  --painel: #ffffff;
+  --painel2: #f4f4f5;
+  --borda: #e4e4e7;
+  --texto: #09090b;
+  --texto2: #52525b;
+  --azul: #18181b;              /* primário escuro sobre claro (neutro) */
+  --verde: #16a34a;
+  --laranja: #d97706;
+  --vermelho: #dc2626;
+  --shadow-1: 0 1px 2px 0 rgba(9, 9, 11, .08);
+  --shadow-2: 0 2px 8px -2px rgba(9, 9, 11, .12);
+  --ring: 0 0 0 3px rgba(9, 9, 11, .14);
+}
+:root[data-theme="light"] body { background: #fafafa; }
+:root[data-theme="light"] .sidebar { background: #f4f4f5; }
+:root[data-theme="light"] .topbar { background: #f6f6f8; }
+:root[data-theme="light"] .msg.usuario { background: #e9e9ef; color: #09090b; }
+:root[data-theme="light"] .msg.pensando { background: rgba(0, 0, 0, .04); }
+:root[data-theme="light"] .produtos .produto-item.ativo { background: rgba(0, 0, 0, .06); color: var(--texto); }
+:root[data-theme="light"] .roteiro-opcao:hover,
+:root[data-theme="light"] .roteiro-opcao.selecionado { background: rgba(0, 0, 0, .04); }
+:root[data-theme="light"] .btn.primary { color: #fafafa; }          /* texto claro sobre primário escuro */
+:root[data-theme="light"] .btn.primary:hover { background: #2c2c2e; }
+/* logo é arte branca → inverte pra preto no claro (igual à página estática) */
+:root[data-theme="light"] .brand-wordmark { filter: invert(1); }

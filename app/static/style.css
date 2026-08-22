@@ -60,8 +60,7 @@
   --ease-io: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+:root[data-theme="dark"] {
     --red: #ff453a;
     --accent: #e8e8ed;             /* quase-branco: primário neutro no escuro */
     --accent-press: #f5f5f7;
@@ -97,7 +96,6 @@
     --skel-base: var(--panel-3);
     --shimmer-glow: rgba(255, 255, 255, 0.08);
   }
-}
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
@@ -451,9 +449,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
   background: rgba(29, 29, 29, 0.42);
   box-shadow: inset 0 0 0 1px rgba(120, 120, 128, 0.22), inset 0 0 40px 0 rgba(255, 255, 255, 0.02);
 }
-@media (prefers-color-scheme: light) {
-  .msg.pensando { background: rgba(120, 120, 128, 0.10); }
-}
+:root[data-theme="light"] .msg.pensando { background: rgba(120, 120, 128, 0.10); }
 /* Thinking orb: UMA esfera limpa que respira, com glow difuso — CSS puro. */
 .thinking-orb {
   width: 20px; height: 20px; border-radius: 50%; flex: none;
@@ -1023,7 +1019,7 @@ svg.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125e
 }
 .ideia-badge.padrao { background: var(--accent-soft); color: var(--text-2); }
 .ideia-badge.disruptivo { background: rgba(255,138,0,.14); color: #d97600; border-color: rgba(217,118,0,.35); }
-@media (prefers-color-scheme: dark) { .ideia-badge.disruptivo { color: #ffb454; } }
+:root[data-theme="dark"] .ideia-badge.disruptivo { color: #ffb454; }
 .ideia-cont { font-size: 11px; font-weight: 600; color: var(--text-3, var(--text-2)); opacity: .7; }
 .ideia-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
 .ideia-card {
@@ -1919,8 +1915,7 @@ body { letter-spacing: -0.004em; }
   --ease-io: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+:root[data-theme="dark"] {
     --red: #f87171;
     --accent: #fafafa;             /* primário near-white no escuro */
     --accent-press: #e4e4e7;
@@ -1955,7 +1950,6 @@ body { letter-spacing: -0.004em; }
     --skel-base: #27272a;
     --shimmer-glow: rgba(255, 255, 255, 0.06);
   }
-}
 
 /* ---- Normalização: mata os "Apple-isms" que não são só token ---------------- */
 
@@ -2011,7 +2005,7 @@ body { background: var(--bg); background-attachment: fixed; letter-spacing: -0.0
 
 /* "Pensando…": pílula neutra, sem o vidro escuro Apple */
 .msg.pensando { background: var(--fill); box-shadow: inset 0 0 0 1px var(--line); }
-@media (prefers-color-scheme: light) { .msg.pensando { background: var(--fill); } }
+:root[data-theme="light"] .msg.pensando { background: var(--fill); }
 
 /* Orb "pensando" e glow de geração: neutralizados (monocromático, não roxo) */
 .thinking-orb {
@@ -2272,7 +2266,7 @@ textarea:focus, input:focus, .np-input:focus { outline: none; }
 /* ---- Marca "Ads Express" (logo lockup branco) ------------------------------ */
 .brand-wordmark { height: 34px; width: auto; display: block; }
 /* logo é arte branca → inverte para preto no tema claro */
-@media (prefers-color-scheme: light) { .brand-wordmark { filter: invert(1); } }
+:root[data-theme="light"] .brand-wordmark { filter: invert(1); }
 /* rótulo da ferramenta ao lado do logo (Imagem) — igual ao "Vídeo" do UGC */
 .brand .brand-sub {
   font-size: 10.5px; font-weight: 700; color: var(--text-3);
