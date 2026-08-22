@@ -31,18 +31,17 @@ rm -f "$DMG_OUT"
 
 if command -v create-dmg >/dev/null 2>&1; then
   echo "==> Gerando DMG com create-dmg (layout bonito)"
-  # create-dmg já adiciona o link p/ /Applications via --app-drop-link.
-  # Embute os utilitarios de primeira execucao / quarentena no DMG (mesmo conteudo
-  # do fallback hdiutil abaixo), para app distribuido SEM assinatura.
+  # DMG LIMPO: só o app + o atalho p/ /Applications (--app-drop-link). É o padrão de
+  # todo Mac — arraste um no outro. Os utilitários (first_run/remove_quarantine) NÃO
+  # entram aqui de propósito: eles vivem em packaging/mac/ e o instalar_tudo já roda o
+  # first-run; jogá-los soltos no DMG só polui a janela de instalação.
   create-dmg \
     --volname "$VOL_NAME" \
     --window-pos 200 120 \
-    --window-size 640 420 \
+    --window-size 560 360 \
     --icon-size 128 \
-    --icon "Ads Express.app" 160 190 \
-    --app-drop-link 480 190 \
-    --add-file "remove_quarantine.command" "$HERE/remove_quarantine.command" 160 330 \
-    --add-file "first_run_mac.command" "$HERE/first_run_mac.command" 480 330 \
+    --icon "Ads Express.app" 150 180 \
+    --app-drop-link 410 180 \
     --hdiutil-quiet \
     "$DMG_OUT" \
     "$APP"
@@ -52,12 +51,9 @@ else
   STAGE="$(mktemp -d)"
   echo "==> Montando conteúdo em $STAGE"
   cp -R "$APP" "$STAGE/"
-  # Atalho de arrastar-e-soltar para /Applications.
+  # DMG LIMPO: só o app + atalho de arrastar-e-soltar para /Applications. Nada de
+  # .command solto (ver comentário no ramo create-dmg acima).
   ln -s /Applications "$STAGE/Applications"
-  # Inclui os utilitários de quarentena e first-run no DMG (app distribuído SEM assinatura).
-  cp "$HERE/remove_quarantine.command" "$STAGE/" 2>/dev/null || true
-  cp "$HERE/first_run_mac.command" "$STAGE/" 2>/dev/null || true
-  chmod +x "$STAGE/remove_quarantine.command" "$STAGE/first_run_mac.command" 2>/dev/null || true
 
   echo "==> Criando $DMG_OUT"
   hdiutil create \
@@ -73,6 +69,7 @@ echo "======================================================================"
 echo " OK! DMG criado:"
 echo "   $DMG_OUT"
 echo
-echo " Se o app NÃO for assinado/notarizado, avise o usuário para rodar o"
-echo " 'remove_quarantine.command' (incluído no DMG) após arrastar para Aplicativos."
+echo " App é ad-hoc-assinado: na 1ª abertura, BOTÃO DIREITO no app -> Abrir."
+echo " Se o DMG for BAIXADO da internet e reclamar de 'danificado', rode o utilitário"
+echo " packaging/mac/remove_quarantine.command (não vai mais solto dentro do DMG)."
 echo "======================================================================"

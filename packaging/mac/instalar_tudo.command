@@ -155,10 +155,16 @@ if [ -f "$DMG" ]; then
   # ao lado, no mesmo lugar de sempre (não precisa lembrar onde ficou o repositório).
   DMG_DESKTOP="$HOME/Desktop/Ads Express.dmg"
   cp -f "$DMG" "$DMG_DESKTOP" 2>/dev/null && DMG="$DMG_DESKTOP"
-  printf "${GREEN}  Tudo pronto! Instalador: %s${RST}\n" "$DMG"
-  # Abre o .dmg (monta e mostra só a janela padrão "arraste pra Aplicativos"),
-  # NUNCA a pasta do repositório (cheia de código, não é o que o usuário deve ver).
+  printf "${GREEN}  Tudo pronto! Instalador na Área de Trabalho: %s${RST}\n" "$DMG"
+  # Abre o .dmg (monta e mostra só a janela padrão "arraste pra Aplicativos" — agora
+  # LIMPA, só o app + o atalho Applications), NUNCA a pasta do repositório.
   open "$DMG"
+  echo
+  echo "  Vão aparecer 2 ícones parecidos na Área de Trabalho — é normal e esperado:"
+  echo "    1) \"Ads Express.dmg\"  = o instalador (o arquivo). Pode guardar ou jogar fora."
+  echo "    2) \"Ads Express\" (ícone de disco, com setinha) = o instalador ABERTO, temporário."
+  echo "  Na janela que abriu, ARRASTE o \"Ads Express\" para a pasta \"Applications\"."
+  echo "  Depois clique no ⏏ ao lado de \"Ads Express\" no Finder para EJETAR — aí o ícone 2 some."
 else
   printf "${YEL}  App buildado em dist/Ads Express.app, mas o .dmg não saiu. Confira os logs acima.${RST}\n"
   open "$ROOT/dist" 2>/dev/null || true
@@ -166,5 +172,6 @@ fi
 printf "${GREEN}══════════════════════════════════════════════════════════════${RST}\n"
 echo "  A partir de agora, pra instalar/atualizar é só abrir \"Ads Express.dmg\" na sua"
 echo "  Área de Trabalho e arrastar o ícone pra Aplicativos — igual qualquer app de Mac."
+echo "  (O 1ª vez que abrir o app: BOTÃO DIREITO no app -> Abrir -> Abrir.)"
 echo "  Só volte a rodar este instalar_tudo.command quando o código mudar de novo."
 if [ -t 0 ]; then read -r -p "$(printf '\n  Pressione ENTER para sair...')" _ || true; fi
