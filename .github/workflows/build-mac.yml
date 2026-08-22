@@ -32,6 +32,9 @@ jobs:
       - name: Buildar o app + o instalador premium + o .dmg
         env:
           ADSEXPRESS_VERSION: ${{ github.event.inputs.version }}
+          # Runner é Apple Silicon (arm64). Buildar arm64 (não universal2) evita o erro
+          # "not a fat binary" das libs single-arch (Pillow etc.). Cobre Macs M1/M2/M3.
+          ADSEXPRESS_ARCH: arm64
         run: |
           set -e
           chmod +x packaging/mac/*.sh 2>/dev/null || true
