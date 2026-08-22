@@ -46,6 +46,27 @@ class _RateLimit(RuntimeError):
     Diferente de 'usage limit' (cota do dia/plano esgotada), que não adianta repetir."""
 
 
+class _Timeout(RuntimeError):
+    """Codex travou e foi encerrado (timeout). Um re-run fresco quase sempre passa quando
+    a contenção alivia — por isso é RETENTÁVEL (uma vez), diferente do que era antes."""
+
+
+# TETO de processos codex SIMULTÂNEOS (imagem + QA + texto compartilham o mesmo semáforo).
+# No app empacotado, muitos codex/node ao mesmo tempo sufocam a máquina e dão timeout —
+# 6 keyframes x (geração + QA) chegavam a ~12 processos. Espelha o _CLAUDE_SEM do claude.
+# Ajustável por CODEX_CONCURRENCY (default 3).
+def _codex_concorrencia() -> int:
+    try:
+        n = int(os.environ.get("CODEX_CONCURRENCY", "4"))
+        return n if 1 <= n <= 12 else 4
+    except Exception:  # noqa: BLE001
+        return 4
+
+
+import threading as _threading  # noqa: E402
+_CODEX_SEM = _threading.BoundedSemaphore(_codex_concorrencia())
+
+
 def _dormir_cancelavel(segundos: float, cancel_event=None) -> None:
     """Espera acordando cedo se o usuário cancelar (não prende o backoff inteiro)."""
     fim = time.time() + segundos
@@ -75,6 +96,8 @@ def _run_codex(cmd: list[str], timeout: int, cwd: str | None, cancel_event=None)
     out_path, err_path = out_f.name, err_f.name
     timed_out = False
     cancelled = False
+    # Trava um slot de concorrência ANTES de subir o processo (teto global de codex).
+    _CODEX_SEM.acquire()
     try:
         proc = subprocess.Popen(
             cmd,
@@ -101,6 +124,7 @@ def _run_codex(cmd: list[str], timeout: int, cwd: str | None, cancel_event=None)
                     _kill_tree(proc.pid)
                     break
     finally:
+        _CODEX_SEM.release()
         out_f.close()
         err_f.close()
     stdout = Path(out_path).read_text(encoding="utf-8", errors="replace")
@@ -307,7 +331,7 @@ def generate(
             if escolhido is None:
                 if not candidatos:
                     if timed_out:
-                        raise RuntimeError(
+                        raise _Timeout(
                             "Timeout: o Codex demorou demais e foi encerrado.\n"
                             f"stdout (fim):\n{(stdout or '')[-1500:]}\n"
                             f"stderr (fim):\n{(stderr or '')[-800:]}")
@@ -332,14 +356,22 @@ def generate(
         shutil.copy(escolhido, output_path)
         return str(output_path)
 
-    # Laço de retry: só o rate-limit é retentável. Timeout, cota esgotada e recusa
-    # falham na hora (repetir não ajudaria). A 1ª tentativa é imediata.
+    # Laço de retry: rate-limit E timeout são retentáveis (cota esgotada e recusa falham
+    # na hora). O timeout retenta UMA vez (re-run fresco quase sempre passa quando a
+    # contenção alivia). A 1ª tentativa é imediata.
     ultima: _RateLimit | None = None
+    timeouts_restantes = 1
     for i in range(len(_RETRY_ESPERAS) + 1):
         if cancel_event is not None and cancel_event.is_set():
             raise RuntimeError("Geração interrompida pelo usuário.")
         try:
             return _tentativa()
+        except _Timeout as e:
+            if timeouts_restantes > 0:
+                timeouts_restantes -= 1
+                _dormir_cancelavel(8, cancel_event)
+                continue
+            raise RuntimeError(str(e))
         except _RateLimit as e:
             ultima = e
             if i < len(_RETRY_ESPERAS):

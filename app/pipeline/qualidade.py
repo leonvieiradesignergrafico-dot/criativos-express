@@ -164,10 +164,16 @@ def _avaliar_imagens(imagens: list[Path], cena: dict, etapa: str,
         cmd += [prompt]
         for img in imagens:
             cmd += ["-i", str(img)]
-        r = subprocess.run(cmd, capture_output=True, creationflags=_NO_WINDOW,
-                           timeout=int(cfg.get("timeout", 180)))
-        if r.returncode != 0 or not out.exists():
-            raise RuntimeError("Falha na análise visual: " + r.stderr.decode(errors="replace")[-500:])
+        # Roda pelo helper blindado do codex_backend: entra no MESMO teto de concorrência
+        # (semáforo) da geração e mata a ÁRVORE de processos no timeout (não deixa codex
+        # órfão sobrecarregando a máquina — era um agravante dos timeouts).
+        from backends import codex_backend as _cb
+        _stdout, _stderr, _timed_out, _canc = _cb._run_codex(
+            cmd, timeout=int(cfg.get("timeout", 180)), cwd=None)
+        if _timed_out:
+            raise RuntimeError("Falha na análise visual: o Codex de QA demorou demais (timeout).")
+        if not out.exists():
+            raise RuntimeError("Falha na análise visual: " + (_stderr or "")[-500:])
         dado = _extrair_json(out.read_text(encoding="utf-8", errors="replace"))
         dado["aprovado"] = bool(dado.get("aprovado"))
         dado.setdefault("motivos", [])

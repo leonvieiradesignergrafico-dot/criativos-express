@@ -129,6 +129,9 @@ def _run_codex_text(prompt: str, modelo, timeout: int) -> str:
     timed_out = False
     stdin_h = open(in_f.name, "r", encoding="utf-8")
     errh = open(err_path, "w", encoding="utf-8")
+    # Mesmo teto de concorrência da geração de imagem (evita muitos codex/node juntos).
+    from backends.codex_backend import _CODEX_SEM
+    _CODEX_SEM.acquire()
     try:
         proc = subprocess.Popen(cmd, stdin=stdin_h, stdout=subprocess.DEVNULL,
                                 stderr=errh, text=True, creationflags=_NO_WINDOW)
@@ -138,6 +141,7 @@ def _run_codex_text(prompt: str, modelo, timeout: int) -> str:
             timed_out = True
             _kill_tree(proc.pid)
     finally:
+        _CODEX_SEM.release()
         stdin_h.close()
         errh.close()
 
