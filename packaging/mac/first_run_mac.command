@@ -14,7 +14,8 @@
 #      @openai/codex (comando 'codex').
 #   5. Guia os LOGINS (claude /login e codex login) — usam SEU plano, sem custo de API.
 #   6. Confere o ffmpeg (opcional, só p/ o fluxo de VÍDEO) e oferece instalar.
-#   7. Confere o Google Cloud SDK / gcloud (opcional, só p/ o VÍDEO Veo) e oferece instalar.
+#   7. Confere o Google Cloud SDK / gcloud (opcional, só p/ o VÍDEO Veo), oferece instalar
+#      E faz o login do Google (gcloud auth login + application-default), igual claude/codex.
 #   8. Grava os caminhos ABSOLUTOS de node/claude/codex/ffmpeg/gcloud num arquivo que o app
 #      lê — porque um app .app do macOS NÃO herda o PATH do Terminal (ver README_MAC.md).
 #
@@ -149,15 +150,29 @@ instalar_cli "codex"  "$CODEX_PKG"
 titulo "5/7 · Login das CLIs (usa seu plano Claude e ChatGPT)"
 if command -v claude >/dev/null 2>&1; then
   if perguntar "Fazer/checar o login do Claude agora? (abre o navegador)"; then
-    passo "Abrindo o Claude — se pedir, digite /login. Feche com Ctrl+C quando terminar."
+    passo "Vai abrir o Claude. Se pedir, digite ${BOLD}/login${RST} e conclua no navegador."
+    passo "Quando terminar, digite ${BOLD}/exit${RST} (ou feche a janela) para CONTINUAR a instalação."
+    # ARMADILHA: o 'claude /login' entra no modo interativo e NÃO sai sozinho. Se o
+    # usuário apertar Ctrl+C pra sair, o SIGINT vai pro grupo inteiro e mata ESTE
+    # instalador — pulando o login do Codex e do Google (era o bug do "não pede codex").
+    # Blindagem: ignoramos INT enquanto o claude roda, então sair do claude (Ctrl+C ou
+    # /exit) devolve o controle pra cá em vez de abortar tudo.
+    trap '' INT
     claude /login || true
+    trap - INT
+    ok "Login do Claude concluído — seguindo para o próximo."
   fi
 else
   aviso "Instale a CLI 'claude' antes de logar."
 fi
 if command -v codex >/dev/null 2>&1; then
   if perguntar "Fazer/checar o login do Codex (ChatGPT) agora? (abre o navegador)"; then
+    passo "Vai abrir o navegador pro login do Codex. Conclua e volte aqui."
+    # Mesma blindagem contra Ctrl+C que mataria o instalador no meio do caminho.
+    trap '' INT
     codex login || true
+    trap - INT
+    ok "Login do Codex concluído — seguindo para o próximo."
   fi
 else
   aviso "Instale a CLI 'codex' antes de logar."
@@ -186,11 +201,35 @@ else
   aviso "gcloud não encontrado (só é necessário para o fluxo de VÍDEO Veo/Omni, não imagem)."
   if command -v brew >/dev/null 2>&1 && perguntar "Instalar o Google Cloud SDK via Homebrew agora?"; then
     brew install --cask google-cloud-sdk || aviso "Falha ao instalar o google-cloud-sdk."
+    # O cask instala em /opt/homebrew/... mas o binário pode não estar no PATH ainda
+    # nesta mesma sessão; tenta achar pra conseguir logar logo em seguida.
+    if ! command -v gcloud >/dev/null 2>&1; then
+      for g in /opt/homebrew/share/google-cloud-sdk/bin/gcloud \
+               /opt/homebrew/bin/gcloud \
+               /usr/local/share/google-cloud-sdk/bin/gcloud \
+               /usr/local/bin/gcloud; do
+        [ -x "$g" ] && export PATH="$(dirname "$g"):$PATH" && break
+      done
+    fi
   else
     aviso "Instalação manual do gcloud: https://cloud.google.com/sdk/docs/install"
   fi
 fi
-passo "Login do Google Cloud: use o botão \"Google Cloud\" na tela inicial do app (ou rode 'gcloud auth login')."
+# Login do Google — igual claude/codex: pergunta e executa aqui mesmo (antes só dava dica).
+if command -v gcloud >/dev/null 2>&1; then
+  if perguntar "Fazer/checar o login do Google Cloud agora? (abre o navegador)"; then
+    passo "Vai abrir o navegador pro login do Google. Use a conta com acesso ao projeto Veo."
+    # Mesma blindagem contra Ctrl+C que mataria o instalador no meio do caminho.
+    trap '' INT
+    gcloud auth login || aviso "Login do Google Cloud não concluído."
+    # O Veo/Vertex usa Application Default Credentials — loga também pra as libs acharem.
+    gcloud auth application-default login || aviso "ADC (application-default) não concluído."
+    trap - INT
+    ok "Login do Google Cloud concluído."
+  fi
+else
+  aviso "Instale o gcloud antes de logar no Google Cloud."
+fi
 passo "O VÍDEO também precisa do VEO_PROJECT (id do projeto GCP) no config."
 
 # ---------------------------------------------------------------------------
