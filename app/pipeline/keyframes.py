@@ -680,6 +680,16 @@ def gerar_keyframes(produto: str, vid: str, ns: list[int] | None = None,
         except Exception as e:  # noqa: BLE001
             if cancel_event is None or not cancel_event.is_set():
                 status.terminou(rotulo, erro=str(e))
+                # Marca a cena como REPROVADA (não "regenerando" stale) pra a UI mostrar o
+                # estado certo + os botões "Gerar de novo"/"Aceitar assim mesmo".
+                with rot_lock:
+                    atual = ler_json(rot_file) or roteiro
+                    for c in atual["cenas"]:
+                        if c["n"] == cena["n"]:
+                            c["qualidade"] = {"estado": "reprovado", "etapa": "keyframe",
+                                              "tentativa": 0, "motivos": [{"detalhe": str(e)}],
+                                              "descartes": 0}
+                    atomic_write_json(rot_file, atual)
             else:
                 status.terminou(rotulo)
 

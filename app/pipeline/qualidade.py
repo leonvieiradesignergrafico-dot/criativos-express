@@ -86,6 +86,22 @@ def _eh_selfie(fmt: str, prompt: str, espelho: bool) -> bool:
     return bool(fmt)
 
 
+def _num_pessoas(fmt: str, prompt: str) -> int:
+    """Quantas PESSOAS a cena tem (define o teto de mãos: 2 por pessoa). Two-shot/multi
+    = 2; sinais de dupla no texto = 2; senão 1 (solo)."""
+    try:
+        from app.pipeline import formatos_video as fv
+        if fmt and (fv.two_shot(fmt) or fv.multi_pessoa(fmt)):
+            return 2
+    except Exception:  # noqa: BLE001
+        pass
+    if any(x in prompt for x in ("duas pessoas", "dupla", "entrevistador", "duas figuras",
+            "duas mulheres", "dois homens", "casal", "abordagem", "duas mãos de cada",
+            "segunda pessoa", "interlocutor")):
+        return 2
+    return 1
+
+
 def contrato_cena(cena: dict) -> dict:
     """Normaliza a geometria explícita da cena, inclusive roteiros antigos."""
     tipo = cena.get("tipo") or ""
@@ -109,7 +125,15 @@ def contrato_cena(cena: dict) -> dict:
             geo["celular_visivel"] = "proibido"
         else:
             geo["celular_visivel"] = "permitido"
-    geo.setdefault("maos_visiveis", "no_maximo_duas; preferir_uma")
+    if not geo.get("maos_visiveis"):
+        pessoas = _num_pessoas(fmt, prompt)
+        if pessoas >= 2:
+            # 2 pessoas = 4 maos NO TOTAL (2 por pessoa). O erro de anatomia e mais de DUAS
+            # maos na MESMA pessoa — NAO o total. (Corrige o falso "4 maos, exige 3".)
+            geo["maos_visiveis"] = (f"ate {pessoas * 2} maos no total ({pessoas} pessoas x 2 cada); "
+                                    "o defeito e mais de DUAS maos na MESMA pessoa, nunca o total")
+        else:
+            geo["maos_visiveis"] = "no maximo duas (uma pessoa); preferir uma"
     geo.setdefault("acao_maos", "uma acao simples por mao; nenhuma mao ou braco sem origem corporal visivel")
     geo.setdefault("contatos_fisicos", "sem corpo fundido, esmagado ou colado em mesa, lente ou objetos")
     return geo

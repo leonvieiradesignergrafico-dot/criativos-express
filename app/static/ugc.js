@@ -1064,9 +1064,16 @@ function renderKeyframes(dado) {
     const midia = c.keyframe.url ? `<img src="${c.keyframe.url}">`
       : emVoo ? `<div class="spinner"></div>` : "sem keyframe";
     const erroKf = (st.erros || []).find(e => e.item === `cena_${String(c.n).padStart(2, "0")}`);
+    const q = c.qualidade || {};
+    const falhou = !c.keyframe.url && !emVoo && (erroKf || q.estado === "reprovado");
+    const temDescarte = (c.descartados || []).length > 0;
     const botoes = c.keyframe.url ? `
       <button class="btn mini ghost" data-acao="refinar">Refinar</button>
-      <button class="btn mini ghost" data-acao="regerar">Gerar de novo</button>` : "";
+      <button class="btn mini ghost" data-acao="regerar">Gerar de novo</button>`
+      : falhou ? `
+      <button class="btn mini primary" data-acao="regerar-falha">Gerar de novo</button>
+      ${temDescarte ? `<button class="btn mini ghost" data-acao="aceitar">Aceitar assim mesmo</button>` : ""}`
+      : "";
     const extra = (erroKf && st.etapa === "keyframes" ? `<div class="erro">${esc(erroKf.erro)}</div>` : "") + htmlQualidade(c);
     return cardCena(c, midia, botoes, extra);
    }).join("");
@@ -1126,6 +1133,15 @@ $("gradeKeyframes").addEventListener("click", async (e) => {
     if (btn.dataset.acao === "regerar") {
       await api(`/api/refinar_keyframe${base}/${n}`, {});
       toast("Gerando a cena de novo…");
+    }
+    if (btn.dataset.acao === "regerar-falha") {
+      // Cena que reprovou (sem keyframe): gera do zero de novo.
+      await api(`/api/gerar_keyframes/${encodeURIComponent(state.produto)}/${encodeURIComponent(state.vid)}`, { ns: [Number(n)] });
+      toast("Gerando a cena de novo…");
+    }
+    if (btn.dataset.acao === "aceitar") {
+      await api(`/api/aceitar_keyframe${base}/${n}`, {});
+      toast("Cena aceita ✓");
     }
     await atualizar();
   } catch (err) { toast(err.message, true); }

@@ -625,6 +625,42 @@ def gerar_keyframes(produto, vid):
     return jsonify({"ok": True})
 
 
+@ugc.post("/api/aceitar_keyframe/<produto>/<vid>/<int:n>")
+def aceitar_keyframe(produto, vid, n):
+    """Escape hatch: aceita a ÚLTIMA imagem reprovada da cena como keyframe, mesmo que o
+    QA tenha reprovado (o usuário decide). Promove o descarte mais recente."""
+    import shutil
+    d = video_dir(produto, vid)
+    base = d / "descartados" / f"cena_{n:02d}"
+    origem = None
+    if base.exists():
+        for pasta in sorted(base.glob("tentativa_*"), reverse=True):  # mais recente primeiro
+            img = next((x for x in pasta.iterdir() if x.suffix.lower() in {".png", ".jpg"}), None)
+            if img:
+                origem = img
+                break
+    if not origem:
+        return _erro("Não há imagem reprovada pra aceitar nesta cena — clique 'Gerar de novo'.", 404)
+    out_dir = d / "keyframes"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    destino = out_dir / f"cena_{n:02d}.png"
+    shutil.copy2(origem, destino)
+    rot_file = d / "roteiro.json"
+    atual = ler_json(rot_file) or {}
+    n_desc = len(list(base.glob("tentativa_*"))) if base.exists() else 0
+    for c in atual.get("cenas", []):
+        if c["n"] == n:
+            c["keyframe"]["arquivo"] = destino.name
+            c["keyframe"]["aprovado"] = True
+            c["qualidade"] = {"estado": "aprovado", "etapa": "keyframe", "tentativa": 0,
+                              "motivos": [], "descartes": n_desc, "aceito_manual": True, "analise": {}}
+            # keyframe novo invalida clipe antigo da cena
+            c["clipe"] = {"arquivo": None, "gerado": False, "fal_request_id": None,
+                          "erro": None, "lipsync_aplicado": False}
+    atomic_write_json(rot_file, atual)
+    return jsonify({"ok": True})
+
+
 # ---- LOTE: gera keyframes/clipes de VÁRIOS vídeos juntos (mix de formatos) ----
 @ugc.post("/api/gerar_keyframes_lote/<produto>")
 def gerar_keyframes_lote_ep(produto):
