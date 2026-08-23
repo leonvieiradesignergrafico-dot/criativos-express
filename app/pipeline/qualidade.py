@@ -26,26 +26,26 @@ mas reprove apenas defeitos visíveis. Responda SOMENTE JSON válido:
 {"aprovado":true|false,"motivos":[{"codigo":"snake_case","detalhe":"curto"}],
  "correcao_prompt":"instrução objetiva para a próxima geração"}
 
-Critérios duros:
-- anatomia (regra dura, POR PESSOA): cada pessoa tem exatamente DOIS braços e DUAS mãos
-  ligados ao próprio corpo. Reprove SÓ quando UMA pessoa tiver MAIS de dois braços/mãos, ou
-  um membro duplicado, fundido, flutuante ou sem origem corporal. Em cena de 2 pessoas, 4
-  mãos no total é NORMAL — conte por pessoa, nunca o total;
-- um braço, mão ou celular VISÍVEL no quadro (segurando o produto, apontando, segurando o
-  aparelho, refletido num espelho, o braço que segura a câmera) NÃO é defeito — é natural em
-  UGC. NÃO reprove por "o braço/mão que segura a câmera aparece". Só reprove o celular quando
-  o contrato disser celular_visivel=proibido (selfie pura, onde o aparelho é a própria câmera);
-- corpo e objetos não podem estar fundidos, esmagados nem apoiados de forma impossível;
-- mesma pessoa, roupa, ambiente e produto; produto sem deformação grosseira;
-- em clipe: uma única tomada contínua. Reprovar morph, wipe, dissolução, split screen,
-  duplicação, troca de cena ou transição interna;
-- reprovar sequência visual congelada enquanto o take ainda deveria estar acontecendo;
-- coerência fala-imagem: demonstrativos como "este/esses/aqui/olha" e gestos de apontar
-  exigem que a coisa alegada esteja realmente visível. Reprovar quando a fala trata um
-  problema como presente/visível, mas a imagem mostra pele lisa ou nenhuma evidência;
-- coerência temporal: se o roteiro apresenta resultado depois do uso, não mostrar nem apontar
-  o mesmo problema como se ainda estivesse presente, salvo comparação antes/depois explícita.
-Não reprove pequenas imperfeições naturais de UGC, microtremor ou mudança normal de pose.
+NUNCA reprove por isto (NÃO são defeitos — são escolhas naturais de UGC, mesmo que difiram
+da DESCRIÇÃO PLANEJADA ou do contrato):
+- enquadramento, plano, distância, ângulo ou composição (mostrar mais/menos do corpo, plano
+  aberto em vez de médio/busto, cabeça cortada, descentrado);
+- pose, gesto, ou QUANTAS mãos aparecem (duas mãos no colo, mãos paradas, uma ou duas mãos,
+  "o contrato preferia uma"); braço/mão/celular visível (segurando produto, apontando,
+  segurando a câmera, reflexo de espelho);
+- pequenas imperfeições naturais de UGC, microtremor, mudança de pose, luz imperfeita.
+
+Reprove SOMENTE defeito de geração REAL e visível:
+- anatomia impossível POR PESSOA: uma pessoa com MAIS de dois braços/mãos, ou membro
+  duplicado, fundido, flutuante ou sem origem corporal (em cena de 2 pessoas, 4 mãos é normal);
+- corpo/objetos fundidos, esmagados, derretidos ou apoiados de forma fisicamente impossível;
+- identidade/figurino trocados: pessoa, roupa, ambiente ou produto diferentes das referências;
+- produto com deformação grosseira ou escala impossível (gigante, esticado, colado na lente);
+- em clipe: morph, wipe, dissolução, split screen, duplicação, troca de cena, transição
+  interna, ou sequência congelada quando o take deveria estar em movimento;
+- celular visível SÓ quando o contrato disser celular_visivel=proibido (selfie pura);
+- coerência fala-imagem: se a fala aponta algo ("olha isso/aqui") a coisa tem que estar visível.
+Na dúvida entre um defeito real e uma escolha de enquadramento/pose/mãos, APROVE.
 """
 
 PROMPT_CONTINUIDADE = """Você é o controle de continuidade de um vídeo UGC. A imagem anexada
@@ -127,13 +127,10 @@ def contrato_cena(cena: dict) -> dict:
             geo["celular_visivel"] = "permitido"
     if not geo.get("maos_visiveis"):
         pessoas = _num_pessoas(fmt, prompt)
-        if pessoas >= 2:
-            # 2 pessoas = 4 maos NO TOTAL (2 por pessoa). O erro de anatomia e mais de DUAS
-            # maos na MESMA pessoa — NAO o total. (Corrige o falso "4 maos, exige 3".)
-            geo["maos_visiveis"] = (f"ate {pessoas * 2} maos no total ({pessoas} pessoas x 2 cada); "
-                                    "o defeito e mais de DUAS maos na MESMA pessoa, nunca o total")
-        else:
-            geo["maos_visiveis"] = "no maximo duas (uma pessoa); preferir uma"
+        # Até 2 mãos POR PESSOA. Quantas aparecem (uma, duas, no colo) NUNCA é defeito — o
+        # defeito é mais de duas mãos na MESMA pessoa. 2 pessoas = 4 mãos no total é normal.
+        geo["maos_visiveis"] = (f"ate duas maos por pessoa ({pessoas} pessoa(s), ate "
+                                f"{pessoas * 2} no total); quantas aparecem nunca e defeito")
     geo.setdefault("acao_maos", "uma acao simples por mao; nenhuma mao ou braco sem origem corporal visivel")
     geo.setdefault("contatos_fisicos", "sem corpo fundido, esmagado ou colado em mesa, lente ou objetos")
     return geo
