@@ -29,6 +29,23 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Injetar credencial do Veo (service account)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          # A chave da service account NÃO fica no git (é secret). Aqui ela é escrita
+          # dentro de packaging/default_config/, que os dois specs empacotam como
+          # _default_config/. Assim o app e o instalador saem com o Google já configurado
+          # (o instalador ativa a chave; o backend também sabe usá-la). Sem o secret, o
+          # build sai sem credencial (cai no login manual do gcloud, como antes).
+          if [ -n "${GCP_SA_KEY:-}" ]; then
+            printf '%s' "$GCP_SA_KEY" > packaging/default_config/veo_sa.json
+            python -c "import json;json.load(open('packaging/default_config/veo_sa.json'));print('veo_sa.json OK')" \
+              || { echo 'ERRO: GCP_SA_KEY não é JSON válido.'; exit 1; }
+          else
+            echo 'AVISO: secret GCP_SA_KEY vazio — build SEM credencial embutida (login manual).'
+          fi
+
       - name: Buildar o app + o instalador premium + o .dmg
         env:
           ADSEXPRESS_VERSION: ${{ github.event.inputs.version }}

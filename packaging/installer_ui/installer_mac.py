@@ -25,6 +25,7 @@ import base64
 import json
 import logging
 import os
+import re
 import shlex
 import shutil
 import ssl
@@ -40,6 +41,12 @@ import webview  # noqa: E402
 APP_NAME = "Ads Express"
 APP_BUNDLE = "Ads Express.app"
 VERSION = "1.1.0"
+
+# Veo (vídeo): projeto GCP do crédito + chave de serviço embutida pelo CI (GitHub secret
+# GCP_SA_KEY → packaging/default_config/veo_sa.json → _default_config/veo_sa.json). Com
+# ela o instalador ativa o Google sozinho — sem 'gcloud auth login' na mão.
+VEO_PROJECT = "capable-fuze-506422-c2"
+SA_KEY_RES = "_default_config/veo_sa.json"
 
 CLAUDE_PKG = "@anthropic-ai/claude-code"
 CODEX_PKG = "@openai/codex"
@@ -206,6 +213,73 @@ def _semear_config() -> None:
             '[app]\nffmpeg = ""\n', encoding="utf-8")
 
 
+def _forcar_veo_project() -> None:
+    """Garante veo_project no config MESMO em reinstalação (config.toml já existe). O
+    usuário pediu que sobrescreva: troca SÓ a linha do veo_project, preservando o resto
+    das configs (voz, workers, etc.). É por isso que não dá pra confiar no _semear_config,
+    que não toca num config.toml existente."""
+    alvo = CONFIG_DIR / "config.toml"
+    if not alvo.exists():
+        return
+    try:
+        txt = alvo.read_text(encoding="utf-8")
+    except Exception:  # noqa: BLE001
+        return
+    linha = f'veo_project = "{VEO_PROJECT}"'
+    if re.search(r"(?m)^\s*veo_project\s*=.*$", txt):
+        novo = re.sub(r"(?m)^\s*veo_project\s*=.*$", linha, txt)
+    elif re.search(r"(?m)^\[video\]\s*$", txt):
+        novo = re.sub(r"(?m)^\[video\]\s*$", "[video]\n" + linha, txt, count=1)
+    else:
+        novo = txt.rstrip() + f"\n\n[video]\n{linha}\n"
+    if novo != txt:
+        try:
+            alvo.write_text(novo, encoding="utf-8")
+        except Exception:  # noqa: BLE001
+            pass
+
+
+def _copiar_sa_key() -> Path | None:
+    """Copia a chave de serviço embutida pra pasta gravável de config (persiste entre
+    updates e é o que o app lê em runtime). None se este build não trouxe chave."""
+    origem = _res(SA_KEY_RES)
+    try:
+        if not origem.exists() or origem.stat().st_size == 0:
+            return None
+    except Exception:  # noqa: BLE001
+        return None
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    destino = CONFIG_DIR / "veo_sa.json"
+    try:
+        shutil.copy2(origem, destino)
+        os.chmod(destino, 0o600)  # credencial: só o dono lê
+        return destino
+    except Exception:  # noqa: BLE001
+        return origem
+
+
+def _ativar_service_account() -> None:
+    """Ativa a conta de serviço do Veo automaticamente (instalar → Google já configurado,
+    sem login no navegador). Se o build não trouxe a chave, ou o gcloud ainda não está
+    instalado, só segue — o backend do app ativa via chave quando o gcloud existir."""
+    key = _copiar_sa_key()
+    if not key:
+        return
+    g = _which("gcloud")
+    if not g:
+        return
+    try:
+        _run([g, "auth", "activate-service-account", "--key-file", str(key)], timeout=60)
+        try:
+            proj = json.loads(Path(key).read_text(encoding="utf-8")).get("project_id")
+            if proj:
+                _run([g, "config", "set", "project", proj], timeout=30)
+        except Exception:  # noqa: BLE001
+            pass
+    except Exception:  # noqa: BLE001
+        pass
+
+
 def _semear_produtos() -> None:
     """Copia os produtos embutidos pra pasta de dados do usuário, SEM sobrescrever o que
     já existe (adiciona os que faltam; preserva o trabalho local em reinstalações).
@@ -355,6 +429,7 @@ class API:
             _augment_path()
             self._prog(3, "Preparando…")
             _semear_config()
+            _forcar_veo_project()      # garante a conta/projeto do Veo mesmo em reinstalação
             self._prog(6, "Copiando seus produtos e avatares…")
             _semear_produtos()
 
@@ -372,6 +447,9 @@ class API:
             self._prog(94, "Salvando configurações…")
             _augment_path()
             _gravar_cli_paths()
+
+            self._prog(97, "Configurando o Google (Veo)…")
+            _ativar_service_account()  # ativa a chave embutida: Veo sem login manual
 
             self._prog(100, "Concluído")
             if self.window:

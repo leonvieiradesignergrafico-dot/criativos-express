@@ -83,6 +83,33 @@ def _gcloud() -> str:
     raise RuntimeError("gcloud não encontrado. Instale o Google Cloud SDK e rode 'gcloud auth login'.")
 
 
+def _sa_key_path() -> Path | None:
+    """Chave de service account embutida — permite gerar vídeo SEM login interativo do
+    Google (o instalador do Mac embute a chave). Procura, nesta ordem: env
+    GOOGLE_APPLICATION_CREDENTIALS, a pasta gravável de config, o template embutido no
+    app (BUNDLE_DIR/_default_config) e, em dev, ao lado do default_config do repo.
+    Retorna None se nenhuma existir (aí cai no gcloud login normal — caso Windows)."""
+    cands = []
+    env = (os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or "").strip()
+    if env:
+        cands.append(Path(env))
+    try:
+        from workspace import CONFIG_DIR, BUNDLE_DIR
+        cands.append(CONFIG_DIR / "veo_sa.json")
+        cands.append(BUNDLE_DIR / "_default_config" / "veo_sa.json")
+    except Exception:  # noqa: BLE001
+        pass
+    cands.append(Path(__file__).resolve().parent.parent
+                 / "packaging" / "default_config" / "veo_sa.json")
+    for c in cands:
+        try:
+            if c and c.exists() and c.stat().st_size > 0:
+                return c
+        except Exception:  # noqa: BLE001
+            continue
+    return None
+
+
 def _project() -> str:
     p = (os.environ.get("VEO_PROJECT") or "").strip()
     if p:
@@ -92,6 +119,13 @@ def _project() -> str:
         p = (carregar_config().get("video", {}).get("veo_project") or "").strip()
     except Exception:  # noqa: BLE001
         p = ""
+    if not p:  # último fallback: o project_id da própria chave de serviço embutida.
+        key = _sa_key_path()
+        if key:
+            try:
+                p = (json.loads(key.read_text(encoding="utf-8")).get("project_id") or "").strip()
+            except Exception:  # noqa: BLE001
+                p = ""
     if not p:
         raise RuntimeError("VEO_PROJECT não configurado (.env) nem [video].veo_project no config.toml.")
     return p
@@ -100,6 +134,26 @@ def _project() -> str:
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)  # no Windows, não abre console do gcloud
 _tok_cache = {"val": None, "exp": 0.0}
 _tok_lock = threading.Lock()
+_sa_ativada = [False]  # ativa a service account embutida no máx. 1x por processo
+
+
+def _garantir_sa_ativa() -> None:
+    """Se há chave de serviço embutida (instalação sem login do Google), garante que ELA
+    é a conta ativa do gcloud antes de pedir o token. Sem isso, uma conta de usuário
+    antiga ainda logada pegaria um token da IDENTIDADE errada (403 no projeto novo). Sem
+    chave embutida (Windows/dev), não faz nada — usa o login normal do gcloud."""
+    if _sa_ativada[0]:
+        return
+    _sa_ativada[0] = True  # tenta só uma vez, mesmo se falhar (não trava o poll)
+    key = _sa_key_path()
+    if not key:
+        return
+    try:
+        subprocess.check_call(
+            [_gcloud(), "auth", "activate-service-account", "--key-file", str(key)],
+            creationflags=_NO_WINDOW, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception:  # noqa: BLE001 — se falhar, cai no que já estiver logado
+        pass
 
 
 def _token() -> str:
@@ -110,6 +164,7 @@ def _token() -> str:
         now = time.time()
         if _tok_cache["val"] and now < _tok_cache["exp"]:
             return _tok_cache["val"]
+        _garantir_sa_ativa()
         val = subprocess.check_output([_gcloud(), "auth", "print-access-token"],
                                       text=True, creationflags=_NO_WINDOW).strip()
         _tok_cache["val"] = val

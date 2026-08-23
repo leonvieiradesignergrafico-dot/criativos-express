@@ -1,6 +1,10 @@
 # Segredos
 .env
 config/.env
+# Chave de service account do Veo — entra no build via GitHub secret (GCP_SA_KEY),
+# NUNCA versionada. O CI a grava aqui só na hora de empacotar.
+packaging/default_config/veo_sa.json
+**/veo_sa.json
 
 # Estado de trabalho do pipeline por produto (copies, prompts, formatos, status, cache)
 config/products/**/output/
