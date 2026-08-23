@@ -580,13 +580,46 @@ def gerar_um_keyframe(roteiro: dict, cena: dict, out_dir: Path, cancel_event=Non
     return out_file.name
 
 
+def _prompt_doctor(cena: dict, motivos: list, correcoes: list) -> str | None:
+    """Quando o MESMO defeito persiste entre tentativas, o problema é o PROMPT (não a
+    imagem). Um LLM diagnostica a CAUSA do defeito recorrente e devolve uma instrução
+    objetiva que o elimine — em vez de repetir a mesma correção que já não funcionou."""
+    try:
+        from app import claude_bridge
+        defeitos = "; ".join((m.get("detalhe") or m.get("codigo") or "") for m in (motivos or []))
+        if not defeitos.strip():
+            return None
+        jatentado = " | ".join(correcoes[-3:]) if correcoes else "(nenhuma)"
+        pedido = (
+            "Um gerador de imagem REPETIU o mesmo defeito ao criar um keyframe de vídeo UGC "
+            "vertical, mesmo após correção — então a causa está no PROMPT, não na sorte.\n"
+            f"Defeito recorrente: {defeitos}\n"
+            f"Cena planejada: {(cena.get('prompt_keyframe') or '')[:400]}\n"
+            f"Correções que JÁ tentei (e não resolveram): {jatentado}\n\n"
+            "Escreva UMA instrução curta (máx 40 palavras), concreta e imperativa, que ELIMINE "
+            "esse defeito atacando a causa — ex.: simplificar a pose, afastar a câmera, evitar a "
+            "composição problemática, mudar o gesto. NÃO repita as correções acima. Responda "
+            "SOMENTE a instrução, sem preâmbulo."
+        )
+        txt = (claude_bridge.pedir_texto(pedido, timeout=90) or "").strip()
+        return txt[:400] or None
+    except Exception:  # noqa: BLE001 — o médico é best-effort; se falhar, cai no acúmulo
+        return None
+
+
 def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
                             cancel_event=None, extra: str | None = None,
                             on_estado=None) -> tuple[str, dict, int]:
-    """Gera, analisa e regenera o keyframe antes de liberar qualquer animação paga."""
+    """Gera, analisa e regenera o keyframe antes de liberar qualquer animação paga.
+
+    Retry INTELIGENTE: acumula as correções (não esquece) e, se o MESMO defeito repete,
+    reescreve a correção via LLM (prompt doctor) atacando a causa — em vez de repetir o
+    mesmo approach 3x e desistir."""
     qcfg = carregar_config().get("qualidade", {})
-    limite = max(1, int(qcfg.get("max_tentativas_keyframe", 3)))
+    limite = max(1, int(qcfg.get("max_tentativas_keyframe", 4)))
     correcao = extra
+    correcoes: list[str] = []      # acumula as correções (memória entre tentativas)
+    codigos_antes: set = set()     # defeitos já vistos (detecta repetição)
     ultima = {}
     for tentativa in range(1, limite + 1):
         if on_estado:
@@ -618,8 +651,23 @@ def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
         path.unlink(missing_ok=True)
         if on_estado:
             on_estado("reprovado_regenerando", tentativa, ultima.get("motivos", []), tentativa)
-        correcao = (ultima.get("correcao_prompt") or
-                    "Corrija rigorosamente os defeitos visuais apontados na análise anterior.")
+        # --- Retry inteligente: acumula a correção e escalona quando o defeito REPETE ---
+        motivos_qa = ultima.get("motivos", []) or []
+        codigos_agora = {m.get("codigo") for m in motivos_qa if m.get("codigo")}
+        repetiu = bool(codigos_agora & codigos_antes)   # mesmo defeito de uma tentativa anterior
+        codigos_antes |= codigos_agora
+        base = (ultima.get("correcao_prompt") or "").strip()
+        if base:
+            correcoes.append(base)
+        if repetiu and tentativa < limite:
+            # O MESMO defeito voltou: é o PROMPT. Reescreve a correção atacando a causa.
+            doc = _prompt_doctor(cena, motivos_qa, correcoes)
+            correcao = doc or ("; ".join(correcoes[-3:]) +
+                               " — este defeito PERSISTE; mude a pose/composição/enquadramento pra eliminá-lo.")
+        else:
+            # Defeito novo (ou 1ª vez): acumula as correções recentes, sem esquecer.
+            correcao = "; ".join(correcoes[-3:]) if correcoes else \
+                "Corrija rigorosamente os defeitos visuais apontados na análise anterior."
     motivos = "; ".join(str(x.get("detalhe") or x.get("codigo")) for x in ultima.get("motivos", []))
     raise RuntimeError(f"Keyframe reprovado após {limite} tentativas: {motivos}")
 
