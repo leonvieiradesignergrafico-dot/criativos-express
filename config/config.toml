@@ -61,7 +61,7 @@ resolution = "720p"
 workers = 2
 timeout = 900
 # Projeto GCP do Veo. Pode ficar aqui ou em VEO_PROJECT no .env.
-veo_project = "project-b6882b4a-2f8c-4319-afe"
+veo_project = "capable-fuze-506422-c2"
 
 [video.precos_usd]
 # Preço por clipe de 5s em USD (só para a ESTIMATIVA na UI). Sai do crédito grátis do Google.
