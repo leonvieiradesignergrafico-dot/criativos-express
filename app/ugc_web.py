@@ -627,20 +627,34 @@ def gerar_keyframes(produto, vid):
 
 @ugc.post("/api/aceitar_keyframe/<produto>/<vid>/<int:n>")
 def aceitar_keyframe(produto, vid, n):
-    """Escape hatch: aceita a ÚLTIMA imagem reprovada da cena como keyframe, mesmo que o
-    QA tenha reprovado (o usuário decide). Promove o descarte mais recente."""
+    """Escape hatch: promove uma imagem reprovada da cena a keyframe, mesmo com o QA
+    tendo reprovado (o usuário decide). Sem 'tentativa' no corpo, usa o descarte mais
+    recente; com 'tentativa' (nome da pasta, ex.: 'tentativa_06_keyframe'), usa AQUELE
+    descarte específico — às vezes o usuário prefere uma tentativa antiga."""
     import shutil
+    dado = request.get_json(silent=True) or {}
+    escolha = str(dado.get("tentativa") or "").strip()
     d = video_dir(produto, vid)
     base = d / "descartados" / f"cena_{n:02d}"
     origem = None
     if base.exists():
-        for pasta in sorted(base.glob("tentativa_*"), reverse=True):  # mais recente primeiro
-            img = next((x for x in pasta.iterdir() if x.suffix.lower() in {".png", ".jpg"}), None)
-            if img:
-                origem = img
-                break
+        if escolha:
+            # safe_descendant barra path traversal ('..'/absoluto): só pastas desta cena.
+            try:
+                pasta = safe_descendant(base, escolha)
+            except ValueError:
+                return _erro("Tentativa inválida.", 400)
+            if pasta.is_dir():
+                origem = next((x for x in pasta.iterdir()
+                               if x.suffix.lower() in {".png", ".jpg"}), None)
+        else:
+            for pasta in sorted(base.glob("tentativa_*"), reverse=True):  # mais recente primeiro
+                img = next((x for x in pasta.iterdir() if x.suffix.lower() in {".png", ".jpg"}), None)
+                if img:
+                    origem = img
+                    break
     if not origem:
-        return _erro("Não há imagem reprovada pra aceitar nesta cena — clique 'Gerar de novo'.", 404)
+        return _erro("Não achei essa imagem reprovada pra aceitar — clique 'Gerar de novo'.", 404)
     out_dir = d / "keyframes"
     out_dir.mkdir(parents=True, exist_ok=True)
     destino = out_dir / f"cena_{n:02d}.png"

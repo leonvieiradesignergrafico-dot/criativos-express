@@ -1039,7 +1039,11 @@ function htmlQualidade(c) {
     const media = x.url ? (x.tipo === ".mp4"
       ? `<video src="${x.url}" controls playsinline preload="metadata"></video>`
       : `<img src="${x.url}" loading="lazy">`) : "";
-    return `<div class="qa-descarte">${media}<small>${esc(x.tentativa)} · ${esc(x.etapa || "")}</small><span>${razoes}</span></div>`;
+    // Só imagens (keyframe) podem ser promovidas — um descarte de clipe (.mp4) não vira keyframe.
+    const usar = (x.url && x.tipo !== ".mp4")
+      ? `<button class="btn mini ghost" data-acao="usar-descarte" data-tentativa="${esc(x.tentativa)}">Usar esta</button>`
+      : "";
+    return `<div class="qa-descarte">${media}<small>${esc(x.tentativa)} · ${esc(x.etapa || "")}</small><span>${razoes}</span>${usar}</div>`;
   }).join("");
   return aviso + `<details class="qa-descartados"><summary>Ver ${descartados.length} tentativa(s) descartada(s)</summary><div class="qa-grade">${galeria}</div></details>`;
 }
@@ -1142,6 +1146,11 @@ $("gradeKeyframes").addEventListener("click", async (e) => {
     if (btn.dataset.acao === "aceitar") {
       await api(`/api/aceitar_keyframe${base}/${n}`, {});
       toast("Cena aceita ✓");
+    }
+    if (btn.dataset.acao === "usar-descarte") {
+      // Promove um descarte ESPECÍFICO da galeria (o usuário preferiu essa tentativa).
+      await api(`/api/aceitar_keyframe${base}/${n}`, { tentativa: btn.dataset.tentativa });
+      toast("Pronto — usando a tentativa escolhida ✓");
     }
     await atualizar();
   } catch (err) { toast(err.message, true); }

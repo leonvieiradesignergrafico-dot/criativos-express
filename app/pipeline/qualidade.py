@@ -109,8 +109,15 @@ def contrato_cena(cena: dict) -> dict:
     fmt = (cena.get("formato_video") or "").lower()
     geo = dict(cena.get("geometria") or {})
     espelho = any(x in prompt for x in ("espelho", "reflexo", "mirror"))
-    mostra_tela = tipo in ("tela_dispositivo", "avatar_aponta_tela") or any(
-        x in prompt for x in ("mostrar a tela", "mostra a tela", "tela do celular"))
+    # "Mostra a tela" = a cena cujo PONTO é exibir a tela/dispositivo (o celular/notebook É o
+    # herói do quadro). Nessas o celular DEVE aparecer — não é defeito, mesmo em vídeo selfie.
+    # `mockup_resultado` (o "Resultado na tela": mão segurando o celular mostrando o app) é
+    # justamente isso e faltava aqui — caía em selfie->celular proibido e o QA reprovava um
+    # clipe correto. O celular só é proibido na SELFIE PURA (câmera frontal = o próprio celular).
+    mostra_tela = tipo in ("tela_dispositivo", "mockup_resultado", "avatar_aponta_tela") or any(
+        x in prompt for x in ("mostrar a tela", "mostra a tela", "tela do celular",
+                              "resultado na tela", "na tela do", "segurando o celular",
+                              "tela do aparelho", "tela do dispositivo"))
     selfie = _eh_selfie(fmt, prompt, espelho)
     if not geo.get("perspectiva"):
         geo["perspectiva"] = "espelho" if espelho else "camera_frontal"
