@@ -85,6 +85,17 @@ jobs:
           # SMOKE_VERBOSE imprime o traceback completo de cada falha no log do Actions.
           SMOKE_VERBOSE=1 "$APP" --smoke
 
+      - name: Teste de fumaça com o ambiente do Finder (PATH mínimo)
+        run: |
+          set -e
+          APP="dist/Ads Express.app/Contents/MacOS/Ads Express"
+          # Um .app aberto pelo Finder NÃO herda o shell do usuário: o PATH é só
+          # /usr/bin:/bin:/usr/sbin:/sbin — sem Homebrew, sem npm, sem gcloud. É o gotcha
+          # nº 1 de app GUI no macOS e o teste normal (rodado do terminal) o esconde.
+          # Aqui reproduzimos esse ambiente pelado: o app tem que se virar sozinho
+          # (workspace.py prepende os diretórios canônicos + cli_paths.env).
+          env -i HOME="$HOME" USER="$USER" TMPDIR="${TMPDIR:-/tmp}"                  PATH="/usr/bin:/bin:/usr/sbin:/sbin" SMOKE_VERBOSE=1                  "$APP" --smoke
+
       - name: Publicar o .dmg na página de Releases
         env:
           GH_TOKEN: ${{ github.token }}
