@@ -57,7 +57,18 @@ _wv_datas, _wv_binaries, _wv_hidden = collect_all("webview")
 datas += _wv_datas
 binaries += _wv_binaries
 
-hiddenimports = list(_wv_hidden)
+# certifi: bundle de CAs. No macOS o ssl do Python não lê o Keychain do sistema, então
+# sem isto TODO HTTPS feito de dentro do app congelado falha com CERTIFICATE_VERIFY_FAILED
+# (era o que derrubava a geração de clipes no Veo). O rthook_ssl_certs.py, registrado em
+# runtime_hooks lá embaixo, aponta o SSL_CERT_FILE para este bundle no start do processo.
+try:
+    _cf_datas, _cf_binaries, _cf_hidden = collect_all("certifi")
+except Exception:
+    _cf_datas, _cf_binaries, _cf_hidden = [], [], []
+datas += _cf_datas
+binaries += _cf_binaries
+
+hiddenimports = list(_wv_hidden) + list(_cf_hidden) + ["certifi"]
 
 # Backend de janela do pywebview no macOS = Cocoa (WebKit). NÃO os do Windows.
 hiddenimports += [
@@ -90,7 +101,7 @@ a = Analysis(
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
-    runtime_hooks=[],
+    runtime_hooks=[_p("packaging", "rthook_ssl_certs.py")],
     # No Mac não usamos os toolkits Windows nem Qt; tkinter puxa Tcl/Tk à toa.
     excludes=["tkinter", "PyQt5", "PySide2", "PySide6", "cefpython3",
               "clr", "clr_loader", "pythonnet"],

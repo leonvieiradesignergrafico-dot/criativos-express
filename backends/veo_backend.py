@@ -19,6 +19,7 @@ import mimetypes
 import os
 import random
 import shutil
+import ssl
 import subprocess
 import threading
 import time
@@ -178,13 +179,33 @@ def _base() -> str:
             f"/locations/{REGION}/publishers/google/models")
 
 
+_ctx_cache = []
+
+
+def _ssl_ctx():
+    """Contexto SSL com CAs válidas. No macOS (principalmente dentro do .app congelado) o
+    ssl do Python não enxerga o Keychain do sistema e o verify falha com
+    "unable to get local issuer certificate" — o certifi resolve. No Windows/Linux o
+    contexto padrão já funciona; aqui o certifi só é usado se estiver instalado."""
+    if _ctx_cache:
+        return _ctx_cache[0]
+    ctx = None
+    try:
+        import certifi
+        ctx = ssl.create_default_context(cafile=certifi.where())
+    except Exception:  # noqa: BLE001 — sem certifi, usa o padrão do sistema
+        ctx = ssl.create_default_context()
+    _ctx_cache.append(ctx)
+    return ctx
+
+
 def _post(url: str, body: dict, token: str, timeout: int = 120) -> dict:
     req = urllib.request.Request(
         url, data=json.dumps(body).encode(),
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
         method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
+        with urllib.request.urlopen(req, timeout=timeout, context=_ssl_ctx()) as r:
             return json.load(r)
     except urllib.error.HTTPError as e:  # noqa: PERF203
         raise RuntimeError(f"Vertex/Veo recusou ({e.code}): {e.read().decode(errors='replace')[:600]}")

@@ -4,3 +4,5 @@ pillow>=10.0
 pywebview>=5.0
 # openai só é necessário se você usar o backend "api" (fallback pago)
 openai>=1.40
+# certifi: CAs para o HTTPS do Python. Obrigatorio no macOS (o ssl nao le o Keychain)
+certifi>=2024.2
