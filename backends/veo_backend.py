@@ -81,6 +81,13 @@ def _gcloud() -> str:
         return exe
     if Path(_GCLOUD_DEFAULT).exists():
         return _GCLOUD_DEFAULT
+    # Mac: locais canônicos do SDK (instalador oficial no home; cask do brew em share/).
+    for c in (Path.home() / "google-cloud-sdk" / "bin" / "gcloud",
+              Path("/usr/local/share/google-cloud-sdk/bin/gcloud"),
+              Path("/opt/homebrew/share/google-cloud-sdk/bin/gcloud"),
+              Path("/opt/homebrew/bin/gcloud"), Path("/usr/local/bin/gcloud")):
+        if c.exists():
+            return str(c)
     raise RuntimeError("gcloud não encontrado. Instale o Google Cloud SDK e rode 'gcloud auth login'.")
 
 

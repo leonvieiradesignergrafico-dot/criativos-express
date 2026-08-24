@@ -59,7 +59,21 @@ def _esperar_servidor(timeout=15):
     return False
 
 
+def _smoke() -> int:
+    """--smoke: roda o teste de fumaça DENTRO deste bundle e sai. Usado pelo CI (no
+    runner macOS, em cima do .app já buildado) e por quem quiser diagnosticar a própria
+    instalação sem rodar o pipeline inteiro. Ver packaging/smoke_test.py."""
+    if not getattr(sys, "frozen", False):
+        aqui = str(Path(__file__).resolve().parent)
+        if aqui not in sys.path:
+            sys.path.insert(0, aqui)
+    import smoke_test
+    return smoke_test.rodar()
+
+
 def main():
+    if "--smoke" in sys.argv:
+        sys.exit(_smoke())
     _checar_setup_primeira_vez()
     threading.Thread(target=_run_server, daemon=True).start()
     _esperar_servidor()

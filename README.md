@@ -91,3 +91,24 @@ Os criativos ficam em `products/<produto>/output/criativos/`.
 ## Regra absoluta
 Todo criativo usa as fotos de `referencia/` e mantém o produto **idêntico** ao real —
 só variando ângulo, iluminação, fundo e ambientação. Essa regra é injetada em toda geração.
+
+## Diagnóstico rápido (teste de fumaça)
+Antes de rodar um pipeline inteiro pra descobrir no último passo que algo quebrou, dá pra
+pedir o diagnóstico completo ao próprio app (10s, não gasta geração):
+
+```bash
+# Mac
+"/Applications/Ads Express.app/Contents/MacOS/Ads Express" --smoke
+```
+```powershell
+# Windows
+& "$env:LOCALAPPDATA\Programs\Ads Express\Ads Express.exe" --smoke
+```
+
+Ele checa: bundle de CAs/TLS (a causa do `CERTIFICATE_VERIFY_FAILED` no Mac), HTTPS real
+contra Vertex/Anthropic/npm, todos os imports do bundle, assets, pasta gravável, rotas do
+Flask, as CLIs (node/claude/codex/ffmpeg/gcloud) e o token do Google ponta a ponta.
+`FALHA` = quebrado; `AVISO` = depende da máquina (ffmpeg ausente, login não feito).
+
+Esse mesmo teste roda no CI (`.github/workflows/build-mac.yml`) em cima do `.app` já
+buildado, **antes** de publicar o `.dmg` — build que não passa não vira release.

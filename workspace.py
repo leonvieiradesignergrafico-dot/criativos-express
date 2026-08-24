@@ -66,12 +66,22 @@ def _dirs_fixos_macos() -> list[str]:
     Vazio fora do macOS (o Windows usa só o cli_paths.env)."""
     if sys.platform != "darwin":
         return []
+    suporte = Path.home() / "Library" / "Application Support" / "Ads Express"
     return [
+        # Prefixo npm do NOSSO instalador de Mac (installer_mac.py: APP_SUPPORT/npm-global).
+        # É onde claude/codex realmente caem numa instalação limpa — sem isto, dependíamos
+        # só do cli_paths.env; se ele não for gravado, o app não acha as CLIs.
+        str(suporte / "npm-global" / "bin"),
         "/opt/homebrew/bin", "/opt/homebrew/sbin",   # Apple Silicon (brew)
         "/usr/local/bin", "/usr/local/sbin",           # Intel (brew) / geral
         str(Path.home() / ".nvm" / "current" / "bin"),  # nvm (prometido no README_MAC)
         str(Path.home() / ".npm-global" / "bin"),      # npm prefix custom comum
         str(Path.home() / ".local" / "bin"),
+        # Google Cloud SDK: o instalador oficial (tar.gz) cai no home; o cask do brew
+        # coloca o gcloud em share/. Sem estes, o Veo não acha o gcloud e não há token.
+        str(Path.home() / "google-cloud-sdk" / "bin"),
+        "/usr/local/share/google-cloud-sdk/bin",
+        "/opt/homebrew/share/google-cloud-sdk/bin",
     ]
 
 

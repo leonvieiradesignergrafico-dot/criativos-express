@@ -62,6 +62,29 @@ jobs:
           echo "== artefatos gerados =="
           ls -la *.dmg dist 2>/dev/null || true
 
+      # --- PORTÃO DE QUALIDADE ------------------------------------------------
+      # O runner É um Mac: dá pra rodar o app JÁ CONGELADO aqui e provar que ele
+      # funciona antes de virar release. Sem isto, o único teste era o Leon instalar
+      # o .dmg e rodar o pipeline inteiro até quebrar no último passo (foi assim que
+      # o CERTIFICATE_VERIFY_FAILED da geração de clipes apareceu).
+      - name: Instalar gcloud (para o teste ponta a ponta do Veo)
+        continue-on-error: true
+        run: |
+          set -e
+          cd "$RUNNER_TEMP"
+          URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz"
+          curl -fsSL --retry 3 -o gcloud.tar.gz "$URL"
+          tar -xzf gcloud.tar.gz
+          echo "$RUNNER_TEMP/google-cloud-sdk/bin" >> "$GITHUB_PATH"
+
+      - name: Teste de fumaça no .app buildado
+        run: |
+          set -e
+          APP="dist/Ads Express.app/Contents/MacOS/Ads Express"
+          test -x "$APP" || { echo "ERRO: binário do .app não existe em $APP"; exit 1; }
+          # SMOKE_VERBOSE imprime o traceback completo de cada falha no log do Actions.
+          SMOKE_VERBOSE=1 "$APP" --smoke
+
       - name: Publicar o .dmg na página de Releases
         env:
           GH_TOKEN: ${{ github.token }}

@@ -84,7 +84,12 @@ for _mod in ("objc", "Foundation", "AppKit", "WebKit", "Quartz", "Cocoa",
 # Nossos pacotes com imports dinâmicos (escolhidos por config em runtime).
 hiddenimports += collect_submodules("backends")
 hiddenimports += collect_submodules("app.pipeline")
-hiddenimports += ["app.server", "app.ugc_web", "gerar", "workspace"]
+hiddenimports += ["app.server", "app.ugc_web", "gerar", "gerar_ugc", "workspace"]
+# smoke_test: teste de fumaca embutido, chamado com --smoke (o CI roda no .app buildado).
+hiddenimports += ["smoke_test"]
+# requests (TTS ElevenLabs) e edge_tts (TTS gratis) sao imports TARDIOS: sem
+# declarar aqui, o PyInstaller pode nao empacotar e o erro so aparece ao usar a voz.
+hiddenimports += ["requests", "edge_tts"]
 
 # Flask/Jinja e stdlib/terceiros que a análise às vezes perde.
 hiddenimports += [
@@ -95,7 +100,8 @@ hiddenimports += [
 
 a = Analysis(
     [_p("packaging", "desktop.py")],
-    pathex=[ROOT],
+    # packaging/ no pathex: o entry (desktop.py) importa smoke_test.py de lá (--smoke).
+    pathex=[ROOT, _p("packaging")],
     binaries=binaries,
     datas=datas,
     hiddenimports=hiddenimports,

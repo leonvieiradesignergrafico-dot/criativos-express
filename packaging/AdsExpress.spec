@@ -52,6 +52,9 @@ hiddenimports += collect_submodules("app.pipeline")
 hiddenimports += ["app.server", "app.ugc_web", "gerar", "workspace"]
 # Stdlib/terceiros que a análise às vezes perde.
 hiddenimports += ["tomllib", "dotenv", "PIL", "PIL.Image"]
+# requests (TTS ElevenLabs) e edge_tts (TTS gratis) sao imports TARDIOS: sem
+# declarar aqui, o PyInstaller pode nao empacotar e o erro so aparece ao usar a voz.
+hiddenimports += ["requests", "edge_tts"]
 
 
 a = Analysis(

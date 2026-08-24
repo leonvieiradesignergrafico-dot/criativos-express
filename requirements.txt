@@ -6,3 +6,8 @@ pywebview>=5.0
 openai>=1.40
 # certifi: CAs para o HTTPS do Python. Obrigatorio no macOS (o ssl nao le o Keychain)
 certifi>=2024.2
+# requests: usado pelo backend de TTS da ElevenLabs (engine padrao do voz.json).
+# Nao estava declarado: no app empacotado 'testar voz' morria com ModuleNotFoundError.
+requests>=2.31
+# edge-tts: TTS gratis (engine 'edge'). Import tardio dentro de tts_edge_backend.
+edge-tts>=6.1
