@@ -60,3 +60,7 @@ avatares/*/voz/*.wav
 # Influenciadores (fotos de pessoas reais não vão pro git)
 config/influenciadores/*/referencia/
 influenciadores/*/referencia/
+
+# Backups locais de config (ex.: config.toml.bak-baba) nao vao pro repo
+*.bak-*
+*.bak
