@@ -12,6 +12,7 @@ from pathlib import Path
 from workspace import (VIDEOS, atomic_write_json, carregar_config, ler_json, pessoa_dir,
                        product_dir, tipo_produto, video_dir)
 from app import console_log
+from backends.codex_backend import ConteudoBloqueado
 from app.pipeline import formatos_video as fv
 from app.pipeline import qualidade
 from app.pipeline._status import JobStatus
@@ -346,8 +347,48 @@ def _mapa_ancoras(roteiro: dict) -> dict[int, int]:
     return dep
 
 
+# --- Produtos de corpo/pele (celulite, estrias, flacidez) ---------------------------
+# O PROBLEMA REAL: uma cena de "mostrar a coxa" descrita de forma genérica sai parecendo
+# foto sensual — e o filtro de conteúdo da OpenAI recusa (moderation_blocked), travando o
+# produto inteiro. A saída NÃO é disfarçar o pedido: é descrever a cena como ela deveria
+# ser num anúncio de cosmético de verdade — registro clínico/fitness, pessoa vestida em
+# roupa de treino, foco no GESTO de aplicar o produto e no rosto/reação, sem close de pele
+# e sem pose de ensaio. Isso passa no filtro E dá um criativo melhor pra anúncio.
+_TERMOS_CORPO = (
+    "celulite", "celulites", "estria", "estrias", "flacidez", "gordura localizada",
+    "bumbum", "gluteo", "glúteo", "gluteos", "glúteos", "coxa", "coxas", "culote",
+    "barriga", "abdomen", "abdômen", "medidas", "modelador", "redutor", "firmador",
+    "anticelulite", "anti-celulite", "drenagem", "lipo", "biquini", "biquíni",
+)
+
+_BLOCO_CLINICO = (
+    "REGISTRO OBRIGATÓRIO DESTA CENA (produto de corpo/pele): trate como anúncio de "
+    "cosmético/dermocosmético, NÃO como ensaio fotográfico. A pessoa aparece VESTIDA com "
+    "roupa de treino comum (short de academia + top/camiseta) ou legging; enquadramento em "
+    "PLANO MÉDIO ou ABERTO, câmera na altura dos olhos, luz neutra de clínica/estúdio de "
+    "pilates. O foco da imagem é o GESTO de aplicar/massagear o produto e a EXPRESSÃO do "
+    "rosto — não a anatomia. PROIBIDO: close fechado em pele nua, recorte que isola nádegas "
+    "ou virilha, pose sensual/insinuante, lingerie, biquíni, roupa molhada, ângulo de baixo "
+    "pra cima. A área tratada pode aparecer naturalmente dentro do plano, coberta pela roupa "
+    "de treino, como apareceria numa aula de ginástica."
+)
+
+
+def _precisa_modo_clinico(roteiro: dict, cena: dict) -> bool:
+    """True quando produto/cena são de corpo-pele — aí a cena já nasce em registro clínico,
+    em vez de gastar uma recusa da OpenAI pra só então reenquadrar."""
+    alvos = [str(roteiro.get("produto") or ""), str(cena.get("prompt_keyframe") or ""),
+             str(cena.get("fala") or ""), str(cena.get("tipo") or ""),
+             str(roteiro.get("angulo") or "")]
+    texto = " ".join(alvos).lower()
+    return any(t in texto for t in _TERMOS_CORPO)
+
+
+_JUNTA = "\n\n"   # separador entre blocos do prompt
+
+
 def montar_prompt(roteiro: dict, cena: dict, extra: str | None = None,
-                  anchor: bool = False) -> str:
+                  anchor: bool = False, modo_clinico_reforcado: bool = False) -> str:
     digital = roteiro.get("tipo_produto") == "digital"
     # Ofertas digitais podem precisar mostrar o RESULTADO físico prometido (comida,
     # artesanato etc.) como b-roll. Nesses tipos físicos, não force notebook/tela:
@@ -504,8 +545,24 @@ def montar_prompt(roteiro: dict, cena: dict, extra: str | None = None,
                   "Se fosse ficar grande ou distorcido, AFASTE a câmera e mostre o objeto inteiro em ângulo "
                   "natural, com a mão/mesa dando escala — melhor menor e correto do que grande e distorcido.")
     # VESTUÁRIO SEGURO — evita que o filtro de conteúdo da OpenAI barre a cena (pele/corpo).
-    # A pessoa sempre vestida e casual; nada de pele nua em close nem pose sensual. Vale pra
-    # TODO keyframe (crucial em produtos de corpo — celulite, emagrecimento, etc.).
+    # A pessoa sempre vestida e casual; nada de pele nua em close nem pose sensual.
+    #
+    # EXCEÇÃO (produto de corpo/pele): a regra genérica abaixo exige "no máximo do meio da
+    # coxa pra cima" — o que CONTRADIZ uma cena de celulite, que precisa mostrar a coxa. Um
+    # prompt que manda mostrar e proibir ao mesmo tempo gera imagem confusa e ainda assim é
+    # recusado. Nesses produtos entra o _BLOCO_CLINICO no lugar: mesma proteção (vestida,
+    # sem close de pele, sem pose sensual), mas com o enquadramento que o anúncio precisa.
+    if _precisa_modo_clinico(roteiro, cena):
+        blocos.append(_BLOCO_CLINICO)
+        blocos.append("Formato: vertical 9:16 (1024x1536), frame de vídeo caseiro fotorrealista.")
+        if modo_clinico_reforcado:
+            blocos.append(
+                "REFORÇO (a geração anterior desta cena foi recusada pelo filtro de conteúdo): "
+                "afaste ainda mais a câmera (plano aberto, pessoa inteira no quadro), mantenha a "
+                "pessoa em roupa de treino comum e desloque o assunto pro PRODUTO na mão e pro "
+                "ROSTO. A área tratada aparece só de relance, ao fundo do gesto — nunca como "
+                "assunto central do quadro.")
+        return _JUNTA.join(blocos)
     blocos.append("VESTUÁRIO E ENQUADRAMENTO (regra dura, prioridade máxima): a pessoa está SEMPRE "
                   "claramente VESTIDA com roupa casual do dia a dia — camiseta/top comum em cima e "
                   "short, bermuda ou calça embaixo. NUNCA de biquíni, lingerie, sem camisa, decote "
@@ -518,7 +575,7 @@ def montar_prompt(roteiro: dict, cena: dict, extra: str | None = None,
 
 
 def gerar_um_keyframe(roteiro: dict, cena: dict, out_dir: Path, cancel_event=None,
-                      extra: str | None = None) -> str:
+                      extra: str | None = None, modo_clinico_reforcado: bool = False) -> str:
     cfg = carregar_config().get("keyframes", {})
     # CASTING: só anexa fotos de referência quando o papel/elenco desta cena pede uma pessoa
     # recorrente (solo, ou o papel de AUTORIDADE em multi). Nos demais (2º interlocutor,
@@ -557,7 +614,8 @@ def gerar_um_keyframe(roteiro: dict, cena: dict, out_dir: Path, cancel_event=Non
                     "rosto, cabelo, barba, cor de pele e o FIGURINO COMPLETO idênticos (mesmo top, MESMA calça/"
                     "parte de baixo, mesmos calçados) E o mesmo cenário/luz; mude só o ângulo da câmera. As fotos "
                     "da pessoa anexadas antes servem só pra reforçar o ROSTO — nunca pra trocar a roupa.")
-    prompt = montar_prompt(roteiro, cena, extra=extra, anchor=bool(anchor_path))
+    prompt = montar_prompt(roteiro, cena, extra=extra, anchor=bool(anchor_path),
+                           modo_clinico_reforcado=modo_clinico_reforcado)
     out_file = out_dir / f"cena_{cena['n']:02d}.png"
     tmp = out_dir / f".cena_{cena['n']:02d}.{uuid.uuid4().hex}.tmp.png"
     backend = cfg.get("backend", "codex")
@@ -611,7 +669,8 @@ def _prompt_doctor(cena: dict, motivos: list, correcoes: list) -> str | None:
 
 def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
                             cancel_event=None, extra: str | None = None,
-                            on_estado=None) -> tuple[str, dict, int]:
+                            on_estado=None,
+                            manter_sempre: bool = False) -> tuple[str, dict, int]:
     """Gera, analisa e regenera o keyframe antes de liberar qualquer animação paga.
 
     Retry INTELIGENTE: acumula as correções (não esquece) e, se o MESMO defeito repete,
@@ -619,6 +678,13 @@ def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
     mesmo approach 3x e desistir."""
     qcfg = carregar_config().get("qualidade", {})
     limite = max(1, int(qcfg.get("max_tentativas_keyframe", 4)))
+    # manter_sempre = veio de um REFINO pedido pelo usuário. Aí o QA vira PARECER, não juiz:
+    # uma tentativa só, e a imagem é entregue mesmo se o QA reclamar. Descartar o que o
+    # usuário pediu (e ainda "corrigir" contra o pedido dele nas tentativas seguintes) é o
+    # oposto do que ele quis. Ele decide se serve.
+    if manter_sempre:
+        limite = 1
+    reforcado = False              # 2ª chance com reenquadramento, após recusa de conteúdo
     correcao = extra
     correcoes: list[str] = []      # acumula as correções (memória entre tentativas)
     codigos_antes: set = set()     # defeitos já vistos (detecta repetição)
@@ -630,7 +696,23 @@ def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
         if cancel_event is not None and cancel_event.is_set():
             raise RuntimeError("Geração cancelada.")
         _t_gen = time.time()
-        nome = gerar_um_keyframe(roteiro, cena, out_dir, cancel_event=cancel_event, extra=correcao)
+        try:
+            nome = gerar_um_keyframe(roteiro, cena, out_dir, cancel_event=cancel_event,
+                                     extra=correcao, modo_clinico_reforcado=reforcado)
+        except ConteudoBloqueado:
+            # O filtro de conteúdo da OpenAI recusou. Em produto de corpo/pele isso quase
+            # sempre é a CENA descrita de um jeito que soa ensaio sensual. Damos UMA segunda
+            # chance com a cena reenquadrada de verdade (plano aberto, foco no produto e no
+            # rosto) — que é como o anúncio deveria ser de qualquer forma. Se recusar de novo,
+            # falha com instrução clara, sem queimar as 4 tentativas repetindo o mesmo.
+            if reforcado or not _precisa_modo_clinico(roteiro, cena):
+                raise
+            reforcado = True
+            console_log.registrar(
+                "AVISO", f"cena_{cena['n']:02d}: recusada pelo filtro de conteúdo; "
+                         "reenquadrando em plano aberto com foco no produto e tentando de novo.")
+            nome = gerar_um_keyframe(roteiro, cena, out_dir, cancel_event=cancel_event,
+                                     extra=correcao, modo_clinico_reforcado=True)
         _dt_gen = time.time() - _t_gen
         path = out_dir / nome
         # Continuidade visual: compare o candidato com até dois keyframes aprovados do
@@ -656,6 +738,12 @@ def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
                     f"QA {time.time() - _t_qa:.0f}s -> "
                     f"{'aprovado' if ultima.get('aprovado') else 'reprovado'}")
         if ultima.get("aprovado"):
+            return nome, ultima, tentativa
+        if manter_sempre:
+            # Refino pedido pelo usuário: entrega assim mesmo, com o parecer do QA junto.
+            console_log.registrar(
+                "INFO", f"cena_{cena['n']:02d}: refino MANTIDO apesar da ressalva do QA "
+                        "(foi voce que pediu; o parecer fica registrado no card).")
             return nome, ultima, tentativa
         qualidade.arquivar_descarte(out_dir.parent, cena, "keyframe", path, ultima,
                                     montar_prompt(roteiro, cena, extra=correcao))

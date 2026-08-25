@@ -838,8 +838,12 @@ def refinar_keyframe(produto, vid, n):
         status = JobStatus(d_ / "status.json", "keyframes", 1)
         try:
             status.comecou(f"cena_{n:02d}")
+            # manter_sempre: o QA NAO descarta o resultado de um refino que o usuario
+            # pediu — ele vira parecer, exibido no card. Antes, pedir um ajuste e receber
+            # exatamente ele de volta nao bastava: o QA reprovava e jogava fora.
             nome, analise, tentativas = keyframes_mod.gerar_keyframe_validado(
-                rot_, cena_, d_ / "keyframes", cancel_event=cancel_event, extra=extra)
+                rot_, cena_, d_ / "keyframes", cancel_event=cancel_event, extra=extra,
+                manter_sempre=True)
             atual = ler_json(d_ / "roteiro.json")
             for c in atual["cenas"]:
                 if c["n"] == n:
@@ -847,9 +851,12 @@ def refinar_keyframe(produto, vid, n):
                                           "tentativas": int(c["keyframe"].get("tentativas") or 0) + tentativas})
                     c["clipe"] = {"arquivo": None, "gerado": False, "fal_request_id": None,
                                   "erro": None, "lipsync_aplicado": False}
-                    c["qualidade"] = {"estado": "aprovado", "etapa": "keyframe",
-                                      "tentativa": tentativas, "motivos": [],
-                                      "descartes": max(0, tentativas - 1), "analise": analise}
+                    _ok_qa = bool(analise.get("aprovado"))
+                    c["qualidade"] = {
+                        "estado": "aprovado" if _ok_qa else "aprovado_ressalva",
+                        "etapa": "keyframe", "tentativa": tentativas,
+                        "motivos": [] if _ok_qa else (analise.get("motivos") or []),
+                        "descartes": max(0, tentativas - 1), "analise": analise}
             atomic_write_json(d_ / "roteiro.json", atual)
             status.terminou(f"cena_{n:02d}")
         except Exception as e:  # noqa: BLE001

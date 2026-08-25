@@ -1029,6 +1029,10 @@ function htmlQualidade(c) {
       + ` · tentativa ${Number(q.tentativa || 1)}${motivos ? `<br>${motivos}` : ""}</div>`;
   } else if (estado === "reprovado") {
     aviso = `<div class="qa-aviso erro"><b>Reprovado pelo controle de qualidade</b>${motivos ? `<br>${motivos}` : ""}</div>`;
+  } else if (estado === "aprovado_ressalva") {
+    // Refino pedido pelo usuário: entregue sempre. O QA aparece como opinião, não veredito.
+    aviso = `<div class="qa-aviso aprovado">✓ Refino aplicado (mantido a seu pedido)`
+      + `${motivos ? `<br><small>O controle de qualidade observou: ${motivos}</small>` : ""}</div>`;
   } else if (estado === "aprovado") {
     aviso = `<div class="qa-aviso aprovado">✓ Controle de qualidade aprovado${q.descartes ? ` após ${q.descartes} descarte(s)` : ""}</div>`;
   }

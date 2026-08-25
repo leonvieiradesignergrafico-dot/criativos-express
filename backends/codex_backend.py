@@ -82,6 +82,12 @@ _RE_PNG_STDOUT = re.compile(
 _RE_SESSION = re.compile(r"session[\s_-]*id\s*:?\s*([0-9a-f][0-9a-f-]{7,})", re.IGNORECASE)
 
 
+class ConteudoBloqueado(RuntimeError):
+    """O filtro de conteúdo da OpenAI recusou a cena (não é erro do app, não é retentável
+    do jeito que está). Classe própria pra o pipeline poder REENQUADRAR a cena e tentar de
+    novo, em vez de tratar como falha genérica. Ver keyframes._BLOCO_CLINICO."""
+
+
 def _run_codex(cmd: list[str], timeout: int, cwd: str | None, cancel_event=None):
     """Roda o Codex de forma robusta no Windows.
 
@@ -342,7 +348,7 @@ def generate(
                     # humana + orientação, em vez do erro cru assustador.
                     if ("moderation_blocked" in _low or "safety system" in _low
                             or "safety_violations" in _low or "rejected by the safety" in _low):
-                        raise RuntimeError(
+                        raise ConteudoBloqueado(
                             "A OpenAI bloqueou esta cena pelo filtro de conteúdo DELA (não é erro "
                             "do app). Costuma acontecer com pele/corpo em close (ex.: celulite, "
                             "biquíni). Reformule a cena — pessoa vestida, sem close no corpo/pele, "
