@@ -49,7 +49,7 @@ hiddenimports += ["clr", "clr_loader", "pythonnet", "proxy_tools", "bottle"]
 # Nossos pacotes com imports dinâmicos (escolhidos por config em runtime).
 hiddenimports += collect_submodules("backends")
 hiddenimports += collect_submodules("app.pipeline")
-hiddenimports += ["app.server", "app.ugc_web", "gerar", "workspace"]
+hiddenimports += ["app.server", "app.ugc_web", "gerar", "gerar_ugc", "workspace"]
 # Stdlib/terceiros que a análise às vezes perde.
 hiddenimports += ["tomllib", "dotenv", "PIL", "PIL.Image"]
 # requests (TTS ElevenLabs) e edge_tts (TTS gratis) sao imports TARDIOS: sem
