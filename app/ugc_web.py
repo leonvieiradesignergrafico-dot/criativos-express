@@ -75,6 +75,12 @@ def _n_roteiros_do_texto(msg: str) -> int:
         return 0
 
 
+def _modelo_veo_cfg() -> str:
+    """Modelo Veo configurado ([video].modelo_veo). Fonte unica pra quem precisa do
+    padrao da casa sem repetir o slug espalhado pelo codigo."""
+    return (carregar_config().get("video", {}) or {}).get("modelo_veo") or "veo_lite"
+
+
 def _mtime(p: Path) -> int:
     try:
         return int(p.stat().st_mtime)
@@ -176,7 +182,7 @@ def config_api():
     cfg = carregar_config()
     v = cfg.get("video", {})
     return jsonify({"ok": True, "motor": "veo",
-                    "modelo_veo": v.get("modelo_veo", "veo_fast"),
+                    "modelo_veo": v.get("modelo_veo", "veo_lite"),
                     "precos_usd": v.get("precos_usd", {})})
 
 
@@ -957,7 +963,7 @@ def gerar_insert_clipe(produto, vid, n):
             status.comecou(f"insert_cena_{n:02d}")
             inserts_mod.gerar_clipe_insert(produto_, vid_, n,
                                            duration_s=int(dado.get("duration_s") or 5),
-                                           model=dado.get("modelo") or "veo_fast",
+                                           model=dado.get("modelo") or _modelo_veo_cfg(),
                                            cancel_event=cancel_event)
             status.terminou(f"insert_cena_{n:02d}")
         except Exception as e:  # noqa: BLE001
@@ -1120,12 +1126,21 @@ def status(produto, vid):
     full = carregar_config()
     vcfg = full.get("video", {})
     # Veo (omni): preço por clipe (5s) do modelo escolhido. Sai do crédito Google.
-    preco_clipe = float((vcfg.get("precos_usd") or {}).get(vcfg.get("modelo_veo", "veo_fast"), 0.75))
+    # O preco do config e por clipe de 5s; o Veo cobra POR SEGUNDO e so aceita 4/6/8s.
+    # Contar 0,75 por cena subestimava: cena com fala vira 8s (1,20). Conta o real.
+    preco_clipe = float((vcfg.get("precos_usd") or {}).get(vcfg.get("modelo_veo", "veo_lite"), 0.25))
+    preco_seg = preco_clipe / 5.0
+    from backends.veo_backend import _veo_dur
+    base_dur = int(vcfg.get("duracao_s", 5) or 5)
     est = 0.0
     for c in rot.get("cenas") or []:
         if c["clipe"]["gerado"]:
             continue
-        est += preco_clipe
+        narracao = (c.get("narracao") or "").strip()
+        dur = int(c.get("duracao_s") or base_dur)
+        if narracao:
+            dur = max(dur, round(len(narracao.split()) / 2.5))
+        est += _veo_dur(dur) * preco_seg
     return jsonify({"ok": True, "status": st, "estado": rot.get("estado"), "avatar": rot.get("avatar"),
                     "tipo_produto": rot.get("tipo_produto", "fisico"),
                     "pessoa_tipo": rot.get("pessoa_tipo", "avatar"),

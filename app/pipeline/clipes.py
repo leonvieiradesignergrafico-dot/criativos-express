@@ -158,9 +158,12 @@ def _gerar_clipe_cena(d: Path, rot_file: Path, rot_lock: threading.Lock, roteiro
             if movimento_planejado:
                 ajuste += f"\nPLANNED MOVEMENT (must be followed literally): {movimento_planejado}\n"
             if "baba baby" in cena["narracao"].lower():
-                ajuste += ("\nBRAND PRONUNCIATION OVERRIDE: the written brand Baba Baby is pronounced "
-                           "BAH-buh BAY-bee, English-style, with BAY as in baby; never pronounce it "
-                           "as Portuguese 'babá babi'. The phonetic spelling in the dialogue encodes this.\n")
+                ajuste += ("\nBRAND PRONUNCIATION OVERRIDE (hard rule): the brand is pronounced "
+                           "BAH-bah BAY-bee - the English word 'baby', BAY rhyming with 'day'. The "
+                           "dialogue spells it phonetically as 'Bába Beibi': read those two words "
+                           "exactly as written, as ONE brand name, clearly articulated. NEVER say the "
+                           "Portuguese word 'bebê' (be-BEH), never 'babá', never 'babi', and never "
+                           "blur the two words into one.\n")
             contexto_takes = _contexto_dos_takes(roteiro, n)
             if instrucao_take:
                 ajuste = (
@@ -247,6 +250,7 @@ def _gerar_clipe_validado(d: Path, rot_file: Path, rot_lock: threading.Lock, rot
     limite = 1 if retomar else max(1, int(qcfg.get("max_tentativas_clipe", 3)))
     n = cena["n"]
     ultima = {}
+    transcricao_anterior = None
     original = (cena.get("instrucao_clipe") or "").strip()
     for tentativa in range(1, limite + 1):
         _atualizar_cena(rot_file, rot_lock, n, qualidade={
@@ -309,6 +313,16 @@ def _gerar_clipe_validado(d: Path, rot_file: Path, rot_lock: threading.Lock, rot
         prompt_usado = original + "\n" + (cena.get("instrucao_clipe") or "")
         qualidade.arquivar_descarte(d, cena, "clipe", out, ultima, prompt_usado)
         out.unlink(missing_ok=True)
+        # Se a fala saiu IGUAL a da tentativa anterior, o Veo esta determinstico nesta
+        # cena: insistir so queima credito e devolve o mesmo audio. Para aqui.
+        atual_transcricao = (ultima.get("transcricao") or "").strip()
+        if atual_transcricao and transcricao_anterior and qualidade.fala_equivalente(
+                atual_transcricao, transcricao_anterior):
+            ultima.setdefault("motivos", []).append({
+                "codigo": "regeneracao_sem_efeito",
+                "detalhe": "a fala saiu identica a da tentativa anterior; parei para nao gastar clipe a toa"})
+            break
+        transcricao_anterior = atual_transcricao or transcricao_anterior
         correcao = ultima.get("correcao_prompt") or "Corrija os defeitos visuais detectados."
         cena["instrucao_clipe"] = (original + "\n" + correcao).strip()
         _atualizar_cena(rot_file, rot_lock, n,

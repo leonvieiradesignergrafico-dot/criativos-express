@@ -383,7 +383,16 @@ def comparar_voz(atual: dict | None, referencia: dict | None) -> dict | None:
 
 
 def _normalizar_fala(texto: str) -> str:
-    texto = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode()
+    """Canoniza a fala para comparação. Números viram extenso NOS DOIS LADOS: o esperado
+    já passou pelo fala_veo.adaptar() ("7" -> "sete"), mas o whisper transcreve DÍGITO.
+    Sem isso, toda narração com número era reprovada por divergência que não existe."""
+    texto = texto or ""
+    try:
+        from app.pipeline import fala_veo
+        texto = fala_veo._numeros_por_extenso(texto)
+    except Exception:  # noqa: BLE001 — canonização é best-effort
+        pass
+    texto = unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode()
     return " ".join(re.findall(r"[a-z0-9]+", texto.lower()))
 
 
@@ -468,6 +477,15 @@ def proteger_fim_de_palavra(fim: float, detalhe: dict | None,
     return fim, None
 
 
+def fala_equivalente(a: str, b: str, limiar: float = 0.9) -> bool:
+    """Duas transcrições são o MESMO take falado? Usado para não pagar uma regeneração
+    que já se sabe que vai devolver o mesmo áudio."""
+    na, nb = _normalizar_fala(a), _normalizar_fala(b)
+    if not na or not nb:
+        return False
+    return difflib.SequenceMatcher(None, na, nb).ratio() >= limiar
+
+
 def comparar_fala(transcricao: str | None, esperado: str) -> dict | None:
     """Reprova fala embolada, ausente ou materialmente diferente do roteiro falado."""
     if transcricao is None:
@@ -478,6 +496,10 @@ def comparar_fala(transcricao: str | None, esperado: str) -> dict | None:
     similaridade = difflib.SequenceMatcher(None, obtido, alvo).ratio()
     inicio_alvo = alvo.split()[:3]
     inicio_ok = all(p in obtido.split()[:7] for p in inicio_alvo[:2])
+    # Fala claramente certa (>=85%) não é reprovada só porque o whisper trocou a primeira
+    # palavra: regenerar sai caro (clipe pago) e devolve o MESMO áudio.
+    if similaridade >= 0.85:
+        inicio_ok = True
     if similaridade < 0.62 or not inicio_ok:
         return {"codigo": "fala_divergente_ou_embolada",
                 "detalhe": f"transcrição '{transcricao}' não corresponde claramente ao roteiro ({similaridade:.0%})"}

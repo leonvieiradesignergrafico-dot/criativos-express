@@ -30,6 +30,7 @@ REGION = os.environ.get("VEO_REGION", "us-central1")
 
 # Slugs -> modelos publicados no Vertex. Se o Google renomear, ajuste SÓ aqui.
 MODEL_MAP = {
+    "veo_lite": "veo-3.1-lite-generate-001",     # padrao da casa: metade do preco do fast
     "veo_fast": "veo-3.1-fast-generate-001",
     "veo_quality": "veo-3.1-generate-001",
 }
@@ -207,15 +208,27 @@ def _ssl_ctx():
 
 
 def _post(url: str, body: dict, token: str, timeout: int = 120) -> dict:
-    req = urllib.request.Request(
-        url, data=json.dumps(body).encode(),
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-        method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=timeout, context=_ssl_ctx()) as r:
-            return json.load(r)
-    except urllib.error.HTTPError as e:  # noqa: PERF203
-        raise RuntimeError(f"Vertex/Veo recusou ({e.code}): {e.read().decode(errors='replace')[:600]}")
+    """POST no Vertex. Em 401 (token expirado no meio de um lote longo) INVALIDA o cache
+    de token e tenta UMA vez com um token novo. Sem isso, um lote de varias horas perde
+    clipes ja pagos: foi o que derrubou o C2 inteiro e a ultima cena do C3 no lote
+    Baba Baby de 24/08 (o cache dura 45min, mas o lote dura horas)."""
+    for tentativa in (1, 2):
+        req = urllib.request.Request(
+            url, data=json.dumps(body).encode(),
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+            method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=timeout, context=_ssl_ctx()) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:  # noqa: PERF203
+            detalhe = e.read().decode(errors='replace')[:600]
+            if e.code == 401 and tentativa == 1:
+                with _tok_lock:                      # forca renovacao no proximo _token()
+                    _tok_cache["val"], _tok_cache["exp"] = "", 0.0
+                token = _token()
+                continue
+            raise RuntimeError(f"Vertex/Veo recusou ({e.code}): {detalhe}")
+    raise RuntimeError("Vertex/Veo recusou (401) mesmo apos renovar o token.")
 
 
 # Espaçamento entre submits: quando 6 clipes disparam juntos, bater no Vertex no MESMO
@@ -239,8 +252,8 @@ def submit(image_path, prompt: str, duration_s: int = 5, resolution: str = "720p
     """Enfileira a geração i2v e retorna {request_id (operation), endpoint (model_id)}.
     gerar_audio=True: fala/áudio NATIVO do Veo (cenas de fala); False: b-roll mudo."""
     _espacar_submit()
-    # motor="veo" com um modelo_api de outro backend (ex.: seedance_lite) cai no veo_fast.
-    model_id = MODEL_MAP.get(model) or (model if model.startswith("veo-") else MODEL_MAP["veo_fast"])
+    # motor="veo" com um modelo_api de outro backend (ex.: seedance_lite) cai no padrao da casa.
+    model_id = MODEL_MAP.get(model) or (model if model.startswith("veo-") else MODEL_MAP["veo_lite"])
     b64, mime = _keyframe_9x16_b64(Path(image_path))
     body = {
         "instances": [{"prompt": prompt, "image": {"bytesBase64Encoded": b64, "mimeType": mime}}],

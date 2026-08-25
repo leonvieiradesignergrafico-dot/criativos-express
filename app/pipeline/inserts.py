@@ -93,7 +93,7 @@ def aprovar_imagem_insert(produto: str, vid: str, n: int, aprovado: bool = True)
 
 
 def gerar_clipe_insert(produto: str, vid: str, n: int, duration_s: int = 5,
-                       resolution: str = "720p", model: str = "veo_fast",
+                       resolution: str = "720p", model: str = "veo_lite",
                        cancel_event=None) -> str:
     """Anima a imagem do insert (já aprovada) via Veo i2v, SEM fala/áudio nativo — só
     movimento. Devolve o nome do arquivo mp4 salvo em clipes/insert_cena_NN.mp4."""

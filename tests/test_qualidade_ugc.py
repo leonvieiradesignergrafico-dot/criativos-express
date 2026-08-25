@@ -53,6 +53,29 @@ class QualidadeUGCTests(unittest.TestCase):
         self.assertEqual(fim, 5.76)
         self.assertEqual(palavra, "barriga")
 
+    def test_numero_falado_por_extenso_nao_reprova_clipe_pago(self):
+        """O whisper transcreve DÍGITO ("7"), o roteiro falado vai por extenso ("sete").
+        Antes isso reprovava a 96% de similaridade e queimava 3 clipes pagos por cena."""
+        roteiro = "Existem 7 orações para restaurar o casamento, uma por dia."
+        self.assertIsNone(qualidade.comparar_fala(roteiro, fala_veo.adaptar(roteiro)))
+        pct = "70% viram a celulite menos marcada."
+        self.assertIsNone(qualidade.comparar_fala(pct, fala_veo.adaptar(pct)))
+
+    def test_audio_realmente_embolado_continua_reprovando(self):
+        self.assertIsNotNone(qualidade.comparar_fala(
+            "Os kits estão aqui embaixo, ou? E sem essa peima contra a salentinha, eu vou achar os 3.",
+            fala_veo.adaptar("Os kits estão aqui embaixo, corre que a promoção acaba hoje.")))
+
+    def test_regeneracao_identica_e_detectada_para_nao_pagar_de_novo(self):
+        fala = "Existem sete orações para restaurar o casamento."
+        self.assertTrue(qualidade.fala_equivalente(fala, fala))
+        self.assertFalse(qualidade.fala_equivalente(fala, "A pele ficou mais firme em trinta dias."))
+
+    def test_clipe_para_de_regenerar_quando_a_fala_repete(self):
+        fonte = (Path(__file__).parents[1] / "app" / "pipeline" / "clipes.py").read_text(encoding="utf-8")
+        self.assertIn("fala_equivalente", fonte)
+        self.assertIn("regeneracao_sem_efeito", fonte)
+
     def test_montagem_nao_congela_ultimo_frame_e_preserva_bruto(self):
         fonte = (Path(__file__).parents[1] / "app" / "pipeline" / "montagem.py").read_text(encoding="utf-8")
         self.assertNotIn("stop_mode=clone", fonte)

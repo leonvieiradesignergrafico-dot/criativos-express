@@ -49,6 +49,18 @@ def _checar(titulo: str, fn, critico: bool = True) -> None:
 
 
 # --- 1. ambiente --------------------------------------------------------------
+def _modelo_veo_configurado() -> str:
+    """Slug do modelo que a esteira realmente usa ([video].modelo_veo)."""
+    try:
+        from workspace import carregar_config
+        slug = (carregar_config().get("video", {}) or {}).get("modelo_veo")
+        if slug in veo_backend.MODEL_MAP:
+            return slug
+    except Exception:  # noqa: BLE001
+        pass
+    return "veo_lite"
+
+
 def _ambiente():
     congelado = getattr(sys, "frozen", False)
     return OK, (f"{platform.system()} {platform.release()} / {platform.machine()} / "
@@ -246,7 +258,7 @@ def _vertex_token():
         raise RuntimeError("gcloud devolveu token vazio")
     url = (f"https://{veo_backend.REGION}-aiplatform.googleapis.com/v1/projects/{projeto}"
            f"/locations/{veo_backend.REGION}/publishers/google/models/"
-           f"{veo_backend.MODEL_MAP['veo_fast']}")
+           f"{veo_backend.MODEL_MAP[_modelo_veo_configurado()]}")
     req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
     try:
         with urllib.request.urlopen(req, timeout=30, context=veo_backend._ssl_ctx()) as r:

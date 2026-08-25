@@ -21,8 +21,11 @@ _PRONUNCIA = {
 }
 
 # Grafia exclusiva do motor de voz. Roteiro, legendas e nome exibido não são alterados.
+# SEM HÍFEN: o hífen vira separador de sílaba pro gerador e "Bêi-bi" saiu como "bebê"
+# (observado no veo_lite em 2026-08-25). "Beibi" usa o ditongo "ei" do português, que já
+# soa BAY-bee sem precisar de marcação.
 _PRONUNCIA_MARCAS = {
-    "Baba Baby": "Bá-bâ Bêi-bi",
+    "Baba Baby": "Bába Beibi",
 }
 
 # Quando o gerador de vídeo não sustenta a pronúncia de uma marca, a solução segura é

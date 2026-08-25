@@ -55,7 +55,7 @@ img_model = ""
 # Motor de animação: SEMPRE "veo" (Google Veo via Vertex AI — omni, roda no crédito Google;
 # requer gcloud login). É o ÚNICO motor suportado — fal.ai/Wan/Higgsfield foram removidos.
 motor = "veo"
-modelo_veo = "veo_fast"   # veo_fast (veo-3.1-fast) | veo_quality (veo-3.1-generate)
+modelo_veo = "veo_lite"   # veo_lite (veo-3.1-lite, PADRAO) | veo_fast | veo_quality
 duracao_s = 5
 resolution = "720p"
 workers = 2
@@ -65,8 +65,10 @@ veo_project = "capable-fuze-506422-c2"
 
 [video.precos_usd]
 # Preço por clipe de 5s em USD (só para a ESTIMATIVA na UI). Sai do crédito grátis do Google.
-veo_fast = 0.75     # ~US$0,15/s * 5s
-veo_quality = 2.00  # ~US$0,40/s * 5s
+# Conferido no catalogo oficial de billing do Google em 2026-08-25 (unidade = 1 segundo).
+veo_lite = 0.25     # US$0,05/s * 5s  <- padrao
+veo_fast = 0.50     # US$0,10/s * 5s
+veo_quality = 2.00  # US$0,40/s * 5s
 
 [qualidade]
 habilitada = true

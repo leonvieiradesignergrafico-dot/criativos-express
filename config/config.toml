@@ -55,7 +55,7 @@ img_model = ""
 # Motor de animação: SEMPRE "veo" (Google Veo via Vertex AI — omni, roda no crédito Google;
 # requer gcloud login). É o ÚNICO motor suportado — fal.ai/Wan/Higgsfield foram removidos.
 motor = "veo"
-modelo_veo = "veo_fast"   # veo_fast (veo-3.1-fast) | veo_quality (veo-3.1-generate)
+modelo_veo = "veo_lite"   # veo_lite (veo-3.1-lite, PADRAO) | veo_fast | veo_quality
 duracao_s = 5
 resolution = "720p"
 workers = 2
@@ -65,8 +65,17 @@ veo_project = "capable-fuze-506422-c2"
 
 [video.precos_usd]
 # Preço por clipe de 5s em USD (só para a ESTIMATIVA na UI). Sai do crédito grátis do Google.
-veo_fast = 0.75     # ~US$0,15/s * 5s
-veo_quality = 2.00  # ~US$0,40/s * 5s
+# Conferido no catálogo oficial de billing (cloudbilling.googleapis.com) em 2026-08-25.
+# A unidade "count" do SKU = 1 SEGUNDO de vídeo. O Veo 3.1 não tem SKU próprio: cobra nas
+# faixas do Veo 3. Os SKUs do Lite ficam no serviço "Gemini API"; Fast/Quality aparecem
+# nos dois serviços (Gemini API e Vertex AI) com o mesmo preço.
+#   "Veo Lite Generation 720p with Audio"     = US$0,05/s  <- é o que a esteira usa
+#   "Veo 3 Fast 720p Audio Video Generation"  = US$0,10/s
+#   "Veo 3 Fast Video 720p Generation" (mudo) = US$0,08/s
+#   "Veo 3 Audio Video Generation"            = US$0,40/s
+veo_lite = 0.25     # US$0,05/s * 5s  <- padrao
+veo_fast = 0.50     # US$0,10/s * 5s (era 0,75 — superestimava 50%)
+veo_quality = 2.00  # US$0,40/s * 5s
 
 [qualidade]
 # Barreira automática: keyframe reprovado não consome Veo; clipe reprovado não chega à montagem.

@@ -5,17 +5,17 @@ COMPLETA sem GUI/threads de servidor, chamando as funções dos módulos do pipe
 direto e em sequência, uma variação por vez:
 
     roteiro (claude, grátis)  ->  keyframes (codex, grátis)
-      ->  clipes (Google Veo, PAGO ~US$0,75/cena veo_fast)  ->  montagem (ffmpeg, grátis)
+      ->  clipes (Google Veo, PAGO ~US$0,40/cena de 8s no veo_lite)  ->  montagem (ffmpeg, grátis)
 
 Uso:
-    python gerar_ugc.py <produto> [--n 2] [--modelo veo_fast]
+    python gerar_ugc.py <produto> [--n 2] [--modelo veo_lite]
                         [--modelo-texto sonnet] [--max-cenas N]
                         [--copy "texto"] [--avatar nome] [--pessoa-tipo avatar|influenciador]
                         [--legendas] [--json]
 
 - <produto>: id da pasta em products/ (aceita o formato agrupado "cliente~produto").
 - --n: quantas variações de vídeo gerar (cada uma é um roteiro/vídeo próprio). Padrão 2.
-- --modelo: modelo do Veo (veo_fast | veo_quality). Padrão veo_fast (o barato/rápido).
+- --modelo: modelo do Veo (veo_lite | veo_fast | veo_quality). Padrão veo_lite (o mais barato).
 - --max-cenas: corta o roteiro nas N primeiras cenas ANTES de animar (controle de custo;
   0 = todas). Ex.: teste barato com --n 1 --max-cenas 1 => 1 clipe Veo só.
 - --copy: copy do anúncio; se ausente, usa output/copies.md e, na falta, o config.md.
@@ -163,14 +163,14 @@ def gerar_uma(produto: str, copy: str, idx: int, *, veo_model: str,
     return res
 
 
-def gerar_ugc(produto: str, *, n: int = 2, veo_model: str = "veo_fast",
+def gerar_ugc(produto: str, *, n: int = 2, veo_model: str = "veo_lite",
               modelo_texto: str | None = None, max_cenas: int = 0,
               copy_cli: str | None = None, avatar: str | None = None,
               pessoa_tipo: str = "avatar", legendas: bool = False) -> dict:
     """Gera N vídeos UGC do produto, sequencialmente. Retorna o status consolidado."""
     product_dir(produto)  # valida cedo (levanta se o produto não existe)
-    if veo_model not in {"veo_fast", "veo_quality"} and not veo_model.startswith("veo-"):
-        veo_model = "veo_fast"
+    if veo_model not in {"veo_lite", "veo_fast", "veo_quality"} and not veo_model.startswith("veo-"):
+        veo_model = "veo_lite"
     _patch_veo_model(veo_model)
 
     copy, fonte = _copy_do_produto(produto, copy_cli)
@@ -207,7 +207,7 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="Gera vídeos UGC (Veo) em lote, headless.")
     ap.add_argument("produto", help="pasta do produto em products/ (aceita cliente~produto)")
     ap.add_argument("--n", type=int, default=2, help="quantas variações de vídeo (padrão 2)")
-    ap.add_argument("--modelo", default="veo_fast", help="modelo Veo: veo_fast|veo_quality")
+    ap.add_argument("--modelo", default="veo_lite", help="modelo Veo: veo_lite|veo_fast|veo_quality")
     ap.add_argument("--modelo-texto", default=None, help="modelo do roteirista (claude): sonnet|opus|…")
     ap.add_argument("--max-cenas", type=int, default=0, help="corta o roteiro nas N 1ªs cenas (0=todas)")
     ap.add_argument("--copy", default=None, help="copy do anúncio (senão usa copies.md/config.md)")
