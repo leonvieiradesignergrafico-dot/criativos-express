@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Versão do release (ex.: 1.1.0)"
-        required: true
-        default: "1.1.0"
+        description: "Versão do release. Vazio = usa o arquivo VERSION da raiz (recomendado)."
+        required: false
+        default: ""
 
 permissions:
   contents: write        # necessário pra criar/atualizar a Release
@@ -28,6 +28,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Resolver a versão do release
+        run: |
+          set -e
+          # Fonte única: o arquivo VERSION da raiz. O input só serve pra sobrescrever
+          # num build pontual — assim Windows e Mac nunca mais saem com números diferentes.
+          V="${{ github.event.inputs.version }}"
+          [ -n "$V" ] || V="$(tr -d '[:space:]' < VERSION)"
+          [ -n "$V" ] || { echo 'ERRO: sem versão (input vazio e VERSION ilegível).' >&2; exit 1; }
+          echo "ADSEXPRESS_VERSION=$V" >> "$GITHUB_ENV"
+          echo "Versão do release: $V"
 
       - name: Injetar credencial do Veo (service account)
         env:
@@ -48,7 +59,6 @@ jobs:
 
       - name: Buildar o app + o instalador premium + o .dmg
         env:
-          ADSEXPRESS_VERSION: ${{ github.event.inputs.version }}
           # Runner é Apple Silicon (arm64). Buildar arm64 (não universal2) evita o erro
           # "not a fat binary" das libs single-arch (Pillow etc.). Cobre Macs M1/M2/M3.
           ADSEXPRESS_ARCH: arm64
@@ -99,7 +109,6 @@ jobs:
       - name: Publicar o .dmg na página de Releases
         env:
           GH_TOKEN: ${{ github.token }}
-          ADSEXPRESS_VERSION: ${{ github.event.inputs.version }}
         run: |
           set -e
           TAG="v${ADSEXPRESS_VERSION}"

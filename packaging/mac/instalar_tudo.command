@@ -147,7 +147,8 @@ bash "$HERE/create_dmg.sh" || aviso "Não consegui gerar o .dmg — o app já es
 
 # ---------------------------------------------------------------------------
 echo
-VERSION="${ADSEXPRESS_VERSION:-1.0.0}"
+VERSION="${ADSEXPRESS_VERSION:-$(cat "$ROOT/VERSION" 2>/dev/null | tr -d "[:space:]")}"
+VERSION="${VERSION:-1.0.0}"
 DMG="$ROOT/Ads Express $VERSION.dmg"
 printf "${GREEN}══════════════════════════════════════════════════════════════${RST}\n"
 if [ -f "$DMG" ]; then

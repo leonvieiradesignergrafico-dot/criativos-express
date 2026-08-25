@@ -347,7 +347,7 @@ def gerar_clipes(produto: str, vid: str, motor: str | None = None,
     cfg = carregar_config()
     vcfg = cfg.get("video", {})
     motor = "veo"  # motor único (omni/Veo). Ignora qualquer valor de config/param.
-    modelo = vcfg.get("modelo_veo", "veo_fast")
+    modelo = vcfg.get("modelo_veo", "veo_lite")
     duracao = int(vcfg.get("duracao_s", 5))
     resolution = vcfg.get("resolution", "720p")
     timeout = int(vcfg.get("timeout", 900))
@@ -417,7 +417,7 @@ def gerar_clipes_lote(produto: str, vids: list[str], cancel_event=None) -> None:
     Progresso agregado em videos/<produto>/lote_status.json."""
     cfg = carregar_config()
     vcfg = cfg.get("video", {})
-    modelo = vcfg.get("modelo_veo", "veo_fast")
+    modelo = vcfg.get("modelo_veo", "veo_lite")
     duracao = int(vcfg.get("duracao_s", 5))
     resolution = vcfg.get("resolution", "720p")
     timeout = int(vcfg.get("timeout", 900))

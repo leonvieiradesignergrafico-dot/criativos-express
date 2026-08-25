@@ -27,15 +27,16 @@ say(){ printf "  %s\n" "$1"; }
 command -v gh >/dev/null 2>&1 || {
   echo "ERRO: GitHub CLI (gh) não encontrado. Instale em https://cli.github.com"; exit 1; }
 
-# Versão: 1º argumento, ou ADSEXPRESS_VERSION, ou lida do nome do .exe, ou 1.1.0.
+# Versão: 1º argumento, ou ADSEXPRESS_VERSION, ou o VERSION da raiz, ou o nome do .exe.
 VERSION="${1:-${ADSEXPRESS_VERSION:-}}"
+[ -n "$VERSION" ] || VERSION="$(cat "$ROOT/VERSION" 2>/dev/null | tr -d "[:space:]")"
 if [ -z "$VERSION" ]; then
   for e in "$ROOT"/AdsExpress-Setup-*.exe; do
     [ -f "$e" ] || continue
     b="$(basename "$e")"; VERSION="${b#AdsExpress-Setup-}"; VERSION="${VERSION%.exe}"; break
   done
 fi
-VERSION="${VERSION:-1.1.0}"
+VERSION="${VERSION:-1.1.4}"
 TAG="v$VERSION"
 
 # Garante a conta certa ativa (a dona do repositório) e restaura ao sair.

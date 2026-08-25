@@ -3,3 +3,6 @@
 # principalmente pro "Instalar no Mac.command" que fica aqui na raiz.
 *.command   text eol=lf
 *.sh        text eol=lf
+
+# Fonte unica da versao: LF sempre, pra ser lida igual no Windows (Inno) e no Mac (bash).
+VERSION     text eol=lf

@@ -248,7 +248,7 @@ def _espacar_submit() -> None:
 
 
 def submit(image_path, prompt: str, duration_s: int = 5, resolution: str = "720p",
-           model: str = "veo_fast", gerar_audio: bool = False) -> dict:
+           model: str = "veo_lite", gerar_audio: bool = False) -> dict:
     """Enfileira a geração i2v e retorna {request_id (operation), endpoint (model_id)}.
     gerar_audio=True: fala/áudio NATIVO do Veo (cenas de fala); False: b-roll mudo."""
     _espacar_submit()
@@ -323,7 +323,7 @@ def _cancelado(cancel_event) -> bool:
 
 
 def generate(image_path, prompt: str, output_path, duration_s: int = 5,
-             resolution: str = "720p", model: str = "veo_fast",
+             resolution: str = "720p", model: str = "veo_lite",
              timeout: int = 900, cancel_event=None, request_id: str | None = None,
              on_submit=None, gerar_audio: bool = False, **_ignored) -> str:
     """Gera 1 clipe i2v no Veo. on_submit(info) é chamado após o submit (persistência).

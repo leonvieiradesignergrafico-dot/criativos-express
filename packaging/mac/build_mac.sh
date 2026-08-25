@@ -11,7 +11,7 @@
 #
 # Variáveis de ambiente opcionais:
 #   ADSEXPRESS_ARCH=universal2|arm64|x86_64   (default universal2)
-#   ADSEXPRESS_VERSION=1.0.0                   (default 1.0.0)
+#   ADSEXPRESS_VERSION=1.1.2                   (default: o VERSION da raiz)
 #   ADSEXPRESS_PY=python3.11                   (interpretador base p/ a venv)
 #
 set -euo pipefail
@@ -21,7 +21,8 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 cd "$ROOT"
 
 ARCH="${ADSEXPRESS_ARCH:-universal2}"
-VERSION="${ADSEXPRESS_VERSION:-1.0.0}"
+VERSION="${ADSEXPRESS_VERSION:-$(cat "$ROOT/VERSION" 2>/dev/null | tr -d "[:space:]")}"
+VERSION="${VERSION:-1.0.0}"
 PYBASE="${ADSEXPRESS_PY:-python3}"
 VENV="$ROOT/.venv-mac"
 

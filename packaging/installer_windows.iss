@@ -11,7 +11,14 @@
 ; ============================================================================
 
 #define AppName "Ads Express"
-#define AppVersion "1.1.0"
+; Versao: lida do arquivo VERSION na RAIZ (fonte unica, compartilhada com o build do
+; Mac). Nunca edite o numero aqui — edite VERSION, e os dois instaladores acompanham.
+#define VerFile = FileOpen("..\VERSION")
+#define AppVersion = Trim(FileRead(VerFile))
+#expr FileClose(VerFile)
+#if AppVersion == ""
+  #error VERSION esta vazio ou ilegivel na raiz do projeto.
+#endif
 #define AppPublisher "Ads Express"
 #define AppExe "Ads Express.exe"
 

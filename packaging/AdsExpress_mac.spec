@@ -34,8 +34,17 @@ ROOT = os.path.abspath(os.getcwd())
 # e o build sai só pra essa arquitetura (sem erro de "não é universal2").
 TARGET_ARCH = os.environ.get("ADSEXPRESS_ARCH", "universal2")
 
-# Versão exibida no Finder / "Obter Informações". Bump manual a cada release.
-APP_VERSION = os.environ.get("ADSEXPRESS_VERSION", "1.0.0")
+# Versão exibida no Finder / "Obter Informações".
+# Fonte única: o arquivo VERSION na raiz (o mesmo que o instalador do Windows lê).
+# ADSEXPRESS_VERSION continua tendo prioridade (é o que o CI passa).
+def _versao_do_repo():
+    try:
+        with open(os.path.join(ROOT, "VERSION"), encoding="utf-8") as fh:
+            return fh.read().strip()
+    except OSError:
+        return "1.0.0"
+
+APP_VERSION = os.environ.get("ADSEXPRESS_VERSION") or _versao_do_repo()
 
 
 def _p(*parts):

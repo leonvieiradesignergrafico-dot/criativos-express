@@ -194,6 +194,7 @@ def ensure_user_config() -> None:
     código-fonte é no-op (o config já está versionado em config/)."""
     destino = CONFIG_DIR / "config.toml"
     if destino.exists():
+        _migrar_config_usuario(destino)
         return
     template = BUNDLE_DIR / "_default_config" / "config.toml"
     if not template.exists():
@@ -202,6 +203,52 @@ def ensure_user_config() -> None:
         CONFIG_DIR.mkdir(parents=True, exist_ok=True)
         import shutil
         shutil.copyfile(template, destino)
+    except OSError:
+        pass
+
+
+# Config de versoes <= 1.1.1: modelo fast + tabela de preco antiga (veo_fast = 0.75,
+# sem linha do lite). Como ensure_user_config NUNCA sobrescreve, quem ja instalou
+# continuaria pagando o dobro por clipe depois de atualizar o app. A migracao abaixo
+# so age quando o bloco esta IDENTICO ao default antigo — se o usuario escolheu o
+# modelo ou mexeu no preco, nao encostamos.
+_MIGRACOES_CONFIG = (
+    # (marcador que prova "default antigo intocado", trecho a trocar, trecho novo)
+    (
+        'veo_fast = 0.75',
+        'modelo_veo = "veo_fast"   # veo_fast (veo-3.1-fast) | veo_quality (veo-3.1-generate)',
+        'modelo_veo = "veo_lite"   # veo_lite (veo-3.1-lite, PADRAO) | veo_fast | veo_quality',
+    ),
+    (
+        'veo_fast = 0.75',
+        'modelo_veo = "veo_fast"',
+        'modelo_veo = "veo_lite"',
+    ),
+    (
+        'veo_fast = 0.75',
+        'veo_fast = 0.75     # ~US$0,15/s * 5s'
+        + chr(10) + 'veo_quality = 2.00  # ~US$0,40/s * 5s',
+        'veo_lite = 0.25     # US$0,05/s * 5s  <- padrao'
+        + chr(10) + 'veo_fast = 0.50     # US$0,10/s * 5s'
+        + chr(10) + 'veo_quality = 2.00  # US$0,40/s * 5s',
+    ),
+)
+
+
+def _migrar_config_usuario(destino: Path) -> None:
+    """Atualiza in-place um config.toml antigo que ainda esta no default de fabrica."""
+    try:
+        txt = destino.read_text(encoding="utf-8")
+    except OSError:
+        return
+    novo = txt
+    for marcador, antigo, atual in _MIGRACOES_CONFIG:
+        if marcador in novo and antigo in novo:
+            novo = novo.replace(antigo, atual, 1)
+    if novo == txt:
+        return
+    try:
+        destino.write_text(novo, encoding="utf-8")
     except OSError:
         pass
 

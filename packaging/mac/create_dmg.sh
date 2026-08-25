@@ -21,7 +21,8 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 INSTALLER="$ROOT/dist/Ads Express Installer.app"
 APP="$ROOT/dist/Ads Express.app"
 VOL_NAME="Ads Express"
-VERSION="${ADSEXPRESS_VERSION:-1.0.0}"
+VERSION="${ADSEXPRESS_VERSION:-$(cat "$ROOT/VERSION" 2>/dev/null | tr -d "[:space:]")}"
+VERSION="${VERSION:-1.0.0}"
 DMG_OUT="$ROOT/Ads Express $VERSION.dmg"   # na RAIZ (igual ao instalador do Windows)
 
 rm -f "$DMG_OUT"
