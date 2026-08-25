@@ -25,6 +25,7 @@ from workspace import (VIDEO_JOBS, VIDEOS, AVATARES, INFLUENCIADORES, PRODUCTS,
 # empacotado, onde __file__ vive no bundle só-leitura _MEIPASS).
 carregar_env()
 from app.pipeline import clipes as clipes_mod
+from app import nosleep
 from app.pipeline import keyframes as keyframes_mod
 from app.pipeline import montagem as montagem_mod
 from app.pipeline import roteiro as roteiro_mod
@@ -144,7 +145,9 @@ def _rodar_em_thread(chave, alvo, *args, **kwargs) -> bool:
         finally:
             lock.release()
 
-    threading.Thread(target=_run, daemon=True).start()
+    # nosleep.envolver: segura a trava de energia enquanto o job roda. Sem isto o Mac
+    # suspende no meio e os processos externos voltam quebrados ('went to sleep mid-response').
+    threading.Thread(target=nosleep.envolver(_run), daemon=True).start()
     return True
 
 

@@ -4,12 +4,14 @@ from __future__ import annotations
 import shutil
 import subprocess
 import threading
+import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from workspace import (VIDEOS, atomic_write_json, carregar_config, ler_json, pessoa_dir,
                        product_dir, tipo_produto, video_dir)
+from app import console_log
 from app.pipeline import formatos_video as fv
 from app.pipeline import qualidade
 from app.pipeline._status import JobStatus
@@ -627,7 +629,9 @@ def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
                       ultima.get("motivos", []), tentativa - 1)
         if cancel_event is not None and cancel_event.is_set():
             raise RuntimeError("Geração cancelada.")
+        _t_gen = time.time()
         nome = gerar_um_keyframe(roteiro, cena, out_dir, cancel_event=cancel_event, extra=correcao)
+        _dt_gen = time.time() - _t_gen
         path = out_dir / nome
         # Continuidade visual: compare o candidato com até dois keyframes aprovados do
         # mesmo vídeo. O último anexo continua sendo sempre o candidato.
@@ -643,7 +647,14 @@ def gerar_keyframe_validado(roteiro: dict, cena: dict, out_dir: Path,
                     refs_qa.append(ref)
             if len(refs_qa) >= 2:
                 break
+        _t_qa = time.time()
         ultima = qualidade.avaliar_keyframe(path, cena, referencias=refs_qa)
+        # Onde o tempo REALMENTE vai: geracao da imagem x controle de qualidade. Sem este
+        # numero, "esta demorando" vira chute (e o QA custa uma chamada de codex por tentativa).
+        console_log.registrar(
+            "INFO", f"cena_{cena['n']:02d} tent.{tentativa}: imagem {_dt_gen:.0f}s + "
+                    f"QA {time.time() - _t_qa:.0f}s -> "
+                    f"{'aprovado' if ultima.get('aprovado') else 'reprovado'}")
         if ultima.get("aprovado"):
             return nome, ultima, tentativa
         qualidade.arquivar_descarte(out_dir.parent, cena, "keyframe", path, ultima,
@@ -730,8 +741,12 @@ def gerar_keyframes(produto: str, vid: str, ns: list[int] | None = None,
                                               "tentativa": tentativa, "motivos": motivos,
                                               "descartes": descartes}
                     atomic_write_json(rot_file, atual)
+            _t0 = time.time()
             nome, analise, tentativas = gerar_keyframe_validado(
                 roteiro, cena, out_dir, cancel_event=cancel_event, on_estado=_estado)
+            console_log.registrar(
+                "INFO", f"{rotulo}: pronto em {time.time() - _t0:.0f}s "
+                        f"({tentativas} tentativa(s), {max(0, tentativas - 1)} descarte(s)).")
             _salvar_cena(cena, nome)
             _salvar_qualidade(rot_file, rot_lock, cena["n"], "keyframe", analise, tentativas)
             status.terminou(rotulo)
@@ -751,20 +766,78 @@ def gerar_keyframes(produto: str, vid: str, ns: list[int] | None = None,
             else:
                 status.terminou(rotulo)
 
-    # Duas ondas: 1) âncoras + cenas independentes; 2) cenas que dependem de uma âncora
-    # (mesmo personagem gerado). Assim o keyframe-âncora já existe em disco quando a cena
-    # dependente é gerada e pode ser reusado como referência de identidade.
+    # Cada cena dependente espera SÓ a sua âncora (o keyframe do mesmo personagem que ela
+    # reusa como referência de identidade) — não a onda inteira. Ver _rodar_por_dependencia.
     dep = _mapa_ancoras(roteiro)
-    ondas = [[c for c in alvo if c["n"] not in dep], [c for c in alvo if c["n"] in dep]]
+    ns_alvo = {c["n"] for c in alvo}
+
+    def _ancora_de(cena):
+        anc = dep.get(cena["n"])
+        # Âncora que já está em disco (não faz parte deste lote) não é espera nenhuma.
+        return ("c", anc) if (anc is not None and anc in ns_alvo) else None
+
     workers = max(1, int(carregar_config().get("keyframes", {}).get("workers", 6)))
+    t0_lote = time.time()
     try:
-        for onda in ondas:
-            if not onda:
-                continue
-            with ThreadPoolExecutor(max_workers=min(workers, len(onda))) as ex:
-                list(ex.map(_job, onda))
+        _rodar_por_dependencia(alvo, _ancora_de, _job, workers, cancel_event)
     finally:
+        console_log.registrar(
+            "INFO", f"Keyframes: {len(alvo)} cena(s) em {time.time() - t0_lote:.0f}s "
+                    f"(ate {workers} em paralelo).")
         status.fim(cancelado=bool(cancel_event is not None and cancel_event.is_set()))
+
+
+def _rodar_por_dependencia(itens, ancora_de, job, workers: int, cancel_event=None) -> None:
+    """Roda os jobs em UM pool só, respeitando dependência INDIVIDUAL em vez de barreira.
+
+    Antes: duas ondas com barreira — a onda 2 (cenas que reusam o keyframe-âncora do mesmo
+    personagem) só começava quando a onda 1 INTEIRA terminava. Num caso real, 4 cenas
+    ficaram prontas em 2min06 e a onda 2 esperou até 4min16 por causa de UMA cena lenta:
+    2min10 de workers livres parados.
+
+    Agora: cada dependente espera SÓ a sua âncora. Âncoras/independentes são submetidas
+    primeiro, então sempre pegam slot antes (sem risco de o pool encher de dependentes
+    esperando âncora que não roda). Âncora que falha também libera o evento — o dependente
+    gera sem a referência em vez de ficar preso pra sempre.
+
+    ancora_de(item) -> chave da âncora daquele item (ou None se ele não depende de nada).
+    """
+    chave = {}          # id(item) -> chave própria do item
+    eventos = {}
+    for it in itens:
+        k = _chave_item(it)
+        chave[id(it)] = k
+        eventos[k] = threading.Event()
+
+    def _com_dependencia(item):
+        anc = ancora_de(item)
+        ev = eventos.get(anc) if anc is not None else None
+        if ev is not None and anc != chave[id(item)]:
+            while not ev.wait(0.5):
+                if cancel_event is not None and cancel_event.is_set():
+                    return
+        try:
+            job(item)
+        except Exception as e:  # noqa: BLE001
+            # NUNCA deixar a excecao subir pro ex.map: ele aborta a iteracao e CANCELA as
+            # cenas que ainda nao comecaram — uma cena quebrada levaria o lote inteiro
+            # junto. (Hoje _job ja engole os proprios erros; isto e o cinto de seguranca.)
+            console_log.registrar("ERRO", f"Keyframe {chave[id(item)]}: {e}")
+        finally:
+            eventos[chave[id(item)]].set()
+
+    # Submissão ORDENADA: quem não depende de ninguém primeiro.
+    ordenados = sorted(itens, key=lambda it: 1 if ancora_de(it) is not None else 0)
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, len(itens)))) as ex:
+        list(ex.map(_com_dependencia, ordenados))
+
+
+def _chave_item(item):
+    """Identidade do item pro mapa de eventos: cena solta (dict) ou tupla (vid, cena, onda)."""
+    if isinstance(item, dict):
+        return ("c", item["n"])
+    vid, cena = item[0], item[1]
+    return (vid, cena["n"])
 
 
 def _lote_status_path(produto: str) -> Path:
@@ -844,15 +917,46 @@ def gerar_keyframes_lote(produto: str, vids: list[str], cancel_event=None) -> No
             else:
                 status.terminou(rotulo)
 
-    # Onda 0 (âncoras + independentes de TODOS os vídeos) antes da onda 1 (dependentes),
-    # pra cada keyframe-âncora já estar em disco quando a cena do mesmo personagem gerar.
-    ondas = [[t for t in tarefas if t[2] == 0], [t for t in tarefas if t[2] == 1]]
+    # Antes: barreira GLOBAL — nenhuma cena dependente de vídeo NENHUM começava enquanto
+    # todas as âncoras de TODOS os vídeos não terminassem (num lote de 5 vídeos, o vídeo 1
+    # esperava o vídeo 5). Agora a espera é por vídeo: a dependente do vídeo X aguarda só
+    # as âncoras do próprio X.
+    ancoras_por_video: dict[str, list] = {}
+    for t in tarefas:
+        if t[2] == 0:
+            ancoras_por_video.setdefault(t[0], []).append(t)
+
+    portoes = {vid: threading.Event() for vid in {t[0] for t in tarefas}}
+    restantes = {vid: len(v) for vid, v in ancoras_por_video.items()}
+    portao_lock = threading.Lock()
+    for vid, ev in portoes.items():
+        if not restantes.get(vid):
+            ev.set()      # vídeo sem âncora nova: dependentes podem ir direto
+
+    def _job_lote(t):
+        try:
+            _job(t)
+        finally:
+            if t[2] == 0:
+                with portao_lock:
+                    restantes[t[0]] = max(0, restantes.get(t[0], 0) - 1)
+                    if not restantes[t[0]]:
+                        portoes[t[0]].set()
+
+    def _com_portao(t):
+        if t[2] == 1:
+            while not portoes[t[0]].wait(0.5):
+                if cancel_event is not None and cancel_event.is_set():
+                    return
+        _job_lote(t)
+
     workers = max(1, int(carregar_config().get("keyframes", {}).get("workers", 6)))
+    ordenadas = sorted(tarefas, key=lambda t: t[2])   # âncoras primeiro (não deadlockar)
+    t0_lote = time.time()
     try:
-        for onda in ondas:
-            if not onda:
-                continue
-            with ThreadPoolExecutor(max_workers=min(workers, len(onda))) as ex:
-                list(ex.map(_job, onda))
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, len(ordenadas)))) as ex:
+            list(ex.map(_com_portao, ordenadas))
     finally:
+        console_log.registrar(
+            "INFO", f"Keyframes (lote): {len(tarefas)} cena(s) em {time.time() - t0_lote:.0f}s.")
         status.fim(cancelado=bool(cancel_event is not None and cancel_event.is_set()))

@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT))
 
 import gerar  # noqa: E402
 from app import claude_bridge  # noqa: E402
+from app import nosleep
 from app import codex_text_bridge  # noqa: E402
 
 
@@ -79,6 +80,9 @@ app.register_blueprint(_ugc_bp)
 # Essencial no Mac, onde o .app windowed engole o stderr.
 from app import console_log  # noqa: E402
 console_log.instalar(app)
+# Vigia de sono: compara relogio monotonico x de parede pra DETECTAR que a maquina
+# suspendeu, e registra no console. Antes, um job morto pelo sono parecia 'travou do nada'.
+nosleep.iniciar_vigia()
 
 
 @app.route("/console")
@@ -2412,7 +2416,7 @@ def gerar_imagens(produto):
         finally:
             lock.release()
 
-    threading.Thread(target=tarefa, daemon=False).start()
+    threading.Thread(target=nosleep.envolver(tarefa), daemon=False).start()
     return jsonify({"ok": True})
 
 
@@ -2481,7 +2485,7 @@ def gerar_ideias(produto):
         finally:
             lock.release()
 
-    threading.Thread(target=tarefa, daemon=False).start()
+    threading.Thread(target=nosleep.envolver(tarefa), daemon=False).start()
     return jsonify({"ok": True, "ids": novos_ids})
 
 
@@ -2610,7 +2614,7 @@ def refinar_fila(produto):
                 private.unlink(missing_ok=True)
             lock.release()
 
-    threading.Thread(target=tarefa, daemon=False).start()
+    threading.Thread(target=nosleep.envolver(tarefa), daemon=False).start()
     return jsonify({"ok": True})
 
 
@@ -2648,7 +2652,7 @@ def refinar_criativo(produto):
         finally:
             lock.release()
 
-    threading.Thread(target=tarefa, daemon=False).start()
+    threading.Thread(target=nosleep.envolver(tarefa), daemon=False).start()
 
     # Em paralelo (best-effort): destila a instrução num fato visual durável do produto,
     # para o mesmo erro não voltar em futuros criativos. Não bloqueia nem afeta o refino.
@@ -2721,7 +2725,7 @@ def refazer_criativo(produto):
             lock.release()
             shutil.rmtree(tmp_dir, ignore_errors=True)
 
-    threading.Thread(target=tarefa, daemon=False).start()
+    threading.Thread(target=nosleep.envolver(tarefa), daemon=False).start()
     return jsonify({"ok": True})
 
 

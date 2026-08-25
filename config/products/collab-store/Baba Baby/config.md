@@ -6,7 +6,7 @@
 - **O que é:** creme corporal termogênico de 250 g para cuidado da aparência da celulite, firmeza, estrias e medidas.
 - **Ativos confirmados:** cafeína, gengibre, castanha-da-índia, centella asiática, arnica, algas marinhas e rosa mosqueta.
 - **Diferencial comunicável:** ação termogênica perceptível durante a massagem; cuidado corporal em casa; estudo clínico IPclin.
-- **Oferta:** kits de 1/2/3 unidades por R$99,70 / R$179 / R$249; frete grátis nos kits; garantia de 30 dias. Confirmar na página antes de publicar.
+- **Oferta:** kits de 1/2/3 unidades por R$99,70 / R$179 / R$249; garantia de 30 dias; kit de 3 leva brinde exclusivo. **NAO existe frete gratis** (decisao do Leon 24/08: removido de todas as pecas e das duas landings). Confirmar na página antes de publicar.
 
 ## Provas permitidas
 - Estudo IPclin com 33 mulheres durante 30 dias.

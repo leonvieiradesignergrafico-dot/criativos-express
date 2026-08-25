@@ -18,3 +18,16 @@ partir dos anúncios existentes na Meta. **Revise antes de gerar qualquer copy/c
 ## Origem
 - Anúncios agrupados: **11**
 - URL(s): https://vfxart.com.br/n8n-master
+
+---
+
+## ✅ REVISADO EM 2026-08-24
+O `config.md` deixou de ser rascunho: foi reescrito a partir da página de vendas real,
+da curva de retenção da conta e dos anúncios vencedores transcritos.
+- [x] Nome comercial conferido
+- [x] Tipo confirmado (digital)
+- [x] Preço / oferta conferido na página no ar
+- [x] Copy da página em `contexto/pagina-vendas.txt`
+- [x] Agrupamento anúncios -> produto conferido
+- [ ] Transcrição dos vídeos LATAM (os vencedores transcritos são todos da conta BR,
+      em `clients/paiva/research/transcricoes-vencedores/`)

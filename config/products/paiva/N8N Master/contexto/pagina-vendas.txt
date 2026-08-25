@@ -1,0 +1,191 @@
+# n8n-master (BR)
+# fonte: https://vfxart.com.br/n8n-master/ (variante v1, capturada do HTML que o Leon exportou em 2026-08-23)
+
+N8N Master — Domine o N8N e cobre valores premium por automação
++
+N8N + CLAUDE
+COBRE DE 2K A 5K POR AUTOMAÇÃO DO N8N SEM PRECISAR ENTENDER DE PROGRAMAÇÃO
+Chega de recusar projetos por insegurança ou ficar preso em ferramentas básicas cobrando pouco. Domine N8N + Claude no nível avançado e trabalhe no mesmo nível dos profissionais que cobram alto por automação.
++ de 4.385 alunos
+DE R$97,00
+Por apenas
+R$ 17
+Oferta válida apenas
+até hoje
+,
+quarta-feira, dia 1 de julho de 2026
+workflow.n8n
+LIVE
+webhook
+ai agent
+200 OK
+O DESAFIO DOS PROFISSIONAIS DE AUTOMAÇÃO
+Muitos profissionais qualificados estão perdendo projetos valiosos por não dominarem todas as ferramentas que o mercado exige. Enquanto isso, profissionais que dominam N8N + CLAUDE estão cobrando valores premium por soluções completas e integradas.
+Situações comuns que limitam oportunidades:
+Projetos recusados por complexidade técnica
+Limitações em tipos de integrações oferecidas
+Necessidade de simplificar projetos por restrições de ferramentas
+Custos elevados devido a limitações técnicas
+O problema não é a competência técnica, mas sim
+não dominar automações mais avançadas com N8N + CLAUDE
+que o mercado procura.
+DOMINE O QUE OS CONCORRENTES
+NÃO SABEM
+Automação Avançada com N8N
+Workflows com lógica condicional complexa
+Processe múltiplas condições e caminhos avançados
+Integrações via API com diversas ferramentas
+Conecte qualquer sistema ou plataforma
+Processamento de grandes volumes de dados
+Trabalhe sem limitações de tarefas
+Automações com inteligência artificial integrada
+Crie fluxos que processam linguagem natural
+Workflows avançados e escaláveis
+Construa automações robustas que crescem com seu negócio
+Desenvolvimento de nodes personalizados
+Crie funcionalidades únicas usando JavaScript
+Webhooks e triggers ilimitados
+Automações que reagem a qualquer evento
+Inteligência Artificial com Claude
+Fundamentos do Claude do zero
+Entenda o que é, como ele pensa e como usar de verdade, sem enrolação técnica
+Diferença entre Chat, Cowork e Code
+Saiba exatamente qual função usar em cada situação, sem perder tempo testando
+Diferença entre Conectores, Skills e Plugins
+Entenda o que já vem pronto, o que você instala e o que você pode criar
+Instalação de Skills passo a passo
+Aprenda a instalar e configurar Skills no seu Claude sem travar em nenhuma etapa
+Integração N8N + Claude
+O padrão que o mercado premium está cobrando caro para entregar
+Projeto prático: fábrica de conteúdo automático
+Crie um sistema que gera imagens e carrosséis para Instagram automaticamente, adaptável para qualquer nicho
+Skills prontas para instalar e usar no mesmo dia
+Você recebe as Skills já configuradas, sem precisar montar nada do zero
+Prompts e material de aula liberados
+Todo o material usado nas aulas, incluindo os prompts, fica disponível para você copiar e aplicar
+QUERO DOMINAR O N8N
+Veja o que estão falando sobre o curso...
+Adeher Lucas Ferreira Lacerda
+“Já comprei outros cursos e não vi nada igual. A didática é excelente, dá pra perceber o cuidado em cada aula. Parabéns pelo trabalho!”
+Rafael Mendes
+“Comprei mais pra aprender algo novo, eu tinha me interessado no assistente de ChatGPT e também no do Make, foi por isso que peguei o curso. E o conteúdo é muito, muito bom. Parabéns pelo trabalho!”
+Diego Salviano
+“Vi o anúncio e gostei muito da sua didática, aí resolvi comprar o curso e não me arrependi. Você tem uma didática excelente, mostra exatamente o que está fazendo, onde clica, explica as funções e o porquê de usar cada uma. Gostei muito do treinamento, parabéns!”
+AGINDO AGORA VOCÊ VAI LEVAR
++ 6 SUPER BÔNUS
+(Inclusos somente na Super Oferta)
+Bônus 1
+Curso Completo de Manychat
+Implementação de automações para Instagram e WhatsApp, fluxos de vendas, agendamento e integração com sistemas de pagamento
+Bônus 2
+Curso Completo de Make
+Integrações avançadas entre plataformas, criação de gatilhos, documentação de APIs e conexões com marketplaces
+Bônus 3
+Templates Prontos e Editáveis
+Comece muito mais rápido com modelos testados e aprovados que você pode personalizar em minutos. Economize dezenas de horas criando suas primeiras automações profissionais.
+Bônus 4
+Certificado de Especialista
+Após concluir 80% do curso, você receberá automaticamente um certificado de conclusão comprovando que você é um Gestor de Automações Profissional.
+Bônus 5
+Suporte Exclusivo
+Tenha acesso direto a mim para tirar suas dúvidas. O suporte que você precisa para acelerar seus resultados.
+Bônus 6
+Biblioteca de Skills Prontas
+Skills configuradas e prontas pra instalar no seu Claude. Use no mesmo dia, no seu negócio ou no do seu cliente. Sem precisar programar nada.
+ESCOLHA A MELHOR OFERTA:
+Ofertas válidas apenas até hoje,
+quarta-feira, dia 1 de julho de 2026
+00
+Horas
+00
+Minutos
+00
+Segundos
+Oferta Básica
+R$
+17
+N8N Master
+Curso Completo do Básico ao Avançado
+Acesso de 1 Ano
+Garantia de 7 dias
+LIBERAR OFERTA BÁSICA
+Mais vantajosa
+Super Oferta
+R$
+47
+N8N Master
+Curso Completo do Básico ao Avançado
+Acesso Vitalício
+Garantia de 7 dias
+Templates Editáveis das Automações
+Copie e cole tudo pronto
+Atendimento automático no Whatsapp e Instagram
+Responda clientes sem precisar estar online
+Vendas no piloto automático
+Converta leads em vendas sem intervenção manual
+Agendamento inteligente
+Clientes marcam horários sozinhos pelo chat
+Campanhas de engajamento
+Mantenha sua audiência sempre ativa
+Gerador de cobrança automático
+Crie links de pagamento instantaneamente
+Textos prontos otimizados
+Scripts testados para suas automações
+Configuração de gatilhos avançados
+Ative ações automáticas baseadas no comportamento
+Criação de gatilhos personalizados
+Dispare automações quando quiser
+Integração com APIs
+Conecte qualquer sistema ou plataforma
+Conexão com plataformas de vendas
+Integre com Hotmart, Monetizze, Kiwify e mais
+Conectores avançados entre ferramentas
+Una Manychat com outras plataformas
+Automações em múltiplas plataformas
+Gerencie tudo de um lugar só
+Webhooks e gatilhos avançados
+Comunicação instantânea entre sistemas
+Solução de problemas nas integrações
+Como resolver quando algo não funciona
+Módulo completo Claude
+Fundamentos + Chat, Cowork, Code + Conectores, Skills, Plugins
+Skills prontas pra instalar
+Biblioteca inicial liberada
+Projeto fábrica de conteúdo com Claude + N8N
+Carrosséis Instagram automáticos, qualquer nicho
+Certificados de Especialista
+Suporte Exclusivo no Whatsapp
+LIBERAR SUPER OFERTA
+Perguntas Frequentes
+Como receberei?
+Logo após o pagamento, você receberá automaticamente em minutos os dados de acesso em seu email cadastrado.
+Por que somente R$ 17?
+Se você prestar atenção, o valor de R$ 17 não parece ser um valor aleatório para cobrar em um produto (e de fato não é).
+Razão número 01: O valor não se torna um obstáculo para ninguém.
+Razão número 02: Proteção contra curiosos.
+Mesmo que o investimento seja baixo, o simples fato de cobrar já afasta curiosos em busca de “soluções gratuitas” na internet.
+E quem gosta do produto, fica com confiança e interesse em avançar na jornada.
+Sem pegadinhas, sem letras miúdas ou nada do tipo.
+Em quanto tempo receberei meu acesso?
+Imediatamante.
+Logo após a aprovação do seu pagamento, você irá receber no seu e-mail de compra os seus dados de login e então poderá começar imediatamente os seus estudos.
+O Pagamento é único?
+Sim! Pagamento único, sem cobranças adicionais.
+Garantia
+7
+dias
+Você não tem nada a perder!
+O Produto tem garantia incondicional de 7 dias!
+Você pode assistir todas as aulas, ter acesso a todas estratégias que eu e meus alunos usamos.
+Se por qualquer motivo você não ficar satisfeito ou não se adaptar, basta entrar em contato com a minha equipe dentro do prazo de 7 dias e solicitar o reembolso do valor investido.
+Você receberá de volta cada centavo que pagou.
+Eu estou tirando todo o risco das suas mãos e colocando nas minhas.
+Faça sua inscrição agora mesmo e veja com seus próprios olhos.
+A DECISÃO É SIMPLES
+Continuar limitado
+a uma ou duas ferramentas, competindo por preço e recusando projetos que exigem conhecimento mais amplo.
+OU
+Dominar o N8N
+e se posicionar como o profissional que entrega automações integradas, cobrando valores premium por soluções completas.
+Os profissionais mais completos sempre ficam com os melhores projetos.
+QUERO DOMINAR O N8N

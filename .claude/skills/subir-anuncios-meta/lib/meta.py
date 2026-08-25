@@ -144,18 +144,26 @@ def cmd_create(args):
     # Cada conjunto ganha 1 orcamento (ABO) e leva N anuncios dentro. Se "adsets" nao existir,
     # cai no formato classico (1 conjunto por anuncio via plan["ads"]).
     if plan.get("adsets"):
-        camp_params = {
-            "name": camp["name"],
-            "objective": camp.get("objective", "OUTCOME_SALES"),
-            "buying_type": "AUCTION",
-            "special_ad_categories": json.dumps(camp.get("special_ad_categories", [])),
-            "is_adset_budget_sharing_enabled": "false",
-            "status": "PAUSED",
-        }
-        camp_res = api_post(act(account_id) + "/campaigns", camp_params, token, version)
-        campaign_id = camp_res["id"]
-        results["campaign"] = {"id": campaign_id, "name": camp["name"]}
-        sys.stderr.write("Campanha criada: {} ({})\n".format(campaign_id, camp["name"]))
+        # campaign.id preenchido = ANEXAR os conjuntos a uma campanha que JA existe
+        # (lateralizacao entrando numa campanha que ja roda). Sem id, cria campanha nova.
+        if camp.get("id"):
+            campaign_id = str(camp["id"])
+            existente = api_get(campaign_id, token, version, fields="id,name,objective")
+            results["campaign"] = {"id": campaign_id, "name": existente.get("name"), "reusada": True}
+            sys.stderr.write("Campanha REUSADA: {} ({})\n".format(campaign_id, existente.get("name")))
+        else:
+            camp_params = {
+                "name": camp["name"],
+                "objective": camp.get("objective", "OUTCOME_SALES"),
+                "buying_type": "AUCTION",
+                "special_ad_categories": json.dumps(camp.get("special_ad_categories", [])),
+                "is_adset_budget_sharing_enabled": "false",
+                "status": "PAUSED",
+            }
+            camp_res = api_post(act(account_id) + "/campaigns", camp_params, token, version)
+            campaign_id = camp_res["id"]
+            results["campaign"] = {"id": campaign_id, "name": camp["name"]}
+            sys.stderr.write("Campanha criada: {} ({})\n".format(campaign_id, camp["name"]))
 
         promoted_object = json.dumps({"pixel_id": pixel_id, "custom_event_type": d.get("custom_event_type", "PURCHASE")})
         targeting = json.dumps(d["targeting"])

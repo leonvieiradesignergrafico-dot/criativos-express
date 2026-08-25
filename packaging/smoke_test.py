@@ -103,7 +103,7 @@ _MODULOS = [
     "flask", "jinja2", "werkzeug", "PIL.Image", "dotenv", "certifi",
     "workspace", "gerar", "gerar_ugc",
     "app.server", "app.ugc_web", "app.claude_bridge", "app.codex_text_bridge",
-    "app.logins", "app.console_log",
+    "app.logins", "app.console_log", "app.nosleep",
     "app.pipeline.clipes", "app.pipeline.keyframes", "app.pipeline.montagem",
     "app.pipeline.qualidade", "app.pipeline.roteiro", "app.pipeline.voz",
     "app.pipeline.fala_veo", "app.pipeline.copy_ugc", "app.pipeline.formatos_video",
@@ -196,6 +196,26 @@ def _clis():
     return OK, ", ".join(achadas)
 
 
+# --- 8b. trava de energia (o Mac dormindo derrubava geracao no meio) ---------
+def _nosleep():
+    """Adquire a trava e confirma que o caffeinate REALMENTE subiu. O sono da maquina
+    quebrava jobs longos ('Your computer went to sleep mid-response') e travava keyframes
+    ate o timeout; se a trava nao ligar, voltamos a ficar expostos a isso."""
+    from app import nosleep
+    nosleep.adquirir()
+    try:
+        if sys.platform != "darwin":
+            return OK, "trava ligada (fora do macOS nao ha caffeinate)"
+        proc = nosleep._proc
+        if proc is None:
+            raise RuntimeError("caffeinate nao subiu (nosleep._proc vazio)")
+        if proc.poll() is not None:
+            raise RuntimeError(f"caffeinate morreu na hora (exit {proc.poll()})")
+        return OK, f"caffeinate vivo (pid {proc.pid})"
+    finally:
+        nosleep.liberar()
+
+
 # --- 9. service account embutida (Veo sem login) -----------------------------
 def _sa_embutida():
     from backends.veo_backend import _sa_key_path
@@ -259,6 +279,7 @@ def rodar() -> int:
     _checar("servidor Flask", _flask)
     _checar("porta 5000", _porta, critico=False)
     _checar("CLIs externas", _clis, critico=False)
+    _checar("trava de energia (nao dormir)", _nosleep)
     _checar("service account embutida", _sa_embutida, critico=False)
     _checar("Vertex/Veo ponta a ponta", _vertex_token)
 
