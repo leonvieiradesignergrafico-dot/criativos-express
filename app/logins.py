@@ -52,7 +52,19 @@ def _gcloud_exe() -> str | None:
 
 
 # --- detecção de "conectado" (heurística, sem rede quando dá) -------------------
-def _claude_conectado() -> bool:
+def _claude_conectado(exe: str | None = None) -> bool:
+    # Fonte autoritativa: a propria CLI. `claude auth status --json` devolve
+    # {"loggedIn": bool} sem abrir sessao. So caimos na heuristica de arquivo
+    # abaixo se a CLI for antiga (sem o subcomando 'auth') ou nao responder.
+    if exe:
+        try:
+            r = subprocess.run([exe, "auth", "status", "--json"], capture_output=True,
+                               text=True, timeout=15, creationflags=_NO_WINDOW)
+            dados = json.loads(r.stdout or "{}")
+            if "loggedIn" in dados:
+                return bool(dados["loggedIn"])
+        except Exception:  # noqa: BLE001 — sem 'auth'/timeout: usa a heuristica
+            pass
     home = Path.home()
     cred = home / ".claude" / ".credentials.json"
     if cred.exists():
@@ -88,7 +100,7 @@ def _gcloud_conectado(exe: str) -> bool:
 def _status_um(tool: str) -> dict:
     if tool == "claude":
         exe = _which_cli("claude")
-        return {"instalado": bool(exe), "conectado": bool(exe) and _claude_conectado()}
+        return {"instalado": bool(exe), "conectado": bool(exe) and _claude_conectado(exe)}
     if tool == "codex":
         exe = _which_cli("codex")
         return {"instalado": bool(exe), "conectado": bool(exe) and _codex_conectado()}
@@ -119,9 +131,9 @@ def _comando_login(tool: str) -> list[str] | None:
     """Retorna o argv do comando de login, ou None se a CLI não foi achada."""
     if tool == "claude":
         exe = _which_cli("claude")
-        # `claude` sem args entra no modo interativo e, se não estiver logado,
-        # conduz o login (abre o navegador). O usuário digita /login se pedir.
-        return [exe] if exe else None
+        # `claude auth login` faz o login e ENCERRA. Nao abrir o `claude` puro: ele
+        # entra na sessao interativa de uso e a janela fica presa nela.
+        return [exe, "auth", "login"] if exe else None
     if tool == "codex":
         exe = _which_cli("codex")
         return [exe, "login"] if exe else None

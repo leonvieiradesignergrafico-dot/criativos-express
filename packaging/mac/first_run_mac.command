@@ -12,7 +12,7 @@
 #   3. Confere o Node.js (obrigatório) e oferece instalar via Homebrew.
 #   4. Instala/atualiza as CLIs: @anthropic-ai/claude-code (comando 'claude') e
 #      @openai/codex (comando 'codex').
-#   5. Guia os LOGINS (claude /login e codex login) — usam SEU plano, sem custo de API.
+#   5. Guia os LOGINS (claude auth login e codex login) — usam SEU plano, sem custo de API.
 #   6. Confere o ffmpeg (opcional, só p/ o fluxo de VÍDEO) e oferece instalar.
 #   7. Confere o Google Cloud SDK / gcloud (opcional, só p/ o VÍDEO Veo), oferece instalar
 #      E faz o login do Google (gcloud auth login + application-default), igual claude/codex.
@@ -149,16 +149,18 @@ instalar_cli "codex"  "$CODEX_PKG"
 # ---------------------------------------------------------------------------
 titulo "5/7 · Login das CLIs (usa seu plano Claude e ChatGPT)"
 if command -v claude >/dev/null 2>&1; then
-  if perguntar "Fazer/checar o login do Claude agora? (abre o navegador)"; then
-    passo "Vai abrir o Claude. Se pedir, digite ${BOLD}/login${RST} e conclua no navegador."
-    passo "Quando terminar, digite ${BOLD}/exit${RST} (ou feche a janela) para CONTINUAR a instalação."
-    # ARMADILHA: o 'claude /login' entra no modo interativo e NÃO sai sozinho. Se o
-    # usuário apertar Ctrl+C pra sair, o SIGINT vai pro grupo inteiro e mata ESTE
-    # instalador — pulando o login do Codex e do Google (era o bug do "não pede codex").
-    # Blindagem: ignoramos INT enquanto o claude roda, então sair do claude (Ctrl+C ou
-    # /exit) devolve o controle pra cá em vez de abortar tudo.
+  # `claude auth status --json` diz {"loggedIn": bool} sem abrir sessão nenhuma.
+  if claude auth status --json 2>/dev/null | grep -q '"loggedIn": *true'; then
+    ok "Claude já está conectado — pulando."
+  elif perguntar "Fazer o login do Claude agora? (abre o navegador)"; then
+    passo "Rodando 'claude auth login'. Autorize no navegador e volte para cá."
+    # 'claude auth login' TERMINA sozinho e devolve o controle. NUNCA usar
+    # 'claude /login': '/login' vira o prompt inicial, a CLI abre a sessão
+    # interativa de USO e a instalação fica parada nela (era o bug do "não pede
+    # codex"). O trap continua como cinto de segurança durante a espera do
+    # navegador: um Ctrl+C aqui mataria o instalador inteiro.
     trap '' INT
-    claude /login || true
+    claude auth login || true
     trap - INT
     ok "Login do Claude concluído — seguindo para o próximo."
   fi
@@ -166,7 +168,10 @@ else
   aviso "Instale a CLI 'claude' antes de logar."
 fi
 if command -v codex >/dev/null 2>&1; then
-  if perguntar "Fazer/checar o login do Codex (ChatGPT) agora? (abre o navegador)"; then
+  # 'codex login status' escreve no STDERR, por isso o 2>&1 antes do grep.
+  if codex login status 2>&1 | grep -qi "logged in"; then
+    ok "Codex já está conectado — pulando."
+  elif perguntar "Fazer o login do Codex (ChatGPT) agora? (abre o navegador)"; then
     passo "Vai abrir o navegador pro login do Codex. Conclua e volte aqui."
     # Mesma blindagem contra Ctrl+C que mataria o instalador no meio do caminho.
     trap '' INT

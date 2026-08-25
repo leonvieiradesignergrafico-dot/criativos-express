@@ -15,6 +15,7 @@ Pacotes npm (nomes reais usados pelas pontes do app):
 """
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import subprocess
@@ -112,6 +113,30 @@ def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, **kw)
 
 
+def _claude_logado(exe: str) -> bool:
+    """Ja esta conectado? `claude auth status --json` responde {"loggedIn": bool}."""
+    try:
+        r = subprocess.run([exe, "auth", "status", "--json"], capture_output=True,
+                           text=True, timeout=30, creationflags=_NO_WINDOW)
+        return bool(json.loads(r.stdout or "{}").get("loggedIn"))
+    except Exception:  # noqa: BLE001 — CLI antiga/sem 'auth': trata como nao logado
+        return False
+
+
+def _codex_logado(exe: str) -> bool:
+    """`codex login status` sai 0 e diz 'Logged in ...' quando ha sessao.
+
+    Atencao: o codex escreve essa linha no STDERR, nao no stdout — por isso
+    olhamos os dois fluxos."""
+    try:
+        r = subprocess.run([exe, "login", "status"], capture_output=True,
+                           text=True, timeout=30, creationflags=_NO_WINDOW)
+        saida = ((r.stdout or "") + (r.stderr or "")).lower()
+        return r.returncode == 0 and "logged in" in saida
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def _versao(nome: str) -> str | None:
     exe = _which(nome)
     if not exe:
@@ -201,33 +226,43 @@ def verificar_cli(indice: str, comando: str, pkg: str) -> bool:
 # --- Logins -------------------------------------------------------------------
 def login_claude() -> None:
     titulo("4/5 · Login do Claude (plano Claude)")
-    if not _which("claude"):
+    exe = _which("claude")
+    if not exe:
         aviso("A CLI 'claude' ainda não está instalada — pule este passo até instalá-la.")
         return
+    if _claude_logado(exe):
+        ok("Claude já está conectado — nada a fazer aqui.")
+        return
     print("  O Claude Code usa a MESMA conta do seu app Claude. O login abre o navegador.")
-    passo("Vou abrir o Claude no modo login. Siga as instruções na tela / no navegador.")
-    passo("Se ele já estiver logado, aparecerá o prompt normal — pode fechar com Ctrl+C.")
-    if perguntar_sim("Abrir o login do Claude agora?", True):
-        exe = _which("claude")
+    passo("Vou rodar 'claude auth login'. Autorize no navegador e volte para cá.")
+    if perguntar_sim("Fazer o login do Claude agora?", True):
         try:
-            # `claude` sem -p entra no modo interativo; use /login lá dentro se pedir.
-            _run([exe, "/login"])
+            # `claude auth login` TERMINA sozinho depois do navegador e devolve o
+            # controle pro setup. NUNCA use `claude /login`: '/login' vira o prompt
+            # inicial, a CLI abre a sessao interativa de uso e o instalador fica
+            # parado nela pra sempre (nao chega no login do Codex nem no resto).
+            _run([exe, "auth", "login"])
         except KeyboardInterrupt:
             pass
         except Exception as e:  # noqa: BLE001
             aviso(f"Não consegui abrir automaticamente ({e}). Rode manualmente:")
-            print("        " + c("claude   (e digite /login)", "cyan"))
+            print("        " + c("claude auth login", "cyan"))
+    else:
+        aviso("Para logar depois: " + c("claude auth login", "cyan"))
 
 
 def login_codex() -> None:
     titulo("5/5 · Login do Codex (plano ChatGPT)")
-    if not _which("codex"):
+    exe = _which("codex")
+    if not exe:
         aviso("A CLI 'codex' ainda não está instalada — pule este passo até instalá-la.")
+        return
+    if _codex_logado(exe):
+        ok("Codex já está conectado — nada a fazer aqui.")
         return
     print("  O Codex gera as imagens usando a MESMA conta do seu ChatGPT (plano pago).")
     passo("Vou rodar 'codex login' — ele abre o navegador para autorizar.")
     if perguntar_sim("Fazer o login do Codex agora?", True):
-        exe = _which("codex")
         try:
             _run([exe, "login"])
         except KeyboardInterrupt:
