@@ -74,7 +74,9 @@ Name: "{app}\entregas\videos"
 [Icons]
 ; Atalhos "Ads Express" (Menu Iniciar + Área de Trabalho) com o ícone do app.
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExe}"; IconFilename: "{app}\{#AppExe}"; WorkingDir: "{app}"
-Name: "{group}\Setup / Reparar {#AppName}"; Filename: "{app}\setup\Setup Ads Express.exe"; IconFilename: "{app}\{#AppExe}"; WorkingDir: "{app}"
+; Sem "/" no nome: o Windows trata a barra como separador de pasta e o atalho falha
+; com 0x80070003 (caminho nao encontrado) na hora de salvar o .lnk.
+Name: "{group}\Reparar {#AppName} (Setup)"; Filename: "{app}\setup\Setup Ads Express.exe"; IconFilename: "{app}\{#AppExe}"; WorkingDir: "{app}"
 Name: "{group}\Desinstalar {#AppName}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; IconFilename: "{app}\{#AppExe}"; WorkingDir: "{app}"; Tasks: desktopicon
 
